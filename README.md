@@ -6,6 +6,36 @@ Civic portal for **San Jose City, Nueva Ecija**, served at
 Built with Next.js + React + TypeScript, exported as a static site. The design system
 comes from [BetterSolano.org](https://github.com/BetterSolano/bettersolano) (MIT / CC BY 4.0).
 
+## Highlights
+
+### Live weather station
+
+The homepage shows live readings from the city's own KloudTrack automatic weather station
+(San Jose City AWS), not a regional forecast:
+
+- Temperature, heat index (PAGASA levels), humidity, wind, rainfall and UV index (WHO levels)
+- A map of the station with its 10 km coverage radius
+- A small PHP proxy keeps the API key off the browser and caches readings for 60 seconds, so
+  any number of visitors stay within KloudTrack's rate limit
+- Falls back to the Open-Meteo forecast, with a note, when the station is offline
+
+Details: [Live weather station](#live-weather-station-kloudtrack).
+
+### Business tax codes and estimator
+
+- **[`/business-taxes/`](https://sanjose.betternuevaecija.org/business-taxes/)**: all 28 codes
+  from the City Treasurer's five schedules (business tax, mayor's permit, sanitary, garbage,
+  fixed fees), searchable, with a row finder for graduated rates. Figures are copied exactly
+  as printed.
+- **[`/business-taxes/estimator/`](https://sanjose.betternuevaecija.org/business-taxes/estimator/)**:
+  find your business in PSA's industry classification (PSIC Revision 5, 1,338 activities;
+  everyday and Filipino words like _sari-sari_, _karinderya_ or _pisonet_ work), enter gross
+  sales, floor area and employees, and get an itemized yearly estimate linked back to each
+  tax code. It runs entirely in the browser.
+
+Details: [Business taxes and fees](#business-taxes-and-fees-business-taxes) and
+[Business tax estimator](#business-tax-estimator-business-taxesestimator).
+
 ## Quick start
 
 Needs Node.js 22 (see `.nvmrc`), and PHP 8 for the live weather station.
@@ -127,7 +157,7 @@ Edit the JSON in `src/data/`, then rebuild and re-upload.
 
 ### Business taxes and fees (`/business-taxes/`)
 
-Ported from the BetterSanJose tax portal. All 28 codes from the five Treasurer's schedules
+All 28 codes from the five Treasurer's schedules
 (business tax, mayor's permit, sanitary, garbage, fixed fees) live in `src/data/revenue.ts`,
 the only place figures are stored. Figures are copied exactly as printed; irregular rows
 keep a `notes` entry instead of being corrected. Each schedule's `source` records which
