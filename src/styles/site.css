@@ -1,0 +1,520 @@
+/* Better San Jose - Site-specific additions
+ * Upstream design system (style.css, responsive.css, footer.css, ...) is kept
+ * as close to BetterSolano.org as possible; San Jose changes live here.
+ */
+
+/* ===== Brand lockup: BetterLGU emblem + wordmark ===== */
+.brand-lockup {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+.brand-lockup:hover {
+  text-decoration: none;
+  color: var(--color-primary);
+}
+
+.brand-logo {
+  width: auto;
+  height: 52px;
+  flex-shrink: 0;
+}
+
+.brand-wordmark {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+}
+
+/* Mirrors the logo's lettering: heavy "BetterLGU" over spaced small caps. */
+.brand-name {
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.brand-sub {
+  margin-top: 4px;
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+/* Footer: full stacked logo on a white card (dark footer background) */
+.brand-card {
+  display: inline-flex;
+  margin-bottom: 16px;
+  padding: 14px 18px;
+  border-radius: 14px;
+  background: var(--color-white);
+}
+
+.brand-card-logo {
+  width: auto;
+  height: 112px;
+}
+
+@media (max-width: 575px) {
+  .brand-logo {
+    height: 42px;
+  }
+
+  .brand-name {
+    font-size: 1.25rem;
+  }
+
+  .brand-sub {
+    letter-spacing: 0.14em;
+  }
+}
+
+/* ===== Pending data states (content will be wired in later) ===== */
+.data-pending {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 24px;
+  border: 1px dashed rgba(0, 50, 160, 0.35);
+  border-radius: 12px;
+  background: rgba(0, 50, 160, 0.03);
+}
+
+.data-pending-icon {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: rgba(0, 50, 160, 0.08);
+  color: var(--color-primary);
+  font-size: 1.25rem;
+}
+
+.data-pending h2,
+.data-pending h3 {
+  margin: 0 0 6px;
+  font-size: 1.0625rem;
+}
+
+.data-pending p {
+  margin: 0;
+  font-size: 0.9375rem;
+  color: var(--color-text-light);
+}
+
+.stat-pending {
+  color: var(--color-text-light);
+}
+
+.pending-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+/* ===== Hero service search results ===== */
+.home-search-box {
+  position: relative;
+}
+
+.search-results-list {
+  margin-top: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 10px;
+  background: var(--color-bg);
+  overflow: hidden;
+}
+
+.search-results-list li + li {
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.search-results-list a {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px 14px;
+  color: var(--color-text);
+}
+
+.search-results-list a:hover,
+.search-results-list a:focus-visible {
+  background: rgba(0, 50, 160, 0.05);
+  text-decoration: none;
+}
+
+.search-results-list a span {
+  font-size: 0.8125rem;
+  color: var(--color-text-light);
+}
+
+.search-results-empty {
+  padding: 12px 14px;
+  font-size: 0.875rem;
+  color: var(--color-text-light);
+}
+
+/* ===== Live weather station (KloudTrack) ===== */
+@media (min-width: 992px) {
+  .weather-map-grid {
+    grid-template-columns: 400px minmax(0, 1fr);
+  }
+
+  /* Let the map fill the (taller) station card's height */
+  .weather-map-section .map-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .weather-map-section #map-container,
+  .weather-map-section #map-container.leaflet-container {
+    flex: 1;
+    height: auto !important;
+    min-height: 360px;
+  }
+}
+
+.station-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: var(--spacing-sm);
+  min-width: 0;
+}
+
+.station-live {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: rgba(6, 167, 125, 0.12);
+  color: #04785a;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.station-live-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--color-success);
+  animation: station-pulse 2s ease-in-out infinite;
+}
+
+@keyframes station-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(6, 167, 125, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 0 5px rgba(6, 167, 125, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .station-live-dot {
+    animation: none;
+  }
+}
+
+.station-name {
+  overflow: hidden;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-text-light);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.station-heat {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin: var(--spacing-sm) 0;
+  padding: 10px 12px;
+  border-radius: 10px;
+  font-size: 0.8125rem;
+}
+
+.station-heat-level {
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.station-tiles {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  padding: var(--spacing-sm) 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.station-tile {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: var(--color-bg-alt);
+}
+
+.station-tile-label {
+  font-size: 0.6875rem;
+  color: var(--color-text-light);
+  white-space: nowrap;
+}
+
+.station-tile-label i {
+  color: var(--color-primary);
+}
+
+.station-tile-value {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--color-text);
+  white-space: nowrap;
+}
+
+.station-tile-note {
+  font-size: 0.6875rem;
+  color: var(--color-text-light);
+}
+
+/* Hazard tones (PAGASA heat index, WHO UV), text colours meet 4.5:1 on their backgrounds */
+.station-heat.tone-ok {
+  background: rgba(6, 167, 125, 0.1);
+  color: #04654c;
+}
+.station-heat.tone-caution {
+  background: #fff7d6;
+  color: #7a5a00;
+}
+.station-heat.tone-warn {
+  background: #ffedd5;
+  color: #9a3412;
+}
+.station-heat.tone-danger {
+  background: #fee2e2;
+  color: #991b1b;
+}
+.station-tile-note.tone-caution {
+  color: #7a5a00;
+  font-weight: 600;
+}
+.station-tile-note.tone-warn {
+  color: #9a3412;
+  font-weight: 600;
+}
+.station-tile-note.tone-danger {
+  color: #b91c1c;
+  font-weight: 600;
+}
+
+.station-forecast-label {
+  margin-top: var(--spacing-sm);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-light);
+}
+
+.station-widget .weather-hourly {
+  margin-top: 6px;
+  padding-top: 0;
+}
+
+.station-updated {
+  margin: var(--spacing-sm) 0 0;
+  font-size: 0.6875rem;
+  color: var(--color-text-light);
+}
+
+/* Map marker for the station */
+/* Map pin: blue teardrop with a broadcast icon, temperature chip beside it */
+.station-marker {
+  background: none;
+  border: 0;
+}
+
+.station-pin {
+  position: relative;
+  display: block;
+  width: 44px;
+  height: 54px;
+}
+
+.station-pin-head {
+  position: absolute;
+  top: 0;
+  left: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--color-white);
+  border-radius: 50% 50% 50% 0;
+  background: var(--color-primary);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.35);
+  transform: rotate(-45deg);
+}
+
+.station-pin-head i {
+  color: var(--color-white);
+  font-size: 1.125rem;
+  transform: rotate(45deg);
+}
+
+/* Ground ring at the pin's tip, pulsing while the station is live */
+.station-pin::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 14px;
+  height: 6px;
+  margin-left: -7px;
+  border-radius: 50%;
+  background: rgba(0, 50, 160, 0.35);
+}
+
+.station-pin.is-live::after {
+  background: rgba(6, 167, 125, 0.6);
+  animation: station-ground 2s ease-out infinite;
+}
+
+@keyframes station-ground {
+  0% {
+    box-shadow: 0 0 0 0 rgba(6, 167, 125, 0.6);
+  }
+  100% {
+    box-shadow: 0 0 0 12px rgba(6, 167, 125, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .station-pin.is-live::after {
+    animation: none;
+  }
+}
+
+.station-pin-temp {
+  position: absolute;
+  top: 8px;
+  left: 42px;
+  padding: 4px 8px;
+  border: 2px solid var(--color-white);
+  border-radius: 999px;
+  background: var(--color-success);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+  color: var(--color-white);
+  font: 700 0.75rem/1 var(--font-main);
+  white-space: nowrap;
+}
+
+.station-radius-label {
+  background: none;
+  border: 0;
+  text-align: center;
+}
+
+.station-radius-label span {
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: var(--color-primary);
+  color: var(--color-white);
+  font: 700 0.6875rem/1.2 var(--font-main);
+  white-space: nowrap;
+}
+
+/* Section header subtitle and map legend */
+.station-section-header p {
+  margin: 4px 0 0;
+  font-size: 0.875rem;
+  color: var(--color-text-light);
+}
+
+.station-map-legend {
+  flex-wrap: wrap;
+  gap: 6px 18px;
+}
+
+.station-map-legend > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.legend-pin {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--color-primary);
+}
+
+.station-map-legend .legend-pin i {
+  color: var(--color-white);
+  font-size: 0.625rem;
+}
+
+.station-details {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px 18px;
+  margin: 0;
+  padding: 12px var(--spacing-md) 16px;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  background: var(--color-white);
+  font-size: 0.8125rem;
+}
+
+.station-details dt {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-text-light);
+}
+
+.station-details dd {
+  margin: 2px 0 0;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 575px) {
+  .station-details {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.legend-radius {
+  width: 16px;
+  height: 16px;
+  border: 2px dashed var(--color-primary);
+  border-radius: 50%;
+  background: rgba(0, 50, 160, 0.07);
+}
+
+@media (max-width: 400px) {
+  .station-tiles {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

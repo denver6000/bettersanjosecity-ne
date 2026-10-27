@@ -1,0 +1,458 @@
+/*
+ * Business tax estimator (/business-taxes/estimator/). Loaded after taxes.css
+ * and scoped under .tax-page, so it uses that file's tokens and search box.
+ */
+.tax-page .est-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 380px;
+  gap: 28px;
+  align-items: start;
+}
+
+.tax-page .est-form {
+  display: grid;
+  gap: 20px;
+  min-width: 0;
+}
+
+.tax-page .est-step {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--card);
+  padding: 22px 24px;
+}
+
+.tax-page .est-step.is-locked {
+  background: var(--alt);
+  border-style: dashed;
+}
+
+.tax-page .est-step h2 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.2rem;
+  color: var(--navy);
+  margin-bottom: 12px;
+}
+
+.tax-page .est-step-num {
+  display: inline-grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--blue);
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 800;
+  flex: none;
+}
+
+.tax-page .est-step.is-locked .est-step-num {
+  background: var(--muted);
+}
+
+.tax-page .est-help {
+  color: var(--muted);
+  margin-bottom: 14px;
+}
+
+.tax-page .est-result .est-help {
+  margin-bottom: 0;
+}
+
+.tax-page .est-step .tax-search {
+  max-width: none;
+}
+
+.tax-page .est-quick {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 14px;
+  font-size: 0.9rem;
+}
+
+.tax-page .est-quick button {
+  padding: 6px 12px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--card);
+  font: inherit;
+  font-size: 0.88rem;
+  color: var(--navy);
+  cursor: pointer;
+}
+
+.tax-page .est-quick button:hover,
+.tax-page .est-quick button:focus-visible {
+  border-color: var(--blue);
+  color: var(--blue);
+}
+
+.tax-page .est-step .search-status {
+  margin: 14px 0 10px;
+  padding: 10px 14px;
+  font-size: 0.9rem;
+}
+
+.tax-page .est-results {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.tax-page .est-results li + li {
+  border-top: 1px solid var(--line-2);
+}
+
+.tax-page .est-results button {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr);
+  gap: 2px 12px;
+  width: 100%;
+  padding: 12px 14px;
+  border: 0;
+  background: none;
+  font: inherit;
+  text-align: left;
+  color: var(--navy);
+  cursor: pointer;
+}
+
+.tax-page .est-results button:hover,
+.tax-page .est-results button:focus-visible {
+  background: var(--alt);
+}
+
+.tax-page .est-result-code {
+  grid-row: span 2;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  color: var(--blue);
+}
+
+.tax-page .est-result-title {
+  font-weight: 600;
+}
+
+.tax-page .est-result-tax {
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+.tax-page .est-picked-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.tax-page .est-picked-title {
+  margin-top: 10px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--navy);
+}
+
+.tax-page .est-lineage {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 2px;
+  font-size: 0.86rem;
+  color: var(--ink);
+}
+
+.tax-page .est-lineage .muted {
+  display: inline-block;
+  min-width: 72px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.tax-page .est-mapping {
+  display: flex;
+  gap: 10px;
+  margin-top: 14px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: var(--alt);
+  color: var(--ink);
+  font-size: 0.93rem;
+}
+
+.tax-page .est-mapping i {
+  color: var(--blue);
+  margin-top: 2px;
+}
+
+.tax-page .est-fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px 20px;
+}
+
+.tax-page .est-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.tax-page .est-field-wide,
+.tax-page .est-segment {
+  grid-column: 1 / -1;
+}
+
+.tax-page .est-field > label,
+.tax-page .est-field legend {
+  font-weight: 700;
+  color: var(--navy);
+  font-size: 0.93rem;
+  padding: 0;
+}
+
+.tax-page .est-field small {
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.tax-page .est-input {
+  position: relative;
+}
+
+.tax-page .est-input input,
+.tax-page .est-field select {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--card);
+  font: inherit;
+  color: var(--navy);
+  font-variant-numeric: tabular-nums;
+}
+
+.tax-page .est-input input:focus,
+.tax-page .est-field select:focus {
+  outline: none;
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(0, 50, 160, 0.15);
+}
+
+.tax-page .est-input-peso::before,
+.tax-page .est-input-unit::after {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--muted);
+  pointer-events: none;
+}
+
+.tax-page .est-input-peso::before {
+  content: '\20B1';
+  left: 14px;
+}
+
+.tax-page .est-input-peso input {
+  padding-left: 30px;
+}
+
+.tax-page .est-input-unit::after {
+  content: attr(data-unit);
+  right: 14px;
+  font-size: 0.88rem;
+}
+
+.tax-page .est-input-unit input {
+  padding-right: 56px;
+}
+
+.tax-page .est-segment {
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tax-page .est-segment legend {
+  width: 100%;
+  margin-bottom: 6px;
+}
+
+.tax-page .est-segment label {
+  position: relative;
+}
+
+.tax-page .est-segment input {
+  position: absolute;
+  opacity: 0;
+}
+
+.tax-page .est-segment span {
+  display: inline-block;
+  padding: 8px 16px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.92rem;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.tax-page .est-segment input:checked + span {
+  background: var(--blue);
+  border-color: var(--blue);
+  color: #fff;
+}
+
+.tax-page .est-segment input:focus-visible + span {
+  box-shadow: 0 0 0 3px rgba(0, 50, 160, 0.25);
+}
+
+/* Result card */
+.tax-page .est-result {
+  position: sticky;
+  top: 96px;
+  border: 1px solid var(--line);
+  border-top: 4px solid var(--blue);
+  border-radius: var(--radius);
+  background: var(--card);
+  padding: 20px 22px;
+  box-shadow: var(--shadow-sm);
+}
+
+.tax-page .est-result-eyebrow {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.tax-page .est-total {
+  margin: 4px 0 12px;
+  font-size: 2.1rem;
+  font-weight: 800;
+  line-height: 1.15;
+  color: var(--blue);
+  font-variant-numeric: tabular-nums;
+}
+
+.tax-page .est-pending {
+  margin-bottom: 12px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: var(--amber-bg);
+  color: var(--amber-ink);
+  font-size: 0.86rem;
+}
+
+.tax-page .est-items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--line);
+}
+
+.tax-page .est-items li {
+  padding: 11px 0;
+  border-bottom: 1px solid var(--line-2);
+}
+
+.tax-page .est-item-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-weight: 700;
+  color: var(--navy);
+}
+
+.tax-page .est-item-code {
+  margin-left: 8px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--orange-d);
+  text-decoration: none;
+}
+
+.tax-page .est-item-code:hover {
+  text-decoration: underline;
+}
+
+.tax-page .est-item-amount {
+  flex: none;
+  font-variant-numeric: tabular-nums;
+}
+
+.tax-page .est-items .is-needs-input .est-item-amount,
+.tax-page .est-items .is-not-charged .est-item-amount {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.tax-page .est-items .is-no-row .est-item-amount {
+  font-size: 0.8rem;
+  color: var(--amber-ink);
+}
+
+.tax-page .est-item-detail {
+  margin-top: 2px;
+  font-size: 0.84rem;
+  color: var(--muted);
+}
+
+.tax-page .est-fineprint {
+  margin-top: 14px;
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+.tax-page .est-about {
+  margin-top: 40px;
+}
+
+.tax-page .est-about h2 {
+  margin-bottom: 12px;
+}
+
+.tax-page .est-about ol {
+  margin: 0;
+  padding-left: 20px;
+  display: grid;
+  gap: 8px;
+  color: var(--ink);
+}
+
+@media (max-width: 991px) {
+  .tax-page .est-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .tax-page .est-result {
+    position: static;
+  }
+}
+
+@media (max-width: 575px) {
+  .tax-page .est-step,
+  .tax-page .est-result {
+    padding: 18px 16px;
+  }
+
+  .tax-page .est-fields {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

@@ -1,0 +1,934 @@
+/*
+ * Business taxes and fees (/business-taxes/), ported from the BetterSanJose tax
+ * portal. Everything is scoped under .tax-page; its palette is mapped onto the
+ * site's tokens here.
+ */
+.tax-page {
+  --navy: #10233a;
+  --ink: #2a3b52;
+  --muted: var(--color-text-light);
+  --blue: var(--color-primary);
+  --blue-2: var(--color-info);
+  --sky: #9fb4e0;
+  --alt: #eef2fb;
+  --line: #dde3ee;
+  --line-2: #eceff5;
+  --orange: var(--color-accent);
+  --orange-d: #b35900;
+  --orange-tint: #fff0e0;
+  --green: #04785a;
+  --green-tint: rgba(6, 167, 125, 0.12);
+  --amber-bg: #fff8e8;
+  --amber-line: #f1d79c;
+  --amber-ink: #7a5208;
+  --match: #fff1c9;
+  --card: var(--color-white);
+  --radius: 12px;
+  --font-head: var(--font-main);
+}
+
+.tax-page p {
+  margin: 0;
+}
+
+.tax-page h2 {
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.tax-page h3 {
+  font-size: 1.0625rem;
+  margin: 0;
+}
+
+.tax-page .muted {
+  color: var(--muted);
+}
+
+.tax-page .link-btn {
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-weight: 600;
+  color: var(--blue);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* Summary figures */
+.tax-page .tax-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin: 0 0 24px;
+}
+
+.tax-page .tax-stats div {
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--card);
+}
+
+.tax-page .tax-stats dt {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.tax-page .tax-stats dd {
+  margin: 2px 0 0;
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--blue);
+  font-variant-numeric: tabular-nums;
+}
+
+.tax-page .tax-stats .tax-stats-date {
+  font-size: 1.0625rem;
+  padding-top: 8px;
+}
+
+@media (max-width: 700px) {
+  .tax-page .tax-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Search */
+.tax-page .tax-search {
+  position: relative;
+  display: flex;
+  align-items: center;
+  max-width: 720px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--card);
+  box-shadow: var(--shadow-sm);
+}
+
+.tax-page .tax-search:focus-within {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(0, 50, 160, 0.15);
+}
+
+.tax-page .tax-search > .bi-search {
+  position: absolute;
+  left: 16px;
+  color: var(--muted);
+}
+
+.tax-page .tax-search input {
+  flex: 1;
+  min-width: 0;
+  padding: 14px 44px;
+  border: 0;
+  border-radius: 12px;
+  background: transparent;
+  font: inherit;
+  font-size: 1rem;
+  color: var(--navy);
+}
+
+.tax-page .tax-search input:focus {
+  outline: none;
+}
+
+.tax-page .tax-search input::-webkit-search-cancel-button {
+  display: none;
+}
+
+.tax-page .tax-search-clear {
+  position: absolute;
+  right: 8px;
+  padding: 6px 8px;
+  border: 0;
+  background: none;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.tax-page .schedule-eyebrow {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--orange-d);
+  margin-bottom: 4px;
+}
+
+.tax-page .source-chip i {
+  font-size: 1.25rem;
+  color: var(--orange-d);
+}
+
+/* Guide sections after the schedules */
+.tax-page .tax-guide {
+  max-width: 820px;
+  margin-top: 48px;
+  scroll-margin-top: 96px;
+}
+
+.tax-page .tax-guide h2 {
+  margin-bottom: 14px;
+}
+
+.tax-page .source-list {
+  list-style: none;
+  margin: 16px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.tax-page .source-list li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  color: var(--navy);
+  text-decoration: none;
+}
+
+.tax-page .source-list i {
+  font-size: 1.25rem;
+  color: var(--orange-d);
+}
+
+.tax-page .source-list li > span {
+  display: flex;
+  flex-direction: column;
+}
+
+.tax-page .source-name {
+  font-weight: 600;
+}
+
+.tax-page .source-meta {
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.tax-page .disclaimer {
+  margin-top: 8px;
+}
+
+/* ---- Ported from BetterSanJose ---- */
+
+.tax-page .taxes-layout {
+  display: grid;
+  grid-template-columns: 250px minmax(0, 1fr);
+  gap: 40px;
+  padding-top: 40px;
+  padding-bottom: 72px;
+}
+
+.tax-page .toc {
+  position: sticky;
+  top: 96px;
+  align-self: start;
+  max-height: calc(100vh - 116px);
+  overflow-y: auto;
+  font-size: 0.9rem;
+}
+
+.tax-page .toc-head {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+
+.tax-page .toc ol,
+.tax-page .toc ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.tax-page .toc > ol > li {
+  margin-bottom: 6px;
+}
+
+.tax-page .toc > ol > li > a {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 700;
+  color: var(--navy);
+  text-decoration: none;
+  padding: 6px 10px;
+  border-radius: 8px;
+}
+
+.tax-page .toc > ol > li > a:hover {
+  background: var(--alt);
+}
+
+.tax-page .toc-count {
+  font-size: 0.75rem;
+  background: var(--alt);
+  color: var(--blue);
+  border-radius: 999px;
+  padding: 1px 8px;
+}
+
+.tax-page .toc .is-empty > a {
+  color: #a3b0c2;
+  pointer-events: none;
+}
+
+.tax-page .toc ul {
+  border-left: 2px solid var(--line);
+  margin: 2px 0 6px 12px;
+}
+
+.tax-page .toc ul a {
+  display: block;
+  padding: 3px 10px;
+  color: var(--muted);
+  text-decoration: none;
+  line-height: 1.35;
+  font-size: 0.84rem;
+}
+
+.tax-page .toc ul a:hover {
+  color: var(--blue);
+}
+
+.tax-page .toc-code {
+  font-weight: 700;
+  color: var(--orange-d);
+  font-variant-numeric: tabular-nums;
+}
+
+.tax-page .toc-help {
+  display: inline-block;
+  margin-top: 14px;
+  font-weight: 600;
+  color: var(--orange-d);
+  text-decoration: none;
+}
+
+@media (max-width: 960px) {
+  .tax-page .taxes-layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+    padding-top: 24px;
+  }
+
+  .tax-page .toc {
+    position: static;
+    max-height: none;
+    overflow: visible;
+    min-width: 0;
+  }
+
+  .tax-page .toc > ol {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding-bottom: 6px;
+  }
+
+  .tax-page .toc > ol > li {
+    margin: 0;
+    flex-shrink: 0;
+  }
+
+  .tax-page .toc > ol > li > a {
+    border: 1px solid var(--line);
+    gap: 8px;
+    white-space: nowrap;
+  }
+
+  .tax-page .toc ul,
+  .tax-page .toc-help {
+    display: none;
+  }
+}
+
+.tax-page .search-status {
+  background: var(--alt);
+  border-radius: 10px;
+  padding: 12px 16px;
+  margin-bottom: 24px;
+  color: var(--navy);
+}
+
+.tax-page .schedule {
+  padding-bottom: 48px;
+  margin-bottom: 48px;
+  border-bottom: 1px solid var(--line);
+}
+
+.tax-page .schedule-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.tax-page .schedule-summary {
+  font-size: 1.04rem;
+  color: var(--ink);
+  margin: 10px 0 8px;
+  max-width: 680px;
+}
+
+.tax-page .schedule-explainer {
+  color: var(--muted);
+  font-size: 0.93rem;
+  max-width: 680px;
+  margin-top: 4px;
+}
+
+.tax-page .source-chip {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  text-decoration: none;
+  color: var(--navy);
+  font-weight: 600;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  background: #fff;
+  margin: 0;
+}
+
+.tax-page .source-chip span {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.25;
+}
+
+.tax-page .source-chip small {
+  font-weight: 400;
+  color: var(--muted);
+  font-size: 0.75rem;
+}
+
+@media (max-width: 700px) {
+  .tax-page .schedule-head {
+    flex-direction: column;
+    gap: 14px;
+  }
+}
+
+.tax-page .code-list {
+  display: grid;
+  gap: 20px;
+}
+
+/* Code card */
+
+.tax-page .code-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 22px;
+  scroll-margin-top: 96px;
+}
+
+@media (max-width: 480px) {
+  .tax-page .code-card {
+    padding: 16px;
+  }
+}
+
+.tax-page .code-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 12px;
+}
+
+.tax-page .code-head h3 {
+  flex: 1 1 260px;
+}
+
+.tax-page .code-pill {
+  font-family: var(--font-head);
+  font-weight: 800;
+  font-size: 0.82rem;
+  background: var(--orange-tint);
+  color: var(--orange-d);
+  padding: 5px 10px;
+  border-radius: 8px;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+}
+
+.tax-page .chips {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tax-page .chip {
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: var(--alt);
+  color: var(--blue);
+}
+
+.tax-page .chip::before {
+  content: '✓ ';
+}
+
+.tax-page .chip-alt {
+  background: var(--green-tint);
+  color: var(--green);
+}
+
+.tax-page .chip-off {
+  background: #f3f4f7;
+  color: var(--muted);
+}
+
+.tax-page .chip-off::before {
+  content: '';
+}
+
+.tax-page .wording {
+  margin-top: 14px;
+  color: var(--muted);
+  font-size: 0.93rem;
+  max-width: 820px;
+}
+
+.tax-page .wording p + p {
+  margin-top: 8px;
+}
+
+.tax-page .wording-collapsible summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--blue);
+  width: fit-content;
+}
+
+.tax-page .wording-collapsible[open] summary {
+  margin-bottom: 10px;
+}
+
+.tax-page .enum {
+  margin: 10px 0 0;
+  padding-left: 22px;
+}
+
+.tax-page .enum li + li {
+  margin-top: 4px;
+}
+
+.tax-page .basis {
+  margin: 16px 0 10px;
+  font-size: 0.88rem;
+  color: var(--muted);
+}
+
+.tax-page .basis strong {
+  color: var(--navy);
+}
+
+.tax-page .graduated {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 280px;
+  gap: 20px;
+  align-items: start;
+}
+
+@media (max-width: 1060px) {
+  .tax-page .graduated {
+    grid-template-columns: 1fr;
+  }
+
+  .tax-page .graduated .finder {
+    order: -1;
+  }
+}
+
+.tax-page .table-scroll {
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  margin-top: 4px;
+}
+
+.tax-page .rates {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.tax-page .rates th {
+  text-align: left;
+  font-size: 0.74rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 700;
+  background: #f7f9fd;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--line);
+  white-space: nowrap;
+}
+
+.tax-page .rates td {
+  padding: 8px 14px;
+  border-bottom: 1px solid var(--line-2);
+  color: var(--navy);
+  white-space: nowrap;
+}
+
+.tax-page .rates.tiered td:first-child {
+  white-space: normal;
+}
+
+.tax-page .rates tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.tax-page .rates tbody tr:nth-child(even) td {
+  background: #fbfcfe;
+}
+
+.tax-page .rates .num {
+  text-align: right;
+}
+
+.tax-page .rates tr.is-match td {
+  background: var(--match);
+  font-weight: 700;
+}
+
+.tax-page .rates tr.is-match td:first-child {
+  box-shadow: inset 4px 0 0 var(--orange);
+}
+
+@media (max-width: 480px) {
+  .tax-page .rates {
+    font-size: 0.8rem;
+  }
+
+  .tax-page .rates th,
+  .tax-page .rates td {
+    padding: 7px 6px;
+  }
+
+  .tax-page .rates th {
+    font-size: 0.66rem;
+    letter-spacing: 0.03em;
+  }
+
+  .tax-page .code-card .table-scroll {
+    margin-left: -4px;
+    margin-right: -4px;
+  }
+}
+
+.tax-page .open-ended {
+  color: var(--muted);
+  font-style: italic;
+}
+
+.tax-page .dash {
+  color: #b5c0cf;
+}
+
+.tax-page .finder {
+  background: var(--alt);
+  border-radius: 12px;
+  padding: 16px;
+  position: sticky;
+  top: 96px;
+}
+
+@media (max-width: 1060px) {
+  .tax-page .finder {
+    position: static;
+  }
+}
+
+.tax-page .finder-label {
+  display: flex;
+  flex-direction: column;
+  font-weight: 700;
+  color: var(--navy);
+  font-size: 0.95rem;
+}
+
+.tax-page .finder-label span {
+  font-weight: 400;
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.tax-page .finder-row {
+  position: relative;
+  margin-top: 10px;
+}
+
+.tax-page .finder-prefix {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.tax-page .finder input {
+  width: 100%;
+  font: inherit;
+  font-size: 1.05rem;
+  font-variant-numeric: tabular-nums;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--navy);
+}
+
+.tax-page .finder input.has-prefix {
+  padding-left: 28px;
+}
+
+.tax-page .finder input:focus {
+  outline: 2px solid var(--blue-2);
+  outline-offset: 0;
+  border-color: transparent;
+}
+
+.tax-page .finder-result {
+  margin-top: 10px;
+  font-size: 0.88rem;
+  color: var(--navy);
+  min-height: 2.8em;
+}
+
+.tax-page .facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 16px 0 0;
+}
+
+.tax-page .facts div {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 12px 16px;
+  min-width: 160px;
+}
+
+.tax-page .facts dt {
+  font-size: 0.74rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.tax-page .facts dd {
+  margin: 4px 0 0;
+  font-weight: 600;
+  color: var(--navy);
+}
+
+.tax-page .facts dd.big {
+  font-family: var(--font-head);
+  font-size: 1.5rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.tax-page .code-card .link-btn {
+  margin-top: 10px;
+  font-size: 0.9rem;
+}
+
+.tax-page .note {
+  margin-top: 16px;
+  background: var(--amber-bg);
+  border: 1px solid var(--amber-line);
+  border-radius: 10px;
+  padding: 12px 16px;
+  color: var(--amber-ink);
+  font-size: 0.88rem;
+}
+
+.tax-page .note-head {
+  font-weight: 800;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.tax-page .note ul {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.tax-page .disclaimer {
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--orange);
+  border-radius: 10px;
+  padding: 20px 22px;
+  background: #fffaf5;
+}
+
+.tax-page .disclaimer h2 {
+  font-size: 1.15rem;
+  margin-bottom: 8px;
+}
+
+.tax-page .disclaimer p {
+  color: var(--ink);
+  font-size: 0.93rem;
+}
+
+.tax-page .disclaimer p + p {
+  margin-top: 8px;
+}
+
+.tax-page .glossary {
+  margin: 0;
+  display: grid;
+  gap: 14px;
+}
+
+.tax-page .glossary div {
+  border-left: 3px solid var(--sky);
+  padding-left: 14px;
+}
+
+.tax-page .glossary dt {
+  font-weight: 700;
+  color: var(--navy);
+}
+
+.tax-page .glossary dd {
+  margin: 2px 0 0;
+  color: var(--muted);
+}
+
+.tax-page .flag-list {
+  list-style: none;
+  padding: 0;
+  margin: 16px 0;
+  display: grid;
+  gap: 10px;
+}
+
+.tax-page .flag-list li {
+  background: var(--amber-bg);
+  border: 1px solid var(--amber-line);
+  border-radius: 10px;
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.92rem;
+  color: var(--amber-ink);
+}
+
+.tax-page .flag-list a {
+  color: var(--navy);
+}
+
+/* Inside PageShell's padded section, not a full-bleed page */
+.tax-page .taxes-layout {
+  padding-top: 24px;
+  padding-bottom: 0;
+}
+
+/* Link to the estimator, above the schedules */
+.tax-page .est-callout {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  max-width: 720px;
+  margin: 0 0 20px;
+  padding: 14px 18px;
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--blue);
+  border-radius: var(--radius);
+  background: var(--alt);
+  color: var(--navy);
+  text-decoration: none;
+}
+
+.tax-page .est-callout:hover {
+  border-color: var(--blue);
+}
+
+.tax-page .est-callout > .bi {
+  font-size: 1.4rem;
+  color: var(--blue);
+}
+
+.tax-page .est-callout > span {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  font-size: 0.9rem;
+  color: var(--ink);
+}
+
+.tax-page .est-callout strong {
+  font-size: 1rem;
+  color: var(--navy);
+}
+
+/* Tabs between the schedules and the estimator */
+.tax-page .biz-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin: 0 0 24px;
+  padding: 4px;
+  width: fit-content;
+  max-width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--alt);
+}
+
+.tax-page .biz-tabs a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 16px;
+  border-radius: 9px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.tax-page .biz-tabs a:hover {
+  color: var(--blue);
+}
+
+.tax-page .biz-tabs a.is-active {
+  background: var(--card);
+  color: var(--blue);
+  box-shadow: var(--shadow-sm);
+}

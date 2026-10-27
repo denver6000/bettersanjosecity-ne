@@ -1,0 +1,4 @@
+{
+  "_note": "Each item: id, title, date (YYYY-MM-DD), category, badge (info|success|warning), summary, url (optional), source (optional)",
+  "news": []
+}

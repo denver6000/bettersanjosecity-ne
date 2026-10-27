@@ -1,0 +1,4 @@
+{
+  "_note": "Service directory. Each item: id, title, category, categoryId, description, keywords[], fee, processingTime, office, url",
+  "services": []
+}

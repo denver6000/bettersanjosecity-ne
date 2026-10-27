@@ -1,0 +1,89 @@
+/**
+ * EN/FIL dictionary. Add every key to BOTH languages.
+ * Components fall back to their English children when a key is missing.
+ */
+export type Language = 'en' | 'fil';
+
+export const LANGUAGES: { code: Language; label: string; name: string }[] = [
+  { code: 'en', label: 'EN', name: 'English' },
+  { code: 'fil', label: 'FIL', name: 'Filipino' },
+];
+
+export const translations: Record<Language, Record<string, string>> = {
+  en: {
+    'home-skip-to-main-content': 'Skip to main content',
+    'nav-home': 'Home',
+    'nav-services': 'Services',
+    'nav-business': 'Business',
+    'nav-government': 'Government',
+    'nav-statistics': 'Statistics',
+    'nav-legislative': 'Legislative',
+    'nav-transparency': 'Transparency',
+    'nav-news': 'News',
+    'nav-contact': 'Contact',
+    'breadcrumb-home': 'Home',
+    'hero-welcome': 'Welcome to Better San Jose',
+    'hero-subtitle':
+      'Access government services, information, and resources for the people of San Jose City, Nueva Ecija.',
+    'home-browse-services': 'Browse Services',
+    'home-contact-us': 'Contact Us',
+    'home-find-a-service': 'Find a Service',
+    'home-search-placeholder': 'e.g., birth certificate, business permit',
+    'section-popular': 'Popular Services',
+    'btn-view-all-services': 'View All Services',
+    'home-view-statistics': 'View Statistics',
+    'section-updates': 'Latest Updates',
+    'home-view-all': 'View All',
+    'home-view-all-officials': 'View All Officials',
+    'section-contact': 'Contact Information',
+    'contact-phone': 'Phone',
+    'contact-email': 'Email',
+    'contact-address': 'Address',
+    'home-quick-links': 'Quick Links',
+    'home-resources': 'Resources',
+    'home-sitemap': 'Sitemap',
+    'home-terms-of-use': 'Terms of Use',
+    'home-privacy-policy': 'Privacy Policy',
+    'home-accessibility': 'Accessibility',
+    'footer-tagline':
+      'Empowering the people of San Jose City with transparent access to the services, programs, and public funds of their city government.',
+  },
+  fil: {
+    'home-skip-to-main-content': 'Lumaktaw sa pangunahing nilalaman',
+    'nav-home': 'Tahanan',
+    'nav-services': 'Mga Serbisyo',
+    'nav-business': 'Negosyo',
+    'nav-government': 'Pamahalaan',
+    'nav-statistics': 'Estadistika',
+    'nav-legislative': 'Lehislatura',
+    'nav-transparency': 'Transparensiya',
+    'nav-news': 'Balita',
+    'nav-contact': 'Makipag-ugnayan',
+    'breadcrumb-home': 'Tahanan',
+    'hero-welcome': 'Maligayang Pagdating sa Better San Jose',
+    'hero-subtitle':
+      'I-access ang mga serbisyo ng pamahalaan, impormasyon, at mga mapagkukunan para sa mga mamamayan ng Lungsod ng San Jose, Nueva Ecija.',
+    'home-browse-services': 'Mag-browse ng mga Serbisyo',
+    'home-contact-us': 'Makipag-ugnayan sa Amin',
+    'home-find-a-service': 'Maghanap ng Serbisyo',
+    'home-search-placeholder': 'hal., birth certificate, business permit',
+    'section-popular': 'Mga Sikat na Serbisyo',
+    'btn-view-all-services': 'Tingnan Lahat ng Serbisyo',
+    'home-view-statistics': 'Tingnan ang mga Estadistika',
+    'section-updates': 'Pinakabagong mga Update',
+    'home-view-all': 'Tingnan Lahat',
+    'home-view-all-officials': 'Tingnan Lahat ng mga Opisyal',
+    'section-contact': 'Impormasyon sa Pakikipag-ugnayan',
+    'contact-phone': 'Telepono',
+    'contact-email': 'Email',
+    'contact-address': 'Adres',
+    'home-quick-links': 'Mga Mabilisang Link',
+    'home-resources': 'Mga Mapagkukunan',
+    'home-sitemap': 'Mapa ng Site',
+    'home-terms-of-use': 'Mga Tuntunin ng Paggamit',
+    'home-privacy-policy': 'Patakaran sa Pagkapribado',
+    'home-accessibility': 'Aksesibilidad',
+    'footer-tagline':
+      'Pinapalakas ang mga mamamayan ng Lungsod ng San Jose sa pamamagitan ng malinaw na access sa mga serbisyo, programa, at pondong publiko ng kanilang pamahalaang lungsod.',
+  },
+};

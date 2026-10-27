@@ -1,0 +1,50 @@
+# Dependencies
+node_modules/
+
+# Next.js build output (deploy `out/` by uploading it, never by committing it)
+.next/
+out/
+next-env.d.ts
+*.tsbuildinfo
+
+# Secrets: API keys live only in .env (see .env.example)
+.env
+.env.*
+!.env.example
+
+# Python (scripts/psic-to-json.py)
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Editors and OS files
+.idea/
+.vscode/*
+!.vscode/extensions.json
+*.swp
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Source documents (PSA workbooks, Treasurer printouts). Only the data derived
+# from them is committed (src/data/); the originals stay on maintainers' machines.
+sources/
+*.pdf
+*.xlsx
+*.xls
+*.csv
+~$*
+
+# Personal notes and reference files, never committed
+.local/
+
+# Claude Code local settings
+.claude/settings.local.json

@@ -1,0 +1,34 @@
+{
+  "name": "better-san-jose",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Better San Jose - civic portal for San Jose City, Nueva Ecija (sanjose.betternuevaecija.org)",
+  "scripts": {
+    "dev": "node scripts/dev.mjs",
+    "build": "next build",
+    "preview": "php -S 127.0.0.1:3000 -t out",
+    "typecheck": "tsc --noEmit",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "dev:next": "next dev",
+    "check": "npm run format:check && npm run typecheck && npm run build"
+  },
+  "dependencies": {
+    "leaflet": "1.9.4",
+    "next": "16.4.3",
+    "react": "19.3.1",
+    "react-dom": "19.3.1"
+  },
+  "devDependencies": {
+    "@types/leaflet": "1.9.22",
+    "@types/node": "22.20.5",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "prettier": "3.9.10",
+    "typescript": "5.9.3"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=22"
+  }
+}
