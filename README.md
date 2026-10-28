@@ -82,27 +82,35 @@ browser -> /api/weather-station.php -> api.kloudtechsea.com (x-kloudtrack-key)
 - The heat index uses PAGASA's levels (Caution, Extreme Caution, Danger, Extreme Danger).
   The UV index uses WHO's.
 
-**The API key.** The PHP looks for `KCLOUD_API_KEY` in an environment variable first, then
-in a `.env` file **two folders above** `api/weather-station.php`:
+**API keys.** The PHP endpoints look for their keys in an environment variable first, then
+in a `.env` file **two folders above** `public/api/`:
 
-| Where       | `.env` location                                             |
-| ----------- | ----------------------------------------------------------- |
-| Development | project root (`public/api/` -> root), the file you have now |
-| Hostinger   | your home folder, **above** `public_html` (never inside it) |
+| Key                  | Used by                     | Without it                            |
+| -------------------- | --------------------------- | ------------------------------------- |
+| `KCLOUD_API_KEY`     | `api/weather-station.php`   | Weather card falls back to Open-Meteo |
+| `SIS_PORTAL_API_KEY` | `api/scholarship-stats.php` | `/scholarship` shows no figures       |
 
-## Deploying to Hostinger shared hosting
+`SIS_PORTAL_API_KEY` must equal `PORTAL_API_KEY` in the scholarship system's `.env`
+(sanjose-scholarship.betternuevaecija.org). The SIS only returns aggregate counts.
 
-No Node.js process is needed. The build is plain HTML/CSS/JS plus one PHP file.
+| Where       | Keys go in                                                          |
+| ----------- | ------------------------------------------------------------------- |
+| Development | `.env` in the project root (git-ignored)                            |
+| Hostinger   | hPanel environment variables for the site's Node.js app (see below) |
 
-1. `npm run build`
-2. Upload the **contents** of `out/` to `public_html/` (File Manager or FTP). Include the
-   hidden `.htaccess` file, which handles HTTPS redirects, caching, security headers, and
-   the error pages.
-3. Once only: in File Manager, create `.env` in your home folder (the folder that
-   _contains_ `public_html`) with the line `KCLOUD_API_KEY=...`. Don't put it inside
-   `public_html`.
-4. Check `https://sanjose.betternuevaecija.org/api/weather-station.php` returns JSON with
-   `"stations"`.
+## Deploying to Hostinger
+
+Hostinger watches this repo: every push to **`main`** clones it, runs `npm run build` and
+publishes the new version (under `~/domains/sanjose.betternuevaecija.org/hbuilds/`, with
+`current` pointing at the live one). Don't upload files by hand.
+
+1. Merge to `main` and push. The deploy log is in hPanel and in `hbuilds/logs/`.
+2. Once only: in hPanel, add the keys above as environment variables for the site's
+   Node.js app (stored in `hbuilds/config/.env`), then redeploy so they are loaded.
+3. Check `https://sanjose.betternuevaecija.org/api/weather-station.php` returns JSON with
+   `"stations"`, and `/api/scholarship-stats.php` returns JSON with `"semesters"`.
+
+The PHP files under `public/api/` still run as PHP alongside the Node.js app.
 
 Each page is exported as `page/index.html` (`trailingSlash: true`), which Apache serves as
 a directory index. `/services` redirects to `/services/`.
