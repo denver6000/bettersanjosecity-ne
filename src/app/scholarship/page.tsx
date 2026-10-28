@@ -1,14 +1,14 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import PageShell from '@/components/PageShell';
+import ScholarLookup from '@/components/ScholarLookup';
 import ScholarshipStats from '@/components/ScholarshipStats';
-import { SCHOLARSHIP_SIS_URL } from '@/config/site';
 import '@/styles/scholarship.css';
 
 export const metadata: Metadata = {
   title: 'City Scholarship Program',
   description:
-    'The San Jose City scholarship program: how many scholars it supports each semester, the requirements for new and renewing scholars, and where scholars can check their payout eligibility.',
+    'The San Jose City scholarship program: how many scholars it supports each semester, the requirements for new and renewing scholars, and a Student ID lookup for each scholar’s payout status and requirements.',
   alternates: { canonical: '/scholarship/' },
 };
 
@@ -22,17 +22,7 @@ export default function ScholarshipPage() {
       parents={[{ href: '/services/', label: 'Services' }]}
     >
       <div className="scholar-page">
-        <a href={`${SCHOLARSHIP_SIS_URL}/eligibility`} className="scholar-callout">
-          <i className="bi bi-search" aria-hidden="true" />
-          <span>
-            <strong>Already a scholar? Check your payout eligibility</strong>
-            <span>
-              Enter your scholar ID to see whether you are cleared for this semester’s payout and
-              which requirements are still missing.
-            </span>
-          </span>
-          <i className="bi bi-box-arrow-up-right" aria-hidden="true" />
-        </a>
+        <ScholarLookup />
 
         <ScholarshipStats />
 
@@ -64,10 +54,11 @@ export default function ScholarshipPage() {
         </section>
 
         <aside className="scholar-privacy">
-          <h2>About these figures</h2>
+          <h2>About your information</h2>
           <p>
-            Only totals are published here. Names, addresses and other personal details of scholars
-            are kept by the scholarship office and are not shown on this site.
+            The figures above are totals only. The Student ID lookup shows a scholar’s own program
+            record; addresses, phone numbers and other contact details are kept by the scholarship
+            office and are never shown on this site.
           </p>
           <p>
             For application schedules and other questions, <Link href="/contact/">contact us</Link>.

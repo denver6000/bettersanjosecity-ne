@@ -85,13 +85,15 @@ browser -> /api/weather-station.php -> api.kloudtechsea.com (x-kloudtrack-key)
 **API keys.** The PHP endpoints look for their keys in an environment variable first, then
 in a `.env` file **two folders above** `public/api/`:
 
-| Key                  | Used by                     | Without it                            |
-| -------------------- | --------------------------- | ------------------------------------- |
-| `KCLOUD_API_KEY`     | `api/weather-station.php`   | Weather card falls back to Open-Meteo |
-| `SIS_PORTAL_API_KEY` | `api/scholarship-stats.php` | `/scholarship` shows no figures       |
+| Key                  | Used by                                               | Without it                                                               |
+| -------------------- | ----------------------------------------------------- | ------------------------------------------------------------------------ |
+| `KCLOUD_API_KEY`     | `api/weather-station.php`                             | Weather card falls back to Open-Meteo                                    |
+| `SIS_PORTAL_API_KEY` | `api/scholarship-stats.php`, `api/scholar-lookup.php` | `/scholarship` shows no figures and the Student ID lookup is unavailable |
 
 `SIS_PORTAL_API_KEY` must equal `PORTAL_API_KEY` in the scholarship system's `.env`
-(sanjose-scholarship.betternuevaecija.org). The SIS only returns aggregate counts.
+(sanjose-scholarship.betternuevaecija.org). The figures are aggregate counts. The Student ID
+lookup returns one scholar's program record (never address, phone or barangay) and is
+limited per visitor by the SIS, so the proxy forwards the visitor's IP and caches nothing.
 
 | Where       | Keys go in                                                          |
 | ----------- | ------------------------------------------------------------------- |

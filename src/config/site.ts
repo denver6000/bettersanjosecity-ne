@@ -30,9 +30,6 @@ export const SITE = {
   hotlines: [{ icon: 'bi-telephone-fill', label: 'National Emergency', number: '911', tel: '911' }],
 } as const;
 
-// City Scholarship Program system (SIS): the scholars' payout lookup. Figures come through public/api/scholarship-stats.php.
-export const SCHOLARSHIP_SIS_URL = 'https://sanjose-scholarship.betternuevaecija.org';
-
 export const LGU_LABEL = `${SITE.lgu.name}, ${SITE.lgu.province}`;
 
 export const NAV = [
