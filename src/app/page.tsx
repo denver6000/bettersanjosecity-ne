@@ -6,6 +6,8 @@ import WeatherWidget from '@/components/WeatherWidget';
 import CityMap from '@/components/CityMap';
 import StationDetails from '@/components/StationDetails';
 import { HomeNews } from '@/components/NewsList';
+import ScholarLookup from '@/components/ScholarLookup';
+import '@/styles/scholarship.css';
 
 // TODO(data): fill from src/data/demographics.json once official figures arrive.
 const STATS = [
@@ -166,6 +168,27 @@ export default function HomePage() {
                 <StationDetails />
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Scholar lookup */}
+      <section className="section home-scholar-section">
+        <div className="container">
+          <div className="home-stats-v2-header station-section-header">
+            <div>
+              <h2>City Scholarship Program</h2>
+              <p>
+                Scholars: enter your Student ID to check your payout status and which requirements
+                are still missing.
+              </p>
+            </div>
+            <Link href="/scholarship" className="home-section-link">
+              <i className="bi bi-arrow-right" /> Program details
+            </Link>
+          </div>
+          <div className="scholar-page">
+            <ScholarLookup heading={false} />
           </div>
         </div>
       </section>

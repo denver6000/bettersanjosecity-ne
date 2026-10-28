@@ -68,8 +68,11 @@ async function post<T>(query: string, body: object): Promise<T> {
   return data as T;
 }
 
-/** Scholars look up their record, payout status and requirements by Student ID. */
-export default function ScholarLookup() {
+/**
+ * Scholars look up their record, payout status and requirements by Student ID.
+ * `heading={false}` when the page around it already titles the section (the home page).
+ */
+export default function ScholarLookup({ heading = true }: { heading?: boolean }) {
   const ids = useId();
   const [studentId, setStudentId] = useState('');
   const [searched, setSearched] = useState('');
@@ -95,12 +98,20 @@ export default function ScholarLookup() {
   }
 
   return (
-    <section className="scholar-block scholar-lookup" aria-labelledby={`${ids}-title`}>
-      <h2 id={`${ids}-title`}>Look up your scholarship record</h2>
-      <p>
-        Enter your Student ID to see your record, whether you are cleared for each semester’s payout
-        and which requirements are still missing.
-      </p>
+    <section
+      className="scholar-block scholar-lookup"
+      aria-labelledby={heading ? `${ids}-title` : undefined}
+      aria-label={heading ? undefined : 'Scholarship record lookup'}
+    >
+      {heading && (
+        <>
+          <h2 id={`${ids}-title`}>Look up your scholarship record</h2>
+          <p>
+            Enter your Student ID to see your record, whether you are cleared for each semester’s
+            payout and which requirements are still missing.
+          </p>
+        </>
+      )}
       <form className="scholar-search" onSubmit={search} role="search">
         <label htmlFor={`${ids}-id`}>Student ID</label>
         <input
