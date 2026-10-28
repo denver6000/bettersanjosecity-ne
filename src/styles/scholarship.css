@@ -1,0 +1,218 @@
+/* City Scholarship Program page. Same visual language as the business-taxes pages. */
+
+.scholar-page {
+  --navy: #10233a;
+  --ink: #2a3b52;
+  --line: #dde3ee;
+  --alt: #eef2fb;
+  --radius: 10px;
+  max-width: 960px;
+  color: var(--ink);
+}
+
+.scholar-page h2 {
+  font-size: 1.35rem;
+  color: var(--navy);
+  margin: 0 0 14px;
+}
+
+.scholar-page h3 {
+  font-size: 1rem;
+  color: var(--navy);
+  margin: 0 0 10px;
+}
+
+.scholar-callout {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  max-width: 720px;
+  margin: 0 0 32px;
+  padding: 14px 18px;
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--color-primary);
+  border-radius: var(--radius);
+  background: var(--alt);
+  color: var(--navy);
+  text-decoration: none;
+}
+
+.scholar-callout:hover {
+  border-color: var(--color-primary);
+  text-decoration: none;
+}
+
+.scholar-callout > .bi {
+  font-size: 1.4rem;
+  color: var(--color-primary);
+}
+
+.scholar-callout > span {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  font-size: 0.9rem;
+  color: var(--ink);
+}
+
+.scholar-callout strong {
+  font-size: 1rem;
+  color: var(--navy);
+}
+
+.scholar-block {
+  margin: 0 0 36px;
+}
+
+.scholar-block-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.scholar-block-head h2 {
+  margin: 0;
+}
+
+.scholar-year {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--navy);
+}
+
+.scholar-year select {
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--color-white);
+  color: var(--color-text);
+  font: inherit;
+  font-weight: 600;
+}
+
+.scholar-semester {
+  margin-bottom: 20px;
+}
+
+.scholar-semester[aria-busy='true'] {
+  opacity: 0.55;
+}
+
+.scholar-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin: 0;
+}
+
+.scholar-stats div {
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--color-white);
+}
+
+.scholar-stats dt {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-light);
+}
+
+.scholar-stats dd {
+  margin: 2px 0 0;
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--color-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+.scholar-note,
+.scholar-status {
+  font-size: 0.85rem;
+  color: var(--color-text-light);
+}
+
+.scholar-status {
+  padding: 16px 0;
+}
+
+.scholar-reqs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.scholar-reqs > div {
+  padding: 16px 18px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+.scholar-reqs ul {
+  margin: 0;
+  padding-left: 1.2em;
+}
+
+.scholar-reqs li + li {
+  margin-top: 4px;
+}
+
+.scholar-glossary {
+  display: grid;
+  gap: 14px;
+  margin: 0;
+}
+
+.scholar-glossary div {
+  border-left: 3px solid #9fb4e0;
+  padding-left: 14px;
+}
+
+.scholar-glossary dt {
+  font-weight: 700;
+  color: var(--navy);
+}
+
+.scholar-glossary dd {
+  margin: 2px 0 0;
+}
+
+.scholar-privacy {
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--color-accent);
+  border-radius: var(--radius);
+  padding: 20px 22px;
+  background: #fffaf5;
+}
+
+.scholar-privacy h2 {
+  font-size: 1.15rem;
+  margin-bottom: 8px;
+}
+
+.scholar-privacy p {
+  font-size: 0.93rem;
+  margin: 0;
+}
+
+.scholar-privacy p + p {
+  margin-top: 8px;
+}
+
+@media (max-width: 700px) {
+  .scholar-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .scholar-reqs {
+    grid-template-columns: 1fr;
+  }
+}

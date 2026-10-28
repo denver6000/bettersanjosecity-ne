@@ -7,6 +7,7 @@ const PAGES = [
   ...NAV,
   { href: '/business-taxes', label: 'Business Taxes and Fees' },
   { href: '/business-taxes/estimator', label: 'Business Tax Estimator' },
+  { href: '/scholarship', label: 'City Scholarship Program' },
   { href: '/faq', label: 'FAQ' },
   { href: '/privacy', label: 'Privacy Policy' },
   { href: '/terms', label: 'Terms of Use' },
