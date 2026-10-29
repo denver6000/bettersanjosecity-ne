@@ -115,7 +115,7 @@ export default function Footer() {
               .
             </span>
             <span className="footer-version">
-              <i className="bi bi-boxes" /> Ver. {pkg.version}
+              <i className="ph ph-package" /> Ver. {pkg.version}
             </span>
           </div>
         </div>

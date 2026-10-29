@@ -72,14 +72,14 @@ export default function HotlineBar() {
           <div className="hotline-items" ref={itemsRef}>
             {SITE.hotlines.map((h) => (
               <a key={h.tel} href={`tel:${h.tel}`} className="hotline-item">
-                <i className={`bi ${h.icon}`} aria-hidden="true" />
+                <i className={`ph ${h.icon}`} aria-hidden="true" />
                 <span>
                   {h.label}: {h.number}
                 </span>
               </a>
             ))}
             <Link href="/contact" className="hotline-item">
-              <i className="bi bi-exclamation-triangle-fill" aria-hidden="true" />
+              <i className="ph-fill ph-warning" aria-hidden="true" />
               <span>Local hotlines: coming soon</span>
             </Link>
           </div>

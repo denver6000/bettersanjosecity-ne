@@ -11,18 +11,18 @@ export default function BudgetPage() {
   return (
     <PageShell
       badge="Transparency"
-      badgeIcon="bi-pie-chart-fill"
+      badgeIcon="ph-chart-pie"
       title="Budget & Transparency"
       subtitle="How the City Government of San Jose raises and spends public funds"
     >
       <div className="pending-grid">
-        <DataPending title="Income & Expenditure" icon="bi-cash-stack">
+        <DataPending title="Income & Expenditure" icon="ph-money">
           Annual revenue and spending from BLGF Statements of Receipts and Expenditures.
         </DataPending>
-        <DataPending title="Annual Budget" icon="bi-wallet2">
+        <DataPending title="Annual Budget" icon="ph-wallet">
           Approved annual budget by sector and office.
         </DataPending>
-        <DataPending title="Infrastructure Projects" icon="bi-cone-striped">
+        <DataPending title="Infrastructure Projects" icon="ph-traffic-cone">
           Ongoing and completed public works within the city.
         </DataPending>
       </div>

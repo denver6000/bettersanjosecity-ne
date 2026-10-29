@@ -47,7 +47,8 @@ export default function ServiceSearch() {
   return (
     <div className="home-search-box" ref={wrapperRef}>
       <h2>
-        <i className="bi bi-search" /> <span>{t('home-find-a-service', 'Find a Service')}</span>
+        <i className="ph ph-magnifying-glass" />{' '}
+        <span>{t('home-find-a-service', 'Find a Service')}</span>
       </h2>
       <form className="search-form" role="search" onSubmit={onSubmit}>
         <div className="search-input-wrapper">
@@ -65,7 +66,7 @@ export default function ServiceSearch() {
             }}
           />
           <button type="submit" className="search-submit-btn" aria-label="Search">
-            <i className="bi bi-arrow-right" />
+            <i className="ph ph-arrow-right" />
           </button>
         </div>
       </form>

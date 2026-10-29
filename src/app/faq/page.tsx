@@ -11,7 +11,7 @@ export default function FaqPage() {
   return (
     <PageShell
       badge="FAQ"
-      badgeIcon="bi-question-circle-fill"
+      badgeIcon="ph-question"
       title="Frequently Asked Questions"
       subtitle="Answers to common questions about city services"
     >

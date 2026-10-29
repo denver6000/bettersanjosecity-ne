@@ -127,7 +127,7 @@ export default function Estimator() {
                   ))}
               </ol>
               <div className="est-mapping">
-                <i className="bi bi-arrow-return-right" aria-hidden="true" />
+                <i className="ph ph-arrow-bend-down-right" aria-hidden="true" />
                 <p>
                   {rule.tax ? (
                     <>
@@ -151,7 +151,7 @@ export default function Estimator() {
                 like “sari-sari”, “piggery” or “boarding house”, or a PSIC code.
               </p>
               <div className="tax-search" role="search">
-                <i className="bi bi-search" aria-hidden="true" />
+                <i className="ph ph-magnifying-glass" aria-hidden="true" />
                 <label htmlFor={`${ids}-q`} className="sr-only">
                   Search business activities
                 </label>
@@ -171,7 +171,7 @@ export default function Estimator() {
                     onClick={() => setQuery('')}
                     aria-label="Clear search"
                   >
-                    <i className="bi bi-x-lg" aria-hidden="true" />
+                    <i className="ph ph-x" aria-hidden="true" />
                   </button>
                 )}
               </div>
@@ -361,7 +361,7 @@ export default function Estimator() {
           <>
             {result.pending > 0 && (
               <p className="est-pending">
-                <i className="bi bi-info-circle" aria-hidden="true" /> {result.pending}{' '}
+                <i className="ph ph-info" aria-hidden="true" /> {result.pending}{' '}
                 {result.pending === 1 ? 'item needs' : 'items need'} an answer before it counts.
               </p>
             )}

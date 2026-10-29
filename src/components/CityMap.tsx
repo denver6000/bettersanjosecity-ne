@@ -18,7 +18,7 @@ function pinHtml(station: Station | null, live: boolean) {
   const t = live ? station?.reading?.temperature_c : null;
   return (
     `<span class="station-pin${live ? ' is-live' : ''}">` +
-    `<span class="station-pin-head"><i class="bi bi-broadcast"></i></span>` +
+    `<span class="station-pin-head"><i class="ph ph-broadcast"></i></span>` +
     (t != null ? `<span class="station-pin-temp">${Math.round(t)}°C</span>` : '') +
     `</span>`
   );

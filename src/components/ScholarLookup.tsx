@@ -38,17 +38,17 @@ const STATUS: Record<
 > = {
   eligible: {
     title: 'Eligible for payout',
-    icon: 'bi-check-circle-fill',
+    icon: 'ph-check-circle',
     text: (label) => `You are qualified and your requirements are complete for ${label}.`,
   },
   payrolled: {
     title: 'Included in payroll',
-    icon: 'bi-cash-stack',
+    icon: 'ph-money',
     text: (label) => `Your payout for ${label} has already been processed.`,
   },
   not_eligible: {
     title: 'Not yet eligible',
-    icon: 'bi-hourglass-split',
+    icon: 'ph-hourglass',
     text: () => '',
   },
 };
@@ -124,7 +124,8 @@ export default function ScholarLookup({ heading = true }: { heading?: boolean })
           required
         />
         <button type="submit" className="btn btn-primary" disabled={busy}>
-          <i className="bi bi-search" aria-hidden="true" /> {busy ? 'Searching…' : 'Search'}
+          <i className="ph ph-magnifying-glass" aria-hidden="true" />{' '}
+          {busy ? 'Searching…' : 'Search'}
         </button>
       </form>
 
@@ -201,7 +202,7 @@ function CycleRow({ cycle }: { cycle: Cycle }) {
       {details.length > 0 && <p className="scholar-cycle-details">{details.join(' · ')}</p>}
 
       <p className="scholar-cycle-status">
-        <i className={`bi ${status.icon}`} aria-hidden="true" />
+        <i className={`ph-duotone ${status.icon}`} aria-hidden="true" />
         <span>
           <strong>{status.title}</strong>
           {cycle.status === 'not_eligible' ? (
@@ -220,7 +221,7 @@ function CycleRow({ cycle }: { cycle: Cycle }) {
       <ul className="scholar-checklist">
         {cycle.requirements.map((r) => (
           <li key={r.label} className={r.met ? 'is-met' : 'is-missing'}>
-            <i className={`bi ${r.met ? 'bi-check-lg' : 'bi-x-lg'}`} aria-hidden="true" />
+            <i className={`ph ${r.met ? 'ph-check' : 'ph-x'}`} aria-hidden="true" />
             {r.label}
             <span className="sr-only">{r.met ? ', submitted' : ', missing'}</span>
           </li>

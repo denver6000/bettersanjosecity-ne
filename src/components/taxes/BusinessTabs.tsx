@@ -1,11 +1,11 @@
 import Link from 'next/link';
 
 const TABS = [
-  { id: 'schedules', href: '/business-taxes/', icon: 'bi-table', label: 'Taxes and fees' },
+  { id: 'schedules', href: '/business-taxes/', icon: 'ph-table', label: 'Taxes and fees' },
   {
     id: 'estimator',
     href: '/business-taxes/estimator/',
-    icon: 'bi-calculator',
+    icon: 'ph-calculator',
     label: 'Tax estimator',
   },
 ] as const;
@@ -21,7 +21,7 @@ export default function BusinessTabs({ current }: { current: (typeof TABS)[numbe
           className={t.id === current ? 'is-active' : undefined}
           aria-current={t.id === current ? 'page' : undefined}
         >
-          <i className={`bi ${t.icon}`} aria-hidden="true" /> {t.label}
+          <i className={`ph ${t.icon}`} aria-hidden="true" /> {t.label}
         </Link>
       ))}
     </nav>

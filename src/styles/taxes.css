@@ -115,7 +115,7 @@
   box-shadow: 0 0 0 3px rgba(0, 50, 160, 0.15);
 }
 
-.tax-page .tax-search > .bi-search {
+.tax-page .tax-search > .ph-magnifying-glass {
   position: absolute;
   left: 16px;
   color: var(--muted);
@@ -879,7 +879,7 @@
   border-color: var(--blue);
 }
 
-.tax-page .est-callout > .bi {
+.tax-page .est-callout > .ph {
   font-size: 1.4rem;
   color: var(--blue);
 }

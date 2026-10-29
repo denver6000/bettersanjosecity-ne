@@ -16,7 +16,7 @@ export default function ScholarshipPage() {
   return (
     <PageShell
       badge="Scholarship"
-      badgeIcon="bi-mortarboard-fill"
+      badgeIcon="ph-graduation-cap"
       title="City Scholarship Program"
       subtitle="Financial assistance from the City Government of San Jose for students who live in the city."
       parents={[{ href: '/services/', label: 'Services' }]}

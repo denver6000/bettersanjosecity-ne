@@ -11,21 +11,21 @@ import '@/styles/scholarship.css';
 
 // TODO(data): fill from src/data/demographics.json once official figures arrive.
 const STATS = [
-  { href: '/statistics', icon: 'bi-people-fill', label: 'Population', source: 'PSA Census' },
+  { href: '/statistics', icon: 'ph-users-three', label: 'Population', source: 'PSA Census' },
   {
     href: '/government',
-    icon: 'bi-geo-alt-fill',
+    icon: 'ph-map-pin',
     label: 'Barangays',
     source: 'Administrative Units',
   },
-  { href: '/budget', icon: 'bi-award-fill', label: 'Income Class', source: 'Component City' },
-  { href: '/statistics', icon: 'bi-rulers', label: 'Land Area', source: 'Total City Area' },
+  { href: '/budget', icon: 'ph-medal', label: 'Income Class', source: 'Component City' },
+  { href: '/statistics', icon: 'ph-ruler', label: 'Land Area', source: 'Total City Area' },
 ];
 
 function SectionLink({ href, k, children }: { href: string; k: string; children: string }) {
   return (
     <Link href={href} className="home-section-link">
-      <i className="bi bi-arrow-right" /> <T k={k}>{children}</T>
+      <i className="ph ph-arrow-right" /> <T k={k}>{children}</T>
     </Link>
   );
 }
@@ -49,7 +49,7 @@ export default function HomePage() {
               </p>
               <div className="home-hero-v2-actions">
                 <Link href="/services" className="btn btn-primary">
-                  <i className="bi bi-arrow-right" />{' '}
+                  <i className="ph ph-arrow-right" />{' '}
                   <T k="home-browse-services">Browse Services</T>
                 </Link>
                 <Link href="/contact" className="btn btn-outline">
@@ -81,18 +81,18 @@ export default function HomePage() {
                 key={c.name}
               >
                 <div className="home-service-icon">
-                  <i className={`bi ${c.icon}`} />
+                  <i className={`ph-duotone ${c.icon}`} />
                 </div>
                 <div className="home-service-content">
                   <h3>{c.name}</h3>
                   <p>{c.desc}</p>
                 </div>
-                <i className="bi bi-arrow-right home-service-arrow" />
+                <i className="ph ph-arrow-right home-service-arrow" />
               </Link>
             ))}
             <Link href="/services" className="home-service-card home-service-card--all">
               <div className="home-service-icon">
-                <i className="bi bi-grid-fill" />
+                <i className="ph-duotone ph-squares-four" />
               </div>
               <div className="home-service-content">
                 <h3>
@@ -100,7 +100,7 @@ export default function HomePage() {
                 </h3>
                 <p>Browse complete directory</p>
               </div>
-              <i className="bi bi-arrow-right home-service-arrow" />
+              <i className="ph ph-arrow-right home-service-arrow" />
             </Link>
           </div>
         </div>
@@ -119,7 +119,7 @@ export default function HomePage() {
             {STATS.map((s) => (
               <Link href={s.href} className="home-stat-card" key={s.label}>
                 <div className="home-stat-card-icon">
-                  <i className={`bi ${s.icon}`} />
+                  <i className={`ph-duotone ${s.icon}`} />
                 </div>
                 <div className="home-stat-card-content">
                   <span className="home-stat-card-value stat-pending">&mdash;</span>
@@ -156,7 +156,7 @@ export default function HomePage() {
                 <p className="map-attribution station-map-legend">
                   <span>
                     <span className="legend-pin" aria-hidden="true">
-                      <i className="bi bi-broadcast" />
+                      <i className="ph ph-broadcast" />
                     </span>
                     Weather station
                   </span>
@@ -184,7 +184,7 @@ export default function HomePage() {
               </p>
             </div>
             <Link href="/scholarship" className="home-section-link">
-              <i className="bi bi-arrow-right" /> Program details
+              <i className="ph ph-arrow-right" /> Program details
             </Link>
           </div>
           <div className="scholar-page">
@@ -244,7 +244,7 @@ export default function HomePage() {
           <div className="home-contact-v2-grid">
             <div className="home-contact-v2-card">
               <div className="home-contact-v2-icon">
-                <i className="bi bi-telephone-fill" />
+                <i className="ph ph-phone" />
               </div>
               <div className="home-contact-v2-content">
                 <h3>
@@ -256,7 +256,7 @@ export default function HomePage() {
             </div>
             <div className="home-contact-v2-card">
               <div className="home-contact-v2-icon">
-                <i className="bi bi-envelope-fill" />
+                <i className="ph ph-envelope-simple" />
               </div>
               <div className="home-contact-v2-content">
                 <h3>
@@ -267,7 +267,7 @@ export default function HomePage() {
             </div>
             <div className="home-contact-v2-card">
               <div className="home-contact-v2-icon">
-                <i className="bi bi-geo-alt-fill" />
+                <i className="ph ph-map-pin" />
               </div>
               <div className="home-contact-v2-content">
                 <h3>

@@ -27,7 +27,7 @@ export const SITE = {
   // KloudTrack AWS; the live feed overrides these once it loads.
   weatherStation: { name: 'San Jose City AWS', lat: 15.794954, lon: 120.993156, radiusKm: 10 },
   // TODO(data): add verified San Jose City hotlines.
-  hotlines: [{ icon: 'bi-telephone-fill', label: 'National Emergency', number: '911', tel: '911' }],
+  hotlines: [{ icon: 'ph-phone', label: 'National Emergency', number: '911', tel: '911' }],
 } as const;
 
 export const LGU_LABEL = `${SITE.lgu.name}, ${SITE.lgu.province}`;
@@ -46,43 +46,43 @@ export const NAV = [
 
 export const SERVICE_CATEGORIES = [
   {
-    icon: 'bi-file-earmark-text-fill',
+    icon: 'ph-file-text',
     name: 'Certificates',
     desc: 'Birth, marriage, and death records',
   },
   {
-    icon: 'bi-shop',
+    icon: 'ph-storefront',
     name: 'Business',
     desc: 'Permits, licenses, and renewals',
     href: '/business-taxes',
   },
   {
-    icon: 'bi-calculator',
+    icon: 'ph-calculator',
     name: 'Tax Estimator',
     desc: 'Estimate your yearly business tax and fees',
     href: '/business-taxes/estimator',
   },
   {
-    icon: 'bi-people-fill',
+    icon: 'ph-users-three',
     name: 'Social Services',
     desc: 'Senior citizen, PWD, and welfare programs',
   },
-  { icon: 'bi-heart-pulse-fill', name: 'Health', desc: 'City health office and programs' },
-  { icon: 'bi-flower1', name: 'Agriculture', desc: 'Farmer support and assistance' },
-  { icon: 'bi-cone-striped', name: 'Infrastructure', desc: 'Building permits and engineering' },
+  { icon: 'ph-heartbeat', name: 'Health', desc: 'City health office and programs' },
+  { icon: 'ph-plant', name: 'Agriculture', desc: 'Farmer support and assistance' },
+  { icon: 'ph-traffic-cone', name: 'Infrastructure', desc: 'Building permits and engineering' },
   {
-    icon: 'bi-mortarboard-fill',
+    icon: 'ph-graduation-cap',
     name: 'Education',
     desc: 'Scholarships and learning programs',
     href: '/scholarship',
   },
   {
-    icon: 'bi-shield-fill-check',
+    icon: 'ph-shield-check',
     name: 'Public Safety',
     desc: 'Disaster risk reduction and peace and order',
   },
   {
-    icon: 'bi-tree-fill',
+    icon: 'ph-tree',
     name: 'Environment',
     desc: 'Waste management and environmental protection',
   },

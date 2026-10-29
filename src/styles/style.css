@@ -7631,8 +7631,8 @@ cklist with Icons - Proper Indentation */
 }
 
 .faq-accordion summary::after {
-  content: '\F282';
-  font-family: 'bootstrap-icons';
+  content: '\e136';
+  font-family: 'Phosphor';
   color: var(--color-text-light);
   transition: transform 0.2s ease;
 }

@@ -77,7 +77,7 @@ export default function TaxBrowser() {
   return (
     <>
       <div className="tax-search" role="search">
-        <i className="bi bi-search" aria-hidden="true" />
+        <i className="ph ph-magnifying-glass" aria-hidden="true" />
         <label htmlFor="tax-q" className="sr-only">
           Search taxes and fees
         </label>
@@ -95,7 +95,7 @@ export default function TaxBrowser() {
             onClick={() => setQuery('')}
             aria-label="Clear search"
           >
-            <i className="bi bi-x-lg" aria-hidden="true" />
+            <i className="ph ph-x" aria-hidden="true" />
           </button>
         )}
       </div>
@@ -166,7 +166,7 @@ export default function TaxBrowser() {
                     ))}
                   </div>
                   <p className="source-chip">
-                    <i className="bi bi-file-earmark-text" aria-hidden="true" />
+                    <i className="ph-duotone ph-file-text" aria-hidden="true" />
                     <span>
                       {s.source.label}
                       <small>

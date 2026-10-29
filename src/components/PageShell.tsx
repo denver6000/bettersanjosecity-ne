@@ -43,7 +43,7 @@ export default function PageShell({
         <div className="container">
           <div className="page-header-content">
             <span className="page-header-badge">
-              <i className={`bi ${badgeIcon}`} /> {badge}
+              <i className={`ph ${badgeIcon}`} /> {badge}
             </span>
             <h1>{title}</h1>
             <p className="page-header-desc">{subtitle}</p>
@@ -60,7 +60,7 @@ export default function PageShell({
 
 export function DataPending({
   title,
-  icon = 'bi-hourglass-split',
+  icon = 'ph-hourglass',
   children,
   as: Heading = 'h3',
 }: {
@@ -72,7 +72,7 @@ export function DataPending({
   return (
     <div className="data-pending">
       <div className="data-pending-icon">
-        <i className={`bi ${icon}`} aria-hidden="true" />
+        <i className={`ph-duotone ${icon}`} aria-hidden="true" />
       </div>
       <div>
         <Heading>{title}</Heading>

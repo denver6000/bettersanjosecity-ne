@@ -24,7 +24,7 @@ export default function SitemapPage() {
   return (
     <PageShell
       badge="Sitemap"
-      badgeIcon="bi-diagram-2-fill"
+      badgeIcon="ph-tree-structure"
       title="Sitemap"
       subtitle="Every page on Better San Jose"
     >

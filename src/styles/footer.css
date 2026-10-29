@@ -218,8 +218,8 @@ ter Columns */
 }
 
 /* Icon colors for contribute buttons */
-.footer-contribute i.bi-envelope-heart,
-.footer-contribute i.bi-github {
+.footer-contribute i.ph-envelope-simple,
+.footer-contribute i.ph-github-logo {
   color: #ffffff;
 }
 

@@ -12,7 +12,7 @@ export default function NewsPage() {
   return (
     <PageShell
       badge="News"
-      badgeIcon="bi-newspaper"
+      badgeIcon="ph-newspaper"
       title="News & Updates"
       subtitle="Announcements and advisories from the City Government of San Jose"
     >

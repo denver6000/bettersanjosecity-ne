@@ -11,18 +11,18 @@ export default function ContactPage() {
   return (
     <PageShell
       badge="Contact"
-      badgeIcon="bi-telephone-fill"
+      badgeIcon="ph-phone"
       title="Contact & Hotlines"
       subtitle="Reach the City Government of San Jose and its emergency services"
     >
       <div className="pending-grid">
-        <DataPending title="Emergency Hotlines" icon="bi-exclamation-triangle-fill">
+        <DataPending title="Emergency Hotlines" icon="ph-warning">
           Police, fire, CDRRMO, and medical emergency numbers. For any emergency, call 911.
         </DataPending>
-        <DataPending title="City Hall" icon="bi-building-fill">
+        <DataPending title="City Hall" icon="ph-buildings">
           Address, office hours, phone, and email of San Jose City Hall.
         </DataPending>
-        <DataPending title="Office Directory" icon="bi-journal-text">
+        <DataPending title="Office Directory" icon="ph-notebook">
           Direct lines of city departments.
         </DataPending>
       </div>

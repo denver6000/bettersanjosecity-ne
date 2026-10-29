@@ -19,7 +19,7 @@ export default function BusinessTaxesPage() {
   return (
     <PageShell
       badge="Business Taxes and Fees"
-      badgeIcon="bi-cash-coin"
+      badgeIcon="ph-coins"
       title="Business Taxes and Fees"
       subtitle={`Every tax and fee code a business in San Jose City may be charged, copied from the Treasurer’s schedules (effective ${EFFECTIVITY}). Search for your line of business, or find your row by gross sales.`}
     >
@@ -45,14 +45,14 @@ export default function BusinessTaxesPage() {
         </dl>
 
         <Link href="/business-taxes/estimator/" className="est-callout">
-          <i className="bi bi-calculator" aria-hidden="true" />
+          <i className="ph ph-calculator" aria-hidden="true" />
           <span>
             <strong>Estimate your yearly taxes and fees</strong>
             <span>
               Find your business in PSA’s industry classification and enter your gross sales.
             </span>
           </span>
-          <i className="bi bi-arrow-right" aria-hidden="true" />
+          <i className="ph ph-arrow-right" aria-hidden="true" />
         </Link>
 
         <TaxBrowser />
@@ -149,7 +149,7 @@ export default function BusinessTaxesPage() {
           <ul className="source-list">
             {schedules.map((s) => (
               <li key={s.id}>
-                <i className="bi bi-file-earmark-text" aria-hidden="true" />
+                <i className="ph-duotone ph-file-text" aria-hidden="true" />
                 <span>
                   <span className="source-name">
                     {s.name} <span className="muted">· printed as “{s.printedHeading}”</span>

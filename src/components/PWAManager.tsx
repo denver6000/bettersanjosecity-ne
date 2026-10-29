@@ -94,7 +94,7 @@ export default function PWAManager() {
       {showInstall && (
         <div className="pwa-install-banner" role="alert" aria-live="polite">
           <div className="pwa-install-content">
-            <i className="bi bi-download" aria-hidden="true" />
+            <i className="ph ph-download-simple" aria-hidden="true" />
             <span>Install Better San Jose for quick access to services.</span>
           </div>
           <div className="pwa-install-actions">

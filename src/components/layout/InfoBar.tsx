@@ -58,7 +58,7 @@ export default function InfoBar() {
       <div className="container">
         <div className="info-bar-inner" aria-live="polite" aria-atomic="false">
           <div className="info-bar-item info-bar-rates" aria-label="Exchange rates">
-            <i className="bi bi-currency-exchange" aria-hidden="true" />
+            <i className="ph ph-currency-circle-dollar" aria-hidden="true" />
             <span className="rate-rotator">
               <span className="rate-display">{rate}</span>
             </span>
@@ -67,17 +67,17 @@ export default function InfoBar() {
             className="info-bar-item info-bar-weather"
             aria-label={`Current weather in ${SITE.lgu.name}`}
           >
-            <i className="bi bi-thermometer-half" aria-hidden="true" />
+            <i className="ph ph-thermometer" aria-hidden="true" />
             <span className="weather-location">{SITE.lgu.shortName}</span>
             <span className="weather-temp">{temp}</span>
           </div>
           <div className="info-bar-item info-bar-datetime" aria-label="Philippine Date and Time">
-            <i className="bi bi-calendar3" aria-hidden="true" />
+            <i className="ph ph-calendar-blank" aria-hidden="true" />
             <span className="date-value">{dateStr}</span>
             <span className="datetime-separator" aria-hidden="true">
               •
             </span>
-            <i className="bi bi-clock" aria-hidden="true" />
+            <i className="ph ph-clock" aria-hidden="true" />
             <span className="time-value">{timeStr}</span>
             <span className="time-label">PHT</span>
           </div>

@@ -9,7 +9,7 @@ export function HomeNews() {
   const items = news.slice(0, 3);
   if (!items.length) {
     return (
-      <DataPending title="No updates yet" icon="bi-newspaper">
+      <DataPending title="No updates yet" icon="ph-newspaper">
         {EMPTY}
       </DataPending>
     );
@@ -47,7 +47,7 @@ export function HomeNews() {
 export function NewsGrid() {
   if (!news.length) {
     return (
-      <DataPending title="No updates yet" icon="bi-newspaper" as="h2">
+      <DataPending title="No updates yet" icon="ph-newspaper" as="h2">
         {EMPTY}
       </DataPending>
     );
@@ -82,7 +82,7 @@ export function NewsGrid() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  {a.source || 'Read more'} <i className="bi bi-arrow-right" aria-hidden="true" />
+                  {a.source || 'Read more'} <i className="ph ph-arrow-right" aria-hidden="true" />
                 </a>
               </div>
             )}
