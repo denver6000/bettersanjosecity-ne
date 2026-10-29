@@ -171,12 +171,12 @@
   margin: 10px 0;
   padding: 10px 14px;
   border-radius: 8px;
-  background: #fff6ea;
+  background: var(--color-navy-tint);
 }
 
 .scholar-cycle-status > .bi {
   font-size: 1.2rem;
-  color: var(--color-accent);
+  color: var(--color-primary);
 }
 
 .scholar-cycle-status > span {
@@ -383,7 +383,7 @@
 
 .scholar-privacy {
   border: 1px solid var(--line);
-  border-left: 4px solid var(--color-accent);
+  border-left: 4px solid var(--color-primary);
   border-radius: var(--radius);
   padding: 20px 22px;
   background: #fffaf5;

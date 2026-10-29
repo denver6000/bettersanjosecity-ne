@@ -744,8 +744,8 @@ body.mobile-menu-open {
 }
 
 .badge-warning {
-  background-color: #fff4e5;
-  color: var(--color-accent);
+  background-color: var(--color-navy-tint);
+  color: var(--color-primary);
 }
 
 .badge-info {
@@ -2083,7 +2083,7 @@ body.mobile-menu-open {
 }
 
 .councilor-card--sk {
-  border-left-color: var(--color-accent);
+  border-left-color: var(--color-primary);
 }
 
 .councilor-card--ipmr {
@@ -2113,7 +2113,7 @@ body.mobile-menu-open {
 }
 
 .councilor-badge--sk {
-  background: var(--color-accent);
+  background: var(--color-navy-dark);
 }
 
 .councilor-badge--ipmr {
@@ -2472,20 +2472,20 @@ textarea.form-control {
 
 /* Enhanced Focus States for Accessibility */
 :focus-visible {
-  outline: 3px solid var(--color-accent);
+  outline: 3px solid var(--color-primary);
   outline-offset: 2px;
 }
 
 /* Button Focus */
 .btn:focus-visible {
-  box-shadow: 0 0 0 3px rgba(247, 127, 0, 0.5);
+  box-shadow: 0 0 0 3px rgba(10, 47, 134, 0.5);
   outline: none;
 }
 
 /* Link Focus */
 a:focus-visible {
   text-decoration: none;
-  background-color: rgba(247, 127, 0, 0.1);
+  background-color: rgba(10, 47, 134, 0.1);
   border-radius: 2px;
 }
 
@@ -3656,7 +3656,7 @@ cklist with Icons - Proper Indentation */
 }
 
 .poverty-insights h4 i {
-  color: var(--color-accent);
+  color: var(--color-primary);
 }
 
 .insights-grid {
@@ -3797,7 +3797,7 @@ cklist with Icons - Proper Indentation */
 }
 
 .population-card-icon-alt {
-  background: rgba(247, 127, 0, 0.3);
+  background: rgba(10, 47, 134, 0.3);
 }
 
 .population-card-title h4 {
@@ -4156,13 +4156,13 @@ cklist with Icons - Proper Indentation */
 .hero-badge-icon {
   width: 48px;
   height: 48px;
-  background: #ffd700;
+  background: var(--color-white);
   border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1.5rem;
-  color: #1a1a1a;
+  color: var(--color-primary);
 }
 
 .hero-badge-content {
@@ -4224,8 +4224,8 @@ cklist with Icons - Proper Indentation */
 }
 
 .demo-stat-ring-accent {
-  border-color: var(--color-accent);
-  background: rgba(247, 127, 0, 0.1);
+  border-color: var(--color-primary);
+  background: rgba(10, 47, 134, 0.1);
 }
 
 .demo-stat-ring-info {
@@ -4246,7 +4246,7 @@ cklist with Icons - Proper Indentation */
 }
 
 .demo-stat-ring-accent .demo-stat-number {
-  color: var(--color-accent);
+  color: var(--color-primary);
 }
 .demo-stat-ring-info .demo-stat-number {
   color: var(--color-info);
@@ -4549,11 +4549,11 @@ cklist with Icons - Proper Indentation */
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: #ffd700;
+  background: var(--color-navy-tint);
   border-radius: 20px;
   padding: var(--spacing-lg) var(--spacing-xl);
   margin-bottom: var(--spacing-xl);
-  box-shadow: 0 8px 32px rgba(247, 127, 0, 0.25);
+  box-shadow: 0 8px 32px rgba(10, 47, 134, 0.25);
 }
 
 .economic-hero-left {
@@ -4703,8 +4703,8 @@ cklist with Icons - Proper Indentation */
   display: flex;
   align-items: center;
   gap: 4px;
-  background: rgba(247, 127, 0, 0.1);
-  color: var(--color-accent);
+  background: rgba(10, 47, 134, 0.1);
+  color: var(--color-primary);
   padding: 4px 8px;
   border-radius: 20px;
   font-size: 0.75rem;
@@ -4834,8 +4834,8 @@ cklist with Icons - Proper Indentation */
 }
 
 .sector-icon-industry {
-  background: rgba(247, 127, 0, 0.15);
-  color: var(--color-accent);
+  background: rgba(10, 47, 134, 0.15);
+  color: var(--color-primary);
 }
 
 .sector-info {
@@ -4888,7 +4888,7 @@ cklist with Icons - Proper Indentation */
 
 .sector-bar-industry {
   width: 11%;
-  background: var(--color-accent);
+  background: var(--color-primary);
 }
 
 /* Responsive Styles for Statistics Sections */
@@ -5040,7 +5040,7 @@ cklist with Icons - Proper Indentation */
 }
 
 .accordion-trigger:focus-visible {
-  outline: 3px solid var(--color-accent);
+  outline: 3px solid var(--color-primary);
   outline-offset: -3px;
 }
 
@@ -5115,15 +5115,15 @@ cklist with Icons - Proper Indentation */
   align-items: flex-start;
   gap: var(--spacing-xs);
   padding: var(--spacing-sm);
-  background: rgba(247, 127, 0, 0.1);
+  background: rgba(10, 47, 134, 0.1);
   border-radius: 8px;
   font-size: 0.8125rem;
   color: var(--color-text);
-  border-left: 3px solid var(--color-accent);
+  border-left: 3px solid var(--color-primary);
 }
 
 .accordion-tip i {
-  color: var(--color-accent);
+  color: var(--color-primary);
   margin-top: 2px;
   flex-shrink: 0;
 }
@@ -5444,7 +5444,7 @@ cklist with Icons - Proper Indentation */
 
 .demo-v2-hero-badge > i {
   font-size: 1.5rem;
-  color: #ffd700;
+  color: var(--color-white);
 }
 
 .demo-v2-hero-badge .badge-value {
@@ -5502,8 +5502,8 @@ cklist with Icons - Proper Indentation */
 }
 
 .demo-v2-icon-accent {
-  background: rgba(247, 127, 0, 0.1);
-  color: var(--color-accent);
+  background: rgba(10, 47, 134, 0.1);
+  color: var(--color-primary);
 }
 
 .demo-v2-icon-info {
@@ -7913,7 +7913,7 @@ cklist with Icons - Proper Indentation */
 }
 
 .a11y-list li i {
-  color: var(--color-accent);
+  color: var(--color-primary);
   margin-top: 2px;
 }
 
@@ -9894,7 +9894,7 @@ a.a11y-contact-item:hover i {
   height: 180px;
   bottom: -70px;
   left: -50px;
-  background: rgba(247, 127, 0, 0.1);
+  background: rgba(10, 47, 134, 0.1);
 }
 
 .vol-popup-logo {
