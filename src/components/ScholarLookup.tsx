@@ -72,7 +72,13 @@ async function post<T>(query: string, body: object): Promise<T> {
  * Scholars look up their record, payout status and requirements by Student ID.
  * `heading={false}` when the page around it already titles the section (the home page).
  */
-export default function ScholarLookup({ heading = true }: { heading?: boolean }) {
+export default function ScholarLookup({
+  heading = true,
+  submitLabel = 'Search',
+}: {
+  heading?: boolean;
+  submitLabel?: string;
+}) {
   const ids = useId();
   const [studentId, setStudentId] = useState('');
   const [searched, setSearched] = useState('');
@@ -125,7 +131,7 @@ export default function ScholarLookup({ heading = true }: { heading?: boolean })
         />
         <button type="submit" className="btn btn-primary" disabled={busy}>
           <i className="ph ph-magnifying-glass" aria-hidden="true" />{' '}
-          {busy ? 'Searching…' : 'Search'}
+          {busy ? 'Searching…' : submitLabel}
         </button>
       </form>
 

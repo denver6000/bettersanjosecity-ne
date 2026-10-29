@@ -2,17 +2,20 @@ import Link from 'next/link';
 import { T } from '@/i18n/LanguageContext';
 import { SERVICE_CATEGORIES } from '@/config/site';
 
+// Tiles are matched to SERVICE_CATEGORIES by name; `k` is the translation key for the label.
 const POPULAR = [
-  'Certificates',
-  'Business',
-  'Tax Estimator',
-  'Social Services',
-  'Health',
-  'Agriculture',
+  { name: 'Certificates', k: 'home-svc-certificates' },
+  { name: 'Business', k: 'home-svc-business' },
+  { name: 'Tax Estimator', k: 'home-svc-tax-estimator' },
+  { name: 'Social Services', k: 'home-svc-social-services' },
+  { name: 'Health', k: 'home-svc-health' },
+  { name: 'Agriculture', k: 'home-svc-agriculture' },
 ];
 
 export default function HomeServices() {
-  const tiles = POPULAR.flatMap((name) => SERVICE_CATEGORIES.filter((c) => c.name === name));
+  const tiles = POPULAR.flatMap(({ name, k }) =>
+    SERVICE_CATEGORIES.filter((c) => c.name === name).map((c) => ({ c, k }))
+  );
   return (
     <section className="home-sec">
       <div className="container">
@@ -26,10 +29,10 @@ export default function HomeServices() {
           </Link>
         </div>
         <div className="home-svc">
-          {tiles.map((c) => (
+          {tiles.map(({ c, k }) => (
             <Link href={'href' in c ? c.href : '/services'} className="home-card" key={c.name}>
               <i className={`ph-duotone ${c.icon}`} aria-hidden="true" />
-              {c.name}
+              <T k={k}>{c.name}</T>
             </Link>
           ))}
         </div>

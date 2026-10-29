@@ -21,7 +21,7 @@ export default function HomeScholar() {
               <i className="ph-bold ph-arrow-right" aria-hidden="true" />
             </Link>
           </div>
-          <ScholarLookup heading={false} />
+          <ScholarLookup heading={false} submitLabel="Check" />
         </div>
       </div>
     </section>

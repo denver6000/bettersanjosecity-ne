@@ -13,7 +13,7 @@ import {
   type StationReading,
 } from '@/lib/station';
 
-const CACHE_KEY = 'lgu_weather_cache';
+const CACHE_KEY = 'lgu_weather_cache_v2';
 const CACHE_TTL = 30 * 60 * 1000;
 
 const CODES: Record<number, { condition: string; icon: string }> = {
@@ -366,6 +366,7 @@ export default function WeatherWidget() {
       <Hourly forecast={forecast} />
       {status !== 'loading' && (
         <p className="station-updated">
+          <span className="station-live-dot is-off" aria-hidden="true" />
           {status === 'offline' && r
             ? `Weather station offline since ${timeAgo(r.recorded_at, now)}; showing model estimate (Open-Meteo).`
             : 'Model estimate (Open-Meteo).'}

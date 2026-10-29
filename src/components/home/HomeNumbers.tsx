@@ -4,10 +4,10 @@ import ComingSoon from '@/components/ComingSoon';
 
 // TODO(data): fill from src/data/demographics.json once official figures arrive.
 const NUMBERS = [
-  { href: '/statistics', icon: 'ph-users-three', label: 'Population' },
-  { href: '/government', icon: 'ph-map-trifold', label: 'Barangays' },
-  { href: '/budget', icon: 'ph-chart-line-up', label: 'Income class' },
-  { href: '/statistics', icon: 'ph-ruler', label: 'Land area' },
+  { href: '/statistics', icon: 'ph-users-three', k: 'home-num-population', label: 'Population' },
+  { href: '/government', icon: 'ph-map-trifold', k: 'home-num-barangays', label: 'Barangays' },
+  { href: '/budget', icon: 'ph-chart-line-up', k: 'home-num-income-class', label: 'Income class' },
+  { href: '/statistics', icon: 'ph-ruler', k: 'home-num-land-area', label: 'Land area' },
 ];
 
 export default function HomeNumbers() {
@@ -27,8 +27,12 @@ export default function HomeNumbers() {
           {NUMBERS.map((n) => (
             <Link href={n.href} className="home-card" key={n.label}>
               <i className={`ph-duotone ${n.icon}`} aria-hidden="true" />
-              <span className="home-number-value">&mdash;</span>
-              <b>{n.label}</b>
+              <span className="home-number-value" aria-hidden="true">
+                &mdash;
+              </span>
+              <b>
+                <T k={n.k}>{n.label}</T>
+              </b>
               <ComingSoon />
             </Link>
           ))}

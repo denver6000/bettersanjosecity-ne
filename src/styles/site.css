@@ -108,10 +108,6 @@
   color: var(--color-text-light);
 }
 
-.stat-pending {
-  color: var(--color-text-light);
-}
-
 .pending-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -160,56 +156,12 @@
   color: var(--color-text-light);
 }
 
-/* ===== Live weather station (KloudTrack) ===== */
-@media (min-width: 992px) {
-  .weather-map-grid {
-    grid-template-columns: 400px minmax(0, 1fr);
-  }
-
-  /* Let the map fill the (taller) station card's height */
-  .weather-map-section .map-card {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-  }
-
-  .weather-map-section #map-container,
-  .weather-map-section #map-container.leaflet-container {
-    flex: 1;
-    height: auto !important;
-    min-height: 360px;
-  }
-}
-
 .station-header {
   display: flex;
   align-items: center;
   gap: 10px;
   margin-bottom: var(--spacing-sm);
   min-width: 0;
-}
-
-.station-live {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  flex-shrink: 0;
-  padding: 3px 10px;
-  border-radius: 999px;
-  background: rgba(6, 167, 125, 0.12);
-  color: #04785a;
-  font-size: 0.6875rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-}
-
-.station-live-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--color-success);
-  animation: station-pulse 2s ease-in-out infinite;
 }
 
 @keyframes station-pulse {
@@ -219,12 +171,6 @@
   }
   50% {
     box-shadow: 0 0 0 5px rgba(6, 167, 125, 0);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .station-live-dot {
-    animation: none;
   }
 }
 
@@ -332,11 +278,6 @@
   color: var(--color-text-light);
 }
 
-.station-widget .weather-hourly {
-  margin-top: 6px;
-  padding-top: 0;
-}
-
 .station-updated {
   margin: var(--spacing-sm) 0 0;
   font-size: 0.6875rem;
@@ -440,13 +381,6 @@
   color: var(--color-white);
   font: 700 0.6875rem/1.2 var(--font-main);
   white-space: nowrap;
-}
-
-/* Section header subtitle and map legend */
-.station-section-header p {
-  margin: 4px 0 0;
-  font-size: 0.875rem;
-  color: var(--color-text-light);
 }
 
 .station-map-legend {
