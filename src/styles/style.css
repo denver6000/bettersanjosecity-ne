@@ -799,17 +799,25 @@ body.mobile-menu-open {
 
 .skip-link {
   position: absolute;
-  top: -40px;
+  top: 0;
   left: 0;
-  background: #ff0000;
-  color: white;
-  padding: 8px;
+  /* -100% of its own height plus a margin for the focus outline: nothing shows until focused */
+  transform: translateY(calc(-100% - 8px));
+  background: var(--color-navy-dark);
+  color: var(--color-white);
+  padding: 8px 16px;
   z-index: 1001;
-  transition: top 0.2s;
+  transition: transform 0.2s;
 }
 
-.skip-link:focus {
-  top: 0;
+.skip-link:focus,
+.skip-link:focus-visible {
+  transform: none;
+  background-color: var(--color-navy-dark);
+  border-radius: 0;
+  outline: 2px solid var(--color-white);
+  outline-offset: -4px;
+  text-decoration: none;
 }
 
 /* SW Update Banner */
