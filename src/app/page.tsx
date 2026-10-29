@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { T } from '@/i18n/LanguageContext';
 import { SERVICE_CATEGORIES, SITE } from '@/config/site';
-import ServiceSearch from '@/components/ServiceSearch';
+import HomeHero from '@/components/home/HomeHero';
 import WeatherWidget from '@/components/WeatherWidget';
 import CityMap from '@/components/CityMap';
 import StationDetails from '@/components/StationDetails';
@@ -34,36 +34,7 @@ function SectionLink({ href, k, children }: { href: string; k: string; children:
 export default function HomePage() {
   return (
     <>
-      {/* Hero */}
-      <section className="home-hero-v2">
-        <div className="container">
-          <div className="home-hero-v2-inner">
-            <div className="home-hero-v2-text">
-              <h1>
-                <T k="hero-welcome">Welcome to Better San Jose</T>
-              </h1>
-              <p>
-                <T k="hero-subtitle">
-                  Access government services, information, and resources for the people of San Jose
-                  City, Nueva Ecija.
-                </T>
-              </p>
-              <div className="home-hero-v2-actions">
-                <Link href="/services" className="btn btn-primary">
-                  <i className="ph ph-arrow-right" />{' '}
-                  <T k="home-browse-services">Browse Services</T>
-                </Link>
-                <Link href="/contact" className="btn btn-outline">
-                  <T k="home-contact-us">Contact Us</T>
-                </Link>
-              </div>
-            </div>
-            <div className="home-hero-v2-search">
-              <ServiceSearch />
-            </div>
-          </div>
-        </div>
-      </section>
+      <HomeHero />
 
       {/* Quick Access Services */}
       <section className="section">

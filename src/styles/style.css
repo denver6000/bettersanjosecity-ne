@@ -5580,96 +5580,6 @@ cklist with Icons - Proper Indentation */
    Homepage Styles - Minimal & Professional
    ============================================ */
 
-/* Home Hero Section */
-.home-hero {
-  background: var(--color-primary);
-  padding: 80px 0;
-  color: white;
-}
-
-.home-hero-content {
-  max-width: 700px;
-  margin: 0 auto;
-  text-align: center;
-}
-
-.home-hero-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: rgba(255, 255, 255, 0.15);
-  color: white;
-  padding: 8px 16px;
-  border-radius: 50px;
-  font-size: 0.875rem;
-  font-weight: 500;
-  margin-bottom: var(--spacing-md);
-}
-
-.home-hero h1 {
-  color: white;
-  font-size: 2.75rem;
-  margin-bottom: var(--spacing-sm);
-  line-height: 1.2;
-}
-
-.home-hero-desc {
-  color: rgba(255, 255, 255, 0.9);
-  font-size: 1.125rem;
-  margin-bottom: var(--spacing-lg);
-}
-
-.home-hero-search {
-  max-width: 500px;
-  margin: 0 auto var(--spacing-lg);
-}
-
-.home-hero-search .search-input-wrapper {
-  position: relative;
-}
-
-.home-hero-search .search-icon {
-  position: absolute;
-  left: 18px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: var(--color-text-light);
-  font-size: 1.125rem;
-}
-
-.home-hero-search .service-search-input {
-  width: 100%;
-  padding: 16px 20px 16px 50px;
-  border: none;
-  border-radius: 50px;
-  font-size: 1rem;
-  font-family: var(--font-main);
-  background: white;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-}
-
-.home-hero-search .service-search-input:focus {
-  outline: none;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
-}
-
-.home-hero-actions {
-  display: flex;
-  gap: var(--spacing-sm);
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.home-hero-actions .btn-secondary {
-  background: transparent;
-  border-color: white;
-  color: white;
-}
-
-.home-hero-actions .btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.1);
-}
-
 /* Home Section Header */
 .home-section-header {
   display: flex;
@@ -6397,14 +6307,6 @@ cklist with Icons - Proper Indentation */
 }
 
 @media (max-width: 768px) {
-  .home-hero {
-    padding: 60px 0;
-  }
-
-  .home-hero h1 {
-    font-size: 2rem;
-  }
-
   .home-services-grid {
     grid-template-columns: 1fr;
   }
@@ -6447,58 +6349,6 @@ cklist with Icons - Proper Indentation */
 /* ============================================
    Homepage V2 - Hero & Contact Revamp
    ============================================ */
-
-/* Hero V2 - Two Column Layout */
-.home-hero-v2 {
-  background: var(--color-primary);
-  padding: 120px 0;
-}
-
-.home-hero-v2-inner {
-  display: grid;
-  /* minmax(0, 1fr) keeps each column tied to the container rather than to its
-     content's min-content width — the same floor that broke the mobile layout,
-     and a live risk here too since Filipino and Ilocano strings run longer. */
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: var(--spacing-xl);
-  align-items: center;
-}
-
-.home-hero-v2-text h1 {
-  font-size: 2.5rem;
-  color: white;
-  margin-bottom: var(--spacing-sm);
-  line-height: 1.2;
-}
-
-.home-hero-v2-text p {
-  font-size: 1.125rem;
-  color: rgba(255, 255, 255, 0.9);
-  margin-bottom: var(--spacing-lg);
-  line-height: 1.6;
-}
-
-.home-hero-v2-actions {
-  display: flex;
-  gap: var(--spacing-sm);
-  flex-wrap: wrap;
-}
-
-.home-hero-v2-actions .btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.home-hero-v2-actions .btn-primary {
-  background: white;
-  color: var(--color-primary);
-}
-
-.home-hero-v2-actions .btn-primary:hover {
-  background: var(--color-bg-alt);
-  color: var(--color-primary);
-}
 
 .btn-outline {
   background: transparent;
@@ -7244,38 +7094,12 @@ cklist with Icons - Proper Indentation */
 
 /* Hero V2 Responsive */
 @media (max-width: 992px) {
-  .home-hero-v2-inner {
-    /* minmax(0, …) rather than a bare 1fr: a 1fr track is minmax(auto, 1fr),
-       whose auto floor is the content's min-content width. On a 320px phone the
-       hero's min-content came to 329px, so the track refused to shrink and
-       pushed the whole page 17px wider than the screen. A 0 floor lets the
-       track follow the container instead of the content. */
-    grid-template-columns: minmax(0, 1fr);
-    gap: var(--spacing-lg);
-  }
-
-  .home-hero-v2-text {
-    text-align: center;
-  }
-
-  .home-hero-v2-actions {
-    justify-content: center;
-  }
-
   .home-contact-v2-grid {
     grid-template-columns: 1fr;
   }
 }
 
 @media (max-width: 768px) {
-  .home-hero-v2-text h1 {
-    font-size: 2rem;
-  }
-
-  .home-hero-v2-text p {
-    font-size: 1rem;
-  }
-
   .home-search-box {
     padding: var(--spacing-md);
   }

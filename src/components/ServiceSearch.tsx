@@ -46,18 +46,15 @@ export default function ServiceSearch() {
 
   return (
     <div className="home-search-box" ref={wrapperRef}>
-      <h2>
-        <i className="ph ph-magnifying-glass" />{' '}
-        <span>{t('home-find-a-service', 'Find a Service')}</span>
-      </h2>
       <form className="search-form" role="search" onSubmit={onSubmit}>
         <div className="search-input-wrapper">
+          <i className="ph ph-magnifying-glass" aria-hidden="true" />
           <input
             type="search"
             id="hero-search"
             className="service-search-input"
             placeholder={t('home-search-placeholder', 'e.g., birth certificate, business permit')}
-            aria-label="Search services"
+            aria-label={t('home-find-a-service', 'Find a Service')}
             autoComplete="off"
             value={query}
             onChange={(e) => {
@@ -65,8 +62,8 @@ export default function ServiceSearch() {
               setOpen(true);
             }}
           />
-          <button type="submit" className="search-submit-btn" aria-label="Search">
-            <i className="ph ph-arrow-right" />
+          <button type="submit" className="search-submit-btn">
+            {t('hero-search-btn', 'Search')}
           </button>
         </div>
       </form>
