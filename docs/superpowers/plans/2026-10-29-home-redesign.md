@@ -5,6 +5,7 @@
 **Goal:** Re-skin the whole site in the logo's colors with serif headings and Phosphor icons, and rebuild the home page to match the approved mockup v2.
 
 **Architecture:**
+
 - **Theme:** change the shared tokens on `:root` in `src/styles/style.css`, so every page picks up the new colors.
 - **Icons:** replace Bootstrap Icons with the self-hosted `@phosphor-icons/web` icon-font classes, so icon names stored as strings in data keep working with a rename.
 - **Home page:** split into focused components under `src/components/home/`, with one stylesheet, `src/styles/home.css`.
@@ -48,11 +49,13 @@
 ### Task 1: Theme tokens, Fraunces and the Phosphor package
 
 **Files:**
+
 - Modify: `package.json` (add the dependency `@phosphor-icons/web` at exactly `2.1.1`)
 - Modify: `src/app/layout.tsx` (load Fraunces with `next/font/google`, import the Phosphor weights, update `msapplication-TileColor`)
 - Modify: `src/styles/style.css:2-27` (`:root` tokens)
 
 **Interfaces:**
+
 - **Produces CSS custom properties**, used by every later task:
   - Colors: `--color-navy`, `--color-navy-dark`, `--color-navy-tint`, `--color-gold`, `--color-gold-text` (`#b88200`), `--color-live`, `--color-cream`, `--color-line`, `--color-ink`, `--color-mute`
   - Font: `--font-display`, set by `next/font` on `<html>`
@@ -79,12 +82,14 @@
 ### Task 2: Replace every Bootstrap Icon with Phosphor
 
 **Files:**
+
 - Create: `scripts/check-icons.mjs`
 - Modify: `package.json` (change the `check` script to run `node scripts/check-icons.mjs` before the build)
 - Modify: every file that `grep -rl "bi-" src` lists (31 files, including data strings in `src/config/site.ts`), plus the CSS selectors `.bi` and `.bi-*` in `src/styles/footer.css:221-222`, `scholarship.css:177-226` and `taxes.css:118,882`
 - Modify: `src/app/layout.tsx` (remove the Bootstrap Icons `<link>`)
 
 **Interfaces:**
+
 - **Consumes:** the classes from Task 1.
 - **Produces:** icon strings stored in data (`SERVICE_CATEGORIES[].icon`, `SITE.hotlines[].icon`, the `DataPending` `icon` prop) become bare Phosphor names such as `'ph-storefront'`. Components add the weight class when they render, for example `className={\`ph-duotone ${c.icon}\`}`.
 - **Produces `scripts/check-icons.mjs`:**
@@ -96,43 +101,44 @@
 - [ ] **Step 1:** Write `scripts/check-icons.mjs` as described. Run `node scripts/check-icons.mjs`. Expected: FAIL, listing the remaining `bi-` usages.
 - [ ] **Step 2:** Replace icons using this mapping. Weight rule: chrome gets `ph`, feature icons get `ph-duotone`. A Bootstrap `-fill` variant does not force `ph-fill`; use `ph-fill` only for small solid status marks (`check-circle`, `warning`).
 
-| Bootstrap | Phosphor | Bootstrap | Phosphor |
-|---|---|---|---|
-| arrow-return-right | arrow-bend-down-right | file-earmark-text(-fill) | file-text |
-| arrow-right | arrow-right | file-earmark-check-fill | seal-check |
-| award-fill | medal | file-earmark-lock | file-lock |
-| bank2 | bank | file-earmark-ruled-fill | file-text |
-| bar-chart-fill | chart-bar | flower1 | plant |
-| boxes | package | geo-alt(-fill) | map-pin |
-| brightness-high, sun(-fill) | sun | github | github-logo |
-| broadcast | broadcast | graph-up-arrow | chart-line-up |
-| building-fill | buildings | grid-fill | squares-four |
-| calculator | calculator | heart-pulse-fill | heartbeat |
-| calendar3 | calendar-blank | hourglass-split | hourglass |
-| cash-coin | coins | info-circle | info |
-| cash-stack | money | journal-bookmark-fill | bookmark-simple |
-| check-circle-fill | check-circle | journal-text | notebook |
-| check-lg | check | list | list |
-| clock | clock | mortarboard-fill | graduation-cap |
-| cloud-drizzle(-fill), cloud-rain(-fill), cloud-rain-heavy-fill | cloud-rain | newspaper | newspaper |
-| cloud-fog-fill | cloud-fog | people-fill | users-three |
-| cloud-lightning-rain-fill | cloud-lightning | person-badge-fill | identification-badge |
-| cloud-sun-fill | cloud-sun | pie-chart-fill | chart-pie |
-| clouds-fill | cloud | pin-map-fill | map-pin-area |
-| cone-striped | traffic-cone | question-circle-fill | question |
-| currency-exchange | currency-circle-dollar | rulers | ruler |
-| diagram-2-fill, diagram-3-fill | tree-structure | search | magnifying-glass |
-| download | download-simple | shield-fill-check | shield-check |
-| droplet | drop | shield-lock-fill | lock |
-| envelope-fill, envelope-heart | envelope-simple | shop | storefront |
-| exclamation-triangle-fill | warning | speedometer2 | gauge |
-| table | table | telephone-fill | phone |
-| thermometer-half | thermometer | thermometer-sun | thermometer-hot |
-| tree-fill | tree | universal-access(-circle) | wheelchair |
-| wallet2 | wallet | wind | wind |
-| x-lg | x | | |
+| Bootstrap                                                      | Phosphor               | Bootstrap                 | Phosphor             |
+| -------------------------------------------------------------- | ---------------------- | ------------------------- | -------------------- |
+| arrow-return-right                                             | arrow-bend-down-right  | file-earmark-text(-fill)  | file-text            |
+| arrow-right                                                    | arrow-right            | file-earmark-check-fill   | seal-check           |
+| award-fill                                                     | medal                  | file-earmark-lock         | file-lock            |
+| bank2                                                          | bank                   | file-earmark-ruled-fill   | file-text            |
+| bar-chart-fill                                                 | chart-bar              | flower1                   | plant                |
+| boxes                                                          | package                | geo-alt(-fill)            | map-pin              |
+| brightness-high, sun(-fill)                                    | sun                    | github                    | github-logo          |
+| broadcast                                                      | broadcast              | graph-up-arrow            | chart-line-up        |
+| building-fill                                                  | buildings              | grid-fill                 | squares-four         |
+| calculator                                                     | calculator             | heart-pulse-fill          | heartbeat            |
+| calendar3                                                      | calendar-blank         | hourglass-split           | hourglass            |
+| cash-coin                                                      | coins                  | info-circle               | info                 |
+| cash-stack                                                     | money                  | journal-bookmark-fill     | bookmark-simple      |
+| check-circle-fill                                              | check-circle           | journal-text              | notebook             |
+| check-lg                                                       | check                  | list                      | list                 |
+| clock                                                          | clock                  | mortarboard-fill          | graduation-cap       |
+| cloud-drizzle(-fill), cloud-rain(-fill), cloud-rain-heavy-fill | cloud-rain             | newspaper                 | newspaper            |
+| cloud-fog-fill                                                 | cloud-fog              | people-fill               | users-three          |
+| cloud-lightning-rain-fill                                      | cloud-lightning        | person-badge-fill         | identification-badge |
+| cloud-sun-fill                                                 | cloud-sun              | pie-chart-fill            | chart-pie            |
+| clouds-fill                                                    | cloud                  | pin-map-fill              | map-pin-area         |
+| cone-striped                                                   | traffic-cone           | question-circle-fill      | question             |
+| currency-exchange                                              | currency-circle-dollar | rulers                    | ruler                |
+| diagram-2-fill, diagram-3-fill                                 | tree-structure         | search                    | magnifying-glass     |
+| download                                                       | download-simple        | shield-fill-check         | shield-check         |
+| droplet                                                        | drop                   | shield-lock-fill          | lock                 |
+| envelope-fill, envelope-heart                                  | envelope-simple        | shop                      | storefront           |
+| exclamation-triangle-fill                                      | warning                | speedometer2              | gauge                |
+| table                                                          | table                  | telephone-fill            | phone                |
+| thermometer-half                                               | thermometer            | thermometer-sun           | thermometer-hot      |
+| tree-fill                                                      | tree                   | universal-access(-circle) | wheelchair           |
+| wallet2                                                        | wallet                 | wind                      | wind                 |
+| x-lg                                                           | x                      |                           |                      |
 
-  If a name is missing from the font, the check in Step 4 says so. Pick the nearest glyph from the Phosphor catalog and record the substitution in the commit message.
+If a name is missing from the font, the check in Step 4 says so. Pick the nearest glyph from the Phosphor catalog and record the substitution in the commit message.
+
 - [ ] **Step 3:** Remove the Bootstrap Icons `<link>` from `layout.tsx`. Rename the `.bi` CSS selectors to `.ph`, or to the specific `.ph-*` class.
 - [ ] **Step 4:** Run `node scripts/check-icons.mjs`. Expected: PASS (exit 0).
 - [ ] **Step 5:** Run `npm run check`. Expected: exit 0.
@@ -142,6 +148,7 @@
 ### Task 3: Top strip, header and footer (shared layout)
 
 **Files:**
+
 - Create: `src/components/layout/TopStrip.tsx`
 - Create: `scripts/check-i18n.mjs`, and add it to the `check` script
 - Delete: `src/components/layout/HotlineBar.tsx`, `src/components/layout/InfoBar.tsx`, and their CSS rules in `src/styles/style.css` (the hotline and info bar selectors, about 26 lines)
@@ -150,6 +157,7 @@
 - Modify: `src/i18n/translations.ts`
 
 **Interfaces:**
+
 - **Produces `TopStrip()`.** It is a server component with no props and renders `<div className="top-strip">` containing three items:
   - the location `SITE.lgu.name, SITE.lgu.province` with `ph-fill ph-map-pin`
   - each `SITE.hotlines` entry as a `tel:` link with `ph-fill ph-phone`
@@ -178,11 +186,13 @@
 ### Task 4: `ComingSoon` pill and home stylesheet scaffold
 
 **Files:**
+
 - Create: `src/components/ComingSoon.tsx`
 - Create: `src/styles/home.css` (imported by `src/app/page.tsx`, replacing nothing yet)
 - Modify: `src/i18n/translations.ts`
 
 **Interfaces:**
+
 - **Produces `ComingSoon()`.** It takes no props and renders `<span className="coming-soon"><T k="coming-soon">Coming soon</T></span>`.
   - Style: neutral pill with `#f0eee8` background, mute text, 11px, weight 600, `2px 9px` padding, 99px radius.
 - **Produces shared home classes in `home.css`:**
@@ -199,11 +209,13 @@
 ### Task 5: Home hero
 
 **Files:**
+
 - Create: `public/assets/images/hero/san-jose-rice-fields.jpg`. Download Commons `File:FvfSanJoseCity0771 01.JPG`, resize to 1600px wide as a JPEG at quality 80, target under 350 KB.
 - Create: `src/components/home/HomeHero.tsx`
 - Modify: `src/styles/home.css`, `src/app/page.tsx`, `src/i18n/translations.ts`
 
 **Interfaces:**
+
 - **Consumes:** `ServiceSearch` (default export, no props), restyled inside `.home-hero`.
 - **Produces `HomeHero()`.** It takes no props and renders `<section className="home-hero">` with these parts:
   - **Text column:**
@@ -218,15 +230,16 @@
   - **Credit pill:** `<T k="hero-photo-credit">`.
 - **Translation keys:**
 
-| key | EN | FIL draft |
-|---|---|---|
-| hero-line-1 | Your city. | Ang iyong lungsod. |
-| hero-line-2 | Your services. | Ang iyong mga serbisyo. |
-| hero-line-3 | Made simpler. | Mas pinadali. |
-| hero-lede | City services, permits and public information for San Jose, in one place. | Mga serbisyo ng lungsod, permit at pampublikong impormasyon para sa San Jose, sa iisang lugar. |
-| hero-photo-credit | Photo: Judgefloro (public domain) | Larawan: Judgefloro (public domain) |
+| key               | EN                                                                        | FIL draft                                                                                      |
+| ----------------- | ------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| hero-line-1       | Your city.                                                                | Ang iyong lungsod.                                                                             |
+| hero-line-2       | Your services.                                                            | Ang iyong mga serbisyo.                                                                        |
+| hero-line-3       | Made simpler.                                                             | Mas pinadali.                                                                                  |
+| hero-lede         | City services, permits and public information for San Jose, in one place. | Mga serbisyo ng lungsod, permit at pampublikong impormasyon para sa San Jose, sa iisang lugar. |
+| hero-photo-credit | Photo: Judgefloro (public domain)                                         | Larawan: Judgefloro (public domain)                                                            |
 
-  Remove the now-unused keys `hero-welcome`, `hero-subtitle`, `home-browse-services` and `home-contact-us` from both languages, once nothing references them.
+Remove the now-unused keys `hero-welcome`, `hero-subtitle`, `home-browse-services` and `home-contact-us` from both languages, once nothing references them.
+
 - **Layout:**
   - Desktop: 46% / 54% grid, minimum height 500px, h1 64px.
   - Below 900px: one column, with the photo first at 260px tall, the clip path replaced by a 24px top-rounded rectangle, the overlay SVG hidden, and h1 at 40px.
@@ -244,10 +257,12 @@
 ### Task 6: Home services, scholarship band, numbers
 
 **Files:**
+
 - Create: `src/components/home/HomeServices.tsx`, `src/components/home/HomeScholar.tsx`, `src/components/home/HomeNumbers.tsx`
 - Modify: `src/app/page.tsx`, `src/styles/home.css`, `src/styles/scholarship.css` (only rules scoped to `.home-scholar`), `src/i18n/translations.ts`
 
 **Interfaces:**
+
 - **Consumes:** `SERVICE_CATEGORIES`; `ScholarLookup({ heading?: boolean })`; `ComingSoon` (Task 4); `.home-sec`, `.home-sec-head`, `.home-more`, `.home-card` (Task 4).
 - **Produces `HomeServices()`:**
   - Exactly these six, in this order, matched by `name`: Certificates, Business, Tax Estimator, Social Services, Health, Agriculture.
@@ -266,15 +281,15 @@
   - Head: `home-numbers-title`, with a `Statistics` link (`home-statistics-link`).
 - **Translation keys:**
 
-| key | EN | FIL draft |
-|---|---|---|
-| home-popular-services | Popular services | Mga madalas na serbisyo |
-| home-all-services | All services | Lahat ng serbisyo |
-| home-scholar-title | Check your scholarship | Tingnan ang iyong scholarship |
-| home-scholar-lede | City scholars: see your payout status and missing requirements. | Para sa city scholars: tingnan ang status ng payout at kulang na requirements. |
-| home-scholar-details | Program details | Detalye ng programa |
-| home-numbers-title | San Jose in numbers | Ang San Jose sa mga numero |
-| home-statistics-link | Statistics | Estadistika |
+| key                   | EN                                                              | FIL draft                                                                      |
+| --------------------- | --------------------------------------------------------------- | ------------------------------------------------------------------------------ |
+| home-popular-services | Popular services                                                | Mga madalas na serbisyo                                                        |
+| home-all-services     | All services                                                    | Lahat ng serbisyo                                                              |
+| home-scholar-title    | Check your scholarship                                          | Tingnan ang iyong scholarship                                                  |
+| home-scholar-lede     | City scholars: see your payout status and missing requirements. | Para sa city scholars: tingnan ang status ng payout at kulang na requirements. |
+| home-scholar-details  | Program details                                                 | Detalye ng programa                                                            |
+| home-numbers-title    | San Jose in numbers                                             | Ang San Jose sa mga numero                                                     |
+| home-statistics-link  | Statistics                                                      | Estadistika                                                                    |
 
 - [ ] **Step 1:** Build the three components and replace the matching old sections in `page.tsx`: Popular Services, Scholar lookup, and At a Glance.
 - [ ] **Step 2:** Run `npm run check` and `node scripts/check-i18n.mjs`. Expected: both exit 0.
@@ -288,11 +303,13 @@
 ### Task 7: Home weather, news, leadership and contact; remove old home CSS
 
 **Files:**
+
 - Create: `src/components/home/HomeWeather.tsx`, `src/components/home/HomeNews.tsx`, `src/components/home/HomeLeadershipContact.tsx`
 - Modify: `src/app/page.tsx` (it becomes only `<HomeHero/>` through `<HomeLeadershipContact/>`), `src/components/WeatherWidget.tsx` (markup and classes only; data logic unchanged), `src/components/NewsList.tsx` (`HomeNews` markup only), `src/styles/home.css`, `src/i18n/translations.ts`
 - Delete: the old home rules in `src/styles/style.css` and `src/styles/site.css`. That means the `home-hero-v2`, `home-services-grid`, `home-service-*`, `home-stats-v2*`, `home-stat-card*`, `home-leader*`, `home-contact-v2*`, `home-section-*` and `weather-map-*` selectors, about 100 rules. Delete only the ones that a grep shows are unused after this task.
 
 **Interfaces:**
+
 - **Consumes:** `WeatherWidget()`, `CityMap()` and `StationDetails()` (default exports, no props; their data hooks are unchanged); `HomeNews` from `NewsList.tsx`; `ComingSoon`; `SITE.lgu`.
 - **Produces `HomeWeather()`:**
   - Head: `home-weather-title` "Weather right now", with no subtitle.
@@ -312,15 +329,15 @@
     - Address row with `ph-duotone ph-buildings`, `SITE.lgu.seatOfGovernment`, and the value `${SITE.lgu.name}, ${SITE.lgu.province} ${SITE.lgu.postalCode}`.
 - **Translation keys:**
 
-| key | EN | FIL draft |
-|---|---|---|
-| home-weather-title | Weather right now | Lagay ng panahon ngayon |
-| home-news-title | Latest news | Pinakabagong balita |
-| home-leadership-title | City leadership | Pamunuan ng lungsod |
-| home-contact-title | Contact City Hall | Makipag-ugnayan sa City Hall |
-| home-directory-link | Directory | Direktoryo |
+| key                   | EN                | FIL draft                    |
+| --------------------- | ----------------- | ---------------------------- |
+| home-weather-title    | Weather right now | Lagay ng panahon ngayon      |
+| home-news-title       | Latest news       | Pinakabagong balita          |
+| home-leadership-title | City leadership   | Pamunuan ng lungsod          |
+| home-contact-title    | Contact City Hall | Makipag-ugnayan sa City Hall |
+| home-directory-link   | Directory         | Direktoryo                   |
 
-  The existing keys `home-view-all` and `home-view-all-officials` can be reused for "All news" and "All officials". Delete whichever keys end up unused.
+The existing keys `home-view-all` and `home-view-all-officials` can be reused for "All news" and "All officials". Delete whichever keys end up unused.
 
 - [ ] **Step 1:** Build the three components and the restyles, and finish `page.tsx`.
 - [ ] **Step 2:** Delete the old home CSS selectors once `grep -rn "<selector>" src --include=*.tsx` returns nothing for each one.

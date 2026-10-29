@@ -42,13 +42,13 @@ The approved visual reference is the mockup `page-v2.html` (kept in `.superpower
 
 ### Color roles (sampled from `public/assets/images/logo/`)
 
-| Token | Hex | Role, and its only role |
-|---|---|---|
-| navy | `#0a2f86` (dark `#071f5c`, tint `#eef2fa`) | Structure: headings, header text, the top strip, the footer, the one dark band (scholarship), icons |
-| gold | `#f2b100` | Action: primary buttons (Search, Check) and the single headline accent "Made simpler." |
-| green | `#16722b` | Status: the "Live" indicator only |
-| cream | `#faf7f0` | Page background; cards are white with a `#e7e3d8` border |
-| ink / mute | `#141b2d` / `#636b7d` | Body text / secondary text |
+| Token      | Hex                                        | Role, and its only role                                                                             |
+| ---------- | ------------------------------------------ | --------------------------------------------------------------------------------------------------- |
+| navy       | `#0a2f86` (dark `#071f5c`, tint `#eef2fa`) | Structure: headings, header text, the top strip, the footer, the one dark band (scholarship), icons |
+| gold       | `#f2b100`                                  | Action: primary buttons (Search, Check) and the single headline accent "Made simpler."              |
+| green      | `#16722b`                                  | Status: the "Live" indicator only                                                                   |
+| cream      | `#faf7f0`                                  | Page background; cards are white with a `#e7e3d8` border                                            |
+| ink / mute | `#141b2d` / `#636b7d`                      | Body text / secondary text                                                                          |
 
 The existing `--color-*` tokens are remapped to these values. Old orange accent uses become gold only where they mark an action; otherwise they become navy.
 

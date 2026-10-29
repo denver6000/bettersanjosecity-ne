@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import type { ReactNode } from 'react';
+import { Fraunces } from 'next/font/google';
 import HotlineBar from '@/components/layout/HotlineBar';
 import Header from '@/components/layout/Header';
 import InfoBar from '@/components/layout/InfoBar';
@@ -9,6 +10,10 @@ import { LanguageProvider, T } from '@/i18n/LanguageContext';
 import { SITE } from '@/config/site';
 
 // BetterSolano design system (order matters), then San Jose additions.
+import '@phosphor-icons/web/regular';
+import '@phosphor-icons/web/duotone';
+import '@phosphor-icons/web/bold';
+import '@phosphor-icons/web/fill';
 import '@/styles/style.css';
 import '@/styles/responsive.css';
 import '@/styles/accessibility.css';
@@ -16,8 +21,15 @@ import '@/styles/footer.css';
 import '@/styles/legal.css';
 import '@/styles/site.css';
 
+const fraunces = Fraunces({
+  subsets: ['latin'],
+  weight: ['600', '700'],
+  variable: '--font-display',
+  display: 'swap',
+});
+
 export const viewport: Viewport = {
-  themeColor: '#0032a0',
+  themeColor: '#0a2f86',
 };
 
 export const metadata: Metadata = {
@@ -57,13 +69,13 @@ export const metadata: Metadata = {
   other: {
     'geo.region': 'PH-NUE',
     'geo.placename': `${SITE.lgu.name}, ${SITE.lgu.province}`,
-    'msapplication-TileColor': '#0032a0',
+    'msapplication-TileColor': '#0a2f86',
   },
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" className={fraunces.variable}>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />

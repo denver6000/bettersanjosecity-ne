@@ -1,16 +1,26 @@
 /* Better San Jose - Complete Main Stylesheet */
 :root {
-  --color-primary: #0032a0;
-  --color-primary-dark: #002170;
-  --color-secondary: #003d82;
-  --color-accent: #f77f00;
+  --color-navy: #0a2f86;
+  --color-navy-dark: #071f5c;
+  --color-navy-tint: #eef2fa;
+  --color-gold: #f2b100;
+  --color-gold-text: #b88200;
+  --color-live: #16722b;
+  --color-cream: #faf7f0;
+  --color-line: #e7e3d8;
+  --color-ink: #141b2d;
+  --color-mute: #636b7d;
+  --color-primary: var(--color-navy);
+  --color-primary-dark: var(--color-navy-dark);
+  --color-secondary: var(--color-navy-dark);
+  --color-accent: var(--color-gold);
   --color-success: #06a77d;
   --color-danger: #d62828;
   --color-info: #0077be;
   --color-bg: #ffffff;
-  --color-bg-alt: #f8f9fa;
-  --color-text: #1a1a1a;
-  --color-text-light: #666666;
+  --color-bg-alt: var(--color-cream);
+  --color-text: var(--color-ink);
+  --color-text-light: var(--color-mute);
   --color-white: #ffffff;
   --font-main: 'Inter', sans-serif;
   --line-height-body: 1.6;
@@ -35,7 +45,7 @@
 body {
   font-family: var(--font-main);
   color: var(--color-text);
-  background-color: var(--color-bg);
+  background: var(--color-cream);
   line-height: var(--line-height-body);
   -webkit-font-smoothing: antialiased;
 }
@@ -71,6 +81,7 @@ h6 {
   line-height: var(--line-height-heading);
   margin-bottom: var(--spacing-sm);
   color: var(--color-primary);
+  font-family: var(--font-display), Georgia, serif;
 }
 
 h1 {
@@ -416,7 +427,6 @@ body.mobile-menu-open {
   color: var(--color-white);
   padding: 96px 0;
   text-align: center;
-  background-image: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
 }
 
 .hero-title {
@@ -932,7 +942,7 @@ body.mobile-menu-open {
 
 /* Hotline Bar */
 .hotline-bar {
-  background: linear-gradient(135deg, #ff0000 0%, #cc0000 100%);
+  background: #ff0000;
   color: var(--color-white);
   padding: 8px 0;
   font-size: 0.8125rem;
@@ -1345,7 +1355,7 @@ body.mobile-menu-open {
 }
 
 .executive-card-header {
-  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  background: var(--color-primary);
   padding: var(--spacing-md) var(--spacing-lg);
   text-align: center;
 }
@@ -1406,7 +1416,7 @@ body.mobile-menu-open {
 
 /* Page Header - Services & Other Pages */
 .page-header {
-  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  background: var(--color-primary);
   padding: var(--spacing-xl) 0;
   color: white;
 }
@@ -1530,7 +1540,7 @@ body.mobile-menu-open {
   align-items: center;
   justify-content: center;
   width: 56px;
-  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  background: var(--color-primary);
   color: white;
   font-size: 1.25rem;
   flex-shrink: 0;
@@ -1587,7 +1597,7 @@ body.mobile-menu-open {
   align-items: center;
   justify-content: center;
   width: 60px;
-  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  background: var(--color-primary);
   color: white;
   font-size: 1.5rem;
   flex-shrink: 0;
@@ -1638,7 +1648,7 @@ body.mobile-menu-open {
   align-items: center;
   justify-content: center;
   width: 56px;
-  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  background: var(--color-primary);
   color: white;
   font-size: 1.25rem;
   flex-shrink: 0;
@@ -1984,7 +1994,7 @@ body.mobile-menu-open {
 .office-card-icon {
   width: 48px;
   height: 48px;
-  background: linear-gradient(135deg, #e8f0fe 0%, #d4e4fc 100%);
+  background: #e8f0fe;
   border-radius: 12px;
   display: flex;
   align-items: center;
@@ -2138,7 +2148,7 @@ body.mobile-menu-open {
   justify-content: center;
   width: 60px;
   min-height: 100%;
-  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  background: var(--color-primary);
   color: white;
   font-size: 1.5rem;
   flex-shrink: 0;
@@ -2566,7 +2576,7 @@ h6 {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, rgba(6, 167, 125, 0.15) 0%, rgba(6, 167, 125, 0.05) 100%);
+  background: rgba(6, 167, 125, 0.15);
   border: 2px solid var(--color-success);
   color: rgba(255, 255, 255, 0.9);
   padding: var(--spacing-md) var(--spacing-lg);
@@ -3029,7 +3039,7 @@ h6 {
   position: relative;
 }
 
-/* Visual scroll indicator via gradient fade on right edge */
+/* Visual scroll indicator: translucent strip on right edge */
 .table-responsive::after {
   content: '';
   position: absolute;
@@ -3037,7 +3047,7 @@ h6 {
   right: 0;
   bottom: 0;
   width: 30px;
-  background: linear-gradient(to left, rgba(255, 255, 255, 0.9), transparent);
+  background: rgba(255, 255, 255, 0.9);
   pointer-events: none;
   opacity: 0;
   transition: opacity 0.2s ease;
@@ -3383,7 +3393,7 @@ cklist with Icons - Proper Indentation */
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  background: var(--color-primary);
   color: var(--color-white);
   padding: 6px 16px;
   border-radius: 20px;
@@ -3404,7 +3414,7 @@ cklist with Icons - Proper Indentation */
 
 /* Poverty Highlight Card */
 .poverty-highlight-card {
-  background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+  background: #e8f5e9;
   border: 2px solid var(--color-success);
   border-radius: 16px;
   padding: var(--spacing-lg);
@@ -3494,7 +3504,7 @@ cklist with Icons - Proper Indentation */
 
 .poverty-year-improved {
   border-color: var(--color-success);
-  background: linear-gradient(180deg, #ffffff 0%, #f0fdf4 100%);
+  background: #ffffff;
 }
 
 .poverty-year-header {
@@ -3561,13 +3571,13 @@ cklist with Icons - Proper Indentation */
 
 .poverty-rate-fill {
   height: 100%;
-  background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-info) 100%);
+  background: var(--color-primary);
   border-radius: 4px;
   transition: width 1s ease;
 }
 
 .poverty-year-improved .poverty-rate-fill {
-  background: linear-gradient(90deg, var(--color-success) 0%, #34d399 100%);
+  background: var(--color-success);
 }
 
 .poverty-confidence {
@@ -3770,7 +3780,7 @@ cklist with Icons - Proper Indentation */
   align-items: center;
   gap: var(--spacing-sm);
   padding: var(--spacing-md);
-  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  background: var(--color-primary);
   color: var(--color-white);
 }
 
@@ -3898,17 +3908,17 @@ cklist with Icons - Proper Indentation */
 }
 
 .barangay-rank-1 .barangay-rank {
-  background: linear-gradient(135deg, #ffd700 0%, #ffa500 100%);
+  background: #ffd700;
   color: #1a1a1a;
 }
 
 .barangay-rank-2 .barangay-rank {
-  background: linear-gradient(135deg, #c0c0c0 0%, #a0a0a0 100%);
+  background: #c0c0c0;
   color: #1a1a1a;
 }
 
 .barangay-rank-3 .barangay-rank {
-  background: linear-gradient(135deg, #cd7f32 0%, #a0522d 100%);
+  background: #cd7f32;
 }
 
 .barangay-name {
@@ -3929,7 +3939,7 @@ cklist with Icons - Proper Indentation */
 
 .barangay-bar {
   height: 100%;
-  background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-info) 100%);
+  background: var(--color-primary);
   border-radius: 4px;
   transition: width 0.8s ease;
 }
@@ -4062,7 +4072,7 @@ cklist with Icons - Proper Indentation */
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  background: var(--color-primary);
   border-radius: 20px;
   padding: var(--spacing-lg) var(--spacing-xl);
   margin-bottom: var(--spacing-xl);
@@ -4146,7 +4156,7 @@ cklist with Icons - Proper Indentation */
 .hero-badge-icon {
   width: 48px;
   height: 48px;
-  background: linear-gradient(135deg, #ffd700 0%, #ffa500 100%);
+  background: #ffd700;
   border-radius: 12px;
   display: flex;
   align-items: center;
@@ -4205,7 +4215,7 @@ cklist with Icons - Proper Indentation */
   width: 72px;
   height: 72px;
   border-radius: 50%;
-  background: linear-gradient(135deg, rgba(0, 50, 160, 0.1) 0%, rgba(0, 50, 160, 0.05) 100%);
+  background: rgba(0, 50, 160, 0.1);
   border: 3px solid var(--color-primary);
   display: flex;
   flex-direction: column;
@@ -4215,17 +4225,17 @@ cklist with Icons - Proper Indentation */
 
 .demo-stat-ring-accent {
   border-color: var(--color-accent);
-  background: linear-gradient(135deg, rgba(247, 127, 0, 0.1) 0%, rgba(247, 127, 0, 0.05) 100%);
+  background: rgba(247, 127, 0, 0.1);
 }
 
 .demo-stat-ring-info {
   border-color: var(--color-info);
-  background: linear-gradient(135deg, rgba(0, 119, 190, 0.1) 0%, rgba(0, 119, 190, 0.05) 100%);
+  background: rgba(0, 119, 190, 0.1);
 }
 
 .demo-stat-ring-success {
   border-color: var(--color-success);
-  background: linear-gradient(135deg, rgba(6, 167, 125, 0.1) 0%, rgba(6, 167, 125, 0.05) 100%);
+  background: rgba(6, 167, 125, 0.1);
 }
 
 .demo-stat-number {
@@ -4305,7 +4315,7 @@ cklist with Icons - Proper Indentation */
 }
 
 .trend-overview-card-highlight {
-  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  background: var(--color-primary);
   color: var(--color-white);
 }
 
@@ -4466,7 +4476,7 @@ cklist with Icons - Proper Indentation */
 }
 
 .milestone-current {
-  background: linear-gradient(135deg, rgba(0, 50, 160, 0.1) 0%, rgba(0, 50, 160, 0.05) 100%);
+  background: rgba(0, 50, 160, 0.1);
   border: 2px solid var(--color-primary);
 }
 
@@ -4494,7 +4504,7 @@ cklist with Icons - Proper Indentation */
 
 .milestone-bar {
   height: 100%;
-  background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-info) 100%);
+  background: var(--color-primary);
   border-radius: 3px;
   transition: width 0.8s ease;
 }
@@ -4539,7 +4549,7 @@ cklist with Icons - Proper Indentation */
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: linear-gradient(135deg, #ffd700 0%, #ffa500 100%);
+  background: #ffd700;
   border-radius: 20px;
   padding: var(--spacing-lg) var(--spacing-xl);
   margin-bottom: var(--spacing-xl);
@@ -4747,17 +4757,17 @@ cklist with Icons - Proper Indentation */
 
 .economic-bar-business {
   width: 75%;
-  background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-info) 100%);
+  background: var(--color-primary);
 }
 
 .economic-bar-agri {
   width: 85%;
-  background: linear-gradient(90deg, var(--color-success) 0%, #34d399 100%);
+  background: var(--color-success);
 }
 
 .economic-bar-employment {
   width: 94%;
-  background: linear-gradient(90deg, var(--color-info) 0%, #60a5fa 100%);
+  background: var(--color-info);
 }
 
 /* Economic Sectors */
@@ -4959,7 +4969,7 @@ cklist with Icons - Proper Indentation */
 .faq-header-icon {
   width: 56px;
   height: 56px;
-  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  background: var(--color-primary);
   border-radius: 14px;
   display: flex;
   align-items: center;
@@ -5355,7 +5365,7 @@ cklist with Icons - Proper Indentation */
   display: flex;
   align-items: center;
   gap: var(--spacing-lg);
-  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  background: var(--color-primary);
   border-radius: 16px;
   padding: var(--spacing-lg) var(--spacing-xl);
   margin-bottom: var(--spacing-xl);
@@ -5621,7 +5631,7 @@ cklist with Icons - Proper Indentation */
 
 /* Home Hero Section */
 .home-hero {
-  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  background: var(--color-primary);
   padding: 80px 0;
   color: white;
 }
@@ -5814,7 +5824,7 @@ cklist with Icons - Proper Indentation */
 }
 
 .home-service-card--all {
-  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  background: var(--color-primary);
   border-color: transparent;
   color: white;
 }
@@ -5939,7 +5949,7 @@ cklist with Icons - Proper Indentation */
 
 /* Latest Updates — Facebook Feed Widget */
 .home-fb-section {
-  background: linear-gradient(180deg, #f0f4ff 0%, #ffffff 100%);
+  background: #f0f4ff;
 }
 
 .home-fb {
@@ -6084,8 +6094,7 @@ cklist with Icons - Proper Indentation */
   height: 36px;
   border-radius: 50%;
   flex-shrink: 0;
-  background: linear-gradient(90deg, #f0f2f5 25%, #e4e6eb 50%, #f0f2f5 75%);
-  background-size: 200% 100%;
+  background: #f0f2f5;
   animation: skeleton-shimmer 1.4s infinite ease-in-out;
 }
 
@@ -6099,8 +6108,7 @@ cklist with Icons - Proper Indentation */
 .fb-skel-bar {
   height: 10px;
   border-radius: 6px;
-  background: linear-gradient(90deg, #f0f2f5 25%, #e4e6eb 50%, #f0f2f5 75%);
-  background-size: 200% 100%;
+  background: #f0f2f5;
   animation: skeleton-shimmer 1.4s infinite ease-in-out;
 }
 
@@ -6308,7 +6316,7 @@ cklist with Icons - Proper Indentation */
 
 .home-leader-badge {
   display: inline-block;
-  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  background: var(--color-primary);
   color: white;
   font-size: 0.75rem;
   font-weight: 600;
@@ -6344,7 +6352,7 @@ cklist with Icons - Proper Indentation */
 
 /* Home Contact Section */
 .home-contact {
-  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  background: var(--color-primary);
   padding: var(--spacing-xl) 0;
   color: white;
 }
@@ -6491,7 +6499,7 @@ cklist with Icons - Proper Indentation */
 
 /* Hero V2 - Two Column Layout */
 .home-hero-v2 {
-  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  background: var(--color-primary);
   padding: 120px 0;
 }
 
@@ -6561,9 +6569,7 @@ cklist with Icons - Proper Indentation */
 
 /* Appointment CTA Section */
 .appointment-cta-section {
-  background:
-    radial-gradient(circle, rgba(0, 50, 160, 0.12) 1px, transparent 1px), var(--color-bg-alt);
-  background-size: 20px 20px;
+  background: var(--color-bg-alt);
   padding: 80px 0;
 }
 
@@ -6694,13 +6700,7 @@ cklist with Icons - Proper Indentation */
 
 /* Abakada Education CTA */
 .abakada-cta-section {
-  background:
-    linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px), var(--color-bg-alt);
-  background-size:
-    24px 24px,
-    24px 24px,
-    auto;
+  background: var(--color-bg-alt);
 }
 
 .abakada-cta-inner {
@@ -6774,8 +6774,7 @@ cklist with Icons - Proper Indentation */
 
 /* HIV Care Philippines CTA */
 .hivcare-cta-section {
-  background: radial-gradient(circle, rgba(0, 0, 0, 0.035) 1px, transparent 1px) var(--color-bg-alt);
-  background-size: 20px 20px;
+  background: var(--color-bg-alt);
 }
 
 .hivcare-cta-card {
@@ -6944,16 +6943,7 @@ cklist with Icons - Proper Indentation */
 
 /* Quiz CTA */
 .quiz-cta-section {
-  background:
-    radial-gradient(circle, rgba(0, 50, 160, 0.1) 1px, transparent 1px),
-    radial-gradient(circle at 20% 50%, rgba(0, 50, 160, 0.06) 0%, transparent 50%),
-    radial-gradient(circle at 80% 50%, rgba(6, 167, 125, 0.05) 0%, transparent 50%),
-    var(--color-bg-alt);
-  background-size:
-    20px 20px,
-    100% 100%,
-    100% 100%,
-    100% 100%;
+  background: var(--color-bg-alt);
   padding: var(--spacing-xl) 0;
 }
 
@@ -7182,7 +7172,7 @@ cklist with Icons - Proper Indentation */
 .search-submit-btn {
   width: 48px;
   height: 48px;
-  background: linear-gradient(135deg, var(--color-primary) 0%, #0044cc 100%);
+  background: var(--color-primary);
   color: white;
   border: none;
   border-radius: 10px;
@@ -7196,7 +7186,7 @@ cklist with Icons - Proper Indentation */
 }
 
 .search-submit-btn:hover {
-  background: linear-gradient(135deg, var(--color-primary-dark) 0%, #003399 100%);
+  background: var(--color-primary-dark);
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(0, 50, 160, 0.4);
 }
@@ -7268,7 +7258,7 @@ cklist with Icons - Proper Indentation */
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  background: var(--color-primary);
   color: white;
   border-radius: 10px;
   font-size: 1.125rem;
@@ -7361,7 +7351,7 @@ cklist with Icons - Proper Indentation */
   align-items: center;
   gap: var(--spacing-sm);
   padding: var(--spacing-md) var(--spacing-lg);
-  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  background: var(--color-primary);
   color: white;
 }
 
@@ -7688,7 +7678,7 @@ cklist with Icons - Proper Indentation */
   align-items: center;
   gap: var(--spacing-md);
   padding: var(--spacing-lg);
-  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  background: var(--color-primary);
   border-radius: 12px;
   color: white;
   margin-top: var(--spacing-xl);
@@ -7834,7 +7824,7 @@ cklist with Icons - Proper Indentation */
   align-items: center;
   gap: 12px;
   padding: 16px 24px;
-  background: linear-gradient(135deg, var(--color-success) 0%, #05c793 100%);
+  background: var(--color-success);
   color: white;
   border-radius: 12px;
 }
@@ -7986,7 +7976,7 @@ a.a11y-contact-item:hover i {
   align-items: flex-start;
   gap: var(--spacing-md);
   padding: var(--spacing-lg);
-  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  background: var(--color-primary);
   border-radius: 12px;
   color: white;
   margin-top: var(--spacing-xl);
@@ -8099,7 +8089,7 @@ a.a11y-contact-item:hover i {
   left: 0;
   width: 4px;
   height: 100%;
-  background: linear-gradient(180deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  background: var(--color-primary);
   opacity: 0;
   transition: opacity 0.3s ease;
 }
@@ -8130,7 +8120,7 @@ a.a11y-contact-item:hover i {
 }
 
 .home-stat-card:hover .home-stat-card-icon {
-  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  background: var(--color-primary);
   color: white;
 }
 
@@ -8589,16 +8579,14 @@ a.a11y-contact-item:hover i {
   width: 56px;
   height: 56px;
   border-radius: 12px;
-  background: linear-gradient(90deg, #f0f0f0 25%, #fafafa 50%, #f0f0f0 75%);
-  background-size: 200% 100%;
+  background: #f0f0f0;
   animation: skeleton-shimmer 1.5s infinite ease-in-out;
 }
 
 .weather-loading .skeleton-text {
   height: 16px;
   border-radius: 6px;
-  background: linear-gradient(90deg, #f0f0f0 25%, #fafafa 50%, #f0f0f0 75%);
-  background-size: 200% 100%;
+  background: #f0f0f0;
   animation: skeleton-shimmer 1.5s infinite ease-in-out;
 }
 
@@ -8627,8 +8615,7 @@ a.a11y-contact-item:hover i {
   min-width: 0;
   height: 72px;
   border-radius: 10px;
-  background: linear-gradient(90deg, #f0f0f0 25%, #fafafa 50%, #f0f0f0 75%);
-  background-size: 200% 100%;
+  background: #f0f0f0;
   animation: skeleton-shimmer 1.5s infinite ease-in-out;
 }
 
@@ -8660,11 +8647,12 @@ a.a11y-contact-item:hover i {
 }
 
 @keyframes skeleton-shimmer {
-  0% {
-    background-position: 200% 0;
-  }
+  0%,
   100% {
-    background-position: -200% 0;
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
   }
 }
 
@@ -8907,7 +8895,7 @@ a.a11y-contact-item:hover i {
 
 /* Online Services Section - Filipizen Integration */
 .online-services-section {
-  background: linear-gradient(135deg, #f0f7ff 0%, #e8f4fd 100%);
+  background: #f0f7ff;
   padding: var(--spacing-xl) 0;
 }
 
@@ -8920,7 +8908,7 @@ a.a11y-contact-item:hover i {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  background: var(--color-primary);
   color: white;
   padding: 6px 16px;
   border-radius: 50px;
@@ -8974,7 +8962,7 @@ a.a11y-contact-item:hover i {
   justify-content: center;
   width: 48px;
   height: 48px;
-  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  background: var(--color-primary);
   border-radius: 10px;
   flex-shrink: 0;
 }
@@ -9088,7 +9076,7 @@ a.a11y-contact-item:hover i {
   justify-content: center;
   width: 36px;
   height: 36px;
-  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  background: var(--color-primary);
   border-radius: 8px;
   flex-shrink: 0;
 }
@@ -9099,7 +9087,7 @@ a.a11y-contact-item:hover i {
 }
 
 .sitemap-section-icon--online {
-  background: linear-gradient(135deg, #06a77d 0%, #059669 100%);
+  background: #06a77d;
 }
 
 .sitemap-section-header h2 {
@@ -9232,7 +9220,7 @@ a.a11y-contact-item:hover i {
 
 /* Medical Hotline Cards */
 .hotlines-badge--medical {
-  background: linear-gradient(135deg, #0077be 0%, #0066a0 100%);
+  background: #0077be;
   color: white;
 }
 
@@ -9875,7 +9863,7 @@ a.a11y-contact-item:hover i {
 .vol-popup-header {
   position: relative;
   padding: 38px 32px 30px;
-  background: linear-gradient(140deg, #0032a0 0%, #003d82 55%, #001f6b 100%);
+  background: var(--color-primary);
   text-align: center;
   overflow: hidden;
 }
@@ -9998,7 +9986,7 @@ a.a11y-contact-item:hover i {
   gap: 9px;
   width: 100%;
   padding: 14px 24px;
-  background: linear-gradient(135deg, var(--color-primary) 0%, #003d82 100%);
+  background: var(--color-primary);
   color: #fff;
   font-size: 1rem;
   font-weight: 700;
@@ -10132,7 +10120,7 @@ a.a11y-contact-item:hover i {
   }
 }
 
-/* Windows High Contrast / forced-colors: gradients and translucent fills are
+/* Windows High Contrast / forced-colors: translucent fills are
    discarded by the OS, which would otherwise leave the close button and the
    role chips as invisible shapes. Give every control a real border the system
    palette can map. */
