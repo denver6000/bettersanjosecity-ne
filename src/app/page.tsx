@@ -8,6 +8,7 @@ import StationDetails from '@/components/StationDetails';
 import { HomeNews } from '@/components/NewsList';
 import ScholarLookup from '@/components/ScholarLookup';
 import '@/styles/scholarship.css';
+import '@/styles/home.css';
 
 // TODO(data): fill from src/data/demographics.json once official figures arrive.
 const STATS = [
