@@ -413,3 +413,102 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* ===== Home page scholarship band (navy). Scoped: /scholarship is unchanged. ===== */
+.home-scholar {
+  --navy: var(--color-navy);
+  --ink: var(--color-ink);
+  --line: var(--color-line);
+  --alt: var(--color-navy-tint);
+  --radius: 10px;
+}
+
+.home-scholar .scholar-block {
+  margin: 0;
+}
+
+.home-scholar .scholar-search {
+  flex-wrap: wrap;
+  max-width: none;
+  margin: 0;
+  padding: 8px;
+  gap: 8px 10px;
+  border: 0;
+  border-radius: 14px;
+  background: #fff;
+}
+
+.home-scholar .scholar-search:focus-within {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+.home-scholar .scholar-search label {
+  padding-left: 12px;
+  color: var(--color-navy);
+}
+
+.home-scholar .scholar-search input {
+  flex: 1 1 120px;
+  min-width: 0;
+  padding: 10px 12px;
+  border: 0;
+  border-radius: 0;
+  background: none;
+}
+
+.home-scholar .scholar-search input:focus {
+  outline: none;
+}
+
+.home-scholar .scholar-search .btn-primary,
+.home-scholar .scholar-search .btn-primary:hover {
+  padding: 12px 24px;
+  background: var(--color-gold);
+  color: var(--color-navy-dark);
+  border-radius: 8px;
+  font: 700 15px var(--font-main);
+  transform: none;
+  box-shadow: none;
+}
+
+.home-scholar .scholar-search .btn-primary:hover {
+  filter: brightness(0.94);
+}
+
+.home-scholar [aria-live] {
+  margin-top: 16px;
+}
+
+.home-scholar [aria-live] > .scholar-result-msg {
+  max-width: none;
+  background: var(--color-navy-dark);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #fff;
+}
+
+.home-scholar [aria-live] > .scholar-result-msg strong {
+  color: #fff;
+}
+
+.home-scholar [aria-live] > .scholar-result-msg.is-error {
+  background: #fdecec;
+  border-color: #fdecec;
+  color: #8a1c1c;
+}
+
+.home-scholar .scholar-card {
+  margin: 0;
+  color: var(--color-ink);
+}
+
+.home-scholar .scholar-card h3 {
+  color: var(--color-navy);
+}
+
+@media (max-width: 599px) {
+  .home-scholar .scholar-search .btn-primary {
+    flex: 1 1 100%;
+    justify-content: center;
+  }
+}

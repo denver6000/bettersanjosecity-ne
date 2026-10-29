@@ -1,27 +1,16 @@
 import Link from 'next/link';
 import { T } from '@/i18n/LanguageContext';
-import { SERVICE_CATEGORIES, SITE } from '@/config/site';
+import { SITE } from '@/config/site';
 import HomeHero from '@/components/home/HomeHero';
+import HomeServices from '@/components/home/HomeServices';
+import HomeScholar from '@/components/home/HomeScholar';
+import HomeNumbers from '@/components/home/HomeNumbers';
 import WeatherWidget from '@/components/WeatherWidget';
 import CityMap from '@/components/CityMap';
 import StationDetails from '@/components/StationDetails';
 import { HomeNews } from '@/components/NewsList';
-import ScholarLookup from '@/components/ScholarLookup';
 import '@/styles/scholarship.css';
 import '@/styles/home.css';
-
-// TODO(data): fill from src/data/demographics.json once official figures arrive.
-const STATS = [
-  { href: '/statistics', icon: 'ph-users-three', label: 'Population', source: 'PSA Census' },
-  {
-    href: '/government',
-    icon: 'ph-map-pin',
-    label: 'Barangays',
-    source: 'Administrative Units',
-  },
-  { href: '/budget', icon: 'ph-medal', label: 'Income Class', source: 'Component City' },
-  { href: '/statistics', icon: 'ph-ruler', label: 'Land Area', source: 'Total City Area' },
-];
 
 function SectionLink({ href, k, children }: { href: string; k: string; children: string }) {
   return (
@@ -36,73 +25,9 @@ export default function HomePage() {
     <>
       <HomeHero />
 
-      {/* Quick Access Services */}
-      <section className="section">
-        <div className="container">
-          <div className="home-section-header">
-            <h2>
-              <T k="section-popular">Popular Services</T>
-            </h2>
-            <p>Quick access to frequently requested city services</p>
-          </div>
-          <div className="home-services-grid">
-            {SERVICE_CATEGORIES.slice(0, 5).map((c) => (
-              <Link
-                href={'href' in c ? c.href : '/services'}
-                className="home-service-card"
-                key={c.name}
-              >
-                <div className="home-service-icon">
-                  <i className={`ph-duotone ${c.icon}`} />
-                </div>
-                <div className="home-service-content">
-                  <h3>{c.name}</h3>
-                  <p>{c.desc}</p>
-                </div>
-                <i className="ph ph-arrow-right home-service-arrow" />
-              </Link>
-            ))}
-            <Link href="/services" className="home-service-card home-service-card--all">
-              <div className="home-service-icon">
-                <i className="ph-duotone ph-squares-four" />
-              </div>
-              <div className="home-service-content">
-                <h3>
-                  <T k="btn-view-all-services">View All Services</T>
-                </h3>
-                <p>Browse complete directory</p>
-              </div>
-              <i className="ph ph-arrow-right home-service-arrow" />
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* At a Glance */}
-      <section className="home-stats-v2">
-        <div className="container">
-          <div className="home-stats-v2-header">
-            <h2>{SITE.lgu.shortName} at a Glance</h2>
-            <SectionLink href="/statistics" k="home-view-statistics">
-              View Statistics
-            </SectionLink>
-          </div>
-          <div className="home-stats-v2-grid">
-            {STATS.map((s) => (
-              <Link href={s.href} className="home-stat-card" key={s.label}>
-                <div className="home-stat-card-icon">
-                  <i className={`ph-duotone ${s.icon}`} />
-                </div>
-                <div className="home-stat-card-content">
-                  <span className="home-stat-card-value stat-pending">&mdash;</span>
-                  <span className="home-stat-card-label">{s.label}</span>
-                  <span className="home-stat-card-source">{s.source}</span>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
+      <HomeServices />
+      <HomeScholar />
+      <HomeNumbers />
 
       {/* Weather station */}
       <section className="section weather-map-section">
@@ -140,27 +65,6 @@ export default function HomePage() {
                 <StationDetails />
               </div>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Scholar lookup */}
-      <section className="section home-scholar-section">
-        <div className="container">
-          <div className="home-stats-v2-header station-section-header">
-            <div>
-              <h2>City Scholarship Program</h2>
-              <p>
-                Scholars: enter your Student ID to check your payout status and which requirements
-                are still missing.
-              </p>
-            </div>
-            <Link href="/scholarship" className="home-section-link">
-              <i className="ph ph-arrow-right" /> Program details
-            </Link>
-          </div>
-          <div className="scholar-page">
-            <ScholarLookup heading={false} />
           </div>
         </div>
       </section>

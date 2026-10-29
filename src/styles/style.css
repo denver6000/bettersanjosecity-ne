@@ -6921,19 +6921,6 @@ cklist with Icons - Proper Indentation */
   border-color: rgba(0, 50, 160, 0.15);
 }
 
-.home-search-box h2 {
-  font-size: 1rem;
-  color: var(--color-text);
-  margin-bottom: var(--spacing-md);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.home-search-box h2 i {
-  color: var(--color-primary);
-}
-
 .home-search-box .search-input-wrapper {
   position: relative;
   display: flex;

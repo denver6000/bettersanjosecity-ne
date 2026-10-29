@@ -17,6 +17,13 @@
   align-items: baseline;
   justify-content: space-between;
   gap: 16px;
+  margin-bottom: 24px;
+}
+
+.home-sec h2 {
+  font-size: 34px;
+  color: var(--color-navy);
+  letter-spacing: -0.015em;
 }
 
 .home-more {
@@ -36,6 +43,9 @@
 
 /* ===== Hero ===== */
 .home-hero {
+  /* Matches .container: 1200px, or 960px at 1025-1199px (responsive.css). */
+  --hero-w: 1200px;
+  container-type: inline-size;
   position: relative;
   min-height: 500px;
   display: grid;
@@ -54,7 +64,7 @@
   position: relative;
   z-index: 2;
   min-width: 0;
-  padding: 72px 24px 56px max(16px, calc((100vw - var(--max-width)) / 2 + 16px));
+  padding: 72px 24px 56px calc(max(0px, (100cqw - var(--hero-w)) / 2) + 24px);
 }
 
 .home-hero h1 {
@@ -76,6 +86,19 @@
   line-height: 1.55;
   color: var(--color-mute);
   max-width: 400px;
+}
+
+@media (max-width: 1199px) and (min-width: 1025px) {
+  .home-hero {
+    --hero-w: 960px;
+  }
+}
+
+/* Below 1025px .container is full width with 24px gutters. */
+@media (max-width: 1024px) {
+  .home-hero {
+    --hero-w: 100cqw;
+  }
 }
 
 /* ServiceSearch, restyled for the hero */
@@ -221,5 +244,154 @@
 
   .home-hero-lede {
     font-size: 16px;
+  }
+}
+
+/* ===== Popular services ===== */
+.home-svc {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.home-svc .home-card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 22px 18px;
+  color: var(--color-navy);
+  font-size: 15px;
+  font-weight: 600;
+  transition:
+    border-color 0.15s,
+    transform 0.15s;
+}
+
+.home-svc .home-card:hover {
+  border-color: var(--color-navy);
+  transform: translateY(-2px);
+}
+
+.home-svc .home-card i {
+  font-size: 32px;
+}
+
+/* ===== Scholarship band ===== */
+.home-scholar {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 40px;
+  align-items: center;
+  padding: 40px 44px;
+  background: var(--color-navy);
+  border-radius: 24px;
+  color: #fff;
+}
+
+.home-scholar h2 {
+  color: #fff;
+}
+
+.home-scholar-lede {
+  margin: 8px 0 0;
+  color: #c3cee9;
+  font-size: 15px;
+}
+
+.home-scholar-details {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 16px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+/* ===== San Jose in numbers ===== */
+.home-numbers {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.home-numbers .home-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 22px;
+  color: var(--color-ink);
+  transition: border-color 0.15s;
+}
+
+.home-numbers .home-card:hover {
+  border-color: var(--color-navy);
+}
+
+.home-numbers .home-card i {
+  font-size: 26px;
+  color: var(--color-navy);
+}
+
+.home-number-value {
+  margin: 14px 0 2px;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 34px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: #cfd2da;
+}
+
+.home-numbers b {
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+@media (max-width: 1099px) {
+  .home-svc {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .home-numbers {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 899px) {
+  .home-scholar {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+    padding: 28px 20px;
+  }
+}
+
+@media (max-width: 599px) {
+  .home-sec {
+    padding-top: 48px;
+  }
+
+  .home-sec h2 {
+    font-size: 28px;
+  }
+
+  .home-svc {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .home-numbers .home-card {
+    padding: 18px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-svc .home-card,
+  .home-numbers .home-card {
+    transition: none;
+  }
+
+  .home-svc .home-card:hover {
+    transform: none;
   }
 }
