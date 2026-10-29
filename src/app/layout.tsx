@@ -1,9 +1,8 @@
 import type { Metadata, Viewport } from 'next';
 import type { ReactNode } from 'react';
 import { Fraunces } from 'next/font/google';
-import HotlineBar from '@/components/layout/HotlineBar';
+import TopStrip from '@/components/layout/TopStrip';
 import Header from '@/components/layout/Header';
-import InfoBar from '@/components/layout/InfoBar';
 import Footer from '@/components/layout/Footer';
 import PWAManager from '@/components/PWAManager';
 import { LanguageProvider, T } from '@/i18n/LanguageContext';
@@ -89,9 +88,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           <a href="#main-content" className="skip-link">
             <T k="home-skip-to-main-content">Skip to main content</T>
           </a>
-          <HotlineBar />
+          <TopStrip />
           <Header />
-          <InfoBar />
           <main id="main-content">{children}</main>
           <Footer />
           <PWAManager />

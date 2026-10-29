@@ -47,6 +47,7 @@ export const translations: Record<Language, Record<string, string>> = {
     'home-accessibility': 'Accessibility',
     'footer-tagline':
       'Empowering the people of San Jose City with transparent access to the services, programs, and public funds of their city government.',
+    'topstrip-disclaimer': 'Independent civic site · not the official LGU website',
   },
   fil: {
     'home-skip-to-main-content': 'Lumaktaw sa pangunahing nilalaman',
@@ -85,5 +86,6 @@ export const translations: Record<Language, Record<string, string>> = {
     'home-accessibility': 'Aksesibilidad',
     'footer-tagline':
       'Pinapalakas ang mga mamamayan ng Lungsod ng San Jose sa pamamagitan ng malinaw na access sa mga serbisyo, programa, at pondong publiko ng kanilang pamahalaang lungsod.',
+    'topstrip-disclaimer': 'Independenteng civic site · hindi opisyal na website ng LGU',
   },
 };

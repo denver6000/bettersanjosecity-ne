@@ -2,7 +2,7 @@
 import { readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 
-const WEIGHTS = new Set(['ph-duotone', 'ph-bold', 'ph-fill', 'ph-light', 'ph-thin']);
+const WEIGHTS = new Set(['ph-duotone', 'ph-bold', 'ph-fill']);
 const defined = new Set(
   readFileSync('node_modules/@phosphor-icons/web/src/regular/style.css', 'utf8').match(
     /(?<=\.)ph-[a-z0-9-]+(?=:before)/g
