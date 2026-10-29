@@ -35,6 +35,27 @@
   font-weight: 600;
 }
 
+.home-more:hover {
+  color: var(--color-navy);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.home-more:focus-visible {
+  outline: 2px solid var(--color-navy);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .home-more i {
+    transition: transform 0.15s;
+  }
+  .home-more:hover i {
+    transform: translateX(2px);
+  }
+}
+
 .home-card {
   background: #fff;
   border: 1px solid var(--color-line);
