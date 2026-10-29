@@ -77,10 +77,10 @@ export default function CityMap() {
 
       const circle = L.circle([STATION.lat, STATION.lon], {
         radius: RADIUS_M,
-        color: '#0032a0',
+        color: '#0a2f86',
         weight: 2,
         dashArray: '6 6',
-        fillColor: '#0032a0',
+        fillColor: '#0a2f86',
         fillOpacity: 0.07,
         interactive: false,
       }).addTo(map);

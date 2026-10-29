@@ -1,6 +1,6 @@
 'use client';
 
-import { useId, useState, type FormEvent } from 'react';
+import { useId, useState, type FormEvent, type ReactNode } from 'react';
 
 /** Response of public/api/scholar-lookup.php (the SIS, proxied). */
 interface Lookup {
@@ -77,7 +77,7 @@ export default function ScholarLookup({
   submitLabel = 'Search',
 }: {
   heading?: boolean;
-  submitLabel?: string;
+  submitLabel?: ReactNode;
 }) {
   const ids = useId();
   const [studentId, setStudentId] = useState('');

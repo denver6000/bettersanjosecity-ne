@@ -815,7 +815,7 @@ body.mobile-menu-open {
   transform: none;
   background-color: var(--color-navy-dark);
   border-radius: 0;
-  outline: 2px solid var(--color-white);
+  outline: 2px solid #fff;
   outline-offset: -4px;
   text-decoration: none;
 }
@@ -1012,6 +1012,7 @@ a.top-strip-item:hover {
   .top-strip-note {
     flex-basis: 100%;
     margin-left: 0;
+    white-space: normal;
   }
 }
 
@@ -2637,7 +2638,7 @@ h6 {
 }
 
 .footer-social-link:hover .footer-social-icon {
-  color: #0032a0;
+  color: var(--color-navy);
 }
 
 .footer-social-icon {
@@ -2829,94 +2830,9 @@ h6 {
   gap: var(--spacing-md);
 }
 
-.hotline-card {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-sm);
-  padding: var(--spacing-md);
-  background: var(--color-white);
-  border-radius: var(--border-radius);
-  border: 1px solid var(--color-bg-alt);
-  text-decoration: none;
-  color: var(--color-text);
-  transition: all 0.2s ease;
-}
-
-.hotline-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-  border-color: var(--color-primary);
-  text-decoration: none;
-}
-
-.hotline-card-icon {
-  flex-shrink: 0;
-  width: 48px;
-  height: 48px;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.25rem;
-  background: rgba(255, 0, 0, 0.1);
-  color: #ff0000;
-}
-
-.hotline-card-info {
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.hotline-card-label {
-  font-size: 0.8125rem;
-  color: var(--color-text-light);
-}
-
-.hotline-card-number {
-  font-size: 1.125rem;
-  font-weight: 600;
-  color: var(--color-text);
-  letter-spacing: 0.5px;
-}
-
-.hotline-card-action {
-  flex-shrink: 0;
-  color: #ff0000;
-  font-size: 1.25rem;
-  opacity: 0;
-  transform: translateX(-8px);
-  transition: all 0.2s ease;
-}
-
-.hotline-card:hover .hotline-card-action {
-  opacity: 1;
-  transform: translateX(0);
-}
-
 @media (max-width: 575px) {
   .hotlines-grid {
     grid-template-columns: 1fr;
-  }
-
-  .hotline-card {
-    padding: var(--spacing-sm);
-  }
-
-  .hotline-card-icon {
-    width: 40px;
-    height: 40px;
-    font-size: 1rem;
-  }
-
-  .hotline-card-number {
-    font-size: 1rem;
-  }
-
-  .hotline-card-action {
-    opacity: 1;
-    transform: translateX(0);
   }
 }
 

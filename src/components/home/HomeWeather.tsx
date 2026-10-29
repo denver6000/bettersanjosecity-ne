@@ -24,11 +24,12 @@ export default function HomeWeather() {
                 <span className="legend-pin" aria-hidden="true">
                   <i className="ph ph-broadcast" />
                 </span>
-                Weather station
+                <T k="home-map-station">Weather station</T>
               </span>
               <span>
                 <span className="legend-radius" aria-hidden="true" />
-                {SITE.weatherStation.radiusKm} km radius around the station
+                {SITE.weatherStation.radiusKm}{' '}
+                <T k="home-map-radius">km radius around the station</T>
               </span>
             </p>
             <StationDetails />
