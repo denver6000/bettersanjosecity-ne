@@ -1,6 +1,7 @@
 'use client';
 
 import { useId, useState, type FormEvent, type ReactNode } from 'react';
+import { T, useLanguage } from '@/i18n/LanguageContext';
 
 /** Response of public/api/scholar-lookup.php (the SIS, proxied). */
 interface Lookup {
@@ -80,6 +81,7 @@ export default function ScholarLookup({
   submitLabel?: ReactNode;
 }) {
   const ids = useId();
+  const { t } = useLanguage();
   const [studentId, setStudentId] = useState('');
   const [searched, setSearched] = useState('');
   const [result, setResult] = useState<Lookup | null>(null);
@@ -119,9 +121,13 @@ export default function ScholarLookup({
         </>
       )}
       <form className="scholar-search" onSubmit={search} role="search">
-        <label htmlFor={`${ids}-id`}>Student ID</label>
+        <i className="ph ph-identification-card scholar-search-icon" aria-hidden="true" />
+        <label htmlFor={`${ids}-id`} className={heading ? 'sr-only' : undefined}>
+          <T k="scholar-student-id">Student ID</T>
+        </label>
         <input
           id={`${ids}-id`}
+          placeholder={heading ? t('scholar-student-id', 'Student ID') : undefined}
           value={studentId}
           onChange={(e) => setStudentId(e.target.value)}
           maxLength={50}
@@ -134,6 +140,12 @@ export default function ScholarLookup({
           {busy ? 'Searching…' : submitLabel}
         </button>
       </form>
+      {heading && (
+        <p className="scholar-lock-note">
+          <i className="ph-fill ph-lock-simple" aria-hidden="true" />
+          <T k="scholar-lock-note">Shows only your own program record. No contact details.</T>
+        </p>
+      )}
 
       <div aria-live="polite">
         {error && (
@@ -151,17 +163,29 @@ export default function ScholarLookup({
           </div>
         )}
         {result?.scholars.map((s) => (
-          <ScholarCard key={s.ref} scholar={s} fields={result.update_fields} />
+          <ScholarCard key={s.ref} scholar={s} fields={result.update_fields} rich={heading} />
         ))}
       </div>
     </section>
   );
 }
 
-function ScholarCard({ scholar, fields }: { scholar: Scholar; fields: Record<string, string> }) {
+function ScholarCard({
+  scholar,
+  fields,
+  rich,
+}: {
+  scholar: Scholar;
+  fields: Record<string, string>;
+  /** The scholarship page's fuller styling; the home band keeps the compact one. */
+  rich: boolean;
+}) {
   return (
     <article className="scholar-card">
       <header className="scholar-card-head">
+        <span className="scholar-avatar" aria-hidden="true">
+          <i className="ph-duotone ph-user" />
+        </span>
         <h3>{scholar.full_name}</h3>
         <dl>
           <div>
@@ -180,7 +204,11 @@ function ScholarCard({ scholar, fields }: { scholar: Scholar; fields: Record<str
       {scholar.cycles.length === 0 ? (
         <p className="scholar-status">No semester records yet.</p>
       ) : (
-        scholar.cycles.map((c) => <CycleRow key={c.label} cycle={c} />)
+        <div className="scholar-cycles">
+          {scholar.cycles.map((c) => (
+            <CycleRow key={c.label} cycle={c} rich={rich} />
+          ))}
+        </div>
       )}
 
       <UpdateRequest scholar={scholar} fields={fields} />
@@ -188,7 +216,7 @@ function ScholarCard({ scholar, fields }: { scholar: Scholar; fields: Record<str
   );
 }
 
-function CycleRow({ cycle }: { cycle: Cycle }) {
+function CycleRow({ cycle, rich }: { cycle: Cycle; rich: boolean }) {
   const status = STATUS[cycle.status];
   const details = [
     cycle.school,
@@ -227,7 +255,16 @@ function CycleRow({ cycle }: { cycle: Cycle }) {
       <ul className="scholar-checklist">
         {cycle.requirements.map((r) => (
           <li key={r.label} className={r.met ? 'is-met' : 'is-missing'}>
-            <i className={`ph ${r.met ? 'ph-check' : 'ph-x'}`} aria-hidden="true" />
+            <i
+              className={
+                rich
+                  ? r.met
+                    ? 'ph-fill ph-check-circle'
+                    : 'ph-duotone ph-x-circle'
+                  : `ph ${r.met ? 'ph-check' : 'ph-x'}`
+              }
+              aria-hidden="true"
+            />
             {r.label}
             <span className="sr-only">{r.met ? ', submitted' : ', missing'}</span>
           </li>

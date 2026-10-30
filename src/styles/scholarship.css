@@ -1,19 +1,18 @@
 /* City Scholarship Program page. Same visual language as the business-taxes pages. */
 
 .scholar-page {
-  --navy: #10233a;
-  --ink: #2a3b52;
-  --line: #dde3ee;
-  --alt: #eef2fb;
+  --navy: var(--color-navy);
+  --ink: var(--color-ink);
+  --line: var(--color-line);
+  --alt: var(--color-navy-tint);
   --radius: 10px;
-  max-width: 960px;
   color: var(--ink);
 }
 
 .scholar-page h2 {
-  font-size: 1.35rem;
+  font-size: 1.75rem;
   color: var(--navy);
-  margin: 0 0 14px;
+  margin: 0 0 20px;
 }
 
 .scholar-page h3 {
@@ -263,10 +262,10 @@
 .scholar-block-head {
   display: flex;
   flex-wrap: wrap;
-  align-items: flex-end;
+  align-items: center;
   justify-content: space-between;
   gap: 12px;
-  margin-bottom: 14px;
+  margin-bottom: 20px;
 }
 
 .scholar-block-head h2 {
@@ -274,26 +273,43 @@
 }
 
 .scholar-year {
-  display: flex;
+  position: relative;
+  display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-weight: 700;
-  font-size: 0.9rem;
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--color-white);
+  font-weight: 600;
+  font-size: 0.875rem;
   color: var(--navy);
 }
 
 .scholar-year select {
-  padding: 8px 12px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: var(--color-white);
-  color: var(--color-text);
+  appearance: none;
+  padding: 0 22px 0 0;
+  border: 0;
+  background: none;
+  color: var(--navy);
   font: inherit;
-  font-weight: 600;
+  cursor: pointer;
+}
+
+.scholar-year > i {
+  position: absolute;
+  right: 12px;
+  pointer-events: none;
 }
 
 .scholar-semester {
-  margin-bottom: 20px;
+  margin-bottom: 14px;
+}
+
+.scholar-semester h3 {
+  margin: 0 0 10px 2px;
+  font: 600 0.8125rem var(--font-main);
+  color: var(--color-mute);
 }
 
 .scholar-semester[aria-busy='true'] {
@@ -303,36 +319,62 @@
 .scholar-stats {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 12px;
+  gap: 14px;
   margin: 0;
 }
 
 .scholar-stats div {
-  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 22px;
   border: 1px solid var(--line);
-  border-radius: var(--radius);
+  border-radius: 18px;
   background: var(--color-white);
 }
 
+/* The label comes first in the source (term, then value) but reads below the number. */
 .scholar-stats dt {
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--color-text-light);
+  order: 2;
+  font-size: 0.875rem;
+  font-weight: 600;
 }
 
 .scholar-stats dd {
-  margin: 2px 0 0;
-  font-size: 1.75rem;
-  font-weight: 800;
-  color: var(--color-primary);
+  order: 1;
+  display: flex;
+  flex-direction: column;
+  margin: 0 0 2px;
+}
+
+.scholar-stats dd i {
+  font-size: 1.625rem;
+  color: var(--navy);
+}
+
+.scholar-stats dd span {
+  margin-top: 12px;
+  font:
+    700 2.375rem/1.15 var(--font-display),
+    Georgia,
+    serif;
+  color: var(--navy);
   font-variant-numeric: tabular-nums;
+}
+
+.scholar-stats .is-key {
+  background: var(--navy);
+  border-color: var(--navy);
+}
+
+.scholar-stats .is-key dt,
+.scholar-stats .is-key dd i,
+.scholar-stats .is-key dd span {
+  color: #fff;
 }
 
 .scholar-note,
 .scholar-status {
-  font-size: 0.85rem;
+  font-size: 0.8125rem;
   color: var(--color-text-light);
 }
 
@@ -340,16 +382,27 @@
   padding: 16px 0;
 }
 
+.scholar-status.is-block {
+  margin: 0 0 56px;
+  padding: 20px 22px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: var(--color-white);
+  font-size: 0.9375rem;
+}
+
 .scholar-reqs {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 16px;
+  gap: 14px;
 }
 
 .scholar-reqs > div {
-  padding: 16px 18px;
+  padding: 22px;
   border: 1px solid var(--line);
-  border-radius: var(--radius);
+  border-radius: 18px;
+  background: var(--color-white);
+  font-size: 0.875rem;
 }
 
 .scholar-reqs ul {
@@ -363,39 +416,63 @@
 
 .scholar-glossary {
   display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 14px;
   margin: 0;
 }
 
 .scholar-glossary div {
-  border-left: 3px solid #9fb4e0;
-  padding-left: 14px;
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: var(--color-white);
 }
 
 .scholar-glossary dt {
-  font-weight: 700;
+  font:
+    600 1.1875rem var(--font-display),
+    Georgia,
+    serif;
   color: var(--navy);
 }
 
+.scholar-glossary dt i {
+  display: block;
+  margin-bottom: 14px;
+  font-size: 1.875rem;
+}
+
 .scholar-glossary dd {
-  margin: 2px 0 0;
+  margin: 8px 0 0;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--color-mute);
 }
 
 .scholar-privacy {
-  border: 1px solid var(--line);
-  border-left: 4px solid var(--color-primary);
-  border-radius: var(--radius);
-  padding: 20px 22px;
-  background: #fffaf5;
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  margin-bottom: 56px;
+  padding: 24px 26px;
+  border-radius: 18px;
+  background: var(--alt);
+}
+
+.scholar-privacy > i {
+  font-size: 2rem;
+  color: var(--navy);
 }
 
 .scholar-privacy h2 {
-  font-size: 1.15rem;
-  margin-bottom: 8px;
+  font-size: 1.375rem;
+  margin-bottom: 6px;
 }
 
 .scholar-privacy p {
-  font-size: 0.93rem;
+  max-width: 760px;
+  font-size: 0.875rem;
+  line-height: 1.6;
   margin: 0;
 }
 
@@ -403,14 +480,338 @@
   margin-top: 8px;
 }
 
-@media (max-width: 700px) {
+.scholar-privacy a {
+  font-weight: 600;
+}
+
+/* ===== Scholarship page only (.scholar-page): hero, lookup card and the restyled record ===== */
+.scholar-search-icon,
+.scholar-avatar {
+  display: none;
+}
+
+.scholar-hero {
+  display: grid;
+  grid-template-columns: 1fr 480px;
+  gap: 48px;
+  align-items: center;
+  padding: 48px 0 56px;
+}
+
+.scholar-crumbs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8125rem;
+  color: var(--color-mute);
+}
+
+.scholar-crumbs a {
+  color: var(--navy);
+  font-weight: 500;
+}
+
+.scholar-hero h1 {
+  margin: 18px 0 14px;
+  font-size: clamp(2.25rem, 5vw, 3.375rem);
+  line-height: 1.04;
+  letter-spacing: -0.015em;
+}
+
+.scholar-hero-text p {
+  max-width: 460px;
+  margin: 0;
+  font-size: 1.125rem;
+  line-height: 1.55;
+  color: var(--color-mute);
+}
+
+.scholar-lookup-card {
+  min-width: 0;
+  padding: 26px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: var(--color-white);
+  box-shadow: 0 24px 48px -32px rgba(7, 31, 92, 0.45);
+}
+
+.scholar-hero .scholar-block {
+  margin: 0;
+}
+
+.scholar-hero h2 {
+  margin: 0 0 6px;
+  font-size: 1.375rem;
+}
+
+.scholar-hero .scholar-lookup > p {
+  margin: 0 0 16px;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--color-mute);
+}
+
+.scholar-hero .scholar-search {
+  flex-wrap: nowrap;
+  max-width: 560px;
+  margin: 0;
+  padding: 6px 6px 6px 14px;
+  gap: 8px;
+  border: 1.5px solid var(--navy);
+  border-radius: 12px;
+  background: var(--color-white);
+}
+
+.scholar-hero .scholar-search:focus-within {
+  box-shadow: 0 0 0 3px rgba(10, 47, 134, 0.2);
+}
+
+.scholar-hero .scholar-search-icon {
+  display: block;
+  font-size: 1.25rem;
+  color: var(--color-mute);
+}
+
+.scholar-hero .scholar-search input {
+  min-width: 0;
+  padding: 8px 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+}
+
+.scholar-hero .scholar-search input:focus {
+  outline: none;
+}
+
+.scholar-hero .scholar-search .btn-primary,
+.scholar-hero .scholar-search .btn-primary:hover {
+  padding: 11px 22px;
+  border-radius: 8px;
+  background: var(--color-gold);
+  color: var(--color-navy-dark);
+  font: 700 0.9375rem var(--font-main);
+  transform: none;
+  box-shadow: none;
+}
+
+.scholar-hero .scholar-search .btn-primary:hover {
+  filter: brightness(0.94);
+}
+
+.scholar-hero .scholar-search .btn-primary i {
+  display: none;
+}
+
+.scholar-lock-note {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 12px 0 0;
+  font-size: 0.75rem;
+  color: var(--color-mute);
+}
+
+.scholar-lock-note i {
+  color: var(--navy);
+}
+
+.scholar-hero [aria-live]:not(:empty) {
+  margin-top: 16px;
+}
+
+/* With a record on screen the lookup card spans the page, below the title. */
+.scholar-hero:has(.scholar-card) {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 32px;
+}
+
+.scholar-page .scholar-card {
+  margin: 8px 0 0;
+  padding: 24px 0 0;
+  border: 0;
+  border-top: 1px solid var(--line);
+  border-radius: 0;
+  background: none;
+}
+
+.scholar-page .scholar-card-head {
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr);
+  align-items: center;
+  gap: 2px 14px;
+  margin: 0;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--line);
+}
+
+.scholar-page .scholar-avatar {
+  display: grid;
+  grid-row: 1 / span 2;
+  width: 48px;
+  height: 48px;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--color-navy-tint);
+  color: var(--navy);
+  font-size: 1.5rem;
+}
+
+.scholar-page .scholar-card-head h3 {
+  font-size: 1.375rem;
+}
+
+.scholar-page .scholar-card-head dl {
+  flex-wrap: wrap;
+  gap: 2px 18px;
+  font-size: 0.8125rem;
+}
+
+.scholar-page .scholar-card-head dd {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.scholar-page .scholar-cycles {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 18px;
+}
+
+.scholar-page .scholar-cycle {
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+}
+
+.scholar-page .scholar-cycle-head {
+  justify-content: space-between;
+}
+
+.scholar-page .scholar-cycle-head h4 {
+  font-size: 0.9375rem;
+  color: var(--ink);
+}
+
+.scholar-page .scholar-track {
+  padding: 3px 9px;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: var(--navy);
+}
+
+.scholar-page .scholar-cycle-status {
+  align-items: flex-start;
+  margin: 12px 0;
+  padding: 0;
+  background: none;
+}
+
+.scholar-page .scholar-cycle-status > i {
+  font-size: 1.25rem;
+}
+
+.scholar-page .scholar-cycle-status strong {
+  font-size: 0.875rem;
+  color: inherit;
+}
+
+.scholar-page .scholar-cycle-status > span > span {
+  font-size: 0.8125rem;
+  font-weight: 400;
+  color: var(--color-mute);
+}
+
+.scholar-page .scholar-cycle.is-eligible .scholar-cycle-status,
+.scholar-page .scholar-cycle.is-payrolled .scholar-cycle-status,
+.scholar-page .scholar-cycle.is-eligible .scholar-cycle-status > i,
+.scholar-page .scholar-cycle.is-payrolled .scholar-cycle-status > i {
+  background: none;
+  color: var(--color-live);
+}
+
+/* Status colors: amber for waiting, red for a missing requirement. */
+.scholar-page .scholar-cycle.is-not_eligible .scholar-cycle-status,
+.scholar-page .scholar-cycle.is-not_eligible .scholar-cycle-status > i {
+  color: #8a5a00;
+}
+
+.scholar-page .scholar-checklist {
+  grid-template-columns: 1fr;
+  gap: 8px;
+  font-size: 0.875rem;
+}
+
+.scholar-page .scholar-checklist li {
+  align-items: center;
+  gap: 10px;
+}
+
+.scholar-page .scholar-checklist .ph-fill,
+.scholar-page .scholar-checklist .ph-duotone {
+  font-size: 1.125rem;
+}
+
+.scholar-page .scholar-checklist .is-met .ph-fill {
+  color: var(--color-live);
+}
+
+.scholar-page .scholar-checklist .is-missing {
+  color: var(--color-mute);
+}
+
+.scholar-page .scholar-checklist .is-missing .ph-duotone {
+  color: #b42318;
+}
+
+.scholar-page .scholar-update {
+  margin-top: 18px;
+}
+
+@media (max-width: 960px) {
+  .scholar-hero {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
+    padding: 32px 0 40px;
+  }
+
   .scholar-stats {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .scholar-glossary {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 700px) {
+  .scholar-page .scholar-cycles,
   .scholar-reqs,
   .scholar-checklist {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .scholar-lookup-card {
+    padding: 18px;
+  }
+
+  .scholar-stats div {
+    padding: 16px;
+  }
+
+  .scholar-stats dd span {
+    font-size: 2rem;
+  }
+
+  .scholar-privacy {
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px;
+  }
+
+  .scholar-hero .scholar-search .btn-primary {
+    padding: 11px 16px;
   }
 }
 
