@@ -11,11 +11,11 @@ export default function PrivacyPage() {
   return (
     <PageShell
       badge="Privacy"
-      badgeIcon="bi-shield-lock-fill"
+      badgeIcon="ph-lock"
       title="Privacy Policy"
       subtitle="How Better San Jose handles your information"
     >
-      <DataPending title="Policy being drafted" icon="bi-file-earmark-lock" as="h2">
+      <DataPending title="Policy being drafted" icon="ph-file-lock" as="h2">
         The privacy policy will be published before launch, in line with the Data Privacy Act of
         2012 (RA 10173).
       </DataPending>

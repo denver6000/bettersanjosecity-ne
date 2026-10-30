@@ -18,7 +18,7 @@ export default function EstimatorPage() {
   return (
     <PageShell
       badge="Tax Estimator"
-      badgeIcon="bi-calculator"
+      badgeIcon="ph-calculator"
       parents={[{ href: '/business-taxes/', label: 'Business Taxes and Fees' }]}
       title="Business Tax Estimator"
       subtitle="Find what your business does, enter a few details, and see the city taxes and fees that likely apply, worked out from the Treasurer’s printed schedules."

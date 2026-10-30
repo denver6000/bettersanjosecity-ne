@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#0032a0" />
+    <meta name="theme-color" content="#0a2f86" />
     <title>Offline - Better San Jose</title>
     <style>
       *,
@@ -34,7 +34,7 @@
         top: -100%;
         left: 0;
         padding: 0.5rem 1rem;
-        background: #0032a0;
+        background: #0a2f86;
         color: #fff;
         z-index: 100;
       }
@@ -53,8 +53,13 @@
       }
       h1 {
         font-size: 1.5rem;
-        color: #0032a0;
+        color: #0a2f86;
         margin-bottom: 0.5rem;
+      }
+      .disclaimer {
+        margin-top: 1.5rem;
+        font-size: 0.8125rem;
+        color: #555;
       }
       .subtitle {
         color: #555;
@@ -71,7 +76,7 @@
       }
       .hotlines h2 {
         font-size: 1.1rem;
-        color: #0032a0;
+        color: #0a2f86;
         margin-bottom: 1rem;
         text-align: center;
       }
@@ -93,17 +98,17 @@
         color: #333;
       }
       .hotline-number {
-        color: #0032a0;
+        color: #0a2f86;
         font-weight: 600;
         text-decoration: none;
       }
       .hotline-number:focus {
-        outline: 2px solid #0032a0;
+        outline: 2px solid #0a2f86;
         outline-offset: 2px;
       }
       .retry-btn {
         display: inline-block;
-        background: #0032a0;
+        background: #0a2f86;
         color: #fff;
         border: none;
         padding: 0.75rem 2rem;
@@ -113,10 +118,10 @@
         text-decoration: none;
       }
       .retry-btn:hover {
-        background: #002170;
+        background: #071f5c;
       }
       .retry-btn:focus {
-        outline: 2px solid #0032a0;
+        outline: 2px solid #0a2f86;
         outline-offset: 2px;
       }
       @media (max-width: 480px) {
@@ -156,6 +161,7 @@
       </div>
 
       <button class="retry-btn" onclick="window.location.reload()">Try Again</button>
+      <p class="disclaimer">Independent civic site · not the official LGU website</p>
     </main>
   </body>
 </html>

@@ -13,27 +13,27 @@ import {
   type StationReading,
 } from '@/lib/station';
 
-const CACHE_KEY = 'lgu_weather_cache';
+const CACHE_KEY = 'lgu_weather_cache_v2';
 const CACHE_TTL = 30 * 60 * 1000;
 
 const CODES: Record<number, { condition: string; icon: string }> = {
-  0: { condition: 'Clear sky', icon: 'bi-sun-fill' },
-  1: { condition: 'Mainly clear', icon: 'bi-cloud-sun-fill' },
-  2: { condition: 'Partly cloudy', icon: 'bi-cloud-sun-fill' },
-  3: { condition: 'Overcast', icon: 'bi-clouds-fill' },
-  45: { condition: 'Foggy', icon: 'bi-cloud-fog-fill' },
-  48: { condition: 'Depositing rime fog', icon: 'bi-cloud-fog-fill' },
-  51: { condition: 'Light drizzle', icon: 'bi-cloud-drizzle-fill' },
-  53: { condition: 'Moderate drizzle', icon: 'bi-cloud-drizzle-fill' },
-  55: { condition: 'Dense drizzle', icon: 'bi-cloud-drizzle-fill' },
-  61: { condition: 'Slight rain', icon: 'bi-cloud-rain-fill' },
-  63: { condition: 'Moderate rain', icon: 'bi-cloud-rain-fill' },
-  65: { condition: 'Heavy rain', icon: 'bi-cloud-rain-heavy-fill' },
-  80: { condition: 'Rain showers', icon: 'bi-cloud-rain-fill' },
-  95: { condition: 'Thunderstorm', icon: 'bi-cloud-lightning-rain-fill' },
+  0: { condition: 'Clear sky', icon: 'ph-sun' },
+  1: { condition: 'Mainly clear', icon: 'ph-cloud-sun' },
+  2: { condition: 'Partly cloudy', icon: 'ph-cloud-sun' },
+  3: { condition: 'Overcast', icon: 'ph-cloud' },
+  45: { condition: 'Foggy', icon: 'ph-cloud-fog' },
+  48: { condition: 'Depositing rime fog', icon: 'ph-cloud-fog' },
+  51: { condition: 'Light drizzle', icon: 'ph-cloud-rain' },
+  53: { condition: 'Moderate drizzle', icon: 'ph-cloud-rain' },
+  55: { condition: 'Dense drizzle', icon: 'ph-cloud-rain' },
+  61: { condition: 'Slight rain', icon: 'ph-cloud-rain' },
+  63: { condition: 'Moderate rain', icon: 'ph-cloud-rain' },
+  65: { condition: 'Heavy rain', icon: 'ph-cloud-rain' },
+  80: { condition: 'Rain showers', icon: 'ph-cloud-rain' },
+  95: { condition: 'Thunderstorm', icon: 'ph-cloud-lightning' },
 };
 const mapCode = (code: number) =>
-  CODES[code] ?? { condition: 'Partly cloudy', icon: 'bi-cloud-sun-fill' };
+  CODES[code] ?? { condition: 'Partly cloudy', icon: 'ph-cloud-sun' };
 
 /** Open-Meteo model data: the sky condition and hourly forecast the station can't give. */
 interface Forecast {
@@ -153,7 +153,7 @@ function Tile({
   return (
     <div className="station-tile" role="listitem">
       <span className="station-tile-label">
-        <i className={`bi ${icon}`} aria-hidden="true" /> {label}
+        <i className={`ph-duotone ${icon}`} aria-hidden="true" /> {label}
       </span>
       <span className="station-tile-value">{value}</span>
       {note && <span className={`station-tile-note${tone ? ` tone-${tone}` : ''}`}>{note}</span>}
@@ -166,11 +166,11 @@ function StationTiles({ r }: { r: StationReading }) {
   return (
     <div className="station-tiles" role="list" aria-label="Station readings">
       {r.humidity_pct != null && (
-        <Tile icon="bi-droplet" label="Humidity" value={`${Math.round(r.humidity_pct)}%`} />
+        <Tile icon="ph-drop" label="Humidity" value={`${Math.round(r.humidity_pct)}%`} />
       )}
       {r.wind_speed_ms != null && (
         <Tile
-          icon="bi-wind"
+          icon="ph-wind"
           label="Wind"
           value={`${msToKmh(r.wind_speed_ms)} km/h`}
           note={
@@ -182,7 +182,7 @@ function StationTiles({ r }: { r: StationReading }) {
       )}
       {r.precipitation_mm != null && (
         <Tile
-          icon="bi-cloud-drizzle"
+          icon="ph-cloud-rain"
           label="Rain now"
           value={`${r.precipitation_mm.toFixed(1)} mm`}
           note="latest reading"
@@ -190,7 +190,7 @@ function StationTiles({ r }: { r: StationReading }) {
       )}
       {r.hourly_precipitation_mm != null && (
         <Tile
-          icon="bi-cloud-rain"
+          icon="ph-cloud-rain"
           label="Rain"
           value={`${r.hourly_precipitation_mm.toFixed(1)} mm`}
           note="past hour"
@@ -198,7 +198,7 @@ function StationTiles({ r }: { r: StationReading }) {
       )}
       {uv && r.uv_index != null && (
         <Tile
-          icon="bi-brightness-high"
+          icon="ph-sun"
           label="UV index"
           value={String(Math.round(r.uv_index))}
           note={uv.label}
@@ -206,13 +206,13 @@ function StationTiles({ r }: { r: StationReading }) {
         />
       )}
       {r.pressure_hpa != null && (
-        <Tile icon="bi-speedometer2" label="Pressure" value={`${Math.round(r.pressure_hpa)} hPa`} />
+        <Tile icon="ph-gauge" label="Pressure" value={`${Math.round(r.pressure_hpa)} hPa`} />
       )}
       {r.light_lux != null && (
-        <Tile icon="bi-sun" label="Light" value={`${Math.round(r.light_lux / 1000)}k lux`} />
+        <Tile icon="ph-sun" label="Light" value={`${Math.round(r.light_lux / 1000)}k lux`} />
       )}
       {r.distance != null && (
-        <Tile icon="bi-rulers" label="Sensor distance" value={String(r.distance)} />
+        <Tile icon="ph-ruler" label="Sensor distance" value={String(r.distance)} />
       )}
     </div>
   );
@@ -227,7 +227,7 @@ function Hourly({ forecast }: { forecast: Forecast }) {
         {forecast.hourly.map((h) => (
           <div className="weather-hour" role="listitem" key={h.time}>
             <span className="weather-hour-time">{h.time}</span>
-            <i className={`bi ${h.icon}`} aria-hidden="true" />
+            <i className={`ph-duotone ${h.icon}`} aria-hidden="true" />
             <span className="weather-hour-temp">{h.temperature}°</span>
           </div>
         ))}
@@ -262,13 +262,13 @@ export default function WeatherWidget() {
 
         <div className="weather-current">
           <div className="weather-current-icon" aria-hidden="true">
-            <i className={`bi ${forecast?.icon ?? 'bi-thermometer-half'}`} />
+            <i className={`ph-duotone ${forecast?.icon ?? 'ph-thermometer'}`} />
           </div>
           <div className="weather-current-info">
             <div className="weather-current-temp">{r.temperature_c.toFixed(1)}°C</div>
             {forecast && <div className="weather-current-condition">{forecast.condition}</div>}
             <div className="weather-current-location">
-              <i className="bi bi-geo-alt" aria-hidden="true" /> {LGU_LABEL}
+              <i className="ph ph-map-pin" aria-hidden="true" /> {LGU_LABEL}
             </div>
           </div>
         </div>
@@ -276,7 +276,7 @@ export default function WeatherWidget() {
         {hi && r.heat_index_c != null && (
           <div className={`station-heat tone-${hi.tone}`}>
             <span>
-              <i className="bi bi-thermometer-sun" aria-hidden="true" /> Heat index{' '}
+              <i className="ph-duotone ph-thermometer-hot" aria-hidden="true" /> Heat index{' '}
               <strong>{Math.round(r.heat_index_c)}°C</strong>
             </span>
             <span className="station-heat-level">{hi.label}</span>
@@ -335,13 +335,13 @@ export default function WeatherWidget() {
     >
       <div className="weather-current">
         <div className="weather-current-icon" aria-hidden="true">
-          <i className={`bi ${forecast.icon}`} />
+          <i className={`ph-duotone ${forecast.icon}`} />
         </div>
         <div className="weather-current-info">
           <div className="weather-current-temp">{forecast.temperature}°C</div>
           <div className="weather-current-condition">{forecast.condition}</div>
           <div className="weather-current-location">
-            <i className="bi bi-geo-alt" aria-hidden="true" /> {LGU_LABEL}
+            <i className="ph ph-map-pin" aria-hidden="true" /> {LGU_LABEL}
           </div>
         </div>
       </div>
@@ -351,7 +351,7 @@ export default function WeatherWidget() {
           role="listitem"
           aria-label={`Humidity ${forecast.humidity} percent`}
         >
-          <i className="bi bi-droplet" aria-hidden="true" />
+          <i className="ph-duotone ph-drop" aria-hidden="true" />
           <span>{forecast.humidity}%</span>
         </div>
         <div
@@ -359,13 +359,14 @@ export default function WeatherWidget() {
           role="listitem"
           aria-label={`Wind speed ${forecast.windSpeed} km/h`}
         >
-          <i className="bi bi-wind" aria-hidden="true" />
+          <i className="ph-duotone ph-wind" aria-hidden="true" />
           <span>{forecast.windSpeed} km/h</span>
         </div>
       </div>
       <Hourly forecast={forecast} />
       {status !== 'loading' && (
         <p className="station-updated">
+          <span className="station-live-dot is-off" aria-hidden="true" />
           {status === 'offline' && r
             ? `Weather station offline since ${timeAgo(r.recorded_at, now)}; showing model estimate (Open-Meteo).`
             : 'Model estimate (Open-Meteo).'}

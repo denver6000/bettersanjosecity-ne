@@ -1,29 +1,36 @@
 import Link from 'next/link';
 import { formatDate, news, safeUrl } from '@/lib/data';
+import { T } from '@/i18n/LanguageContext';
 import { DataPending } from './PageShell';
 
 const EMPTY = 'News and advisories from the City Government of San Jose will appear here.';
 
-/** Three latest items for the homepage. */
+/** Three latest items for the homepage (the section heading is in components/home/HomeNews). */
 export function HomeNews() {
   const items = news.slice(0, 3);
   if (!items.length) {
     return (
-      <DataPending title="No updates yet" icon="bi-newspaper">
-        {EMPTY}
-      </DataPending>
+      <div className="home-card home-news-empty">
+        <i className="ph-duotone ph-newspaper" aria-hidden="true" />
+        <div>
+          <h3>
+            <T k="home-news-empty-title">No updates yet</T>
+          </h3>
+          <p>
+            <T k="home-news-empty-body">{EMPTY}</T>
+          </p>
+        </div>
+      </div>
     );
   }
   return (
-    <>
+    <div className="home-news">
       {items.map((a) => {
         const url = safeUrl(a.url);
         return (
           <article className="home-news-card" key={a.id}>
             <div className="home-news-meta">
-              <span className={`home-news-badge home-news-badge--${a.badge ?? 'info'}`}>
-                {a.category}
-              </span>
+              <span className="home-news-tag">{a.category}</span>
               <span className="home-news-date">{formatDate(a.date)}</span>
             </div>
             <h3>
@@ -35,11 +42,10 @@ export function HomeNews() {
                 <Link href="/news">{a.title}</Link>
               )}
             </h3>
-            <p>{a.summary}</p>
           </article>
         );
       })}
-    </>
+    </div>
   );
 }
 
@@ -47,7 +53,7 @@ export function HomeNews() {
 export function NewsGrid() {
   if (!news.length) {
     return (
-      <DataPending title="No updates yet" icon="bi-newspaper" as="h2">
+      <DataPending title="No updates yet" icon="ph-newspaper" as="h2">
         {EMPTY}
       </DataPending>
     );
@@ -82,7 +88,7 @@ export function NewsGrid() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  {a.source || 'Read more'} <i className="bi bi-arrow-right" aria-hidden="true" />
+                  {a.source || 'Read more'} <i className="ph ph-arrow-right" aria-hidden="true" />
                 </a>
               </div>
             )}

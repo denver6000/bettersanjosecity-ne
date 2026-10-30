@@ -51,14 +51,14 @@ export default function ScholarshipStats() {
 
   if (failed && !stats) {
     return (
-      <p className="scholar-status" role="status">
+      <p className="scholar-status is-block" role="status">
         The scholarship figures could not be loaded right now. Please try again later.
       </p>
     );
   }
   if (!stats) {
     return (
-      <p className="scholar-status" role="status">
+      <p className="scholar-status is-block" role="status">
         Loading scholarship figures…
       </p>
     );
@@ -85,6 +85,7 @@ export default function ScholarshipStats() {
                   </option>
                 ))}
               </select>
+              <i className="ph ph-caret-down" aria-hidden="true" />
             </label>
           )}
         </div>
@@ -98,22 +99,20 @@ export default function ScholarshipStats() {
                 {stats.school_year}, {s.label}
               </h3>
               <dl className="scholar-stats">
-                <div>
-                  <dt>Scholars</dt>
-                  <dd>{fmt.format(s.scholars)}</dd>
-                </div>
-                <div>
-                  <dt>New grantees</dt>
-                  <dd>{fmt.format(s.new_grantees)}</dd>
-                </div>
-                <div>
-                  <dt>Renewing</dt>
-                  <dd>{fmt.format(s.renewals)}</dd>
-                </div>
-                <div>
-                  <dt>Qualified for payout</dt>
-                  <dd>{fmt.format(s.qualified_for_payout)}</dd>
-                </div>
+                {[
+                  ['users-three', 'Scholars', s.scholars],
+                  ['user-plus', 'New grantees', s.new_grantees],
+                  ['arrows-clockwise', 'Renewing', s.renewals],
+                  ['seal-check', 'Qualified for payout', s.qualified_for_payout],
+                ].map(([icon, label, n], i) => (
+                  <div key={label as string} className={i === 3 ? 'is-key' : undefined}>
+                    <dt>{label}</dt>
+                    <dd>
+                      <i className={`ph-duotone ph-${icon}`} aria-hidden="true" />
+                      <span>{fmt.format(n as number)}</span>
+                    </dd>
+                  </div>
+                ))}
               </dl>
             </div>
           ))

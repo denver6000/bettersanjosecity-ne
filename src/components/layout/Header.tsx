@@ -168,7 +168,7 @@ export default function Header() {
           aria-label="Toggle Navigation"
           aria-expanded={mobileMenuOpen}
         >
-          <i className={`bi ${mobileMenuOpen ? 'bi-x-lg' : 'bi-list'}`} aria-hidden="true" />
+          <i className={`ph ${mobileMenuOpen ? 'ph-x' : 'ph-list'}`} aria-hidden="true" />
         </button>
       </div>
     </header>

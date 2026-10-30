@@ -11,9 +11,10 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "dev:next": "next dev",
-    "check": "npm run format:check && npm run typecheck && npm run build"
+    "check": "node scripts/check-icons.mjs && node scripts/check-i18n.mjs && npm run format:check && npm run typecheck && npm run build"
   },
   "dependencies": {
+    "@phosphor-icons/web": "2.1.1",
     "leaflet": "1.9.4",
     "next": "16.4.3",
     "react": "19.3.1",

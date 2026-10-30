@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import 'leaflet/dist/leaflet.css';
 import { SITE } from '@/config/site';
+import { useLanguage } from '@/i18n/LanguageContext';
 import { useStation, type Station } from '@/lib/station';
 
 const STATION = SITE.weatherStation;
@@ -14,11 +15,20 @@ const EMBED_URL =
   `https://www.openstreetmap.org/export/embed.html?bbox=${STATION.lon - DLON}%2C${STATION.lat - DLAT}%2C${STATION.lon + DLON}%2C${STATION.lat + DLAT}` +
   `&layer=mapnik&marker=${STATION.lat}%2C${STATION.lon}`;
 
+function radiusLabelIcon(L: typeof import('leaflet'), text: string) {
+  return L.divIcon({
+    className: 'station-radius-label',
+    html: `<span>${text}</span>`,
+    iconSize: [96, 24],
+    iconAnchor: [48, 12],
+  });
+}
+
 function pinHtml(station: Station | null, live: boolean) {
   const t = live ? station?.reading?.temperature_c : null;
   return (
     `<span class="station-pin${live ? ' is-live' : ''}">` +
-    `<span class="station-pin-head"><i class="bi bi-broadcast"></i></span>` +
+    `<span class="station-pin-head"><i class="ph ph-broadcast"></i></span>` +
     (t != null ? `<span class="station-pin-temp">${Math.round(t)}°C</span>` : '') +
     `</span>`
   );
@@ -41,6 +51,11 @@ export default function CityMap() {
     L: typeof import('leaflet');
   } | null>(null);
   const { station, status } = useStation();
+  const { t, language } = useLanguage();
+  const labelText = t('map-radius-label', 'km radius');
+  // Read by the init effect so the map is not re-created on language change.
+  const labelTextRef = useRef(labelText);
+  labelTextRef.current = labelText;
 
   useEffect(() => {
     if (useIframe || !containerRef.current) return;
@@ -77,22 +92,17 @@ export default function CityMap() {
 
       const circle = L.circle([STATION.lat, STATION.lon], {
         radius: RADIUS_M,
-        color: '#0032a0',
+        color: '#0a2f86',
         weight: 2,
         dashArray: '6 6',
-        fillColor: '#0032a0',
+        fillColor: '#0a2f86',
         fillOpacity: 0.07,
         interactive: false,
       }).addTo(map);
 
       // "10 km" tag on the circle's northern edge.
       const label = L.marker([STATION.lat + DLAT, STATION.lon], {
-        icon: L.divIcon({
-          className: 'station-radius-label',
-          html: `<span>${STATION.radiusKm} km radius</span>`,
-          iconSize: [96, 24],
-          iconAnchor: [48, 12],
-        }),
+        icon: radiusLabelIcon(L, `${STATION.radiusKm} ${labelTextRef.current}`),
         interactive: false,
         keyboard: false,
       }).addTo(map);
@@ -135,6 +145,13 @@ export default function CityMap() {
     };
   }, [useIframe]);
 
+  // Re-label the radius tag when the language changes.
+  useEffect(() => {
+    const layers = layersRef.current;
+    if (!mapReady || !layers) return;
+    layers.label.setIcon(radiusLabelIcon(layers.L, `${STATION.radiusKm} ${labelText}`));
+  }, [mapReady, labelText]);
+
   // Refresh the pin (temperature, live state, exact position) with each reading.
   useEffect(() => {
     const layers = layersRef.current;
@@ -154,13 +171,13 @@ export default function CityMap() {
         popupAnchor: [0, -50],
       })
     );
-    const t = station.reading?.temperature_c;
+    const temp = station.reading?.temperature_c;
     marker.setPopupContent(
-      `<strong>${station.name}</strong><br>${live ? 'Live' : 'Offline'} &middot; KloudTrack weather station` +
-        (live && t != null ? `<br>${t.toFixed(1)}°C` : '') +
-        `<br><small>${STATION.radiusKm} km radius shown</small>`
+      `<strong>${station.name}</strong><br>${live ? t('map-status-live', 'Live') : t('map-status-offline', 'Offline')} &middot; ${t('map-station-type', 'KloudTrack weather station')}` +
+        (live && temp != null ? `<br>${temp.toFixed(1)}°C` : '') +
+        `<br><small>${STATION.radiusKm} ${t('map-radius-shown', 'km radius shown')}</small>`
     );
-  }, [mapReady, station, status]);
+  }, [mapReady, station, status, language, t]);
 
   if (useIframe) {
     return (
@@ -181,7 +198,7 @@ export default function CityMap() {
       id="map-container"
       ref={containerRef}
       role="application"
-      aria-label={`Map of the ${STATION.name} weather station and the ${STATION.radiusKm} km area around it`}
+      aria-label={`${STATION.name}: ${STATION.radiusKm} km — ${t('map-aria', 'Map of the weather station and the area around it')}`}
       data-map-loaded="leaflet"
     />
   );

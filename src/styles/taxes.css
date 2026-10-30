@@ -13,9 +13,9 @@
   --alt: #eef2fb;
   --line: #dde3ee;
   --line-2: #eceff5;
-  --orange: var(--color-accent);
-  --orange-d: #b35900;
-  --orange-tint: #fff0e0;
+  --orange: var(--color-primary);
+  --orange-d: var(--color-navy-dark);
+  --orange-tint: var(--color-navy-tint);
   --green: #04785a;
   --green-tint: rgba(6, 167, 125, 0.12);
   --amber-bg: #fff8e8;
@@ -115,7 +115,7 @@
   box-shadow: 0 0 0 3px rgba(0, 50, 160, 0.15);
 }
 
-.tax-page .tax-search > .bi-search {
+.tax-page .tax-search > .ph-magnifying-glass {
   position: absolute;
   left: 16px;
   color: var(--muted);
@@ -879,7 +879,7 @@
   border-color: var(--blue);
 }
 
-.tax-page .est-callout > .bi {
+.tax-page .est-callout > .ph {
   font-size: 1.4rem;
   color: var(--blue);
 }
