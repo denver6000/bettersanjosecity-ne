@@ -17,7 +17,6 @@ import '@/styles/style.css';
 import '@/styles/responsive.css';
 import '@/styles/accessibility.css';
 import '@/styles/footer.css';
-import '@/styles/legal.css';
 import '@/styles/site.css';
 
 const fraunces = Fraunces({

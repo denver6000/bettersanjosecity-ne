@@ -7,10 +7,6 @@
   margin-top: 0;
 }
 
-.site-footer.no-margin-top {
-  margin-top: 0;
-}
-
 /* Main Footer Content */
 .footer-main-new {
   display: grid;
@@ -25,43 +21,11 @@
   max-width: 320px;
 }
 
-.footer-logo {
-  height: 56px;
-  width: auto;
-  margin-bottom: 16px;
-}
-
 .footer-tagline {
   font-size: 0.875rem;
   line-height: 1.6;
   color: rgba(255, 255, 255, 0.7);
   margin-bottom: 24px;
-}
-
-.footer-social-new {
-  display: flex;
-  gap: 12px;
-}
-
-.footer-social-btn {
-  width: 40px;
-  height: 40px;
-  background: rgba(255, 255, 255, 0.08);
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 1.125rem;
-  transition: all 0.2s ease;
-  text-decoration: none;
-}
-
-.footer-social-btn:hover {
-  background: var(--color-primary);
-  color: white;
-  transform: translateY(-2px);
-  text-decoration: none;
 }
 
 /* Foo
@@ -97,21 +61,6 @@ ter Columns */
 .footer-links-new a:hover {
   color: white;
   text-decoration: none;
-}
-
-/* External Links with Badge */
-.footer-external-link {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.footer-external-badge {
-  font-size: 0.625rem;
-  background: rgba(255, 255, 255, 0.1);
-  padding: 2px 6px;
-  border-radius: 4px;
-  color: rgba(255, 255, 255, 0.7);
 }
 
 /* Cost Badge - Compact */
@@ -193,36 +142,6 @@ ter Columns */
   text-decoration: none;
 }
 
-.footer-contribute {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 0.8125rem;
-  color: rgba(255, 255, 255, 0.7);
-  background: rgba(255, 255, 255, 0.05);
-  padding: 8px 16px;
-  border-radius: 50px;
-  text-decoration: none;
-  transition: all 0.2s ease;
-  margin-top: 12px;
-}
-
-.footer-contribute:hover {
-  background: rgba(255, 255, 255, 0.1);
-  color: white;
-  text-decoration: none;
-}
-
-.footer-contribute i {
-  color: #ffffff;
-}
-
-/* Icon colors for contribute buttons */
-.footer-contribute i.ph-envelope-simple,
-.footer-contribute i.ph-github-logo {
-  color: #ffffff;
-}
-
 /* Partner Logos */
 .footer-partners {
   display: flex;
@@ -262,17 +181,8 @@ ter Columns */
     text-align: left;
   }
 
-  .footer-logo {
-    margin-left: 0;
-    margin-right: auto;
-  }
-
   .footer-tagline {
     text-align: left;
-  }
-
-  .footer-social-new {
-    justify-content: flex-start;
   }
 }
 
@@ -288,11 +198,6 @@ ter Columns */
     flex-direction: column;
     align-items: center;
     text-align: center;
-  }
-
-  .footer-logo {
-    margin-left: auto;
-    margin-right: auto;
   }
 
   .footer-tagline {

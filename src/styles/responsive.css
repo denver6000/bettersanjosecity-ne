@@ -6,20 +6,6 @@
     max-width: 1200px;
   }
 
-  .grid-4 {
-    grid-template-columns: repeat(4, 1fr);
-    gap: var(--spacing-md);
-  }
-
-  .grid-3 {
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--spacing-md);
-  }
-
-  .grid-2 {
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--spacing-lg);
-  }
 }
 
 /* Desktop */
@@ -28,10 +14,6 @@
     max-width: 960px;
   }
 
-  .grid-4 {
-    grid-template-columns: repeat(4, 1fr);
-    gap: var(--spacing-sm);
-  }
 }
 
 /* Tablet */
@@ -55,10 +37,6 @@
     order: 1;
     padding: 2px 0;
     flex-shrink: 0;
-  }
-
-  .logo-img {
-    height: 40px;
   }
 
   .mobile-menu-toggle {
@@ -142,68 +120,6 @@
     outline-offset: -2px;
   }
 
-  /* Mobile dropdown: inline, no absolute positioning */
-  .main-nav .has-dropdown {
-    position: static;
-  }
-
-  .main-nav .has-dropdown > a {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    touch-action: manipulation;
-    -webkit-tap-highlight-color: transparent;
-  }
-
-  .main-nav .has-dropdown > a::after {
-    transition: transform 0.2s ease;
-    margin-left: auto;
-    flex-shrink: 0;
-  }
-
-  .main-nav .has-dropdown.dropdown-open > a::after {
-    transform: rotate(180deg);
-  }
-
-  .main-nav .dropdown-menu {
-    position: static;
-    opacity: 1;
-    visibility: visible;
-    transform: none;
-    box-shadow: none;
-    background: transparent;
-    border-radius: 0;
-    min-width: 0;
-    padding: 0;
-    max-height: 0;
-    overflow: hidden;
-    transition:
-      max-height 0.25s ease,
-      padding 0.25s ease;
-  }
-
-  .main-nav .has-dropdown.dropdown-open .dropdown-menu {
-    max-height: 500px;
-    padding: 4px 0 4px 16px;
-  }
-
-  .main-nav .dropdown-menu a {
-    padding: 10px 16px;
-    font-size: 0.9375rem;
-    white-space: normal;
-    color: var(--color-text-light);
-  }
-
-  .main-nav .dropdown-menu a:hover,
-  .main-nav .dropdown-menu a:focus {
-    color: var(--color-primary);
-    background-color: var(--color-bg-alt);
-  }
-
-  .hero-section {
-    padding: 64px 0;
-  }
-
   h1 {
     font-size: 2rem;
   }
@@ -216,50 +132,14 @@
     font-size: 1.375rem;
   }
 
-  /* Tablet Grid Fixes */
-  .grid-4 {
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--spacing-md);
-  }
-
-  .grid-3 {
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--spacing-md);
-  }
-
-  .grid-2 {
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--spacing-md);
-  }
-
   /* Section spacing */
   .section {
     padding: var(--spacing-lg) 0;
   }
 
-  /* News card grid tablet */
-  .news-card-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
   /* Card spacing */
   .card {
     padding: var(--spacing-md);
-  }
-
-  /* Official cards */
-  .official-card {
-    padding: var(--spacing-md);
-  }
-
-  .official-photo i {
-    font-size: 5rem !important;
-  }
-
-  /* Footer */
-  .footer-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--spacing-lg);
   }
 
   /* Footer brand left-align on tablet */
@@ -269,36 +149,10 @@
     text-align: left;
   }
 
-  .footer-social-new {
-    justify-content: flex-start;
-  }
-
-  .footer-logo {
-    margin-left: 0;
-    margin-right: auto;
-  }
-
   .footer-tagline {
     text-align: left;
   }
 
-  /* Service content */
-  .service-content {
-    grid-template-columns: 1fr;
-  }
-
-  .service-sidebar {
-    order: 2;
-  }
-
-  .department-item .d-flex {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .dept-icon {
-    margin: 0 auto var(--spacing-md);
-  }
 }
 
 /* Mobile */
@@ -320,10 +174,6 @@
     padding: 2px 0;
   }
 
-  .logo-img {
-    height: 36px;
-  }
-
   h1 {
     font-size: 1.75rem;
   }
@@ -340,38 +190,6 @@
     font-size: 1.125rem;
   }
 
-  .grid-2,
-  .grid-3,
-  .grid-4 {
-    grid-template-columns: 1fr;
-    gap: var(--spacing-md);
-  }
-
-  .footer-grid {
-    grid-template-columns: 1fr;
-    gap: var(--spacing-md);
-    text-align: center;
-  }
-
-  .footer-col {
-    margin-bottom: var(--spacing-md);
-  }
-
-  .social-links {
-    justify-content: center;
-  }
-
-  .search-box {
-    font-size: 1rem;
-    padding: 12px 16px;
-    padding-right: 45px;
-  }
-
-  .search-btn {
-    width: 36px;
-    height: 36px;
-  }
-
   /* Section spacing */
   .section {
     padding: var(--spacing-md) 0;
@@ -380,38 +198,6 @@
   /* Card spacing */
   .card {
     padding: var(--spacing-sm);
-  }
-
-  .card-icon {
-    font-size: 1.75rem;
-  }
-
-  /* Hero section */
-  .hero-actions {
-    flex-direction: column;
-    gap: var(--spacing-sm);
-  }
-
-  .hero-actions .btn {
-    width: 100%;
-  }
-
-  /* Official cards */
-  .official-card {
-    padding: var(--spacing-sm);
-  }
-
-  .official-photo i {
-    font-size: 4rem !important;
-  }
-
-  /* Councilor cards */
-  .councilor-card {
-    padding: var(--spacing-sm);
-  }
-
-  .councilor-card i {
-    font-size: 2rem !important;
   }
 
   /* Buttons */
@@ -423,47 +209,6 @@
   .btn-sm {
     padding: 6px 12px;
     font-size: 0.8125rem;
-  }
-
-  /* Section header */
-  .section-header {
-    flex-direction: column;
-    gap: var(--spacing-sm);
-    text-align: center;
-  }
-
-  /* Data table */
-  .data-table {
-    font-size: 0.875rem;
-  }
-
-  .data-table th,
-  .data-table td {
-    padding: var(--spacing-xs);
-  }
-
-  /* Progress bar */
-  .progress-bar {
-    height: 20px;
-  }
-
-  .progress-fill {
-    font-size: 0.75rem;
-  }
-
-  /* Project header */
-  .project-header {
-    flex-direction: column;
-    gap: var(--spacing-xs);
-  }
-
-  /* FAQ items */
-  .faq-item {
-    padding: var(--spacing-sm);
-  }
-
-  .faq-item h4 {
-    font-size: 1rem;
   }
 
   /* Breadcrumbs */
@@ -481,29 +226,6 @@
     font-size: 0.6875rem;
   }
 
-  /* Contact form */
-  .contact-form {
-    padding: var(--spacing-md);
-  }
-
-  /* Info boxes */
-  .info-box {
-    padding: var(--spacing-sm);
-  }
-
-  /* Display icons */
-  .display-3 {
-    font-size: 2.5rem;
-  }
-
-  /* Barangay items */
-  .barangay-item {
-    padding: var(--spacing-sm);
-  }
-
-  .barangay-item h4 {
-    font-size: 0.9375rem;
-  }
 }
 
 /* Small Mobile */
@@ -528,10 +250,6 @@
     min-height: 32px;
   }
 
-  .logo-img {
-    height: 32px;
-  }
-
   .header-actions {
     gap: var(--spacing-xs);
   }
@@ -539,11 +257,6 @@
   /* Cards */
   .card {
     padding: var(--spacing-xs);
-  }
-
-  /* News card grid */
-  .news-card-grid {
-    grid-template-columns: 1fr;
   }
 
   .news-card-desc {
@@ -588,32 +301,6 @@
     align-items: center;
     justify-content: center;
   }
-}
-
-/* Social Links Styling */
-.social-links {
-  display: flex;
-  gap: var(--spacing-sm);
-  margin-top: var(--spacing-sm);
-}
-
-.social-links a {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.1);
-  color: #cccccc;
-  font-size: 1.25rem;
-  transition: all 0.2s ease;
-}
-
-.social-links a:hover {
-  background-color: var(--color-primary);
-  color: var(--color-white);
-  transform: translateY(-2px);
 }
 
 /* Print Styles */
