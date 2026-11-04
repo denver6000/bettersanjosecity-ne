@@ -119,21 +119,21 @@ a directory index. `/services` redirects to `/services/`.
 
 ## Structure
 
-| Path                     | Purpose                                                                                                                                      |
-| ------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| `src/app/`               | Routes: one folder per page (`page.tsx`), plus 403/500/not-found                                                                             |
-| `src/components/layout/` | HotlineBar, Header, InfoBar, Footer, BrandLockup                                                                                             |
-| `src/components/`        | PageShell, DataPending, WeatherWidget, CityMap (Leaflet), ServiceSearch, NewsList, PWAManager                                                |
-| `src/config/site.ts`     | LGU identity, coordinates, hotlines, nav, service categories                                                                                 |
-| `src/i18n/`              | EN/FIL dictionary, `LanguageProvider`, and the `<T k="...">` helper                                                                          |
-| `src/data/*.json`        | Content data, read at build time                                                                                                             |
-| `src/styles/`            | Upstream BetterSolano CSS, plus `site.css` for San Jose additions                                                                            |
-| `public/`                | Logo and icons, OG banner, manifest, service worker, offline page, `.htaccess`                                                               |
-| `src/lib/`               | Station feed, PSIC search, tax estimator logic, number formatting                                                                            |
-| `public/api/`            | `weather-station.php`, the only server-side code                                                                                             |
-| `scripts/`               | `dev.mjs` (Next + PHP together), `psic-to-json.py` (PSIC workbook to JSON), `build-icons.mjs` (`npm run icons` after adding a Phosphor icon) |
-| `sources/`               | Original documents (PSA workbook, Treasurer printouts). Git-ignored: kept locally, never committed or deployed                               |
-| `design/`                | Previous logos (bluefied seal, SJC v1), not deployed                                                                                         |
+| Path                     | Purpose                                                                                                                                                                                                   |
+| ------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `src/app/`               | Routes: one folder per page (`page.tsx`), plus 403/500/not-found                                                                                                                                          |
+| `src/components/layout/` | HotlineBar, Header, InfoBar, Footer, BrandLockup                                                                                                                                                          |
+| `src/components/`        | PageShell, DataPending, WeatherWidget, CityMap (Leaflet), ServiceSearch, NewsList, PWAManager                                                                                                             |
+| `src/config/site.ts`     | LGU identity, coordinates, hotlines, nav, service categories                                                                                                                                              |
+| `src/i18n/`              | EN/FIL dictionary, `LanguageProvider`, and the `<T k="...">` helper                                                                                                                                       |
+| `src/data/*.json`        | Content data, read at build time                                                                                                                                                                          |
+| `src/styles/`            | Upstream BetterSolano CSS, plus `site.css` for San Jose additions                                                                                                                                         |
+| `public/`                | Logo and icons, OG banner, manifest, service worker, offline page, `.htaccess`                                                                                                                            |
+| `src/lib/`               | Station feed, PSIC search, tax estimator logic, number formatting                                                                                                                                         |
+| `public/api/`            | `weather-station.php`, the only server-side code                                                                                                                                                          |
+| `scripts/`               | `dev.mjs` (Next + PHP together), `psic-to-json.py` (PSIC workbook to JSON), `build-icons.mjs` (`npm run icons` after adding a Phosphor icon; regenerating needs `python -m pip install fonttools brotli`) |
+| `sources/`               | Original documents (PSA workbook, Treasurer printouts). Git-ignored: kept locally, never committed or deployed                                                                                            |
+| `design/`                | Previous logos (bluefied seal, SJC v1), not deployed                                                                                                                                                      |
 
 ## Logo files
 

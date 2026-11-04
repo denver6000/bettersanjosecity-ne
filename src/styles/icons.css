@@ -3,8 +3,7 @@
 @font-face {
   font-family: "Phosphor";
   src:
-    url("/assets/fonts/phosphor/Phosphor.woff2") format("woff2"),
-    url("/assets/fonts/phosphor/Phosphor.woff") format("woff");
+    url("/assets/fonts/phosphor/Phosphor.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -246,8 +245,7 @@
 @font-face {
   font-family: "Phosphor-Duotone";
   src:
-    url("/assets/fonts/phosphor/Phosphor-Duotone.woff2") format("woff2"),
-    url("/assets/fonts/phosphor/Phosphor-Duotone.woff") format("woff");
+    url("/assets/fonts/phosphor/Phosphor-Duotone.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -824,8 +822,7 @@
 @font-face {
   font-family: "Phosphor-Bold";
   src:
-    url("/assets/fonts/phosphor/Phosphor-Bold.woff2") format("woff2"),
-    url("/assets/fonts/phosphor/Phosphor-Bold.woff") format("woff");
+    url("/assets/fonts/phosphor/Phosphor-Bold.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -1067,8 +1064,7 @@
 @font-face {
   font-family: "Phosphor-Fill";
   src:
-    url("/assets/fonts/phosphor/Phosphor-Fill.woff2") format("woff2"),
-    url("/assets/fonts/phosphor/Phosphor-Fill.woff") format("woff");
+    url("/assets/fonts/phosphor/Phosphor-Fill.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
   font-display: block;

@@ -1,12 +1,24 @@
 // Generates src/styles/icons.css: only the Phosphor icons src/ uses, instead of the ~480 KB
 // full stylesheets. Run `npm run icons` after adding an icon. `--check` fails if out of date.
-import { copyFileSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
+import { mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
+import { execFileSync } from 'node:child_process';
 import { join } from 'node:path';
 
 const OUT = 'src/styles/icons.css';
 const FONT_DIR = 'public/assets/fonts/phosphor';
 const PKG = 'node_modules/@phosphor-icons/web/src';
 const WEIGHTS = ['regular', 'duotone', 'bold', 'fill'];
+const FONT_NAMES = {
+  regular: 'Phosphor',
+  duotone: 'Phosphor-Duotone',
+  bold: 'Phosphor-Bold',
+  fill: 'Phosphor-Fill',
+};
+const SUBSET_JSON = join(FONT_DIR, 'subset.json');
+const CHECK = process.argv.includes('--check');
+const HINT =
+  'icon fonts are out of date — run npm run icons (needs: python -m pip install fonttools brotli)';
+const subsets = {}; // weight -> sorted codepoints (hex) the icon rules reference
 
 // Same name detection as check-icons.mjs; icons.css itself is output, not a usage.
 const used = new Set();
@@ -30,34 +42,60 @@ for (const weight of WEIGHTS) {
     const text = block.replace(head, selector + ' ');
     if (selector === '@font-face') fontFaces.push(text);
     else if (!icon) base.push(block.trim());
-    else if (used.has(icon[1])) icons.push(text);
+    else if (used.has(icon[1])) {
+      icons.push(text);
+      for (const [, cp] of text.matchAll(/content:\s*"\\([0-9a-f]+)"/g))
+        (subsets[weight] ??= new Set()).add(cp);
+    }
   }
+  subsets[weight] = [...(subsets[weight] ?? [])].sort();
   for (const ff of fontFaces) {
-    // woff2 + woff only (every supported browser reads one of them); drop ttf/svg.
-    const files = [...ff.matchAll(/url\("\.\/([^"]+\.woff2?)"\) format\("(woff2?)"\)/g)];
-    for (const m of files) copyFont(weight, m[1]);
-    const src = files
-      .map((m) => `    url("/assets/fonts/phosphor/${m[1]}") format("${m[2]}")`)
-      .join(',\n');
+    // woff2 only (every supported browser reads it); the file is a subset built below.
+    const src = `    url("/assets/fonts/phosphor/${FONT_NAMES[weight]}.woff2") format("woff2")`;
     parts.push(ff.replace(/src:[^;]*;/, `src:\n${src};`));
   }
   parts.push(...base, icons.join('\n'));
 }
 
-function copyFont(weight, file) {
-  if (process.argv.includes('--check')) return;
-  mkdirSync(FONT_DIR, { recursive: true });
-  copyFileSync(join(PKG, weight, file), join(FONT_DIR, file));
-}
-
 const next = parts.join('\n\n') + '\n';
-if (process.argv.includes('--check')) {
-  if (readFileSync(OUT, 'utf8') !== next) {
-    console.error('icons.css is out of date — run node scripts/build-icons.mjs');
+if (CHECK) {
+  let ok = readFileSync(OUT, 'utf8') === next;
+  try {
+    const have = JSON.parse(readFileSync(SUBSET_JSON, 'utf8'));
+    for (const w of WEIGHTS) ok &&= subsets[w].every((cp) => have[w]?.includes(cp));
+  } catch {
+    ok = false;
+  }
+  if (!ok) {
+    console.error(HINT);
     process.exit(1);
   }
   console.log('build-icons: OK');
 } else {
   writeFileSync(OUT, next);
-  console.log(`build-icons: ${used.size} names -> ${OUT} (${next.length} bytes)`);
+  mkdirSync(FONT_DIR, { recursive: true });
+  for (const w of WEIGHTS) {
+    try {
+      execFileSync(
+        'python',
+        [
+          '-m',
+          'fontTools.subset',
+          join(PKG, w, FONT_NAMES[w] + '.ttf'),
+          `--unicodes=${subsets[w].join(',')}`,
+          '--flavor=woff2',
+          '--layout-features=*',
+          '--no-hinting',
+          '--desubroutinize',
+          `--output-file=${join(FONT_DIR, FONT_NAMES[w])}.woff2`,
+        ],
+        { stdio: 'pipe' }
+      );
+    } catch {
+      console.error(HINT);
+      process.exit(1);
+    }
+  }
+  writeFileSync(SUBSET_JSON, JSON.stringify(subsets, null, 2) + '\n');
+  console.log(`build-icons: ${used.size} names -> ${OUT} (${next.length} bytes) + font subsets`);
 }
