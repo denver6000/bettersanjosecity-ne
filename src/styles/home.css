@@ -801,3 +801,215 @@
     flex-wrap: wrap;
   }
 }
+
+/* ===== Phone pass (up to 599px): 20px gutters, 44px touch targets, nothing under 13px ===== */
+@media (max-width: 599px) {
+  .home-sec .container {
+    padding: 0 20px;
+  }
+
+  /* Hero */
+  .home-hero-pic {
+    height: 220px;
+  }
+
+  .home-hero-copy {
+    padding: 28px 20px 36px;
+  }
+
+  .home-hero h1 {
+    font-size: clamp(36px, 10.4vw, 40px);
+    line-height: 1.04;
+    margin-bottom: 14px;
+  }
+
+  .home-hero-credit {
+    right: 12px;
+    bottom: 10px;
+    font-size: 13px;
+  }
+
+  .home-hero .home-search-box {
+    margin-top: 24px;
+  }
+
+  /* Input row on top, Search button full-width underneath. */
+  .home-hero .search-form {
+    padding: 6px;
+  }
+
+  .home-hero .search-input-wrapper {
+    flex-wrap: wrap;
+    gap: 6px 8px;
+  }
+
+  .home-hero .search-input-wrapper > i {
+    margin-left: 8px;
+  }
+
+  .home-hero .home-search-box .service-search-input {
+    flex: 1 1 0;
+    min-height: 44px;
+    font-size: 16px;
+  }
+
+  .home-hero .home-search-box .service-search-input::placeholder {
+    font-size: 14px;
+  }
+
+  .home-hero .search-submit-btn {
+    flex: 1 1 100%;
+    min-height: 48px;
+  }
+
+  .home-hero .search-results-list a {
+    min-height: 44px;
+  }
+
+  /* Section heads: the "All ..." link wraps under the heading when it does not fit. */
+  .home-sec-head {
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0 16px;
+    margin-bottom: 14px;
+  }
+
+  .home-more,
+  .home-scholar-details {
+    min-height: 44px;
+  }
+
+  .coming-soon {
+    font-size: 13px;
+  }
+
+  /* Service tiles: icon over name, centered. */
+  .home-svc {
+    gap: 12px;
+  }
+
+  .home-svc .home-card {
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 112px;
+    padding: 18px 10px;
+    text-align: center;
+  }
+
+  .home-numbers {
+    gap: 12px;
+  }
+
+  .home-number-value {
+    margin-top: 10px;
+    font-size: 30px;
+  }
+
+  /* Scholarship band: label, field and Check stack, each full-width. */
+  .home-scholar {
+    gap: 20px;
+    padding: 24px 16px;
+  }
+
+  .home-scholar .scholar-search label {
+    flex: 1 1 100%;
+    padding: 4px 4px 0;
+  }
+
+  .home-scholar .scholar-search input {
+    flex: 1 1 100%;
+    min-height: 48px;
+    padding: 12px;
+    border: 1px solid var(--color-line);
+    border-radius: 8px;
+    background: var(--color-cream);
+    font-size: 16px;
+  }
+
+  .home-scholar .scholar-search input:focus-visible {
+    outline: 2px solid var(--color-navy);
+    outline-offset: 2px;
+  }
+
+  .home-scholar .scholar-search .btn-primary {
+    min-height: 48px;
+  }
+
+  /* Weather: readings two across, hourly forecast two across, 13px labels. */
+  .home-weather .weather-stats {
+    flex-wrap: wrap;
+  }
+
+  .home-weather .station-tiles {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .home-weather .station-tile-label,
+  .home-weather .station-tile-note,
+  .home-weather .station-forecast-label,
+  .home-weather .station-updated,
+  .home-weather .weather-hour-time,
+  .home-weather .station-details dt,
+  .home-weather .station-map-legend {
+    font-size: 13px;
+  }
+
+  .home-weather .weather-hourly {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .home-weather .weather-retry-btn {
+    min-height: 44px;
+  }
+
+  .home-map-card #map-container,
+  .home-map-card #map-container.leaflet-container {
+    min-height: 260px;
+    height: 260px !important;
+    flex: none;
+  }
+
+  .home-map-card .leaflet-bar a {
+    width: 44px;
+    height: 44px;
+    line-height: 44px;
+  }
+
+  /* News, leadership, contact: one column; rows stack label over value. */
+  .home-news-card h3 a {
+    display: block;
+    min-height: 44px;
+  }
+
+  .home-sec .home-panel h2 {
+    font-size: 24px;
+  }
+
+  .home-list li {
+    display: grid;
+    grid-template-columns: 28px minmax(0, 1fr);
+    gap: 2px 14px;
+    align-items: center;
+  }
+
+  .home-list li > i {
+    grid-row: 1 / span 2;
+  }
+
+  .home-list-val {
+    margin-left: 0;
+    text-align: left;
+  }
+
+  .home-sec-last {
+    padding-bottom: 56px;
+  }
+}
+
+/* 320px: the search icon gives way so the placeholder is not cut off. */
+@media (max-width: 359px) {
+  .home-hero .search-input-wrapper > i {
+    display: none;
+  }
+}

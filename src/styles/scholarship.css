@@ -923,3 +923,95 @@
     justify-content: center;
   }
 }
+
+/* ===== Phone pass (up to 599px): 20px gutters, stacked lookup, 44px touch targets ===== */
+@media (max-width: 599px) {
+  .scholar-page .container {
+    padding: 0 20px;
+  }
+
+  .scholar-hero {
+    gap: 24px;
+    padding: 12px 0 32px;
+  }
+
+  .scholar-crumbs a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+
+  .scholar-hero h1 {
+    margin: 4px 0 10px;
+    font-size: clamp(2.25rem, 10.4vw, 2.5rem);
+    line-height: 1.06;
+  }
+
+  .scholar-hero-text p {
+    font-size: 1rem;
+  }
+
+  .scholar-lookup-card {
+    padding: 16px;
+  }
+
+  /* Field row on top, Check full-width underneath. */
+  .scholar-hero .scholar-search {
+    flex-wrap: wrap;
+    padding: 6px;
+    gap: 6px 8px;
+  }
+
+  .scholar-hero .scholar-search-icon {
+    margin-left: 8px;
+  }
+
+  .scholar-hero .scholar-search input {
+    flex: 1 1 0;
+    min-height: 44px;
+    font-size: 1rem;
+  }
+
+  .scholar-hero .scholar-search .btn-primary {
+    flex: 1 1 100%;
+    min-height: 48px;
+  }
+
+  .scholar-lock-note {
+    font-size: 0.8125rem;
+  }
+
+  .scholar-year {
+    padding: 0 12px;
+  }
+
+  .scholar-year select {
+    min-height: 44px;
+  }
+
+  .scholar-page h5,
+  .scholar-page .scholar-track {
+    font-size: 0.8125rem;
+  }
+
+  .scholar-page .scholar-update summary {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+  }
+
+  .scholar-update input,
+  .scholar-update select,
+  .scholar-update button {
+    min-height: 44px;
+  }
+
+  .scholar-privacy a {
+    display: inline-block;
+    padding: 11px 0;
+  }
+
+  .scholar-privacy {
+    margin-bottom: 40px;
+  }
+}
