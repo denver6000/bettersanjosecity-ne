@@ -18,7 +18,7 @@ export default function HomeLeadershipContact() {
   return (
     <section className="home-sec home-sec-last">
       <div className="container">
-        <div className="home-two">
+        <div className="home-two" data-reveal-children>
           <div className="home-card home-panel">
             <div className="home-sec-head">
               <h2>

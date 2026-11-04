@@ -285,14 +285,10 @@
   color: var(--color-navy);
   font-size: 15px;
   font-weight: 600;
-  transition:
-    border-color 0.15s,
-    transform 0.15s;
 }
 
 .home-svc .home-card:hover {
   border-color: var(--color-navy);
-  transform: translateY(-2px);
 }
 
 .home-svc .home-card i {
@@ -345,7 +341,6 @@
   align-items: flex-start;
   padding: 22px;
   color: var(--color-ink);
-  transition: border-color 0.15s;
 }
 
 .home-numbers .home-card:hover {
@@ -405,17 +400,6 @@
 
   .home-numbers .home-card {
     padding: 18px;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .home-svc .home-card,
-  .home-numbers .home-card {
-    transition: none;
-  }
-
-  .home-svc .home-card:hover {
-    transform: none;
   }
 }
 

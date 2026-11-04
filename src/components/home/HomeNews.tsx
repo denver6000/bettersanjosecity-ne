@@ -6,7 +6,7 @@ export default function HomeNews() {
   return (
     <section className="home-sec">
       <div className="container">
-        <div className="home-sec-head">
+        <div className="home-sec-head" data-reveal>
           <h2>
             <T k="home-news-title">Latest news</T>
           </h2>

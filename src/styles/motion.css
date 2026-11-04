@@ -1,0 +1,56 @@
+/*
+ * Scroll reveal and card hover. Everything here is inside prefers-reduced-motion: no-preference, and
+ * content is only hidden under html.motion-ok (set by components/ScrollReveal), so with JS off or
+ * reduced motion on, every block is plain and visible.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes reveal-up {
+    from {
+      opacity: 0;
+      translate: 0 12px;
+    }
+  }
+
+  html.motion-ok [data-reveal]:not(.is-in),
+  html.motion-ok [data-reveal-children]:not(.is-in) > * {
+    opacity: 0;
+  }
+
+  html.motion-ok [data-reveal].is-in:not(.is-static),
+  html.motion-ok [data-reveal-children].is-in:not(.is-static) > * {
+    animation: reveal-up 400ms ease-out backwards;
+  }
+
+  html.motion-ok [data-reveal-children].is-in:not(.is-static) > :nth-child(2) {
+    animation-delay: 60ms;
+  }
+  html.motion-ok [data-reveal-children].is-in:not(.is-static) > :nth-child(3) {
+    animation-delay: 120ms;
+  }
+  html.motion-ok [data-reveal-children].is-in:not(.is-static) > :nth-child(4) {
+    animation-delay: 180ms;
+  }
+  html.motion-ok [data-reveal-children].is-in:not(.is-static) > :nth-child(5) {
+    animation-delay: 240ms;
+  }
+  html.motion-ok [data-reveal-children].is-in:not(.is-static) > :nth-child(n + 6) {
+    animation-delay: 300ms;
+  }
+}
+
+/* Clickable cards only: a 2px lift and a slightly stronger shadow on pointer devices. */
+@media (prefers-reduced-motion: no-preference) and (hover: hover) {
+  .home-svc .home-card,
+  .home-numbers .home-card {
+    transition:
+      transform 150ms ease-out,
+      box-shadow 150ms ease-out,
+      border-color 150ms ease-out;
+  }
+
+  .home-svc .home-card:hover,
+  .home-numbers .home-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(7, 31, 92, 0.1);
+  }
+}

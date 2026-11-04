@@ -8,13 +8,13 @@ export default function HomeWeather() {
   return (
     <section className="home-sec">
       <div className="container">
-        <div className="home-sec-head">
+        <div className="home-sec-head" data-reveal>
           <h2>
             <T k="home-weather-title">Weather right now</T>
           </h2>
         </div>
         <div className="home-weather">
-          <div id="weather-container" aria-live="polite">
+          <div id="weather-container" aria-live="polite" data-reveal>
             <WeatherWidget />
           </div>
           <div className="home-card home-map-card">

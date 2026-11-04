@@ -6,11 +6,14 @@ import HomeWeather from '@/components/home/HomeWeather';
 import HomeNews from '@/components/home/HomeNews';
 import HomeLeadershipContact from '@/components/home/HomeLeadershipContact';
 import '@/styles/scholarship.css';
+import ScrollReveal from '@/components/ScrollReveal';
 import '@/styles/home.css';
+import '@/styles/motion.css';
 
 export default function HomePage() {
   return (
     <>
+      <ScrollReveal />
       <HomeHero />
       <HomeServices />
       <HomeScholar />

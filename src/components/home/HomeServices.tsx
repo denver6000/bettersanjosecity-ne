@@ -19,7 +19,7 @@ export default function HomeServices() {
   return (
     <section className="home-sec">
       <div className="container">
-        <div className="home-sec-head">
+        <div className="home-sec-head" data-reveal>
           <h2>
             <T k="home-popular-services">Popular services</T>
           </h2>
@@ -28,7 +28,7 @@ export default function HomeServices() {
             <i className="ph-bold ph-arrow-right" aria-hidden="true" />
           </Link>
         </div>
-        <div className="home-svc">
+        <div className="home-svc" data-reveal-children>
           {tiles.map(({ c, k }) => (
             <Link href={'href' in c ? c.href : '/services'} className="home-card" key={c.name}>
               <i className={`ph-duotone ${c.icon}`} aria-hidden="true" />

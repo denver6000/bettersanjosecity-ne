@@ -14,7 +14,7 @@ export default function HomeNumbers() {
   return (
     <section className="home-sec">
       <div className="container">
-        <div className="home-sec-head">
+        <div className="home-sec-head" data-reveal>
           <h2>
             <T k="home-numbers-title">San Jose in numbers</T>
           </h2>
@@ -23,7 +23,7 @@ export default function HomeNumbers() {
             <i className="ph-bold ph-arrow-right" aria-hidden="true" />
           </Link>
         </div>
-        <div className="home-numbers">
+        <div className="home-numbers" data-reveal-children>
           {NUMBERS.map((n) => (
             <Link href={n.href} className="home-card" key={n.label}>
               <i className={`ph-duotone ${n.icon}`} aria-hidden="true" />

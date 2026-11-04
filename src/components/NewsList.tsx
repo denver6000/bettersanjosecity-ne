@@ -10,7 +10,7 @@ export function HomeNews() {
   const items = news.slice(0, 3);
   if (!items.length) {
     return (
-      <div className="home-card home-news-empty">
+      <div className="home-card home-news-empty" data-reveal>
         <i className="ph-duotone ph-newspaper" aria-hidden="true" />
         <div>
           <h3>
@@ -24,7 +24,7 @@ export function HomeNews() {
     );
   }
   return (
-    <div className="home-news">
+    <div className="home-news" data-reveal-children>
       {items.map((a) => {
         const url = safeUrl(a.url);
         return (

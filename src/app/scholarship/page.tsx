@@ -3,7 +3,9 @@ import Link from 'next/link';
 import { T } from '@/i18n/LanguageContext';
 import ScholarLookup from '@/components/ScholarLookup';
 import ScholarshipStats from '@/components/ScholarshipStats';
+import ScrollReveal from '@/components/ScrollReveal';
 import '@/styles/scholarship.css';
+import '@/styles/motion.css';
 
 export const metadata: Metadata = {
   title: 'City Scholarship Program',
@@ -19,6 +21,7 @@ export const metadata: Metadata = {
 export default function ScholarshipPage() {
   return (
     <div className="scholar-page">
+      <ScrollReveal />
       <div className="container">
         <div className="scholar-hero">
           <div className="scholar-hero-text">
@@ -50,7 +53,7 @@ export default function ScholarshipPage() {
 
         <section className="scholar-block">
           <h2>New grantees and renewals</h2>
-          <dl className="scholar-glossary">
+          <dl className="scholar-glossary" data-reveal-children>
             <div>
               <dt>
                 <i className="ph-duotone ph-user-plus" aria-hidden="true" />
@@ -84,7 +87,7 @@ export default function ScholarshipPage() {
           </dl>
         </section>
 
-        <aside className="scholar-privacy">
+        <aside className="scholar-privacy" data-reveal>
           <i className="ph-duotone ph-shield-check" aria-hidden="true" />
           <div>
             <h2>About your information</h2>

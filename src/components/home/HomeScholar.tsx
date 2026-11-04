@@ -6,7 +6,7 @@ export default function HomeScholar() {
   return (
     <section className="home-sec">
       <div className="container">
-        <div className="home-scholar">
+        <div className="home-scholar" data-reveal>
           <div>
             <h2>
               <T k="home-scholar-title">Check your scholarship</T>

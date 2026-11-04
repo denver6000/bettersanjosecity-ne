@@ -98,7 +98,7 @@ export default function ScholarshipStats() {
               <h3>
                 {stats.school_year}, {s.label}
               </h3>
-              <dl className="scholar-stats">
+              <dl className="scholar-stats" data-reveal-children>
                 {[
                   ['users-three', 'Scholars', s.scholars],
                   ['user-plus', 'New grantees', s.new_grantees],
@@ -131,7 +131,7 @@ export default function ScholarshipStats() {
 
       <section className="scholar-block" aria-labelledby={`${ids}-reqs`}>
         <h2 id={`${ids}-reqs`}>Requirements</h2>
-        <div className="scholar-reqs">
+        <div className="scholar-reqs" data-reveal-children>
           <div>
             <h3>New grantees</h3>
             <ul>
