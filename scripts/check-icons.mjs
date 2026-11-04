@@ -1,4 +1,5 @@
 // Fails when src still uses Bootstrap Icons or names a Phosphor glyph the font does not define.
+// New icons also need `npm run icons` (regenerates src/styles/icons.css).
 import { readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 

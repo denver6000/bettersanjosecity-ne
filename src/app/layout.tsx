@@ -9,10 +9,7 @@ import { LanguageProvider, T } from '@/i18n/LanguageContext';
 import { SITE } from '@/config/site';
 
 // BetterSolano design system (order matters), then San Jose additions.
-import '@phosphor-icons/web/regular';
-import '@phosphor-icons/web/duotone';
-import '@phosphor-icons/web/bold';
-import '@phosphor-icons/web/fill';
+import '@/styles/icons.css';
 import '@/styles/style.css';
 import '@/styles/responsive.css';
 import '@/styles/accessibility.css';
