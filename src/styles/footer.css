@@ -30,7 +30,7 @@
 
 /* Foo
 ter Columns */
-.footer-column h4 {
+.footer-column h2 {
   font-size: 0.8125rem;
   font-weight: 600;
   text-transform: uppercase;
@@ -233,4 +233,9 @@ ter Columns */
   .footer-bottom-new {
     text-align: center;
   }
+}
+
+/* Inline link in the copyright text: underlined so it is not told apart by colour alone. */
+.footer-copyright-disclaimer a {
+  text-decoration: underline;
 }

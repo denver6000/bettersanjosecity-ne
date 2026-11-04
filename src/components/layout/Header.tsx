@@ -151,7 +151,7 @@ export default function Header() {
                 type="button"
                 className={`btn btn-secondary btn-sm lang-btn ${language === lang.code ? 'active' : ''}`}
                 onClick={() => setLanguage(lang.code)}
-                aria-label={`Switch to ${lang.name}`}
+                aria-label={`${lang.label} - ${lang.name}`}
                 aria-pressed={language === lang.code}
               >
                 {lang.label}
@@ -165,7 +165,9 @@ export default function Header() {
           type="button"
           className="mobile-menu-toggle btn btn-secondary"
           onClick={() => (mobileMenuOpen ? closeMenu() : openMenu())}
-          aria-label="Toggle Navigation"
+          aria-label={
+            mobileMenuOpen ? t('nav-close-menu', 'Close menu') : t('nav-open-menu', 'Open menu')
+          }
           aria-expanded={mobileMenuOpen}
         >
           <i className={`ph ${mobileMenuOpen ? 'ph-x' : 'ph-list'}`} aria-hidden="true" />

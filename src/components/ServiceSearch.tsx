@@ -57,6 +57,7 @@ export default function ServiceSearch() {
             aria-label={t('home-find-a-service', 'Find a Service')}
             autoComplete="off"
             value={query}
+            onKeyDown={(e) => e.key === 'Escape' && setOpen(false)}
             onChange={(e) => {
               setQuery(e.target.value);
               setOpen(true);
@@ -67,8 +68,19 @@ export default function ServiceSearch() {
           </button>
         </div>
       </form>
+      {/* Links, not a combobox: a plain list plus a polite count keeps Tab order and announcements simple. */}
+      <p className="sr-only" role="status">
+        {open && query.trim().length >= 2
+          ? results.length === 0
+            ? t('search-results-none', 'No matching services')
+            : t('search-results-count', '{n} matching services').replace(
+                '{n}',
+                String(results.length)
+              )
+          : ''}
+      </p>
       {open && query.trim().length >= 2 && (
-        <ul className="search-results-list" role="listbox" aria-label="Matching services">
+        <ul className="search-results-list" aria-label={t('home-find-a-service', 'Find a Service')}>
           {results.length === 0 ? (
             <li className="search-results-empty">
               {services.length === 0
@@ -77,7 +89,7 @@ export default function ServiceSearch() {
             </li>
           ) : (
             results.map((s) => (
-              <li key={s.id} role="option" aria-selected="false">
+              <li key={s.id}>
                 <Link href={s.url || '/services'}>
                   <strong>{s.title}</strong>
                   <span>{s.category}</span>

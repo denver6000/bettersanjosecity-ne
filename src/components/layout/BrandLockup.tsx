@@ -31,7 +31,7 @@ export default function BrandLockup({ footer = false }: { footer?: boolean }) {
         height={56}
       />
       <span className="brand-wordmark">
-        <span className="brand-name">BetterLGU</span>
+        <span className="brand-name">BetterLGU</span>{' '}
         <span className="brand-sub">San Jose City</span>
       </span>
     </Link>

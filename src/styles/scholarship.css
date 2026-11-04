@@ -230,6 +230,18 @@
   color: #8a1c1c;
 }
 
+.scholar-checklist .scholar-missing {
+  margin-left: 2px;
+  padding: 0 8px;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  color: #b42318;
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.5;
+  white-space: nowrap;
+}
+
 .scholar-update {
   margin-top: 10px;
   padding-top: 12px;

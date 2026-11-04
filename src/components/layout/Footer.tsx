@@ -23,9 +23,9 @@ export default function Footer() {
             </p>
           </div>
           <div className="footer-column">
-            <h4>
+            <h2>
               <T k="home-quick-links">Quick Links</T>
-            </h4>
+            </h2>
             <ul className="footer-links-new">
               <li>
                 <Link href="/business-taxes">Business Taxes and Fees</Link>
@@ -59,9 +59,9 @@ export default function Footer() {
             </ul>
           </div>
           <div className="footer-column">
-            <h4>
+            <h2>
               <T k="home-resources">Resources</T>
-            </h4>
+            </h2>
             <ul className="footer-links-new">
               {RESOURCES.map((r) => (
                 <li key={r.href}>
@@ -115,7 +115,7 @@ export default function Footer() {
               .
             </span>
             <span className="footer-version">
-              <i className="ph ph-package" /> Ver. {pkg.version}
+              <i className="ph ph-package" aria-hidden="true" /> Ver. {pkg.version}
             </span>
           </div>
         </div>

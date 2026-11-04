@@ -354,3 +354,35 @@
     transition-duration: 0.01ms !important;
   }
 }
+
+/*
+ * Touch targets on phones: 44px minimum for the header controls and footer links. The language
+ * buttons keep their pill look; the extra height is an invisible hit area on a pseudo-element.
+ */
+@media (max-width: 599px) {
+  .lang-selector .lang-btn {
+    position: relative;
+    min-width: 44px;
+  }
+
+  .lang-selector .lang-btn::after {
+    content: '';
+    position: absolute;
+    inset: -10px 0;
+  }
+
+  .mobile-menu-toggle {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  .footer-links-new li {
+    margin-bottom: 0;
+  }
+
+  .footer-links-new a {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+  }
+}

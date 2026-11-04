@@ -24,6 +24,16 @@ interface Stats {
 const API_URL = '/api/scholarship-stats.php';
 const fmt = new Intl.NumberFormat('en-PH');
 
+type Semester = Stats['semesters'][number];
+
+/** The stat tiles for one semester; `key` marks the figure the section leads with. */
+const statTiles = (s: Semester) => [
+  { icon: 'users-three', label: 'Scholars', n: s.scholars, key: false },
+  { icon: 'user-plus', label: 'New grantees', n: s.new_grantees, key: false },
+  { icon: 'arrows-clockwise', label: 'Renewing', n: s.renewals, key: false },
+  { icon: 'seal-check', label: 'Qualified for payout', n: s.qualified_for_payout, key: true },
+];
+
 /** Live program numbers and requirements from the City Scholarship Program system. */
 export default function ScholarshipStats() {
   const ids = useId();
@@ -99,17 +109,12 @@ export default function ScholarshipStats() {
                 {stats.school_year}, {s.label}
               </h3>
               <dl className="scholar-stats" data-reveal-children>
-                {[
-                  ['users-three', 'Scholars', s.scholars],
-                  ['user-plus', 'New grantees', s.new_grantees],
-                  ['arrows-clockwise', 'Renewing', s.renewals],
-                  ['seal-check', 'Qualified for payout', s.qualified_for_payout],
-                ].map(([icon, label, n], i) => (
-                  <div key={label as string} className={i === 3 ? 'is-key' : undefined}>
+                {statTiles(s).map(({ icon, label, n, key }) => (
+                  <div key={label} className={key ? 'is-key' : undefined}>
                     <dt>{label}</dt>
                     <dd>
                       <i className={`ph-duotone ph-${icon}`} aria-hidden="true" />
-                      <span>{fmt.format(n as number)}</span>
+                      <span>{fmt.format(n)}</span>
                     </dd>
                   </div>
                 ))}

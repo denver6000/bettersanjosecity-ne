@@ -218,6 +218,7 @@ function ScholarCard({
 }
 
 function CycleRow({ cycle, rich }: { cycle: Cycle; rich: boolean }) {
+  const { t } = useLanguage();
   const status = STATUS[cycle.status];
   const details = [
     cycle.school,
@@ -267,7 +268,11 @@ function CycleRow({ cycle, rich }: { cycle: Cycle; rich: boolean }) {
               aria-hidden="true"
             />
             {r.label}
-            <span className="sr-only">{r.met ? ', submitted' : ', missing'}</span>
+            {r.met ? (
+              <span className="sr-only">, {t('scholar-req-submitted', 'submitted')}</span>
+            ) : (
+              <span className="scholar-missing">{t('scholar-req-missing', 'missing')}</span>
+            )}
           </li>
         ))}
       </ul>
