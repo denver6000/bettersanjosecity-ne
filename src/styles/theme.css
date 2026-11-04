@@ -32,6 +32,7 @@
   --danger-bg: #fee2e2;
   --danger-fg: #991b1b;
   --danger-fg2: #b91c1c;
+  --hover-tint: rgba(0, 50, 160, 0.05);
   --tax-navy: #10233a;
   --tax-ink: #2a3b52;
   --tax-alt: #eef2fb;
@@ -65,6 +66,7 @@
   --color-danger: #ff8a80;
   --color-info: #7cc4f5;
   --c-head: #dfe6f6;
+  --hover-tint: #17223d;
   --surface: #121c33;
   --surface-sunken: #17223d;
   --input-bg: #0b1324;
@@ -134,6 +136,7 @@
     --color-danger: #ff8a80;
     --color-info: #7cc4f5;
     --c-head: #dfe6f6;
+    --hover-tint: #17223d;
     --surface: #121c33;
     --surface-sunken: #17223d;
     --input-bg: #0b1324;
@@ -199,4 +202,26 @@
 
 .theme-toggle .ph-sun {
   display: none;
+}
+
+.home-hero-grain {
+  color: var(--color-navy);
+}
+
+:root[data-theme='dark'] .leaflet-popup-content-wrapper,
+:root[data-theme='dark'] .leaflet-popup-tip,
+:root[data-theme='dark'] .leaflet-bar a {
+  background: #121c33;
+  color: #e8ecf5;
+  border-color: #22304f;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .leaflet-popup-content-wrapper,
+  :root:not([data-theme='light']) .leaflet-popup-tip,
+  :root:not([data-theme='light']) .leaflet-bar a {
+    background: #121c33;
+    color: #e8ecf5;
+    border-color: #22304f;
+  }
 }

@@ -132,43 +132,85 @@
         }
       }
       @media (prefers-color-scheme: dark) {
-        body {
+        html:not([data-theme='light']) body {
           background: #0b1324;
           color: #e8ecf5;
         }
-        h1,
-        h2,
-        h3,
-        a {
+        html:not([data-theme='light']) h1,
+        html:not([data-theme='light']) h2,
+        html:not([data-theme='light']) h3,
+        html:not([data-theme='light']) a {
           color: #9fb6ff;
         }
-        p,
-        li {
+        html:not([data-theme='light']) p,
+        html:not([data-theme='light']) li {
           color: #9aa6bf;
         }
-        .hotlines,
-        .disclaimer {
+        html:not([data-theme='light']) .hotlines,
+        html:not([data-theme='light']) .disclaimer {
           background: #121c33;
           border-color: #22304f;
         }
-        .hotline-label,
-        .hotline-number,
-        .subtitle {
+        html:not([data-theme='light']) .hotline-label,
+        html:not([data-theme='light']) .hotline-number,
+        html:not([data-theme='light']) .subtitle {
           color: #e8ecf5;
         }
-        .retry-btn {
+        html:not([data-theme='light']) .retry-btn {
           background: #f2b100;
           color: #071f5c;
         }
-        .retry-btn:hover {
+        html:not([data-theme='light']) .retry-btn:hover {
           background: #f2b100;
           filter: brightness(0.94);
         }
-        .retry-btn:focus {
+        html:not([data-theme='light']) .retry-btn:focus {
           outline-color: #9fb6ff;
         }
       }
+
+      html[data-theme='dark'] body {
+        background: #0b1324;
+        color: #e8ecf5;
+      }
+      html[data-theme='dark'] h1,
+      html[data-theme='dark'] h2,
+      html[data-theme='dark'] h3,
+      html[data-theme='dark'] a {
+        color: #9fb6ff;
+      }
+      html[data-theme='dark'] p,
+      html[data-theme='dark'] li {
+        color: #9aa6bf;
+      }
+      html[data-theme='dark'] .hotlines,
+      html[data-theme='dark'] .disclaimer {
+        background: #121c33;
+        border-color: #22304f;
+      }
+      html[data-theme='dark'] .hotline-label,
+      html[data-theme='dark'] .hotline-number,
+      html[data-theme='dark'] .subtitle {
+        color: #e8ecf5;
+      }
+      html[data-theme='dark'] .retry-btn {
+        background: #f2b100;
+        color: #071f5c;
+      }
+      html[data-theme='dark'] .retry-btn:hover {
+        background: #f2b100;
+        filter: brightness(0.94);
+      }
+      html[data-theme='dark'] .retry-btn:focus {
+        outline-color: #9fb6ff;
+      }
     </style>
+    <script>
+      try {
+        var t = localStorage.getItem('theme');
+        if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
+      } catch (e) {}
+    </script>
   </head>
   <body>
     <a href="#main-content" class="skip-link">Skip to main content</a>

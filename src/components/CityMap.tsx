@@ -8,6 +8,10 @@ import { useStation, type Station } from '@/lib/station';
 
 const STATION = SITE.weatherStation;
 const RADIUS_M = STATION.radiusKm * 1000;
+/** Brand color for the coverage circle, from the active theme's tokens. */
+const brandColor = () =>
+  getComputedStyle(document.documentElement).getPropertyValue('--color-navy').trim() || '#0a2f86';
+
 // Bounding box of the coverage circle for the iframe fallback (1° lat ≈ 111.32 km).
 const DLAT = STATION.radiusKm / 111.32;
 const DLON = DLAT / Math.cos((STATION.lat * Math.PI) / 180);
@@ -92,10 +96,10 @@ export default function CityMap() {
 
       const circle = L.circle([STATION.lat, STATION.lon], {
         radius: RADIUS_M,
-        color: '#0a2f86',
+        color: brandColor(),
         weight: 2,
         dashArray: '6 6',
-        fillColor: '#0a2f86',
+        fillColor: brandColor(),
         fillOpacity: 0.07,
         interactive: false,
       }).addTo(map);
@@ -136,7 +140,20 @@ export default function CityMap() {
       resizeObserver.observe(containerRef.current);
     });
 
+    // Keep the coverage circle visible when the theme changes.
+    const recolor = () =>
+      layersRef.current?.circle.setStyle({ color: brandColor(), fillColor: brandColor() });
+    const themeObserver = new MutationObserver(recolor);
+    themeObserver.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['data-theme'],
+    });
+    const dark = window.matchMedia('(prefers-color-scheme: dark)');
+    dark.addEventListener('change', recolor);
+
     return () => {
+      themeObserver.disconnect();
+      dark.removeEventListener('change', recolor);
       cancelled = true;
       resizeObserver?.disconnect();
       layersRef.current = null;

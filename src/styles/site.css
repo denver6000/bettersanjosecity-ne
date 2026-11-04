@@ -50,7 +50,7 @@
   margin-bottom: 16px;
   padding: 14px 18px;
   border-radius: 14px;
-  background: var(--surface);
+  background: var(--color-white);
 }
 
 .brand-card-logo {
@@ -121,14 +121,14 @@
 
 .search-results-list {
   margin-top: 12px;
-  border: 1px solid rgba(0, 0, 0, 0.08);
+  border: 1px solid var(--line-soft);
   border-radius: 10px;
   background: var(--color-bg);
   overflow: hidden;
 }
 
 .search-results-list li + li {
-  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  border-top: 1px solid var(--line-soft);
 }
 
 .search-results-list a {
@@ -141,7 +141,7 @@
 
 .search-results-list a:hover,
 .search-results-list a:focus-visible {
-  background: rgba(0, 50, 160, 0.05);
+  background: var(--hover-tint);
   text-decoration: none;
 }
 

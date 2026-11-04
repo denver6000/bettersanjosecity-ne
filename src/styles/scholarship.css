@@ -916,7 +916,7 @@
 
 .home-scholar [aria-live] > .scholar-result-msg.is-error {
   background: var(--err-bg);
-  border-color: #fdecec;
+  border-color: var(--err-bg);
   color: var(--err-fg);
 }
 

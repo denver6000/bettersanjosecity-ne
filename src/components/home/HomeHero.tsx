@@ -14,10 +14,16 @@ export default function HomeHero() {
         aria-hidden="true"
       >
         <defs>
-          <g id="hero-stalk" fill="none" stroke="#0a2f86" strokeWidth="1.6" strokeLinecap="round">
+          <g
+            id="hero-stalk"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.6"
+            strokeLinecap="round"
+          >
             <path d="M0 260 C 10 180, 40 110, 95 40" />
             <path d="M30 150 C 60 140, 90 150, 120 175" />
-            <g fill="#0a2f86" stroke="none">
+            <g fill="currentColor" stroke="none">
               <ellipse cx="88" cy="52" rx="4" ry="9" transform="rotate(35 88 52)" />
               <ellipse cx="78" cy="66" rx="4" ry="9" transform="rotate(30 78 66)" />
               <ellipse cx="68" cy="80" rx="4" ry="9" transform="rotate(28 68 80)" />

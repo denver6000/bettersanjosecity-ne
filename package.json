@@ -12,7 +12,7 @@
     "format:check": "prettier --check .",
     "dev:next": "next dev",
     "icons": "node scripts/build-icons.mjs",
-    "check": "node scripts/build-icons.mjs --check && node scripts/check-icons.mjs && node scripts/check-i18n.mjs && npm run format:check && npm run typecheck && npm run build"
+    "check": "node scripts/build-icons.mjs --check && node scripts/check-icons.mjs && node scripts/check-i18n.mjs && node scripts/check-theme.mjs && npm run format:check && npm run typecheck && npm run build"
   },
   "dependencies": {
     "@phosphor-icons/web": "2.1.1",
