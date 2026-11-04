@@ -51,6 +51,7 @@
 
 .tax-page .est-step.is-locked .est-step-num {
   background: var(--muted);
+  color: var(--surface);
 }
 
 .tax-page .est-help {

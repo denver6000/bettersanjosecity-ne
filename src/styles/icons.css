@@ -3,7 +3,7 @@
 @font-face {
   font-family: "Phosphor";
   src:
-    url("/assets/fonts/phosphor/Phosphor.woff2?v=9636ff28") format("woff2");
+    url("/assets/fonts/phosphor/Phosphor.woff2?v=625fc1ea") format("woff2");
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -157,6 +157,9 @@
 .ph.ph-money:before {
   content: "\e588";
 }
+.ph.ph-moon:before {
+  content: "\e330";
+}
 .ph.ph-newspaper:before {
   content: "\e344";
 }
@@ -245,7 +248,7 @@
 @font-face {
   font-family: "Phosphor-Duotone";
   src:
-    url("/assets/fonts/phosphor/Phosphor-Duotone.woff2?v=d5ef2eb0") format("woff2");
+    url("/assets/fonts/phosphor/Phosphor-Duotone.woff2?v=33566da7") format("woff2");
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -594,6 +597,14 @@
   content: "\e589";
   margin-left: -1em;
 }
+.ph-duotone.ph-moon:before {
+  content: "\e330";
+  opacity: 0.2;
+}
+.ph-duotone.ph-moon:after {
+  content: "\e331";
+  margin-left: -1em;
+}
 .ph-duotone.ph-newspaper:before {
   content: "\e344";
   opacity: 0.2;
@@ -822,7 +833,7 @@
 @font-face {
   font-family: "Phosphor-Bold";
   src:
-    url("/assets/fonts/phosphor/Phosphor-Bold.woff2?v=682d1305") format("woff2");
+    url("/assets/fonts/phosphor/Phosphor-Bold.woff2?v=c4af8c51") format("woff2");
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -976,6 +987,9 @@
 .ph-bold.ph-money:before {
   content: "\e588";
 }
+.ph-bold.ph-moon:before {
+  content: "\e330";
+}
 .ph-bold.ph-newspaper:before {
   content: "\e344";
 }
@@ -1064,7 +1078,7 @@
 @font-face {
   font-family: "Phosphor-Fill";
   src:
-    url("/assets/fonts/phosphor/Phosphor-Fill.woff2?v=e0c066d7") format("woff2");
+    url("/assets/fonts/phosphor/Phosphor-Fill.woff2?v=680bf5e9") format("woff2");
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -1217,6 +1231,9 @@
 }
 .ph-fill.ph-money:before {
   content: "\e588";
+}
+.ph-fill.ph-moon:before {
+  content: "\e330";
 }
 .ph-fill.ph-newspaper:before {
   content: "\e344";

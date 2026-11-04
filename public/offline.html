@@ -131,6 +131,43 @@
           gap: 0.25rem;
         }
       }
+      @media (prefers-color-scheme: dark) {
+        body {
+          background: #0b1324;
+          color: #e8ecf5;
+        }
+        h1,
+        h2,
+        h3,
+        a {
+          color: #9fb6ff;
+        }
+        p,
+        li {
+          color: #9aa6bf;
+        }
+        .hotlines,
+        .disclaimer {
+          background: #121c33;
+          border-color: #22304f;
+        }
+        .hotline-label,
+        .hotline-number,
+        .subtitle {
+          color: #e8ecf5;
+        }
+        .retry-btn {
+          background: #f2b100;
+          color: #071f5c;
+        }
+        .retry-btn:hover {
+          background: #f2b100;
+          filter: brightness(0.94);
+        }
+        .retry-btn:focus {
+          outline-color: #9fb6ff;
+        }
+      }
     </style>
   </head>
   <body>

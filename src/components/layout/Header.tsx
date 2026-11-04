@@ -7,6 +7,7 @@ import { NAV } from '@/config/site';
 import { useLanguage } from '@/i18n/LanguageContext';
 import { LANGUAGES } from '@/i18n/translations';
 import BrandLockup from './BrandLockup';
+import ThemeToggle from './ThemeToggle';
 
 function isMobileNav(): boolean {
   return typeof window !== 'undefined' && window.matchMedia('(max-width: 1199px)').matches;
@@ -158,6 +159,7 @@ export default function Header() {
               </button>
             ))}
           </div>
+          <ThemeToggle />
         </div>
 
         <button
