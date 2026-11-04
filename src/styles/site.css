@@ -50,7 +50,7 @@
   margin-bottom: 16px;
   padding: 14px 18px;
   border-radius: 14px;
-  background: var(--color-white);
+  background: var(--surface);
 }
 
 .brand-card-logo {
@@ -232,30 +232,30 @@
 /* Hazard tones (PAGASA heat index, WHO UV), text colours meet 4.5:1 on their backgrounds */
 .station-heat.tone-ok {
   background: rgba(6, 167, 125, 0.1);
-  color: #04654c;
+  color: var(--ok-fg);
 }
 .station-heat.tone-caution {
-  background: #fff7d6;
-  color: #7a5a00;
+  background: var(--caution-bg);
+  color: var(--caution-fg);
 }
 .station-heat.tone-warn {
-  background: #ffedd5;
-  color: #9a3412;
+  background: var(--warn-bg);
+  color: var(--warn-fg);
 }
 .station-heat.tone-danger {
-  background: #fee2e2;
-  color: #991b1b;
+  background: var(--danger-bg);
+  color: var(--danger-fg);
 }
 .station-tile-note.tone-caution {
-  color: #7a5a00;
+  color: var(--caution-fg);
   font-weight: 600;
 }
 .station-tile-note.tone-warn {
-  color: #9a3412;
+  color: var(--warn-fg);
   font-weight: 600;
 }
 .station-tile-note.tone-danger {
-  color: #b91c1c;
+  color: var(--danger-fg2);
   font-weight: 600;
 }
 
@@ -299,7 +299,7 @@
   height: 40px;
   border: 3px solid var(--color-white);
   border-radius: 50% 50% 50% 0;
-  background: var(--color-primary);
+  background: var(--fill-brand);
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.35);
   transform: rotate(-45deg);
 }
@@ -367,7 +367,7 @@
   display: inline-block;
   padding: 3px 8px;
   border-radius: 999px;
-  background: var(--color-primary);
+  background: var(--fill-brand);
   color: var(--color-white);
   font: 700 0.6875rem/1.2 var(--font-main);
   white-space: nowrap;
@@ -391,7 +391,7 @@
   width: 18px;
   height: 18px;
   border-radius: 50%;
-  background: var(--color-primary);
+  background: var(--fill-brand);
 }
 
 .station-map-legend .legend-pin i {
@@ -406,7 +406,7 @@
   margin: 0;
   padding: 12px var(--spacing-md) 16px;
   border-top: 1px solid rgba(0, 0, 0, 0.05);
-  background: var(--color-white);
+  background: var(--surface);
   font-size: 0.8125rem;
 }
 

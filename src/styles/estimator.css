@@ -42,7 +42,7 @@
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  background: var(--blue);
+  background: var(--fill-brand);
   color: #fff;
   font-size: 0.9rem;
   font-weight: 800;
@@ -312,7 +312,7 @@
 }
 
 .tax-page .est-segment input:checked + span {
-  background: var(--blue);
+  background: var(--fill-brand);
   border-color: var(--blue);
   color: #fff;
 }

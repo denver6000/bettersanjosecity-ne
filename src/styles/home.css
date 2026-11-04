@@ -1,6 +1,6 @@
 .coming-soon {
   display: inline-block;
-  background: #f0eee8;
+  background: var(--surface-sunken);
   color: var(--color-mute);
   font-size: 11px;
   font-weight: 600;
@@ -57,7 +57,7 @@
 }
 
 .home-card {
-  background: #fff;
+  background: var(--surface);
   border: 1px solid var(--color-line);
   border-radius: 16px;
 }
@@ -136,7 +136,7 @@
 }
 
 .home-hero .search-form {
-  background: #fff;
+  background: var(--surface);
   border: 1.5px solid var(--color-navy);
   border-radius: 12px;
   padding: 6px 6px 6px 16px;
@@ -302,7 +302,7 @@
   gap: 40px;
   align-items: center;
   padding: 40px 44px;
-  background: var(--color-navy);
+  background: var(--fill-band);
   border-radius: 24px;
   color: #fff;
 }
@@ -422,7 +422,7 @@
 
 .weather-widget,
 .weather-loading {
-  background: #fff;
+  background: var(--surface);
   border: 1px solid var(--color-line);
   border-radius: 20px;
   padding: 26px;
@@ -576,14 +576,14 @@
   width: 56px;
   height: 56px;
   border-radius: 12px;
-  background: #f0eee8;
+  background: var(--surface-sunken);
   animation: skeleton-shimmer 1.5s infinite ease-in-out;
 }
 
 .weather-loading .skeleton-text {
   height: 16px;
   border-radius: 6px;
-  background: #f0eee8;
+  background: var(--surface-sunken);
   animation: skeleton-shimmer 1.5s infinite ease-in-out;
 }
 
@@ -628,7 +628,7 @@
   gap: 12px;
   min-width: 0;
   padding: 22px;
-  background: #fff;
+  background: var(--surface);
   border: 1px solid var(--color-line);
   border-radius: 18px;
 }

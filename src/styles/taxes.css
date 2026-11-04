@@ -4,25 +4,25 @@
  * site's tokens here.
  */
 .tax-page {
-  --navy: #10233a;
-  --ink: #2a3b52;
+  --navy: var(--tax-navy);
+  --ink: var(--tax-ink);
   --muted: var(--color-text-light);
   --blue: var(--color-primary);
   --blue-2: var(--color-info);
   --sky: #9fb4e0;
-  --alt: #eef2fb;
-  --line: #dde3ee;
-  --line-2: #eceff5;
+  --alt: var(--tax-alt);
+  --line: var(--tax-line);
+  --line-2: var(--tax-line-2);
   --orange: var(--color-primary);
   --orange-d: var(--color-navy-dark);
   --orange-tint: var(--color-navy-tint);
-  --green: #04785a;
+  --green: var(--tax-green);
   --green-tint: rgba(6, 167, 125, 0.12);
-  --amber-bg: #fff8e8;
-  --amber-line: #f1d79c;
-  --amber-ink: #7a5208;
-  --match: #fff1c9;
-  --card: var(--color-white);
+  --amber-bg: var(--tax-amber-bg);
+  --amber-line: var(--tax-amber-line);
+  --amber-ink: var(--tax-amber-ink);
+  --match: var(--tax-match);
+  --card: var(--surface);
   --radius: 12px;
   --font-head: var(--font-main);
 }
@@ -402,7 +402,7 @@
   font-weight: 600;
   font-size: 0.9rem;
   white-space: nowrap;
-  background: #fff;
+  background: var(--surface);
   margin: 0;
 }
 
@@ -497,7 +497,7 @@
 }
 
 .tax-page .chip-off {
-  background: #f3f4f7;
+  background: var(--tax-chip-off);
   color: var(--muted);
 }
 
@@ -584,7 +584,7 @@
   text-transform: uppercase;
   color: var(--muted);
   font-weight: 700;
-  background: #f7f9fd;
+  background: var(--tax-th);
   padding: 10px 14px;
   border-bottom: 1px solid var(--line);
   white-space: nowrap;
@@ -606,7 +606,7 @@
 }
 
 .tax-page .rates tbody tr:nth-child(even) td {
-  background: #fbfcfe;
+  background: var(--tax-zebra);
 }
 
 .tax-page .rates .num {
@@ -702,7 +702,7 @@
   padding: 10px 12px;
   border: 1px solid var(--line);
   border-radius: 8px;
-  background: #fff;
+  background: var(--surface);
   color: var(--navy);
 }
 
@@ -791,7 +791,7 @@
   border-left: 4px solid var(--orange);
   border-radius: 10px;
   padding: 20px 22px;
-  background: #fffaf5;
+  background: var(--tax-note);
 }
 
 .tax-page .disclaimer h2 {

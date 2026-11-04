@@ -15,6 +15,7 @@ import '@/styles/responsive.css';
 import '@/styles/accessibility.css';
 import '@/styles/footer.css';
 import '@/styles/site.css';
+import '@/styles/theme.css';
 
 const fraunces = Fraunces({
   subsets: ['latin'],

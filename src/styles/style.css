@@ -81,7 +81,7 @@ h6 {
   font-weight: 700;
   line-height: var(--line-height-heading);
   margin-bottom: var(--spacing-sm);
-  color: var(--color-primary);
+  color: var(--c-head, var(--color-primary));
   font-family: var(--font-display), Georgia, serif;
 }
 
@@ -91,12 +91,12 @@ h1 {
 
 h2 {
   font-size: 2rem;
-  color: var(--color-text);
+  color: var(--c-head, var(--color-text));
 }
 
 h3 {
   font-size: 1.5rem;
-  color: var(--color-text);
+  color: var(--c-head, var(--color-text));
 }
 
 h4 {
@@ -141,12 +141,12 @@ p {
 }
 
 .btn-primary {
-  background-color: var(--color-primary);
+  background-color: var(--fill-brand);
   color: var(--color-white);
 }
 
 .btn-primary:hover {
-  background-color: var(--color-primary-dark);
+  background-color: var(--fill-brand-dark);
   color: var(--color-white);
   text-decoration: none;
   transform: translateY(-2px);
@@ -154,7 +154,7 @@ p {
 }
 
 .btn-secondary {
-  background-color: var(--color-white);
+  background-color: var(--surface);
   color: var(--color-primary);
   border-color: var(--color-primary);
 }
@@ -170,7 +170,7 @@ p {
 }
 
 .site-header {
-  background-color: var(--color-white);
+  background-color: var(--surface);
   border-bottom: 1px solid var(--color-line);
   position: sticky;
   top: 0;
@@ -269,11 +269,11 @@ body.mobile-menu-open {
 
 .lang-selector .lang-btn.active {
   background-color: var(--color-navy);
-  color: var(--color-white);
+  color: var(--lang-active-fg);
 }
 
 .card {
-  background: var(--color-white);
+  background: var(--surface);
   border-radius: var(--border-radius);
   padding: var(--spacing-md);
   box-shadow: var(--shadow-sm);
@@ -292,7 +292,7 @@ body.mobile-menu-open {
 }
 
 .news-card {
-  background: var(--color-white);
+  background: var(--surface);
   border: 1px solid var(--color-bg-alt);
   border-radius: var(--border-radius);
   display: flex;
@@ -420,7 +420,7 @@ body.mobile-menu-open {
 }
 
 .badge-success {
-  background-color: #e6f4ea;
+  background-color: var(--ok-bg);
   color: var(--color-success);
 }
 
@@ -430,7 +430,7 @@ body.mobile-menu-open {
 }
 
 .badge-info {
-  background-color: #e8f0fe;
+  background-color: var(--info-bg);
   color: var(--color-info);
 }
 
@@ -466,7 +466,7 @@ body.mobile-menu-open {
   left: 0;
   /* -100% of its own height plus a margin for the focus outline: nothing shows until focused */
   transform: translateY(calc(-100% - 8px));
-  background: var(--color-navy-dark);
+  background: var(--fill-strip);
   color: var(--color-white);
   padding: 8px 16px;
   z-index: 1001;
@@ -476,7 +476,7 @@ body.mobile-menu-open {
 .skip-link:focus,
 .skip-link:focus-visible {
   transform: none;
-  background-color: var(--color-navy-dark);
+  background-color: var(--fill-strip);
   border-radius: 0;
   outline: 2px solid #fff;
   outline-offset: -4px;
@@ -489,7 +489,7 @@ body.mobile-menu-open {
   bottom: 16px;
   left: 50%;
   transform: translateX(-50%);
-  background: var(--color-primary);
+  background: var(--fill-brand);
   color: var(--color-white);
   padding: 10px 16px;
   border-radius: 8px;
@@ -524,7 +524,7 @@ body.mobile-menu-open {
   bottom: 16px;
   left: 50%;
   transform: translateX(-50%);
-  background: var(--color-primary);
+  background: var(--fill-brand);
   color: var(--color-white);
   padding: 12px 16px;
   border-radius: 10px;
@@ -560,7 +560,7 @@ body.mobile-menu-open {
 
 .pwa-install-btn {
   background: rgba(255, 255, 255, 0.95);
-  color: var(--color-primary);
+  color: var(--fill-brand);
   border: none;
   padding: 6px 16px;
   border-radius: 6px;
@@ -631,7 +631,7 @@ body.mobile-menu-open {
 
 /* Top strip: location, hotline and the disclaimer, on every page */
 .top-strip {
-  background: var(--color-navy-dark);
+  background: var(--fill-strip);
   color: var(--color-white);
   font-size: 0.75rem;
   line-height: 1.4;
@@ -681,7 +681,7 @@ a.top-strip-item:hover {
 
 /* Page Header - Services & Other Pages */
 .page-header {
-  background: var(--color-primary);
+  background: var(--fill-band);
   padding: var(--spacing-xl) 0;
   color: white;
 }
@@ -771,7 +771,7 @@ a.top-strip-item:hover {
 
 /* Button Focus */
 .btn:focus-visible {
-  box-shadow: 0 0 0 3px rgba(10, 47, 134, 0.5);
+  box-shadow: 0 0 0 3px var(--focus-glow);
   outline: none;
 }
 
@@ -852,8 +852,8 @@ h6 {
   align-items: center;
   gap: var(--spacing-sm);
   padding: var(--spacing-md);
-  background: white;
-  border: 1px solid #e5e7eb;
+  background: var(--surface);
+  border: 1px solid var(--line-soft);
   border-radius: 12px;
   text-decoration: none;
   color: var(--color-text);
@@ -912,7 +912,7 @@ h6 {
 
 /* Search Box */
 .home-search-box {
-  background: white;
+  background: var(--surface);
   border-radius: 16px;
   padding: var(--spacing-lg);
   box-shadow:
@@ -940,7 +940,7 @@ h6 {
 .home-search-box .service-search-input {
   flex: 1;
   padding: 14px 16px;
-  border: 2px solid #e5e7eb;
+  border: 2px solid var(--line-soft);
   border-radius: 10px;
   font-size: 1rem;
   font-family: var(--font-main);
@@ -948,29 +948,29 @@ h6 {
     border-color 0.2s ease,
     box-shadow 0.2s ease,
     background 0.2s ease;
-  background: #fafbfc;
+  background: var(--input-bg);
 }
 
 .home-search-box .service-search-input:hover {
   border-color: #d0d5dd;
-  background: #fff;
+  background: var(--surface);
 }
 
 .home-search-box .service-search-input:focus {
   outline: none;
   border-color: var(--color-primary);
   box-shadow: 0 0 0 4px rgba(0, 50, 160, 0.1);
-  background: #fff;
+  background: var(--surface);
 }
 
 .home-search-box .service-search-input::placeholder {
-  color: #9ca3af;
+  color: var(--placeholder);
 }
 
 .search-submit-btn {
   width: 48px;
   height: 48px;
-  background: var(--color-primary);
+  background: var(--fill-brand);
   color: white;
   border: none;
   border-radius: 10px;
@@ -984,7 +984,7 @@ h6 {
 }
 
 .search-submit-btn:hover {
-  background: var(--color-primary-dark);
+  background: var(--fill-brand-dark);
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(0, 50, 160, 0.4);
 }
@@ -1023,14 +1023,14 @@ h6 {
   height: 300px;
   width: 100%;
   z-index: 1;
-  background: #f5f5f5;
+  background: var(--map-bg);
   position: relative;
 }
 
 #map-container.leaflet-container {
   height: 300px !important;
   width: 100% !important;
-  background: #f5f5f5;
+  background: var(--map-bg);
   z-index: 1;
 }
 
@@ -1060,7 +1060,7 @@ h6 {
   padding: 12px var(--spacing-md);
   font-size: 0.75rem;
   color: var(--color-text-light);
-  background: var(--color-white);
+  background: var(--surface);
   margin: 0;
   display: flex;
   align-items: center;

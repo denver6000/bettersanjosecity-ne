@@ -57,7 +57,7 @@
   padding: 9px 12px;
   border: 1px solid var(--line);
   border-radius: 8px;
-  background: var(--color-white);
+  background: var(--surface);
   color: var(--color-text);
   font: inherit;
 }
@@ -77,13 +77,13 @@
 }
 
 .scholar-result-msg.is-error {
-  background: #fdecec;
-  color: #8a1c1c;
+  background: var(--err-bg);
+  color: var(--err-fg);
 }
 
 .scholar-result-msg.is-sent {
-  background: #e6f6f1;
-  color: #04664c;
+  background: var(--sent-bg);
+  color: var(--sent-fg);
 }
 
 .scholar-card {
@@ -91,7 +91,7 @@
   padding: 20px 22px;
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  background: var(--color-white);
+  background: var(--surface);
 }
 
 .scholar-card-head {
@@ -190,7 +190,7 @@
 
 .scholar-cycle.is-eligible .scholar-cycle-status,
 .scholar-cycle.is-payrolled .scholar-cycle-status {
-  background: #e6f6f1;
+  background: var(--sent-bg);
 }
 
 .scholar-cycle.is-eligible .scholar-cycle-status > i,
@@ -227,7 +227,7 @@
 }
 
 .scholar-checklist .is-missing {
-  color: #8a1c1c;
+  color: var(--err-fg);
 }
 
 .scholar-checklist .scholar-missing {
@@ -235,7 +235,7 @@
   padding: 0 8px;
   border: 1px solid currentColor;
   border-radius: 999px;
-  color: #b42318;
+  color: var(--miss-fg);
   font-size: 0.75rem;
   font-weight: 600;
   line-height: 1.5;
@@ -292,7 +292,7 @@
   padding: 8px 12px;
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  background: var(--color-white);
+  background: var(--surface);
   font-weight: 600;
   font-size: 0.875rem;
   color: var(--navy);
@@ -341,7 +341,7 @@
   padding: 20px 22px;
   border: 1px solid var(--line);
   border-radius: 18px;
-  background: var(--color-white);
+  background: var(--surface);
 }
 
 /* The label comes first in the source (term, then value) but reads below the number. */
@@ -374,8 +374,8 @@
 }
 
 .scholar-stats .is-key {
-  background: var(--navy);
-  border-color: var(--navy);
+  background: var(--fill-band);
+  border-color: var(--fill-band);
 }
 
 .scholar-stats .is-key dt,
@@ -404,7 +404,7 @@
   padding: 20px 22px;
   border: 1px solid var(--line);
   border-radius: 18px;
-  background: var(--color-white);
+  background: var(--surface);
   font-size: 0.9375rem;
 }
 
@@ -418,7 +418,7 @@
   padding: 22px;
   border: 1px solid var(--line);
   border-radius: 18px;
-  background: var(--color-white);
+  background: var(--surface);
   font-size: 0.875rem;
 }
 
@@ -442,7 +442,7 @@
   padding: 22px;
   border: 1px solid var(--line);
   border-radius: 18px;
-  background: var(--color-white);
+  background: var(--surface);
 }
 
 .scholar-glossary dt {
@@ -548,7 +548,7 @@
   padding: 26px;
   border: 1px solid var(--line);
   border-radius: 20px;
-  background: var(--color-white);
+  background: var(--surface);
   box-shadow: 0 24px 48px -32px rgba(7, 31, 92, 0.45);
 }
 
@@ -576,7 +576,7 @@
   gap: 8px;
   border: 1.5px solid var(--navy);
   border-radius: 12px;
-  background: var(--color-white);
+  background: var(--surface);
 }
 
 .scholar-hero .scholar-search:focus-within {
@@ -756,7 +756,7 @@
 /* Status colors: amber for waiting, red for a missing requirement. */
 .scholar-page .scholar-cycle.is-not_eligible .scholar-cycle-status,
 .scholar-page .scholar-cycle.is-not_eligible .scholar-cycle-status > i {
-  color: #8a5a00;
+  color: var(--notelig-fg);
 }
 
 .scholar-page .scholar-checklist {
@@ -784,7 +784,7 @@
 }
 
 .scholar-page .scholar-checklist .is-missing .ph-duotone {
-  color: #b42318;
+  color: var(--miss-fg);
 }
 
 .scholar-page .scholar-update {
@@ -858,7 +858,7 @@
   gap: 8px 10px;
   border: 0;
   border-radius: 14px;
-  background: #fff;
+  background: var(--surface);
 }
 
 .home-scholar .scholar-search:focus-within {
@@ -905,7 +905,7 @@
 
 .home-scholar [aria-live] > .scholar-result-msg {
   max-width: none;
-  background: var(--color-navy-dark);
+  background: var(--fill-strip);
   border: 1px solid rgba(255, 255, 255, 0.3);
   color: #fff;
 }
@@ -915,9 +915,9 @@
 }
 
 .home-scholar [aria-live] > .scholar-result-msg.is-error {
-  background: #fdecec;
+  background: var(--err-bg);
   border-color: #fdecec;
-  color: #8a1c1c;
+  color: var(--err-fg);
 }
 
 .home-scholar .scholar-card {
