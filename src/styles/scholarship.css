@@ -374,8 +374,13 @@
 
 .scholar-note,
 .scholar-status {
-  font-size: 0.8125rem;
+  font-size: 0.85rem;
   color: var(--color-text-light);
+}
+
+.scholar-page .scholar-note,
+.scholar-page .scholar-status {
+  font-size: 0.8125rem;
 }
 
 .scholar-status {
@@ -597,6 +602,11 @@
 
 .scholar-hero .scholar-search .btn-primary:hover {
   filter: brightness(0.94);
+}
+
+.scholar-hero .scholar-search .btn-primary:focus-visible {
+  outline: 2px solid var(--color-navy-dark);
+  outline-offset: 2px;
 }
 
 .scholar-hero .scholar-search .btn-primary i {

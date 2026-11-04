@@ -71,7 +71,8 @@ async function post<T>(query: string, body: object): Promise<T> {
 
 /**
  * Scholars look up their record, payout status and requirements by Student ID.
- * `heading={false}` when the page around it already titles the section (the home page).
+ * `heading={false}` when the page around it already titles the section (the home page); it also
+ * selects the compact home-band presentation (visible label, no lock note, plain status icons).
  */
 export default function ScholarLookup({
   heading = true,
