@@ -3,7 +3,7 @@
  * content is only hidden under html.motion-ok (set by components/ScrollReveal), so with JS off or
  * reduced motion on, every block is plain and visible.
  */
-@media (prefers-reduced-motion: no-preference) {
+@media screen and (prefers-reduced-motion: no-preference) {
   @keyframes reveal-up {
     from {
       opacity: 0;
