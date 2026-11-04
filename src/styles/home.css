@@ -22,7 +22,7 @@
 
 .home-sec h2 {
   font-size: 34px;
-  color: var(--color-navy);
+  color: var(--c-head, var(--color-navy));
   letter-spacing: -0.015em;
 }
 
@@ -96,7 +96,7 @@
   font-size: 64px;
   line-height: 1.02;
   letter-spacing: -0.02em;
-  color: var(--color-navy);
+  color: var(--c-head, var(--color-navy));
   margin-bottom: 18px;
 }
 
@@ -282,7 +282,7 @@
   flex-direction: column;
   gap: 14px;
   padding: 22px 18px;
-  color: var(--color-navy);
+  color: var(--c-head, var(--color-navy));
   font-size: 15px;
   font-weight: 600;
 }
@@ -658,7 +658,7 @@
   font-family: var(--font-display), Georgia, serif;
   font-size: 19px;
   line-height: 1.25;
-  color: var(--color-navy);
+  color: var(--c-head, var(--color-navy));
 }
 
 .home-news-card h3 a {
@@ -684,7 +684,7 @@
 .home-news-empty h3 {
   font-family: var(--font-display), Georgia, serif;
   font-size: 19px;
-  color: var(--color-navy);
+  color: var(--c-head, var(--color-navy));
 }
 
 .home-news-empty p {

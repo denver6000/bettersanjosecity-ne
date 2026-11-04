@@ -386,3 +386,24 @@
     min-height: 44px;
   }
 }
+
+/* Full nav + theme toggle: keep >=16px between logo, nav and actions */
+@media (min-width: 1200px) {
+  .header-inner {
+    gap: 16px;
+  }
+
+  .header-actions {
+    gap: 6px;
+  }
+}
+
+@media (min-width: 1200px) and (max-width: 1439px) {
+  .main-nav ul {
+    gap: 16px;
+  }
+
+  .main-nav a {
+    font-size: 0.875rem;
+  }
+}

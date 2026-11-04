@@ -11,13 +11,13 @@
 
 .scholar-page h2 {
   font-size: 1.75rem;
-  color: var(--navy);
+  color: var(--c-head, var(--navy));
   margin: 0 0 20px;
 }
 
 .scholar-page h3 {
   font-size: 1rem;
-  color: var(--navy);
+  color: var(--c-head, var(--navy));
   margin: 0 0 10px;
 }
 
@@ -146,7 +146,7 @@
 .scholar-cycle-head h4 {
   margin: 0;
   font-size: 1rem;
-  color: var(--navy);
+  color: var(--c-head, var(--navy));
 }
 
 .scholar-track {
@@ -450,7 +450,7 @@
     600 1.1875rem var(--font-display),
     Georgia,
     serif;
-  color: var(--navy);
+  color: var(--c-head, var(--navy));
 }
 
 .scholar-glossary dt i {
@@ -926,7 +926,7 @@
 }
 
 .home-scholar .scholar-card h3 {
-  color: var(--color-navy);
+  color: var(--c-head, var(--color-navy));
 }
 
 @media (max-width: 599px) {
