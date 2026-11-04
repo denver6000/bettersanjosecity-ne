@@ -23,7 +23,7 @@
   --color-text: var(--color-ink);
   --color-text-light: var(--color-mute);
   --color-white: #ffffff;
-  --font-main: 'Inter', sans-serif;
+  --font-main: var(--font-inter), 'Inter', sans-serif;
   --line-height-body: 1.6;
   --line-height-heading: 1.2;
   --spacing-xs: 8px;

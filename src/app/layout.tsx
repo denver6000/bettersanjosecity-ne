@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import type { ReactNode } from 'react';
-import { Fraunces } from 'next/font/google';
+import { Fraunces, Inter } from 'next/font/google';
 import TopStrip from '@/components/layout/TopStrip';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
@@ -23,6 +23,12 @@ const fraunces = Fraunces({
   subsets: ['latin'],
   weight: ['600', '700'],
   variable: '--font-display',
+  display: 'swap',
+});
+
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
   display: 'swap',
 });
 
@@ -73,15 +79,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" className={fraunces.variable}>
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
-          rel="stylesheet"
-        />
-      </head>
+    <html lang="en" className={`${fraunces.variable} ${inter.variable}`}>
       <body>
         <LanguageProvider>
           <a href="#main-content" className="skip-link">

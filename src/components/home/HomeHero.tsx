@@ -64,6 +64,8 @@ export default function HomeHero() {
         </svg>
         <img
           src="/assets/images/hero/san-jose-rice-fields.jpg"
+          srcSet="/assets/images/hero/san-jose-rice-fields-640.jpg 640w, /assets/images/hero/san-jose-rice-fields-960.jpg 960w, /assets/images/hero/san-jose-rice-fields.jpg 1600w"
+          sizes="(max-width: 899px) 100vw, 50vw"
           alt={t('hero-photo-alt', 'Rice fields and hills in San Jose City')}
           width={1600}
           height={1200}

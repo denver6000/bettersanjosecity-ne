@@ -71,9 +71,11 @@ export default function PWAManager() {
         });
       });
 
+      // First visit: the new worker claims the page, which is not an update, so don't reload it.
+      const hadController = !!navigator.serviceWorker.controller;
       let refreshing = false;
       const onControllerChange = () => {
-        if (refreshing) return;
+        if (!hadController || refreshing) return;
         refreshing = true;
         window.location.reload();
       };
