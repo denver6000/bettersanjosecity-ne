@@ -2,6 +2,7 @@
 // full stylesheets. Run `npm run icons` after adding an icon. `--check` fails if out of date.
 import { mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
+import { createHash } from 'node:crypto';
 import { join } from 'node:path';
 
 const OUT = 'src/styles/icons.css';
@@ -20,6 +21,7 @@ const HINT =
   'icon fonts are out of date — run npm run icons (needs: python -m pip install fonttools brotli)';
 const subsets = {}; // weight -> sorted codepoints (hex) the icon rules reference
 
+// Icon class names must appear in full ('ph-house') in source, never built from fragments.
 // Same name detection as check-icons.mjs; icons.css itself is output, not a usage.
 const used = new Set();
 for (const f of readdirSync('src', { recursive: true })) {
@@ -51,18 +53,28 @@ for (const weight of WEIGHTS) {
   subsets[weight] = [...(subsets[weight] ?? [])].sort();
   for (const ff of fontFaces) {
     // woff2 only (every supported browser reads it); the file is a subset built below.
-    const src = `    url("/assets/fonts/phosphor/${FONT_NAMES[weight]}.woff2") format("woff2")`;
+    const src = `    url("/assets/fonts/phosphor/${FONT_NAMES[weight]}.woff2?v=@@${weight}@@") format("woff2")`;
     parts.push(ff.replace(/src:[^;]*;/, `src:\n${src};`));
   }
   parts.push(...base, icons.join('\n'));
 }
 
-const next = parts.join('\n\n') + '\n';
+const sha8 = (file) => createHash('sha1').update(readFileSync(file)).digest('hex').slice(0, 8);
+const fontFile = (w) => `${join(FONT_DIR, FONT_NAMES[w])}.woff2`;
+const withHashes = (hashes) => parts.join('\n\n').replace(/@@(\w+)@@/g, (_, w) => hashes[w]) + '\n';
+
 if (CHECK) {
-  let ok = readFileSync(OUT, 'utf8') === next;
+  let ok = false;
   try {
     const have = JSON.parse(readFileSync(SUBSET_JSON, 'utf8'));
-    for (const w of WEIGHTS) ok &&= subsets[w].every((cp) => have[w]?.includes(cp));
+    const hashes = Object.fromEntries(WEIGHTS.map((w) => [w, have[w].hash]));
+    ok =
+      readFileSync(OUT, 'utf8') === withHashes(hashes) &&
+      WEIGHTS.every(
+        (w) =>
+          subsets[w].every((cp) => have[w].codepoints.includes(cp)) &&
+          sha8(fontFile(w)) === hashes[w]
+      );
   } catch {
     ok = false;
   }
@@ -72,30 +84,38 @@ if (CHECK) {
   }
   console.log('build-icons: OK');
 } else {
-  writeFileSync(OUT, next);
   mkdirSync(FONT_DIR, { recursive: true });
+  const manifest = {};
   for (const w of WEIGHTS) {
-    try {
-      execFileSync(
-        'python',
-        [
-          '-m',
-          'fontTools.subset',
-          join(PKG, w, FONT_NAMES[w] + '.ttf'),
-          `--unicodes=${subsets[w].join(',')}`,
-          '--flavor=woff2',
-          '--layout-features=*',
-          '--no-hinting',
-          '--desubroutinize',
-          `--output-file=${join(FONT_DIR, FONT_NAMES[w])}.woff2`,
-        ],
-        { stdio: 'pipe' }
-      );
-    } catch {
+    const args = [
+      '-m',
+      'fontTools.subset',
+      join(PKG, w, FONT_NAMES[w] + '.ttf'),
+      `--unicodes=${subsets[w].join(',')}`,
+      '--flavor=woff2',
+      '--layout-features=*',
+      '--no-hinting',
+      '--desubroutinize',
+      `--output-file=${fontFile(w)}`,
+    ];
+    let done = false;
+    for (const py of ['python', 'python3', 'py']) {
+      try {
+        execFileSync(py, args, { stdio: 'pipe' });
+        done = true;
+        break;
+      } catch (e) {
+        if (e.stderr?.length && e.code !== 'ENOENT') console.error(String(e.stderr));
+      }
+    }
+    if (!done) {
       console.error(HINT);
       process.exit(1);
     }
+    manifest[w] = { codepoints: subsets[w], hash: sha8(fontFile(w)) };
   }
-  writeFileSync(SUBSET_JSON, JSON.stringify(subsets, null, 2) + '\n');
+  const next = withHashes(Object.fromEntries(WEIGHTS.map((w) => [w, manifest[w].hash])));
+  writeFileSync(OUT, next);
+  writeFileSync(SUBSET_JSON, JSON.stringify(manifest, null, 2) + '\n');
   console.log(`build-icons: ${used.size} names -> ${OUT} (${next.length} bytes) + font subsets`);
 }

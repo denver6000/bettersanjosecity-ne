@@ -28,10 +28,10 @@ type Semester = Stats['semesters'][number];
 
 /** The stat tiles for one semester; `key` marks the figure the section leads with. */
 const statTiles = (s: Semester) => [
-  { icon: 'users-three', label: 'Scholars', n: s.scholars, key: false },
-  { icon: 'user-plus', label: 'New grantees', n: s.new_grantees, key: false },
-  { icon: 'arrows-clockwise', label: 'Renewing', n: s.renewals, key: false },
-  { icon: 'seal-check', label: 'Qualified for payout', n: s.qualified_for_payout, key: true },
+  { icon: 'ph-users-three', label: 'Scholars', n: s.scholars, key: false },
+  { icon: 'ph-user-plus', label: 'New grantees', n: s.new_grantees, key: false },
+  { icon: 'ph-arrows-clockwise', label: 'Renewing', n: s.renewals, key: false },
+  { icon: 'ph-seal-check', label: 'Qualified for payout', n: s.qualified_for_payout, key: true },
 ];
 
 /** Live program numbers and requirements from the City Scholarship Program system. */
@@ -113,7 +113,7 @@ export default function ScholarshipStats() {
                   <div key={label} className={key ? 'is-key' : undefined}>
                     <dt>{label}</dt>
                     <dd>
-                      <i className={`ph-duotone ph-${icon}`} aria-hidden="true" />
+                      <i className={`ph-duotone ${icon}`} aria-hidden="true" />
                       <span>{fmt.format(n)}</span>
                     </dd>
                   </div>
