@@ -1,3 +1,12 @@
+## 2026-11-06 — 86cc0eb — Filipino hero text and home leftovers
+
+- By: Claude Code, requested by Kurt Vincent F. Fariñas
+- Code: 92434d1 → 86cc0eb (pushed to main; Hostinger auto-builds on push); includes 297e3a6 (shorter Filipino hero text)
+- Migrations: none
+- Backup: none
+- Data changes: none
+- Verified: `npm run check` passed; live JS bundle contains the new Filipino weather strings ("Maaliwalas"); not re-checked visually on the live site
+
 ## 2026-11-06 — c1fc3c3 — Filipino layout spacing fixes
 
 - By: Claude Code, requested by Kurt Vincent F. Fariñas
