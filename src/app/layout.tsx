@@ -31,10 +31,7 @@ const inter = Inter({
 });
 
 export const viewport: Viewport = {
-  themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#0a2f86' },
-    { media: '(prefers-color-scheme: dark)', color: '#060c1a' },
-  ],
+  themeColor: '#0a2f86',
 };
 
 export const metadata: Metadata = {
@@ -78,17 +75,14 @@ export const metadata: Metadata = {
   },
 };
 
-// Runs before first paint so a saved theme applies with no flash; with none saved the CSS
-// follows prefers-color-scheme.
-const THEME_INIT =
-  "try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t}catch(e){}";
-
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" className={`${fraunces.variable} ${inter.variable}`} suppressHydrationWarning>
-      <head>
-        <script dangerouslySetInnerHTML={{ __html: THEME_INIT }} />
-      </head>
+    <html
+      lang="en"
+      data-theme="light"
+      className={`${fraunces.variable} ${inter.variable}`}
+    >
+      <head />
       <body>
         <LanguageProvider>
           <a href="#main-content" className="skip-link">

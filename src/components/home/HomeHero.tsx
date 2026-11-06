@@ -99,9 +99,6 @@ export default function HomeHero() {
             vectorEffect="non-scaling-stroke"
           />
         </svg>
-        <span className="home-hero-credit">
-          <T k="hero-photo-credit">Photo: Judgefloro (public domain)</T>
-        </span>
       </div>
     </section>
   );

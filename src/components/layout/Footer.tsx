@@ -107,15 +107,7 @@ export default function Footer() {
               Built by Kurt Vincent F. Fariñas and Denver M. Ballesteros
             </span>
             <span className="footer-copyright-disclaimer">
-              All public information sourced from official government portals. Design based on{' '}
-              <a
-                href="https://github.com/BetterSolano/bettersolano"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                BetterSolano.org
-              </a>
-              .
+              All public information sourced from official government portals.
             </span>
             <span className="footer-version">
               <i className="ph ph-package" aria-hidden="true" /> Ver. {pkg.version}
