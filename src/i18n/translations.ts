@@ -560,6 +560,8 @@ export const translations: Record<Language, Record<string, string>> = {
     'sch-sending': 'Sending…',
     'sch-send': 'Send update',
     'sch-upd-note': 'The scholarship office reviews every update before changing your record.',
+    'est-renewal': 'Renewal',
+    'est-new-business': 'New business',
   },
   fil: {
     'home-skip-to-main-content': 'Lumaktaw sa pangunahing nilalaman',
@@ -1135,5 +1137,7 @@ export const translations: Record<Language, Record<string, string>> = {
     'sch-send': 'Ipadala ang update',
     'sch-upd-note':
       'Sinusuri ng scholarship office ang bawat update bago baguhin ang iyong talaan.',
+    'est-renewal': 'Renewal',
+    'est-new-business': 'Bagong negosyo',
   },
 };
