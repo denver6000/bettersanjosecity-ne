@@ -1,3 +1,12 @@
+## 2026-11-06 — c1fc3c3 — Filipino layout spacing fixes
+
+- By: Claude Code, requested by Kurt Vincent F. Fariñas
+- Code: 638bd24 → c1fc3c3 (pushed to main; Hostinger auto-builds on push)
+- Migrations: none
+- Backup: none
+- Data changes: none
+- Verified: `npm run check` passed; live CSS contains the new `:lang(fil)` nav rules (header no longer squashes at 1440px+ in Filipino); not re-checked visually on the live site
+
 ## 2026-11-06 08:21 — dce76a8 — Force light theme; remove hero credit and BetterSolano footer note
 
 - By: Claude Code, requested by Kurt Vincent F. Fariñas
