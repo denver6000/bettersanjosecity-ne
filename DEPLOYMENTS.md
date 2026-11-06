@@ -1,3 +1,12 @@
+## 2026-11-06 — 0317597 — Breadcrumb label and language pill fixes
+
+- By: Claude Code, requested by Kurt Vincent F. Fariñas
+- Code: cbbb0dd → 0317597 (pushed to main; Hostinger auto-builds on push); translated breadcrumb screen-reader label, EN/FIL pill no longer slides on load
+- Migrations: none
+- Backup: none
+- Data changes: none
+- Verified: `npm run check` passed; live bundle contains the new breadcrumb string; not re-checked visually on the live site after this deploy
+
 ## 2026-11-06 — 28380fb — Filipino translations for all pages and tab titles
 
 - By: Claude Code, requested by Kurt Vincent F. Fariñas
