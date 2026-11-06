@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { T } from '@/i18n/LanguageContext';
 
 export default function ErrorPage({
   code,
@@ -22,14 +23,18 @@ export default function ErrorPage({
     >
       <div className="container" style={{ textAlign: 'center' }}>
         <span className="error-code">{code}</span>
-        <h1 className="error-title">{title}</h1>
-        <p className="error-desc">{desc}</p>
+        <h1 className="error-title">
+          <T k={`err-${code}-t`}>{title}</T>
+        </h1>
+        <p className="error-desc">
+          <T k={`err-${code}-d`}>{desc}</T>
+        </p>
         <div className="error-actions">
           <Link href="/" className="btn btn-primary">
-            Go to Homepage
+            <T k="err-home">Go to Homepage</T>
           </Link>
           <Link href="/services" className="btn btn-secondary">
-            Browse Services
+            <T k="err-services">Browse Services</T>
           </Link>
         </div>
       </div>

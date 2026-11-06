@@ -10,19 +10,24 @@ export const metadata: Metadata = {
 export default function BudgetPage() {
   return (
     <PageShell
+      k="budget"
       badge="Transparency"
       badgeIcon="ph-chart-pie"
       title="Budget & Transparency"
       subtitle="How the City Government of San Jose raises and spends public funds"
     >
       <div className="pending-grid">
-        <DataPending title="Income & Expenditure" icon="ph-money">
+        <DataPending k="budget-income-expenditure" title="Income & Expenditure" icon="ph-money">
           Annual revenue and spending from BLGF Statements of Receipts and Expenditures.
         </DataPending>
-        <DataPending title="Annual Budget" icon="ph-wallet">
+        <DataPending k="budget-annual-budget" title="Annual Budget" icon="ph-wallet">
           Approved annual budget by sector and office.
         </DataPending>
-        <DataPending title="Infrastructure Projects" icon="ph-traffic-cone">
+        <DataPending
+          k="budget-infrastructure-projects"
+          title="Infrastructure Projects"
+          icon="ph-traffic-cone"
+        >
           Ongoing and completed public works within the city.
         </DataPending>
       </div>

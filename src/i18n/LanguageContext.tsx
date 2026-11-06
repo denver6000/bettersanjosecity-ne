@@ -1,5 +1,6 @@
 'use client';
 
+import { usePathname } from 'next/navigation';
 import { createContext, useCallback, useContext, useEffect, useState, type ReactNode } from 'react';
 import { translations, type Language } from './translations';
 
@@ -11,6 +12,27 @@ interface LanguageContextValue {
   /** Translation for `key`, or `fallback` (then the key) when missing. */
   t: (key: string, fallback?: string) => string;
 }
+
+/** Route -> i18n key of its tab title, for the pages whose static <title> is English. */
+const TITLE_KEYS: Record<string, string> = {
+  '/services': 'nav-services',
+  '/business-taxes': 'foot-business-taxes',
+  '/business-taxes/estimator': 'foot-estimator',
+  '/government': 'nav-government',
+  '/statistics': 'nav-statistics',
+  '/legislative': 'nav-legislative',
+  '/budget': 'nav-transparency',
+  '/news': 'nav-news',
+  '/contact': 'nav-contact',
+  '/scholarship': 'sitemap-scholarship',
+  '/faq': 'sitemap-faq',
+  '/privacy': 'home-privacy-policy',
+  '/terms': 'home-terms-of-use',
+  '/accessibility': 'home-accessibility',
+  '/sitemap': 'home-sitemap',
+  '/403': 'err-403-t',
+  '/500': 'err-500-t',
+};
 
 const LanguageContext = createContext<LanguageContextValue | null>(null);
 
@@ -41,6 +63,21 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     if (root.getAttribute('data-lang-pending') === language)
       root.removeAttribute('data-lang-pending');
   }, [language]);
+
+  // The static <title> is English. Re-apply the translated one, and again whenever Next rewrites it.
+  const pathname = usePathname();
+  useEffect(() => {
+    const key = TITLE_KEYS[pathname.replace(/\/$/, '') || '/'];
+    if (!key) return;
+    const want = `${translations[language][key] ?? translations.en[key]} | Better San Jose`;
+    const apply = () => {
+      if (document.title !== want) document.title = want;
+    };
+    apply();
+    const observer = new MutationObserver(apply);
+    observer.observe(document.head, { childList: true, subtree: true, characterData: true });
+    return () => observer.disconnect();
+  }, [pathname, language]);
 
   const setLanguage = useCallback((lang: Language) => {
     setLanguageState(lang);

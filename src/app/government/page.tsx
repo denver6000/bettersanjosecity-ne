@@ -10,19 +10,28 @@ export const metadata: Metadata = {
 export default function GovernmentPage() {
   return (
     <PageShell
+      k="government"
       badge="Government"
       badgeIcon="ph-bank"
       title="City Government"
       subtitle="Elected officials, city departments, and barangays of San Jose City"
     >
       <div className="pending-grid">
-        <DataPending title="Elected Officials" icon="ph-identification-badge">
+        <DataPending
+          k="government-elected-officials"
+          title="Elected Officials"
+          icon="ph-identification-badge"
+        >
           City Mayor, Vice Mayor, and members of the Sangguniang Panlungsod.
         </DataPending>
-        <DataPending title="City Departments" icon="ph-tree-structure">
+        <DataPending
+          k="government-city-departments"
+          title="City Departments"
+          icon="ph-tree-structure"
+        >
           Department heads, offices, and contact directory.
         </DataPending>
-        <DataPending title="Barangays" icon="ph-map-pin">
+        <DataPending k="government-barangays" title="Barangays" icon="ph-map-pin">
           Barangay officials and locations across San Jose City.
         </DataPending>
       </div>

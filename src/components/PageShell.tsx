@@ -3,6 +3,8 @@ import { Fragment, type ReactNode } from 'react';
 import { T } from '@/i18n/LanguageContext';
 
 interface PageShellProps {
+  /** i18n key prefix: pg-<k>-badge / -title / -sub. */
+  k?: string;
   badge: string;
   badgeIcon: string;
   title: string;
@@ -14,6 +16,7 @@ interface PageShellProps {
 
 /** Breadcrumbs + page header + content section shared by every inner page. */
 export default function PageShell({
+  k,
   badge,
   badgeIcon,
   title,
@@ -35,7 +38,7 @@ export default function PageShell({
               <span>/</span>
             </Fragment>
           ))}
-          <span aria-current="page">{badge}</span>
+          <span aria-current="page">{k ? <T k={`pg-${k}-badge`}>{badge}</T> : badge}</span>
         </nav>
       </div>
 
@@ -43,10 +46,10 @@ export default function PageShell({
         <div className="container">
           <div className="page-header-content">
             <span className="page-header-badge">
-              <i className={`ph ${badgeIcon}`} /> {badge}
+              <i className={`ph ${badgeIcon}`} /> {k ? <T k={`pg-${k}-badge`}>{badge}</T> : badge}
             </span>
-            <h1>{title}</h1>
-            <p className="page-header-desc">{subtitle}</p>
+            <h1>{k ? <T k={`pg-${k}-title`}>{title}</T> : title}</h1>
+            <p className="page-header-desc">{k ? <T k={`pg-${k}-sub`}>{subtitle}</T> : subtitle}</p>
           </div>
         </div>
       </section>
@@ -59,11 +62,14 @@ export default function PageShell({
 }
 
 export function DataPending({
+  k,
   title,
   icon = 'ph-hourglass',
   children,
   as: Heading = 'h3',
 }: {
+  /** i18n key prefix: <k>-t (title) and <k>-d (body, which must be a plain string). */
+  k?: string;
   title: string;
   icon?: string;
   children: ReactNode;
@@ -75,8 +81,8 @@ export function DataPending({
         <i className={`ph-duotone ${icon}`} aria-hidden="true" />
       </div>
       <div>
-        <Heading>{title}</Heading>
-        <p>{children}</p>
+        <Heading>{k ? <T k={`${k}-t`}>{title}</T> : title}</Heading>
+        <p>{k ? <T k={`${k}-d`}>{children as string}</T> : children}</p>
       </div>
     </div>
   );

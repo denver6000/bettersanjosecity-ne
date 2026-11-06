@@ -10,12 +10,18 @@ export const metadata: Metadata = {
 export default function PrivacyPage() {
   return (
     <PageShell
+      k="privacy"
       badge="Privacy"
       badgeIcon="ph-lock"
       title="Privacy Policy"
       subtitle="How Better San Jose handles your information"
     >
-      <DataPending title="Policy being drafted" icon="ph-file-lock" as="h2">
+      <DataPending
+        k="privacy-policy-being-drafted"
+        title="Policy being drafted"
+        icon="ph-file-lock"
+        as="h2"
+      >
         The privacy policy will be published before launch, in line with the Data Privacy Act of
         2012 (RA 10173).
       </DataPending>

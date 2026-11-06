@@ -10,12 +10,17 @@ export const metadata: Metadata = {
 export default function FaqPage() {
   return (
     <PageShell
+      k="faq"
       badge="FAQ"
       badgeIcon="ph-question"
       title="Frequently Asked Questions"
       subtitle="Answers to common questions about city services"
     >
-      <DataPending title="Questions are being compiled" as="h2">
+      <DataPending
+        k="faq-questions-are-being-compiled"
+        title="Questions are being compiled"
+        as="h2"
+      >
         Common questions about certificates, permits, taxes, and city programs will be answered
         here.
       </DataPending>

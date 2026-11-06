@@ -10,16 +10,17 @@ export const metadata: Metadata = {
 export default function LegislativePage() {
   return (
     <PageShell
+      k="legislative"
       badge="Legislative"
       badgeIcon="ph-bookmark-simple"
       title="Sangguniang Panlungsod"
       subtitle="Ordinances and resolutions enacted by the San Jose City Council"
     >
       <div className="pending-grid">
-        <DataPending title="City Ordinances" icon="ph-file-text">
+        <DataPending k="legislative-city-ordinances" title="City Ordinances" icon="ph-file-text">
           A searchable list of enacted ordinances.
         </DataPending>
-        <DataPending title="Resolutions" icon="ph-seal-check">
+        <DataPending k="legislative-resolutions" title="Resolutions" icon="ph-seal-check">
           A searchable list of approved resolutions.
         </DataPending>
       </div>

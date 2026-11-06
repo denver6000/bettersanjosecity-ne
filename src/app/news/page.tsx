@@ -11,6 +11,7 @@ export const metadata: Metadata = {
 export default function NewsPage() {
   return (
     <PageShell
+      k="news"
       badge="News"
       badgeIcon="ph-newspaper"
       title="News & Updates"

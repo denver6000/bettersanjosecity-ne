@@ -10,12 +10,18 @@ export const metadata: Metadata = {
 export default function AccessibilityPage() {
   return (
     <PageShell
+      k="accessibility"
       badge="Accessibility"
       badgeIcon="ph-wheelchair"
       title="Accessibility Statement"
       subtitle="Our commitment to an accessible website for everyone"
     >
-      <DataPending title="Statement being drafted" icon="ph-wheelchair" as="h2">
+      <DataPending
+        k="accessibility-statement-being-drafted"
+        title="Statement being drafted"
+        icon="ph-wheelchair"
+        as="h2"
+      >
         Better San Jose targets WCAG 2.1 AA. A full accessibility statement and feedback channel
         will be published here.
       </DataPending>

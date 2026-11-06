@@ -10,12 +10,18 @@ export const metadata: Metadata = {
 export default function TermsPage() {
   return (
     <PageShell
+      k="terms"
       badge="Terms"
       badgeIcon="ph-file-text"
       title="Terms of Use"
       subtitle="Terms governing the use of Better San Jose"
     >
-      <DataPending title="Terms being drafted" icon="ph-file-text" as="h2">
+      <DataPending
+        k="terms-terms-being-drafted"
+        title="Terms being drafted"
+        icon="ph-file-text"
+        as="h2"
+      >
         The terms of use will be published before launch.
       </DataPending>
     </PageShell>

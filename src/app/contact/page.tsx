@@ -10,19 +10,20 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <PageShell
+      k="contact"
       badge="Contact"
       badgeIcon="ph-phone"
       title="Contact & Hotlines"
       subtitle="Reach the City Government of San Jose and its emergency services"
     >
       <div className="pending-grid">
-        <DataPending title="Emergency Hotlines" icon="ph-warning">
+        <DataPending k="contact-emergency-hotlines" title="Emergency Hotlines" icon="ph-warning">
           Police, fire, CDRRMO, and medical emergency numbers. For any emergency, call 911.
         </DataPending>
-        <DataPending title="City Hall" icon="ph-buildings">
+        <DataPending k="contact-city-hall" title="City Hall" icon="ph-buildings">
           Address, office hours, phone, and email of San Jose City Hall.
         </DataPending>
-        <DataPending title="Office Directory" icon="ph-notebook">
+        <DataPending k="contact-office-directory" title="Office Directory" icon="ph-notebook">
           Direct lines of city departments.
         </DataPending>
       </div>
