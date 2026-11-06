@@ -1,3 +1,12 @@
+## 2026-11-06 — 7074e35 — No flash of English for Filipino visitors
+
+- By: Claude Code, requested by Kurt Vincent F. Fariñas
+- Code: b542904 → 7074e35 (pushed to main; Hostinger auto-builds on push)
+- Migrations: none
+- Backup: none
+- Data changes: none
+- Verified: `npm run check` passed; live homepage HTML contains the language-gate script; first paint not checked on the live site
+
 ## 2026-11-06 — 86cc0eb — Filipino hero text and home leftovers
 
 - By: Claude Code, requested by Kurt Vincent F. Fariñas
