@@ -629,6 +629,11 @@ body.mobile-menu-open {
   }
 }
 
+/* Hidden only between first paint and the language switch (see LANG_GATE in app/layout.tsx). */
+html[data-lang-pending] body {
+  visibility: hidden;
+}
+
 /* Top strip: location, hotline and the disclaimer, on every page */
 .top-strip {
   background: var(--fill-strip);

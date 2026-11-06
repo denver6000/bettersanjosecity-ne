@@ -35,7 +35,11 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   }, []);
 
   useEffect(() => {
-    document.documentElement.lang = language;
+    const root = document.documentElement;
+    root.lang = language;
+    // Reveal the page once the language the head script was waiting for is on screen.
+    if (root.getAttribute('data-lang-pending') === language)
+      root.removeAttribute('data-lang-pending');
   }, [language]);
 
   const setLanguage = useCallback((lang: Language) => {

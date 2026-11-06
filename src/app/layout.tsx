@@ -75,10 +75,22 @@ export const metadata: Metadata = {
   },
 };
 
+// Runs before first paint. A Filipino visitor would otherwise see the English static HTML until React
+// hydrates, so hide the page (style.css) until LanguageProvider has switched. Same lookup as the
+// provider; the timeout is a safety net so a failed hydration can never leave the page hidden.
+const LANG_GATE = `try{var s=localStorage.getItem('selectedLang'),b=navigator.language.split('-')[0].toLowerCase(),l=s==='en'||s==='fil'?s:(b==='fil'||b==='tl'?'fil':'en');if(l!=='en'){var d=document.documentElement;d.setAttribute('data-lang-pending',l);setTimeout(function(){d.removeAttribute('data-lang-pending')},3000)}}catch(e){}`;
+
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" data-theme="light" className={`${fraunces.variable} ${inter.variable}`}>
-      <head />
+    <html
+      lang="en"
+      data-theme="light"
+      className={`${fraunces.variable} ${inter.variable}`}
+      suppressHydrationWarning
+    >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: LANG_GATE }} />
+      </head>
       <body>
         <LanguageProvider>
           <a href="#main-content" className="skip-link">
