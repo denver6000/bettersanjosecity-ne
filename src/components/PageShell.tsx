@@ -10,7 +10,7 @@ interface PageShellProps {
   title: string;
   subtitle: string;
   /** Parent pages between Home and this one, e.g. the schedules above the estimator. */
-  parents?: { href: string; label: string }[];
+  parents?: { href: string; label: string; k?: string }[];
   children: ReactNode;
 }
 
@@ -34,7 +34,7 @@ export default function PageShell({
           <span>/</span>
           {parents.map((p) => (
             <Fragment key={p.href}>
-              <Link href={p.href}>{p.label}</Link>
+              <Link href={p.href}>{p.k ? <T k={p.k}>{p.label}</T> : p.label}</Link>
               <span>/</span>
             </Fragment>
           ))}

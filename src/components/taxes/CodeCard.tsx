@@ -8,28 +8,33 @@ import {
   type GraduatedCode,
   type RevenueCode,
 } from '@/data/revenue';
+import { useLanguage } from '@/i18n/LanguageContext';
 import { isOpenEnded, num, percent, peso, plain } from '@/lib/tax-format';
 
 function AppliesChips({ applies, retirement }: { applies: AppliesTo; retirement?: boolean }) {
+  const { t } = useLanguage();
   const flags = [
-    applies.new && 'New',
-    applies.renewal && 'Renewal',
-    applies.withEssential && 'With essential',
-    applies.higherValueComparison && 'Higher value comparison',
-  ].filter(Boolean) as string[];
+    applies.new && { k: 'bt-chip-new', en: 'New' },
+    applies.renewal && { k: 'bt-chip-renewal', en: 'Renewal' },
+    applies.withEssential && { k: 'bt-chip-essential', en: 'With essential', alt: true },
+    applies.higherValueComparison && { k: 'bt-chip-higher', en: 'Higher value comparison' },
+  ].filter(Boolean) as { k: string; en: string; alt?: boolean }[];
   return (
-    <ul className="chips" aria-label="Marked on the schedule for">
+    <ul className="chips" aria-label={t('bt-chips-aria', 'Marked on the schedule for')}>
       {flags.map((f) => (
-        <li key={f} className={'chip' + (f === 'With essential' ? ' chip-alt' : '')}>
-          {f}
+        <li key={f.k} className={'chip' + (f.alt ? ' chip-alt' : '')}>
+          {t(f.k, f.en)}
         </li>
       ))}
-      {retirement === false && <li className="chip chip-off">Not on retirement</li>}
+      {retirement === false && (
+        <li className="chip chip-off">{t('bt-chip-no-retire', 'Not on retirement')}</li>
+      )}
     </ul>
   );
 }
 
 function Wording({ code }: { code: RevenueCode }) {
+  const { t } = useLanguage();
   if (!code.description && !code.enumerated) return null;
   const long = !!code.enumerated || (code.description?.join(' ').length ?? 0) > 260;
   const body = (
@@ -51,8 +56,11 @@ function Wording({ code }: { code: RevenueCode }) {
     <details className="wording wording-collapsible">
       <summary>
         {code.enumerated
-          ? `Who this covers: ${code.enumerated.length} kinds of business`
-          : 'Read the official wording'}
+          ? t('bt-who-covers', 'Who this covers: {n} kinds of business').replace(
+              '{n}',
+              String(code.enumerated.length)
+            )
+          : t('bt-official-wording', 'Read the official wording')}
       </summary>
       {body}
     </details>
@@ -76,35 +84,51 @@ function BracketFinder({
   setRaw: (v: string) => void;
   result: FinderResult;
 }) {
+  const { t } = useLanguage();
   const id = useId();
   const value = parseAmount(raw);
   const isPeso = code.unit === 'peso';
 
   let message: ReactNode = null;
   if (raw.trim() !== '' && !Number.isFinite(value)) {
-    message = <span>Type a number, for example {isPeso ? '250000' : '120'}.</span>;
+    message = (
+      <span>
+        {t('bt-type-number', 'Type a number, for example {n}.').replace(
+          '{n}',
+          isPeso ? '250000' : '120'
+        )}
+      </span>
+    );
   } else if (result && 'gap' in result) {
     message = (
       <span>
-        <strong>No row in the printed schedule covers this {isPeso ? 'amount' : 'area'}.</strong>
-        {code.notes?.length ? ' See the note below.' : ''}
+        <strong>
+          {isPeso
+            ? t('bt-no-row-amount', 'No row in the printed schedule covers this amount.')
+            : t('bt-no-row-area', 'No row in the printed schedule covers this area.')}
+        </strong>
+        {code.notes?.length ? ` ${t('bt-see-note', 'See the note below.')}` : ''}
       </span>
     );
   } else if (result) {
     const row = code.brackets[result.index];
     const range = `${isPeso ? peso(row.from) : plain(row.from)} ${
-      isOpenEnded(row.to) ? 'and above' : `to ${isPeso ? peso(row.to) : plain(row.to)}`
+      isOpenEnded(row.to)
+        ? t('bt-and-above', 'and above')
+        : t('bt-range-to', 'to {n}').replace('{n}', isPeso ? peso(row.to) : plain(row.to))
     }`;
     message = (
       <span>
-        Row {result.index + 1} ({range}).{' '}
+        {t('bt-row', 'Row {n} ({range}).')
+          .replace('{n}', String(result.index + 1))
+          .replace('{range}', range)}{' '}
         {row.amount > 0 && (
           <>
-            Printed amount <strong>{peso(row.amount)}</strong>
+            {t('bt-printed-amount', 'Printed amount')} <strong>{peso(row.amount)}</strong>
             {row.rate > 0 ? (
               <>
                 {' '}
-                and a rate of <strong>{percent(row.rate)}</strong>.
+                {t('bt-and-rate', 'and a rate of')} <strong>{percent(row.rate)}</strong>.
               </>
             ) : (
               '.'
@@ -113,7 +137,8 @@ function BracketFinder({
         )}
         {row.amount === 0 && row.rate > 0 && (
           <>
-            No fixed amount; printed rate <strong>{percent(row.rate)}</strong>.
+            {t('bt-no-fixed', 'No fixed amount; printed rate')} <strong>{percent(row.rate)}</strong>
+            .
           </>
         )}
       </span>
@@ -123,8 +148,12 @@ function BracketFinder({
   return (
     <div className="finder">
       <label htmlFor={id} className="finder-label">
-        Find your row
-        <span>{isPeso ? 'Gross sales or receipts, in pesos' : 'Business area'}</span>
+        {t('bt-find-row', 'Find your row')}
+        <span>
+          {isPeso
+            ? t('bt-find-peso', 'Gross sales or receipts, in pesos')
+            : t('bt-find-area', 'Business area')}
+        </span>
       </label>
       <div className="finder-row">
         {isPeso && <span className="finder-prefix">₱</span>}
@@ -139,13 +168,18 @@ function BracketFinder({
         />
       </div>
       <p className="finder-result" aria-live="polite">
-        {message ?? <span className="muted">The matching row lights up in the table.</span>}
+        {message ?? (
+          <span className="muted">
+            {t('bt-row-lights', 'The matching row lights up in the table.')}
+          </span>
+        )}
       </p>
     </div>
   );
 }
 
 function GraduatedTable({ code, highlight }: { code: GraduatedCode; highlight: number | null }) {
+  const { t } = useLanguage();
   const isPeso = code.unit === 'peso';
   // Whole-peso bounds drop the ".00" so wide schedules fit a phone; values are unchanged.
   const fmtRange = (n: number) => (Number.isInteger(n) ? plain(n) : num(n));
@@ -153,18 +187,27 @@ function GraduatedTable({ code, highlight }: { code: GraduatedCode; highlight: n
     <div className="table-scroll">
       <table className="rates">
         <caption className="sr-only">
-          {code.code} {code.title}: printed rows by {code.subject.toLowerCase()}
+          {t('bt-caption-rows', '{code} {title}: printed rows by {subject}')
+            .replace('{code}', code.code)
+            .replace('{title}', code.title)
+            .replace('{subject}', code.subject.toLowerCase())}
         </caption>
         <thead>
           <tr>
-            <th scope="col">From{isPeso ? ' (₱)' : ''}</th>
-            <th scope="col">To{isPeso ? ' (₱)' : ''}</th>
+            <th scope="col">
+              {t('bt-from', 'From')}
+              {isPeso ? ' (₱)' : ''}
+            </th>
+            <th scope="col">
+              {t('bt-to', 'To')}
+              {isPeso ? ' (₱)' : ''}
+            </th>
             <th scope="col" className="num">
-              Amount
+              {t('bt-g-amount', 'Amount')}
             </th>
             {code.showRate && (
               <th scope="col" className="num">
-                Rate
+                {t('bt-g-rate', 'Rate')}
               </th>
             )}
           </tr>
@@ -174,7 +217,11 @@ function GraduatedTable({ code, highlight }: { code: GraduatedCode; highlight: n
             <tr key={i} className={i === highlight ? 'is-match' : undefined}>
               <td>{fmtRange(r.from)}</td>
               <td>
-                {isOpenEnded(r.to) ? <span className="open-ended">and above</span> : fmtRange(r.to)}
+                {isOpenEnded(r.to) ? (
+                  <span className="open-ended">{t('bt-and-above', 'and above')}</span>
+                ) : (
+                  fmtRange(r.to)
+                )}
               </td>
               <td className="num">{peso(r.amount)}</td>
               {code.showRate && (
@@ -202,6 +249,7 @@ export default function CodeCard({
   filterRows?: boolean;
   query?: string;
 }) {
+  const { t } = useLanguage();
   const [finderRaw, setFinderRaw] = useState('');
   const [showAll, setShowAll] = useState(false);
 
@@ -226,8 +274,8 @@ export default function CodeCard({
           return (
             <>
               <p className="basis">
-                Based on <strong>{code.subject.toLowerCase()}</strong> · {code.brackets.length}{' '}
-                printed rows
+                {t('bt-based-on', 'Based on')} <strong>{code.subject.toLowerCase()}</strong> ·{' '}
+                {t('bt-n-rows', '{n} printed rows').replace('{n}', String(code.brackets.length))}
               </p>
               <div className="graduated">
                 <GraduatedTable code={code} highlight={highlight} />
@@ -240,15 +288,15 @@ export default function CodeCard({
       {code.kind === 'flat-rate' && (
         <dl className="facts">
           <div>
-            <dt>Based on</dt>
+            <dt>{t('bt-based-on', 'Based on')}</dt>
             <dd>{code.subject}</dd>
           </div>
           <div>
-            <dt>Printed tax rate</dt>
+            <dt>{t('bt-tax-rate', 'Printed tax rate')}</dt>
             <dd className="big">{percent(code.rate)}</dd>
           </div>
           <div>
-            <dt>Printed tax amount</dt>
+            <dt>{t('bt-tax-amount', 'Printed tax amount')}</dt>
             <dd>{peso(code.amount)}</dd>
           </div>
         </dl>
@@ -257,12 +305,12 @@ export default function CodeCard({
       {code.kind === 'fixed' && (
         <dl className="facts">
           <div>
-            <dt>Amount</dt>
+            <dt>{t('bt-g-amount', 'Amount')}</dt>
             <dd className="big">{peso(code.amount)}</dd>
           </div>
           {code.subject && (
             <div>
-              <dt>Basis</dt>
+              <dt>{t('bt-basis', 'Basis')}</dt>
               <dd>{code.subject}</dd>
             </div>
           )}
@@ -291,7 +339,7 @@ export default function CodeCard({
                     <tr>
                       <th scope="col">{code.column}</th>
                       <th scope="col" className="num">
-                        Amount
+                        {t('bt-g-amount', 'Amount')}
                       </th>
                     </tr>
                   </thead>
@@ -310,7 +358,7 @@ export default function CodeCard({
               </div>
               {filtering && (
                 <button type="button" className="link-btn" onClick={() => setShowAll(true)}>
-                  Show all {code.rows.length} rows
+                  {t('bt-show-n', 'Show all {n} rows').replace('{n}', String(code.rows.length))}
                 </button>
               )}
             </>
@@ -319,7 +367,7 @@ export default function CodeCard({
 
       {code.notes && (
         <aside className="note">
-          <p className="note-head">As printed</p>
+          <p className="note-head">{t('bt-as-printed', 'As printed')}</p>
           <ul>
             {code.notes.map((n, i) => (
               <li key={i}>{n}</li>

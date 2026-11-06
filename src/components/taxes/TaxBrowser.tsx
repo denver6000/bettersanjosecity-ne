@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import CodeCard from '@/components/taxes/CodeCard';
 import { codeAnchor, PRINTED_ON, schedules, type RevenueCode } from '@/data/revenue';
+import { useLanguage } from '@/i18n/LanguageContext';
 import { normalize } from '@/lib/tax-format';
 
 interface Match {
@@ -45,6 +46,7 @@ function matchCode(code: RevenueCode, scheduleName: string, words: string[]): Ma
  * search can be shared; it is read on mount because the page is a static export.
  */
 export default function TaxBrowser() {
+  const { t } = useLanguage();
   const [q, setQ] = useState('');
   const words = useMemo(() => normalize(q).split(' ').filter(Boolean), [q]);
 
@@ -79,12 +81,15 @@ export default function TaxBrowser() {
       <div className="tax-search" role="search">
         <i className="ph ph-magnifying-glass" aria-hidden="true" />
         <label htmlFor="tax-q" className="sr-only">
-          Search taxes and fees
+          {t('bt-search-label', 'Search taxes and fees')}
         </label>
         <input
           id="tax-q"
           type="search"
-          placeholder="Search a business, code or fee, like “funeral” or “582-02”"
+          placeholder={t(
+            'bt-search-ph',
+            'Search a business, code or fee, like “funeral” or “582-02”'
+          )}
           value={q}
           onChange={(e) => setQuery(e.target.value)}
         />
@@ -93,7 +98,7 @@ export default function TaxBrowser() {
             type="button"
             className="tax-search-clear"
             onClick={() => setQuery('')}
-            aria-label="Clear search"
+            aria-label={t('bt-clear-search', 'Clear search')}
           >
             <i className="ph ph-x" aria-hidden="true" />
           </button>
@@ -101,8 +106,8 @@ export default function TaxBrowser() {
       </div>
 
       <div className="taxes-layout">
-        <aside className="toc" aria-label="Schedules">
-          <p className="toc-head">Schedules</p>
+        <aside className="toc" aria-label={t('bt-stat-schedules', 'Schedules')}>
+          <p className="toc-head">{t('bt-stat-schedules', 'Schedules')}</p>
           <ol>
             {results.map(({ schedule: s, matches }) => (
               <li key={s.id} className={matches.length ? '' : 'is-empty'}>
@@ -125,7 +130,7 @@ export default function TaxBrowser() {
             ))}
           </ol>
           <a href="#how-to-read" className="toc-help">
-            How to read these schedules →
+            {t('bt-toc-help', 'How to read these schedules →')}
           </a>
         </aside>
 
@@ -134,17 +139,25 @@ export default function TaxBrowser() {
             <p className="search-status" aria-live="polite">
               {hitCount === 0 ? (
                 <>
-                  No code mentions “{q}”. Try a broader word, or{' '}
+                  {t('bt-nomatch', 'No code mentions “{q}”. Try a broader word, or').replace(
+                    '{q}',
+                    q
+                  )}{' '}
                   <button type="button" className="link-btn" onClick={() => setQuery('')}>
-                    show every code
+                    {t('bt-show-all', 'show every code')}
                   </button>
                   .
                 </>
               ) : (
                 <>
-                  {hitCount} {hitCount === 1 ? 'code matches' : 'codes match'} “{q}”.{' '}
+                  {(hitCount === 1
+                    ? t('bt-match-one', '{n} code matches “{q}”.')
+                    : t('bt-match-many', '{n} codes match “{q}”.')
+                  )
+                    .replace('{n}', String(hitCount))
+                    .replace('{q}', q)}{' '}
                   <button type="button" className="link-btn" onClick={() => setQuery('')}>
-                    Clear search
+                    {t('bt-clear-search', 'Clear search')}
                   </button>
                 </>
               )}
@@ -156,7 +169,9 @@ export default function TaxBrowser() {
               <section key={s.id} id={s.id} className="schedule">
                 <header className="schedule-head">
                   <div>
-                    <p className="schedule-eyebrow">Printed as “{s.printedHeading}”</p>
+                    <p className="schedule-eyebrow">
+                      {t('bt-printed-as-cap', 'Printed as')} “{s.printedHeading}”
+                    </p>
                     <h2>{s.name}</h2>
                     <p className="schedule-summary">{s.summary}</p>
                     {s.explainer.map((p, i) => (
@@ -170,8 +185,9 @@ export default function TaxBrowser() {
                     <span>
                       {s.source.label}
                       <small>
-                        {s.source.pages} {s.source.pages === 1 ? 'page' : 'pages'} · printed{' '}
-                        {PRINTED_ON}
+                        {s.source.pages}{' '}
+                        {s.source.pages === 1 ? t('bt-page', 'page') : t('bt-pages', 'pages')} ·{' '}
+                        {t('bt-printed', 'printed')} {PRINTED_ON}
                       </small>
                     </span>
                   </p>

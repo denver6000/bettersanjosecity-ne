@@ -10,6 +10,7 @@ import {
   type Applicant,
   type LineItem,
 } from '@/lib/estimator';
+import { useLanguage } from '@/i18n/LanguageContext';
 import {
   findActivity,
   lineage,
@@ -35,11 +36,25 @@ function setParam(name: string, value: string | null) {
 
 const codeHref = (code: string) => `/business-taxes/#${codeAnchor(code)}`;
 
-const STATUS_TEXT: Record<LineItem['status'], string> = {
-  ok: '',
-  'needs-input': 'Needs an answer',
-  'no-row': 'No printed row',
-  'not-charged': 'Not estimated',
+const STATUS_TEXT: Record<LineItem['status'], { k: string; en: string }> = {
+  ok: { k: '', en: '' },
+  'needs-input': { k: 'est-s-needs', en: 'Needs an answer' },
+  'no-row': { k: 'est-s-norow', en: 'No printed row' },
+  'not-charged': { k: 'est-s-notcharged', en: 'Not estimated' },
+};
+
+/** i18n key per quick-pick PSIC code; the English label comes from QUICK_PICKS. */
+const QUICK_PICK_KEYS: Record<string, string> = {
+  '47113': 'est-qp-sari',
+  '56105': 'est-qp-carinderia',
+  '10611': 'est-qp-ricemill',
+  '47731': 'est-qp-agri',
+  '47721': 'est-qp-pharmacy',
+  '47521': 'est-qp-hardware',
+  '96212': 'est-qp-barber',
+  '55901': 'est-qp-boarding',
+  '95320': 'est-qp-motorcycle',
+  '68101': 'est-qp-apartment',
 };
 
 /**
@@ -47,6 +62,7 @@ const STATUS_TEXT: Record<LineItem['status'], string> = {
  * activity lives in `?psic=` so an estimate's starting point can be shared.
  */
 export default function Estimator() {
+  const { t } = useLanguage();
   const ids = useId();
   const [query, setQuery] = useState('');
   const [activity, setActivity] = useState<Activity | null>(null);
@@ -83,20 +99,23 @@ export default function Estimator() {
   }, [rule?.garbage]);
 
   const result = activity
-    ? estimate({
-        activity,
-        applicant,
-        gross: parseAmount(gross),
-        area: parseAmount(area),
-        employees: (() => {
-          const n = parseAmount(employees);
-          return n == null ? null : Math.floor(n);
-        })(),
-        permitRow: permitRow === '' ? null : Number(permitRow),
-        garbage: garbage
-          ? { code: garbage.split(':')[0], row: Number(garbage.split(':')[1]) }
-          : null,
-      })
+    ? estimate(
+        {
+          activity,
+          applicant,
+          gross: parseAmount(gross),
+          area: parseAmount(area),
+          employees: (() => {
+            const n = parseAmount(employees);
+            return n == null ? null : Math.floor(n);
+          })(),
+          permitRow: permitRow === '' ? null : Number(permitRow),
+          garbage: garbage
+            ? { code: garbage.split(':')[0], row: Number(garbage.split(':')[1]) }
+            : null,
+        },
+        t
+      )
     : null;
 
   return (
@@ -105,7 +124,8 @@ export default function Estimator() {
         {/* Step 1: activity */}
         <section className="est-step" aria-labelledby={`${ids}-s1`}>
           <h2 id={`${ids}-s1`}>
-            <span className="est-step-num">1</span> What does your business do?
+            <span className="est-step-num">1</span>{' '}
+            {t('est-s1-title', 'What does your business do?')}
           </h2>
 
           {activity && rule ? (
@@ -113,7 +133,7 @@ export default function Estimator() {
               <div className="est-picked-head">
                 <span className="code-pill">PSIC {activity.code}</span>
                 <button type="button" className="link-btn" onClick={() => choose(null)}>
-                  Change
+                  {t('est-change', 'Change')}
                 </button>
               </div>
               <p className="est-picked-title">{activity.title}</p>
@@ -131,35 +151,37 @@ export default function Estimator() {
                 <p>
                   {rule.tax ? (
                     <>
-                      Business tax code{' '}
+                      {t('est-tax-code', 'Business tax code')}{' '}
                       <a href={codeHref(rule.tax)}>
                         <strong>{rule.tax}</strong> {getCode(rule.tax).title}
                       </a>
                       .{' '}
                     </>
                   ) : (
-                    <>No business tax code. </>
+                    <>{t('est-no-tax-code', 'No business tax code')}. </>
                   )}
-                  {rule.why}
+                  {t(rule.why.k, rule.why.en)}
                 </p>
               </div>
             </div>
           ) : (
             <>
               <p className="est-help">
-                Search PSA’s industry classification ({PSIC_SOURCE.edition}). Use everyday words,
-                like “sari-sari”, “piggery” or “boarding house”, or a PSIC code.
+                {t(
+                  'est-help-search',
+                  'Search PSA’s industry classification ({n}). Use everyday words, like “sari-sari”, “piggery” or “boarding house”, or a PSIC code.'
+                ).replace('{n}', PSIC_SOURCE.edition)}
               </p>
               <div className="tax-search" role="search">
                 <i className="ph ph-magnifying-glass" aria-hidden="true" />
                 <label htmlFor={`${ids}-q`} className="sr-only">
-                  Search business activities
+                  {t('est-search-label', 'Search business activities')}
                 </label>
                 <input
                   id={`${ids}-q`}
                   type="search"
                   autoComplete="off"
-                  placeholder="What do you sell or do?"
+                  placeholder={t('est-search-ph', 'What do you sell or do?')}
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   aria-controls={`${ids}-results`}
@@ -169,7 +191,7 @@ export default function Estimator() {
                     type="button"
                     className="tax-search-clear"
                     onClick={() => setQuery('')}
-                    aria-label="Clear search"
+                    aria-label={t('bt-clear-search', 'Clear search')}
                   >
                     <i className="ph ph-x" aria-hidden="true" />
                   </button>
@@ -178,14 +200,14 @@ export default function Estimator() {
 
               {!query && (
                 <div className="est-quick">
-                  <span className="muted">Common in San Jose:</span>
+                  <span className="muted">{t('est-common', 'Common in San Jose:')}</span>
                   {QUICK_PICKS.map((p) => (
                     <button
                       type="button"
                       key={p.code}
                       onClick={() => choose(findActivity(p.code) ?? null)}
                     >
-                      {p.label}
+                      {t(QUICK_PICK_KEYS[p.code], p.label)}
                     </button>
                   ))}
                 </div>
@@ -195,10 +217,21 @@ export default function Estimator() {
                 {query && (
                   <p className="search-status">
                     {search.total === 0
-                      ? 'No activity matches. Try a shorter or more general word.'
+                      ? t(
+                          'est-no-match',
+                          'No activity matches. Try a shorter or more general word.'
+                        )
                       : search.total > search.results.length
-                        ? `Showing ${search.results.length} of ${search.total} matches. Add a word to narrow it down.`
-                        : `${search.total} ${search.total === 1 ? 'match' : 'matches'}`}
+                        ? t(
+                            'est-showing',
+                            'Showing {n} of {m} matches. Add a word to narrow it down.'
+                          )
+                            .replace('{n}', String(search.results.length))
+                            .replace('{m}', String(search.total))
+                        : (search.total === 1
+                            ? t('est-match-one', '{n} match')
+                            : t('est-match-many', '{n} matches')
+                          ).replace('{n}', String(search.total))}
                   </p>
                 )}
                 {search.results.length > 0 && (
@@ -210,8 +243,11 @@ export default function Estimator() {
                           <span className="est-result-title">{a.title}</span>
                           <span className="est-result-tax">
                             {ruleFor(a).tax
-                              ? `Business tax ${ruleFor(a).tax}`
-                              : 'No business tax code'}
+                              ? t('est-result-tax', 'Business tax {n}').replace(
+                                  '{n}',
+                                  ruleFor(a).tax ?? ''
+                                )
+                              : t('est-no-tax-code', 'No business tax code')}
                           </span>
                         </button>
                       </li>
@@ -229,20 +265,20 @@ export default function Estimator() {
           aria-labelledby={`${ids}-s2`}
         >
           <h2 id={`${ids}-s2`}>
-            <span className="est-step-num">2</span> About your business
+            <span className="est-step-num">2</span> {t('est-s2-title', 'About your business')}
           </h2>
           {!activity ? (
-            <p className="est-help">Choose an activity first.</p>
+            <p className="est-help">{t('est-choose-first', 'Choose an activity first.')}</p>
           ) : (
             <div className="est-fields">
               <fieldset className="est-field est-segment">
-                <legend>Application</legend>
+                <legend>{t('est-application', 'Application')}</legend>
                 {(
                   [
-                    ['renewal', 'Renewal'],
-                    ['new', 'New business'],
+                    ['renewal', 'est-renewal', 'Renewal'],
+                    ['new', 'est-new-business', 'New business'],
                   ] as const
-                ).map(([value, label]) => (
+                ).map(([value, labelKey, label]) => (
                   <label key={value}>
                     <input
                       type="radio"
@@ -251,14 +287,16 @@ export default function Estimator() {
                       checked={applicant === value}
                       onChange={() => setApplicant(value)}
                     />
-                    <span>{label}</span>
+                    <span>{t(labelKey, label)}</span>
                   </label>
                 ))}
               </fieldset>
 
               {applicant === 'renewal' && rule?.tax && (
                 <div className="est-field">
-                  <label htmlFor={`${ids}-gross`}>Gross sales or receipts last year</label>
+                  <label htmlFor={`${ids}-gross`}>
+                    {t('est-gross', 'Gross sales or receipts last year')}
+                  </label>
                   <div className="est-input est-input-peso">
                     <input
                       id={`${ids}-gross`}
@@ -268,12 +306,14 @@ export default function Estimator() {
                       onChange={(e) => setGross(e.target.value)}
                     />
                   </div>
-                  <small>From January to December of the year before.</small>
+                  <small>
+                    {t('est-gross-help', 'From January to December of the year before.')}
+                  </small>
                 </div>
               )}
 
               <div className="est-field">
-                <label htmlFor={`${ids}-area`}>Floor area</label>
+                <label htmlFor={`${ids}-area`}>{t('est-area', 'Floor area')}</label>
                 <div className="est-input est-input-unit" data-unit="sq m">
                   <input
                     id={`${ids}-area`}
@@ -284,13 +324,15 @@ export default function Estimator() {
                   />
                 </div>
                 <small>
-                  For the sanitary fee. The schedule does not print the unit; square metres is
-                  usual.
+                  {t(
+                    'est-area-help',
+                    'For the sanitary fee. The schedule does not print the unit; square metres is usual.'
+                  )}
                 </small>
               </div>
 
               <div className="est-field">
-                <label htmlFor={`${ids}-emp`}>Number of employees</label>
+                <label htmlFor={`${ids}-emp`}>{t('est-emp', 'Number of employees')}</label>
                 <div className="est-input">
                   <input
                     id={`${ids}-emp`}
@@ -300,40 +342,49 @@ export default function Estimator() {
                     onChange={(e) => setEmployees(e.target.value)}
                   />
                 </div>
-                <small>For the health and occupational fees.</small>
+                <small>{t('est-emp-help', 'For the health and occupational fees.')}</small>
               </div>
 
               {permitCode?.kind === 'tiered' && (
                 <div className="est-field">
-                  <label htmlFor={`${ids}-permit`}>{permitCode.column} (mayor’s permit)</label>
+                  <label htmlFor={`${ids}-permit`}>
+                    {permitCode.column} {t('est-permit-suffix', '(mayor’s permit)')}
+                  </label>
                   <select
                     id={`${ids}-permit`}
                     value={permitRow}
                     onChange={(e) => setPermitRow(e.target.value)}
                   >
-                    <option value="">Choose…</option>
+                    <option value="">{t('est-choose', 'Choose…')}</option>
                     {permitCode.rows.map((r, i) => (
                       <option key={r.label} value={i}>
                         {r.label}: {peso(r.amount)}
                       </option>
                     ))}
                   </select>
-                  <small>The Treasurer’s Office decides which size class applies to you.</small>
+                  <small>
+                    {t(
+                      'est-permit-help',
+                      'The Treasurer’s Office decides which size class applies to you.'
+                    )}
+                  </small>
                 </div>
               )}
 
               <div className="est-field est-field-wide">
-                <label htmlFor={`${ids}-garbage`}>Type of establishment (garbage fee)</label>
+                <label htmlFor={`${ids}-garbage`}>
+                  {t('est-garbage', 'Type of establishment (garbage fee)')}
+                </label>
                 <select
                   id={`${ids}-garbage`}
                   value={garbage}
                   onChange={(e) => setGarbage(e.target.value)}
                 >
-                  <option value="">Choose…</option>
+                  <option value="">{t('est-choose', 'Choose…')}</option>
                   {garbageOptions.map((g: TieredCode) => (
                     <optgroup
                       key={g.code}
-                      label={`${g.code} ${g.title}${g.code === rule?.garbage ? ' (suggested)' : ''}`}
+                      label={`${g.code} ${g.title}${g.code === rule?.garbage ? ` ${t('est-suggested', '(suggested)')}` : ''}`}
                     >
                       {g.rows.map((r, i) => (
                         <option key={r.label} value={`${g.code}:${i}`}>
@@ -351,18 +402,21 @@ export default function Estimator() {
 
       {/* Estimate */}
       <aside className="est-result" aria-live="polite" aria-labelledby={`${ids}-total`}>
-        <p className="est-result-eyebrow">Estimated yearly charges</p>
+        <p className="est-result-eyebrow">{t('est-result-eyebrow', 'Estimated yearly charges')}</p>
         <p className="est-total" id={`${ids}-total`}>
           {result ? peso(result.total) : '—'}
         </p>
         {!result ? (
-          <p className="est-help">Choose what your business does to start.</p>
+          <p className="est-help">{t('est-start', 'Choose what your business does to start.')}</p>
         ) : (
           <>
             {result.pending > 0 && (
               <p className="est-pending">
-                <i className="ph ph-info" aria-hidden="true" /> {result.pending}{' '}
-                {result.pending === 1 ? 'item needs' : 'items need'} an answer before it counts.
+                <i className="ph ph-info" aria-hidden="true" />{' '}
+                {(result.pending === 1
+                  ? t('est-pending-one', '{n} item needs an answer before it counts.')
+                  : t('est-pending-many', '{n} items need an answer before it counts.')
+                ).replace('{n}', String(result.pending))}
               </p>
             )}
             <ul className="est-items">
@@ -378,7 +432,9 @@ export default function Estimator() {
                       )}
                     </span>
                     <span className="est-item-amount">
-                      {item.status === 'ok' ? peso(item.amount) : STATUS_TEXT[item.status]}
+                      {item.status === 'ok'
+                        ? peso(item.amount)
+                        : t(STATUS_TEXT[item.status].k, STATUS_TEXT[item.status].en)}
                     </span>
                   </div>
                   <p className="est-item-detail">{item.detail}</p>
@@ -388,10 +444,10 @@ export default function Estimator() {
           </>
         )}
         <p className="est-fineprint">
-          An estimate from the schedules printed {PRINTED_ON}, not an assessment. It leaves out the
-          barangay clearance, fire safety inspection fee, community tax certificate, and any
-          surcharges or penalties. If you have more than one line of business, estimate each one.
-          The City Treasurer’s Office computes what you owe.
+          {t(
+            'est-fine',
+            'An estimate from the schedules printed {n}, not an assessment. It leaves out the barangay clearance, fire safety inspection fee, community tax certificate, and any surcharges or penalties. If you have more than one line of business, estimate each one. The City Treasurer’s Office computes what you owe.'
+          ).replace('{n}', PRINTED_ON)}
         </p>
       </aside>
     </div>
