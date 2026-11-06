@@ -27,7 +27,10 @@ export default function PageShell({
   return (
     <>
       <div className="container">
-        <nav className="breadcrumbs" aria-label="Breadcrumb">
+        <span id="crumb-label" className="sr-only">
+          <T k="breadcrumb-aria">Breadcrumb</T>
+        </span>
+        <nav className="breadcrumbs" aria-labelledby="crumb-label">
           <Link href="/">
             <T k="breadcrumb-home">Home</T>
           </Link>

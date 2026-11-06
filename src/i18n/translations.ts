@@ -562,6 +562,7 @@ export const translations: Record<Language, Record<string, string>> = {
     'sch-upd-note': 'The scholarship office reviews every update before changing your record.',
     'est-renewal': 'Renewal',
     'est-new-business': 'New business',
+    'breadcrumb-aria': 'Breadcrumb',
   },
   fil: {
     'home-skip-to-main-content': 'Lumaktaw sa pangunahing nilalaman',
@@ -1139,5 +1140,6 @@ export const translations: Record<Language, Record<string, string>> = {
       'Sinusuri ng scholarship office ang bawat update bago baguhin ang iyong talaan.',
     'est-renewal': 'Renewal',
     'est-new-business': 'Bagong negosyo',
+    'breadcrumb-aria': 'Landas ng nabigasyon',
   },
 };
