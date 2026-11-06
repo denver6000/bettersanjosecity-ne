@@ -2,12 +2,12 @@
 
 import { useEffect, useState } from 'react';
 import { LGU_LABEL, SITE } from '@/config/site';
+import { useLanguage } from '@/i18n/LanguageContext';
 import {
   compass,
   heatIndexLevel,
   manilaTime,
   msToKmh,
-  timeAgo,
   useStation,
   uvLevel,
   type StationReading,
@@ -34,6 +34,23 @@ const CODES: Record<number, { condition: string; icon: string }> = {
 };
 const mapCode = (code: number) =>
   CODES[code] ?? { condition: 'Partly cloudy', icon: 'ph-cloud-sun' };
+
+const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+
+type Tr = (key: string, fallback?: string) => string;
+
+/** "5 min ago" in the visitor's language. */
+function ago(iso: string, now: number, t: Tr) {
+  const mins = Math.floor((now - new Date(iso).getTime()) / 60000);
+  if (mins < 1) return t('wx-ago-now', 'just now');
+  if (mins < 60) return t('wx-ago-min', '{n} min ago').replace('{n}', String(mins));
+  const h = Math.floor(mins / 60);
+  if (h < 24) return t('wx-ago-hr', '{n} hr ago').replace('{n}', String(h));
+  const d = Math.floor(h / 24);
+  return d === 1
+    ? t('wx-ago-day', '{n} day ago').replace('{n}', '1')
+    : t('wx-ago-days', '{n} days ago').replace('{n}', String(d));
+}
 
 /** Open-Meteo model data: the sky condition and hourly forecast the station can't give. */
 interface Forecast {
@@ -162,20 +179,25 @@ function Tile({
 }
 
 function StationTiles({ r }: { r: StationReading }) {
+  const { t } = useLanguage();
   const uv = r.uv_index != null ? uvLevel(r.uv_index) : null;
   return (
-    <div className="station-tiles" role="list" aria-label="Station readings">
+    <div className="station-tiles" role="list" aria-label={t('wx-readings', 'Station readings')}>
       {r.humidity_pct != null && (
-        <Tile icon="ph-drop" label="Humidity" value={`${Math.round(r.humidity_pct)}%`} />
+        <Tile
+          icon="ph-drop"
+          label={t('wx-humidity', 'Humidity')}
+          value={`${Math.round(r.humidity_pct)}%`}
+        />
       )}
       {r.wind_speed_ms != null && (
         <Tile
           icon="ph-wind"
-          label="Wind"
+          label={t('wx-wind', 'Wind')}
           value={`${msToKmh(r.wind_speed_ms)} km/h`}
           note={
             r.wind_direction_deg != null
-              ? `from ${compass(r.wind_direction_deg)} (${Math.round(r.wind_direction_deg)}°)`
+              ? `${t('wx-from', 'from')} ${compass(r.wind_direction_deg)} (${Math.round(r.wind_direction_deg)}°)`
               : undefined
           }
         />
@@ -183,47 +205,60 @@ function StationTiles({ r }: { r: StationReading }) {
       {r.precipitation_mm != null && (
         <Tile
           icon="ph-cloud-rain"
-          label="Rain now"
+          label={t('wx-rain-now', 'Rain now')}
           value={`${r.precipitation_mm.toFixed(1)} mm`}
-          note="latest reading"
+          note={t('wx-latest-reading', 'latest reading')}
         />
       )}
       {r.hourly_precipitation_mm != null && (
         <Tile
           icon="ph-cloud-rain"
-          label="Rain"
+          label={t('wx-rain', 'Rain')}
           value={`${r.hourly_precipitation_mm.toFixed(1)} mm`}
-          note="past hour"
+          note={t('wx-past-hour', 'past hour')}
         />
       )}
       {uv && r.uv_index != null && (
         <Tile
           icon="ph-sun"
-          label="UV index"
+          label={t('wx-uv-index', 'UV index')}
           value={String(Math.round(r.uv_index))}
-          note={uv.label}
+          note={t(`wx-level-${slug(uv.label)}`, uv.label)}
           tone={uv.tone}
         />
       )}
       {r.pressure_hpa != null && (
-        <Tile icon="ph-gauge" label="Pressure" value={`${Math.round(r.pressure_hpa)} hPa`} />
+        <Tile
+          icon="ph-gauge"
+          label={t('wx-pressure', 'Pressure')}
+          value={`${Math.round(r.pressure_hpa)} hPa`}
+        />
       )}
       {r.light_lux != null && (
-        <Tile icon="ph-sun" label="Light" value={`${Math.round(r.light_lux / 1000)}k lux`} />
+        <Tile
+          icon="ph-sun"
+          label={t('wx-light', 'Light')}
+          value={`${Math.round(r.light_lux / 1000)}k lux`}
+        />
       )}
       {r.distance != null && (
-        <Tile icon="ph-ruler" label="Sensor distance" value={String(r.distance)} />
+        <Tile
+          icon="ph-ruler"
+          label={t('wx-sensor-distance', 'Sensor distance')}
+          value={String(r.distance)}
+        />
       )}
     </div>
   );
 }
 
 function Hourly({ forecast }: { forecast: Forecast }) {
+  const { t } = useLanguage();
   if (!forecast.hourly.length) return null;
   return (
     <>
-      <div className="station-forecast-label">Forecast</div>
-      <div className="weather-hourly" role="list" aria-label="Hourly forecast">
+      <div className="station-forecast-label">{t('wx-forecast', 'Forecast')}</div>
+      <div className="weather-hourly" role="list" aria-label={t('wx-hourly', 'Hourly forecast')}>
         {forecast.hourly.map((h) => (
           <div className="weather-hour" role="listitem" key={h.time}>
             <span className="weather-hour-time">{h.time}</span>
@@ -240,7 +275,9 @@ export default function WeatherWidget() {
   const { station, status } = useStation();
   const { forecast, failed, retry } = useForecast();
   const now = useNow();
+  const { t } = useLanguage();
   const r = station?.reading;
+  const sky = (c: string) => t(`wx-${slug(c)}`, c);
 
   // Live station: real measurements, with the model's sky condition and forecast alongside.
   if (status === 'live' && station && r && r.temperature_c != null) {
@@ -249,11 +286,11 @@ export default function WeatherWidget() {
       <div
         className="weather-widget station-widget"
         role="region"
-        aria-label={`Live weather from ${station.name}`}
+        aria-label={t('wx-live-region', 'Live weather from {name}').replace('{name}', station.name)}
       >
         <div className="station-header">
           <span className="station-live">
-            <span className="station-live-dot" aria-hidden="true" /> Live
+            <span className="station-live-dot" aria-hidden="true" /> {t('wx-live', 'Live')}
           </span>
           <span className="station-name" title={station.address}>
             {station.name}
@@ -266,7 +303,7 @@ export default function WeatherWidget() {
           </div>
           <div className="weather-current-info">
             <div className="weather-current-temp">{r.temperature_c.toFixed(1)}°C</div>
-            {forecast && <div className="weather-current-condition">{forecast.condition}</div>}
+            {forecast && <div className="weather-current-condition">{sky(forecast.condition)}</div>}
             <div className="weather-current-location">
               <i className="ph ph-map-pin" aria-hidden="true" /> {LGU_LABEL}
             </div>
@@ -276,10 +313,10 @@ export default function WeatherWidget() {
         {hi && r.heat_index_c != null && (
           <div className={`station-heat tone-${hi.tone}`}>
             <span>
-              <i className="ph-duotone ph-thermometer-hot" aria-hidden="true" /> Heat index{' '}
-              <strong>{Math.round(r.heat_index_c)}°C</strong>
+              <i className="ph-duotone ph-thermometer-hot" aria-hidden="true" />{' '}
+              {t('wx-heat-index', 'Heat index')} <strong>{Math.round(r.heat_index_c)}°C</strong>
             </span>
-            <span className="station-heat-level">{hi.label}</span>
+            <span className="station-heat-level">{t(`wx-level-${slug(hi.label)}`, hi.label)}</span>
           </div>
         )}
 
@@ -288,8 +325,9 @@ export default function WeatherWidget() {
         {forecast && <Hourly forecast={forecast} />}
 
         <p className="station-updated">
-          Updated {timeAgo(r.recorded_at, now)} ({manilaTime(r.recorded_at)}) &middot; KloudTrack
-          weather station
+          {t('wx-updated', 'Updated {ago} ({time}) · KloudTrack weather station')
+            .replace('{ago}', ago(r.recorded_at, now, t))
+            .replace('{time}', manilaTime(r.recorded_at))}
         </p>
       </div>
     );
@@ -297,7 +335,11 @@ export default function WeatherWidget() {
 
   if (status === 'loading' && !forecast) {
     return (
-      <div className="weather-loading" aria-busy="true" aria-label="Loading weather data">
+      <div
+        className="weather-loading"
+        aria-busy="true"
+        aria-label={t('wx-loading', 'Loading weather data')}
+      >
         <div className="weather-current">
           <div className="skeleton-circle" />
           <div className="weather-current-info">
@@ -312,15 +354,19 @@ export default function WeatherWidget() {
   // No live station: fall back to the Open-Meteo model.
   if (!forecast) {
     return (
-      <div className="weather-widget" role="region" aria-label="Weather unavailable">
-        <p>Weather data is unavailable right now.</p>
+      <div
+        className="weather-widget"
+        role="region"
+        aria-label={t('wx-unavailable-region', 'Weather unavailable')}
+      >
+        <p>{t('wx-unavailable-text', 'Weather data is unavailable right now.')}</p>
         {failed && (
           <button
             type="button"
             className="btn btn-sm btn-primary weather-retry-btn"
             onClick={retry}
           >
-            Try again
+            {t('wx-retry', 'Try again')}
           </button>
         )}
       </div>
@@ -331,7 +377,7 @@ export default function WeatherWidget() {
     <div
       className="weather-widget"
       role="region"
-      aria-label={`Current weather in ${SITE.lgu.name}`}
+      aria-label={t('wx-current-in', 'Current weather in {name}').replace('{name}', SITE.lgu.name)}
     >
       <div className="weather-current">
         <div className="weather-current-icon" aria-hidden="true">
@@ -339,17 +385,20 @@ export default function WeatherWidget() {
         </div>
         <div className="weather-current-info">
           <div className="weather-current-temp">{forecast.temperature}°C</div>
-          <div className="weather-current-condition">{forecast.condition}</div>
+          <div className="weather-current-condition">{sky(forecast.condition)}</div>
           <div className="weather-current-location">
             <i className="ph ph-map-pin" aria-hidden="true" /> {LGU_LABEL}
           </div>
         </div>
       </div>
-      <div className="weather-stats" role="list" aria-label="Weather details">
+      <div className="weather-stats" role="list" aria-label={t('wx-details', 'Weather details')}>
         <div
           className="weather-stat"
           role="listitem"
-          aria-label={`Humidity ${forecast.humidity} percent`}
+          aria-label={t('wx-humidity-aria', 'Humidity {n} percent').replace(
+            '{n}',
+            String(forecast.humidity)
+          )}
         >
           <i className="ph-duotone ph-drop" aria-hidden="true" />
           <span>{forecast.humidity}%</span>
@@ -357,7 +406,10 @@ export default function WeatherWidget() {
         <div
           className="weather-stat"
           role="listitem"
-          aria-label={`Wind speed ${forecast.windSpeed} km/h`}
+          aria-label={t('wx-wind-aria', 'Wind speed {n} km/h').replace(
+            '{n}',
+            String(forecast.windSpeed)
+          )}
         >
           <i className="ph-duotone ph-wind" aria-hidden="true" />
           <span>{forecast.windSpeed} km/h</span>
@@ -368,8 +420,11 @@ export default function WeatherWidget() {
         <p className="station-updated">
           <span className="station-live-dot is-off" aria-hidden="true" />
           {status === 'offline' && r
-            ? `Weather station offline since ${timeAgo(r.recorded_at, now)}; showing model estimate (Open-Meteo).`
-            : 'Model estimate (Open-Meteo).'}
+            ? t(
+                'wx-offline',
+                'Weather station offline since {ago}; showing model estimate (Open-Meteo).'
+              ).replace('{ago}', ago(r.recorded_at, now, t))
+            : t('wx-model', 'Model estimate (Open-Meteo).')}
         </p>
       )}
     </div>

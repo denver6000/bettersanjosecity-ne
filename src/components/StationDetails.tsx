@@ -1,12 +1,22 @@
 'use client';
 
 import { SITE } from '@/config/site';
+import { useLanguage } from '@/i18n/LanguageContext';
 import { manilaDate, manilaTime, REFRESH_MS, useStation } from '@/lib/station';
 
 const TYPES: Record<string, string> = { WEATHERSTATION: 'Automatic weather station' };
 
 /** Everything KloudTrack tells us about the station itself, under the map. */
 export default function StationDetails() {
+  const { t } = useLanguage();
+  const tr = (s: string) =>
+    t(
+      `sd-${s
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-|-$/g, '')}`,
+      s
+    );
   const { station, status } = useStation();
   const fallback = SITE.weatherStation;
   const r = station?.reading;
@@ -16,16 +26,17 @@ export default function StationDetails() {
     [
       'Status',
       status === 'live'
-        ? 'Online'
+        ? tr('Online')
         : status === 'offline'
-          ? 'Offline'
+          ? tr('Offline')
           : status === 'loading'
-            ? 'Checking…'
-            : 'Unavailable',
+            ? tr('Checking…')
+            : tr('Unavailable'),
     ],
   ];
   if (station) {
-    if (station.type) rows.push(['Type', TYPES[station.type] ?? station.type]);
+    if (station.type)
+      rows.push(['Type', TYPES[station.type] ? tr(TYPES[station.type]) : station.type]);
     if (station.operator) rows.push(['Operated by', station.operator]);
     rows.push(['Station ID', station.id]);
     if (station.address) rows.push(['Address', station.address]);
@@ -48,13 +59,19 @@ export default function StationDetails() {
       `${manilaDate(r.recorded_at)}, ${manilaTime(r.recorded_at)}${r.id ? ` (#${r.id})` : ''}`,
     ]);
   }
-  rows.push(['Refreshes', `Every ${REFRESH_MS / 60000} minutes while this page is open`]);
+  rows.push([
+    'Refreshes',
+    t('sd-refresh-note', 'Every {n} minutes while this page is open').replace(
+      '{n}',
+      String(REFRESH_MS / 60000)
+    ),
+  ]);
 
   return (
-    <dl className="station-details" aria-label="Weather station details">
+    <dl className="station-details" aria-label={t('sd-aria', 'Weather station details')}>
       {rows.map(([k, v]) => (
         <div key={k}>
-          <dt>{k}</dt>
+          <dt>{tr(k)}</dt>
           <dd>{v}</dd>
         </div>
       ))}

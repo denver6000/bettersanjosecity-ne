@@ -110,7 +110,7 @@ export default function ScholarLookup({
     <section
       className="scholar-block scholar-lookup"
       aria-labelledby={heading ? `${ids}-title` : undefined}
-      aria-label={heading ? undefined : 'Scholarship record lookup'}
+      aria-label={heading ? undefined : t('scholar-lookup-aria', 'Scholarship record lookup')}
     >
       {heading && (
         <>

@@ -6,7 +6,7 @@ import BrandLockup from './BrandLockup';
 
 const RESOURCES = [
   { href: 'https://data.gov.ph', label: 'Open Data Philippines' },
-  { href: 'https://www.foi.gov.ph/', label: 'Freedom of Information' },
+  { href: 'https://www.foi.gov.ph/', label: 'Freedom of Information', key: 'foot-foi' },
   { href: 'https://blgf.gov.ph/', label: 'BLGF Portal' },
   { href: 'https://cmci.dti.gov.ph/', label: 'CMCI DTI Portal' },
 ];
@@ -28,10 +28,14 @@ export default function Footer() {
             </h2>
             <ul className="footer-links-new">
               <li>
-                <Link href="/business-taxes">Business Taxes and Fees</Link>
+                <Link href="/business-taxes">
+                  <T k="foot-business-taxes">Business Taxes and Fees</T>
+                </Link>
               </li>
               <li>
-                <Link href="/business-taxes/estimator">Business Tax Estimator</Link>
+                <Link href="/business-taxes/estimator">
+                  <T k="foot-estimator">Business Tax Estimator</T>
+                </Link>
               </li>
               <li>
                 <Link href="/sitemap">
@@ -66,19 +70,16 @@ export default function Footer() {
               {RESOURCES.map((r) => (
                 <li key={r.href}>
                   <a href={r.href} target="_blank" rel="noopener noreferrer">
-                    {r.label}
+                    {r.key ? <T k={r.key}>{r.label}</T> : r.label}
                   </a>
                 </li>
               ))}
             </ul>
           </div>
           <div className="footer-column">
-            <div
-              className="footer-cost"
-              role="status"
-              aria-label="Cost to the People of San Jose: Zero Pesos"
-            >
-              Cost to the People of San Jose = <span className="footer-cost-value">₱0</span>
+            <div className="footer-cost" role="status">
+              <T k="foot-cost">Cost to the People of San Jose =</T>{' '}
+              <span className="footer-cost-value">₱0</span>
             </div>
             <div className="footer-partners">
               <a
@@ -104,10 +105,12 @@ export default function Footer() {
             <span className="footer-copyright-text">&copy; 2026 Better San Jose</span>
             <span className="footer-copyright-license">MIT | CC BY 4.0</span>
             <span className="footer-copyright-credits">
-              Built by Kurt Vincent F. Fariñas and Denver M. Ballesteros
+              <T k="foot-credits">Built by Kurt Vincent F. Fariñas and Denver M. Ballesteros</T>
             </span>
             <span className="footer-copyright-disclaimer">
-              All public information sourced from official government portals.
+              <T k="foot-disclaimer">
+                All public information sourced from official government portals.
+              </T>
             </span>
             <span className="footer-version">
               <i className="ph ph-package" aria-hidden="true" /> Ver. {pkg.version}

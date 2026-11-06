@@ -123,7 +123,7 @@ export default function Header() {
         <nav
           ref={navRef}
           className={`main-nav ${mobileMenuOpen ? 'active' : ''}`}
-          aria-label="Main Navigation"
+          aria-label={t('nav-main-aria', 'Main Navigation')}
         >
           <ul>
             {NAV.map((item) => {
