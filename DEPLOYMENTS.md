@@ -1,3 +1,12 @@
+## 2026-11-06 08:21 — dce76a8 — Force light theme; remove hero credit and BetterSolano footer note
+
+- By: Claude Code, requested by Kurt Vincent F. Fariñas
+- Code: d03e7db → dce76a8 (pushed to main; Hostinger auto-builds on push)
+- Migrations: none
+- Backup: none
+- Data changes: none
+- Verified: `npm run check` passed (icons, i18n, theme, prettier, typecheck, build); live homepage no longer contains the Judgefloro photo credit or "Design based on BetterSolano.org", and `<html>` is `data-theme="light"`
+
 ## 2026-11-06 — 9f60c97 — Footer credits + frontend-kurt to main
 
 - By: Claude Code, requested by Kurt Vincent F. Fariñas
