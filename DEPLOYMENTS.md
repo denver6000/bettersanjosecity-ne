@@ -1,3 +1,12 @@
+## 2026-11-06 — 28380fb — Filipino translations for all pages and tab titles
+
+- By: Claude Code, requested by Kurt Vincent F. Fariñas
+- Code: 17eed88 → 28380fb (pushed to main; Hostinger auto-builds on push); inner pages, error pages, tab titles, Business Taxes and estimator, Scholarship
+- Migrations: none
+- Backup: none
+- Data changes: none
+- Verified: `npm run check` passed; live JS bundle contains the new Filipino scholarship strings; Filipino wording not yet reviewed by a Filipino speaker; live pages not checked visually
+
 ## 2026-11-06 — 7074e35 — No flash of English for Filipino visitors
 
 - By: Claude Code, requested by Kurt Vincent F. Fariñas
