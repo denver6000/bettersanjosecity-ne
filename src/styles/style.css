@@ -634,6 +634,10 @@ html[data-lang-pending] body {
   visibility: hidden;
 }
 
+html[data-lang-pending] .lang-btn {
+  transition: none;
+}
+
 /* Top strip: location, hotline and the disclaimer, on every page */
 .top-strip {
   background: var(--fill-strip);

@@ -60,8 +60,12 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     const root = document.documentElement;
     root.lang = language;
     // Reveal the page once the language the head script was waiting for is on screen.
-    if (root.getAttribute('data-lang-pending') === language)
-      root.removeAttribute('data-lang-pending');
+    // Two frames later, so the EN/FIL pill has already settled instead of sliding on screen.
+    if (root.getAttribute('data-lang-pending') === language) {
+      requestAnimationFrame(() =>
+        requestAnimationFrame(() => root.removeAttribute('data-lang-pending'))
+      );
+    }
   }, [language]);
 
   // The static <title> is English. Re-apply the translated one, and again whenever Next rewrites it.
