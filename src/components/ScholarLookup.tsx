@@ -32,29 +32,29 @@ interface Cycle {
 
 const API_URL = '/api/scholar-lookup.php';
 
-/** Same wording as the SIS eligibility page. */
+/** Same wording as the SIS eligibility page; `{n}` in a text is the semester label. */
 const STATUS: Record<
   Cycle['status'],
-  { title: string; icon: string; text: (label: string) => string }
+  { title: [string, string]; icon: string; text: [string, string] | null }
 > = {
   eligible: {
-    title: 'Eligible for payout',
+    title: ['sch-st-eligible', 'Eligible for payout'],
     icon: 'ph-check-circle',
-    text: (label) => `You are qualified and your requirements are complete for ${label}.`,
+    text: ['sch-st-eligible-d', 'You are qualified and your requirements are complete for {n}.'],
   },
   payrolled: {
-    title: 'Included in payroll',
+    title: ['sch-st-payrolled', 'Included in payroll'],
     icon: 'ph-money',
-    text: (label) => `Your payout for ${label} has already been processed.`,
+    text: ['sch-st-payrolled-d', 'Your payout for {n} has already been processed.'],
   },
   not_eligible: {
-    title: 'Not yet eligible',
+    title: ['sch-st-not-eligible', 'Not yet eligible'],
     icon: 'ph-hourglass',
-    text: () => '',
+    text: null,
   },
 };
 
-async function post<T>(query: string, body: object): Promise<T> {
+async function post<T>(query: string, body: object, fallback: string): Promise<T> {
   const res = await fetch(API_URL + query, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -62,9 +62,7 @@ async function post<T>(query: string, body: object): Promise<T> {
   });
   const data = await res.json().catch(() => null);
   if (!res.ok) {
-    throw new Error(
-      data?.error ?? 'The scholar lookup is unavailable right now. Please try again later.'
-    );
+    throw new Error(data?.error ?? fallback);
   }
   return data as T;
 }
@@ -76,7 +74,7 @@ async function post<T>(query: string, body: object): Promise<T> {
  */
 export default function ScholarLookup({
   heading = true,
-  submitLabel = 'Search',
+  submitLabel,
 }: {
   heading?: boolean;
   submitLabel?: ReactNode;
@@ -88,6 +86,10 @@ export default function ScholarLookup({
   const [result, setResult] = useState<Lookup | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
+  const unavailable = t(
+    'sch-unavailable',
+    'The scholar lookup is unavailable right now. Please try again later.'
+  );
 
   async function search(e: FormEvent) {
     e.preventDefault();
@@ -96,7 +98,7 @@ export default function ScholarLookup({
     setBusy(true);
     setError(null);
     try {
-      setResult(await post<Lookup>('', { student_id: id }));
+      setResult(await post<Lookup>('', { student_id: id }, unavailable));
       setSearched(id);
     } catch (err) {
       setResult(null);
@@ -114,10 +116,12 @@ export default function ScholarLookup({
     >
       {heading && (
         <>
-          <h2 id={`${ids}-title`}>Look up your scholarship record</h2>
+          <h2 id={`${ids}-title`}>{t('sch-lookup-title', 'Look up your scholarship record')}</h2>
           <p>
-            Enter your Student ID to see your record, whether you are cleared for each semester’s
-            payout and which requirements are still missing.
+            {t(
+              'sch-lookup-lede',
+              'Enter your Student ID to see your record, whether you are cleared for each semester’s payout and which requirements are still missing.'
+            )}
           </p>
         </>
       )}
@@ -138,7 +142,9 @@ export default function ScholarLookup({
         />
         <button type="submit" className="btn btn-primary" disabled={busy}>
           <i className="ph ph-magnifying-glass" aria-hidden="true" />{' '}
-          {busy ? 'Searching…' : submitLabel}
+          {busy
+            ? t('sch-searching', 'Searching…')
+            : (submitLabel ?? t('hero-search-btn', 'Search'))}
         </button>
       </form>
       {heading && (
@@ -156,10 +162,12 @@ export default function ScholarLookup({
         )}
         {result && result.scholars.length === 0 && (
           <div className="scholar-result-msg">
-            <strong>No student found</strong>
+            <strong>{t('sch-no-student', 'No student found')}</strong>
             <span>
-              No record matches “{searched}”. Check the Student ID and try again, or visit the
-              scholarship office.
+              {t(
+                'sch-no-match',
+                'No record matches “{n}”. Check the Student ID and try again, or visit the scholarship office.'
+              ).replace('{n}', searched)}
             </span>
           </div>
         )}
@@ -181,6 +189,7 @@ function ScholarCard({
   /** The scholarship page's fuller styling; the home band keeps the compact one. */
   rich: boolean;
 }) {
+  const { t } = useLanguage();
   return (
     <article className="scholar-card">
       <header className="scholar-card-head">
@@ -190,12 +199,12 @@ function ScholarCard({
         <h3>{scholar.full_name}</h3>
         <dl>
           <div>
-            <dt>Student ID</dt>
+            <dt>{t('scholar-student-id', 'Student ID')}</dt>
             <dd>{scholar.student_id}</dd>
           </div>
           {scholar.student_number && (
             <div>
-              <dt>Student number</dt>
+              <dt>{t('sch-student-number', 'Student number')}</dt>
               <dd>{scholar.student_number}</dd>
             </div>
           )}
@@ -203,7 +212,7 @@ function ScholarCard({
       </header>
 
       {scholar.cycles.length === 0 ? (
-        <p className="scholar-status">No semester records yet.</p>
+        <p className="scholar-status">{t('sch-no-semesters', 'No semester records yet.')}</p>
       ) : (
         <div className="scholar-cycles">
           {scholar.cycles.map((c) => (
@@ -223,8 +232,8 @@ function CycleRow({ cycle, rich }: { cycle: Cycle; rich: boolean }) {
   const details = [
     cycle.school,
     cycle.course,
-    cycle.year_level && `Year ${cycle.year_level}`,
-    cycle.batch && `Batch ${cycle.batch}`,
+    cycle.year_level && t('sch-year-level', 'Year {n}').replace('{n}', cycle.year_level),
+    cycle.batch && t('sch-batch', 'Batch {n}').replace('{n}', cycle.batch),
   ].filter(Boolean);
 
   return (
@@ -232,7 +241,9 @@ function CycleRow({ cycle, rich }: { cycle: Cycle; rich: boolean }) {
       <div className="scholar-cycle-head">
         <h4>{cycle.label}</h4>
         <span className="scholar-track">
-          {cycle.payout_track === 'renewal' ? 'Renewing scholar' : 'New grantee'}
+          {cycle.payout_track === 'renewal'
+            ? t('sch-renewing-scholar', 'Renewing scholar')
+            : t('sch-new-grantee', 'New grantee')}
         </span>
       </div>
       {details.length > 0 && <p className="scholar-cycle-details">{details.join(' · ')}</p>}
@@ -240,20 +251,23 @@ function CycleRow({ cycle, rich }: { cycle: Cycle; rich: boolean }) {
       <p className="scholar-cycle-status">
         <i className={`ph-duotone ${status.icon}`} aria-hidden="true" />
         <span>
-          <strong>{status.title}</strong>
+          <strong>{t(...status.title)}</strong>
           {cycle.status === 'not_eligible' ? (
             !cycle.qualified && (
               <span>
-                Your qualification for {cycle.label} has not been confirmed by the office.
+                {t(
+                  'sch-st-unconfirmed',
+                  'Your qualification for {n} has not been confirmed by the office.'
+                ).replace('{n}', cycle.label)}
               </span>
             )
           ) : (
-            <span>{status.text(cycle.label)}</span>
+            <span>{t(...status.text!).replace('{n}', cycle.label)}</span>
           )}
         </span>
       </p>
 
-      <h5>Requirements</h5>
+      <h5>{t('sch-requirements', 'Requirements')}</h5>
       <ul className="scholar-checklist">
         {cycle.requirements.map((r) => (
           <li key={r.label} className={r.met ? 'is-met' : 'is-missing'}>
@@ -282,6 +296,7 @@ function CycleRow({ cycle, rich }: { cycle: Cycle; rich: boolean }) {
 
 function UpdateRequest({ scholar, fields }: { scholar: Scholar; fields: Record<string, string> }) {
   const ids = useId();
+  const { t } = useLanguage();
   const [field, setField] = useState(Object.keys(fields)[0] ?? '');
   const [value, setValue] = useState('');
   const [contact, setContact] = useState('');
@@ -294,13 +309,17 @@ function UpdateRequest({ scholar, fields }: { scholar: Scholar; fields: Record<s
     setBusy(true);
     setError(null);
     try {
-      const res = await post<{ message: string }>('?action=update', {
-        student_id: scholar.student_id,
-        ref: scholar.ref,
-        field,
-        submitted_value: value,
-        submitter_contact: contact || null,
-      });
+      const res = await post<{ message: string }>(
+        '?action=update',
+        {
+          student_id: scholar.student_id,
+          ref: scholar.ref,
+          field,
+          submitted_value: value,
+          submitter_contact: contact || null,
+        },
+        t('sch-unavailable', 'The scholar lookup is unavailable right now. Please try again later.')
+      );
       setSent(res.message);
       setValue('');
     } catch (err) {
@@ -312,14 +331,14 @@ function UpdateRequest({ scholar, fields }: { scholar: Scholar; fields: Record<s
 
   return (
     <details className="scholar-update">
-      <summary>Something wrong with your details?</summary>
+      <summary>{t('sch-wrong', 'Something wrong with your details?')}</summary>
       {sent ? (
         <p className="scholar-result-msg is-sent" role="status">
           {sent}
         </p>
       ) : (
         <form onSubmit={submit}>
-          <label htmlFor={`${ids}-field`}>What needs updating</label>
+          <label htmlFor={`${ids}-field`}>{t('sch-upd-field', 'What needs updating')}</label>
           <select id={`${ids}-field`} value={field} onChange={(e) => setField(e.target.value)}>
             {Object.entries(fields).map(([key, label]) => (
               <option key={key} value={key}>
@@ -327,7 +346,7 @@ function UpdateRequest({ scholar, fields }: { scholar: Scholar; fields: Record<s
               </option>
             ))}
           </select>
-          <label htmlFor={`${ids}-value`}>Correct value</label>
+          <label htmlFor={`${ids}-value`}>{t('sch-upd-value', 'Correct value')}</label>
           <input
             id={`${ids}-value`}
             value={value}
@@ -335,7 +354,9 @@ function UpdateRequest({ scholar, fields }: { scholar: Scholar; fields: Record<s
             maxLength={500}
             required
           />
-          <label htmlFor={`${ids}-contact`}>Your contact (optional)</label>
+          <label htmlFor={`${ids}-contact`}>
+            {t('sch-upd-contact', 'Your contact (optional)')}
+          </label>
           <input
             id={`${ids}-contact`}
             value={contact}
@@ -348,10 +369,13 @@ function UpdateRequest({ scholar, fields }: { scholar: Scholar; fields: Record<s
             </p>
           )}
           <button type="submit" className="btn btn-secondary" disabled={busy}>
-            {busy ? 'Sending…' : 'Send update'}
+            {busy ? t('sch-sending', 'Sending…') : t('sch-send', 'Send update')}
           </button>
           <p className="scholar-note">
-            The scholarship office reviews every update before changing your record.
+            {t(
+              'sch-upd-note',
+              'The scholarship office reviews every update before changing your record.'
+            )}
           </p>
         </form>
       )}

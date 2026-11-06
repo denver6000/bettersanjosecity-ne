@@ -38,10 +38,14 @@ export default function ScholarshipPage() {
                 <T k="scholar-crumb">Scholarship</T>
               </span>
             </nav>
-            <h1>City Scholarship Program</h1>
+            <h1>
+              <T k="sitemap-scholarship">City Scholarship Program</T>
+            </h1>
             <p>
-              Financial assistance from the City Government of San Jose for students who live in the
-              city.
+              <T k="sch-lede">
+                Financial assistance from the City Government of San Jose for students who live in
+                the city.
+              </T>
             </p>
           </div>
           <div className="scholar-lookup-card">
@@ -52,36 +56,45 @@ export default function ScholarshipPage() {
         <ScholarshipStats />
 
         <section className="scholar-block">
-          <h2>New grantees and renewals</h2>
+          <h2>
+            <T k="sch-new-renew">New grantees and renewals</T>
+          </h2>
           <dl className="scholar-glossary" data-reveal-children>
             <div>
               <dt>
                 <i className="ph-duotone ph-user-plus" aria-hidden="true" />
-                New grantee
+                <T k="sch-new-grantee">New grantee</T>
               </dt>
               <dd>
-                A student in their first semester with the program. New grantees submit the full set
-                of requirements, including proof that they live in San Jose City.
+                <T k="sch-new-grantee-d">
+                  A student in their first semester with the program. New grantees submit the full
+                  set of requirements, including proof that they live in San Jose City.
+                </T>
               </dd>
             </div>
             <div>
               <dt>
                 <i className="ph-duotone ph-arrows-clockwise" aria-hidden="true" />
-                Renewing scholar
+                <T k="sch-renewing-scholar">Renewing scholar</T>
               </dt>
               <dd>
-                A returning scholar. Renewal is done every semester with a shorter list:
-                liquidation, proof of enrollment and the latest grades.
+                <T k="sch-renewing-scholar-d">
+                  A returning scholar. Renewal is done every semester with a shorter list:
+                  liquidation, proof of enrollment and the latest grades.
+                </T>
               </dd>
             </div>
             <div>
               <dt>
                 <i className="ph-duotone ph-seal-check" aria-hidden="true" />
-                Qualified for payout
+                <T k="sch-qualified">Qualified for payout</T>
               </dt>
               <dd>
-                Submitting requirements does not make a scholar qualified on its own. The
-                scholarship office reviews each scholar and approves them for the semester’s payout.
+                <T k="sch-qualified-d">
+                  Submitting requirements does not make a scholar qualified on its own. The
+                  scholarship office reviews each scholar and approves them for the semester’s
+                  payout.
+                </T>
               </dd>
             </div>
           </dl>
@@ -90,15 +103,22 @@ export default function ScholarshipPage() {
         <aside className="scholar-privacy" data-reveal>
           <i className="ph-duotone ph-shield-check" aria-hidden="true" />
           <div>
-            <h2>About your information</h2>
+            <h2>
+              <T k="sch-privacy-h">About your information</T>
+            </h2>
             <p>
-              The figures above are totals only. The Student ID lookup shows a scholar’s own program
-              record; addresses, phone numbers and other contact details are kept by the scholarship
-              office and are never shown on this site.
+              <T k="sch-privacy-p">
+                The figures above are totals only. The Student ID lookup shows a scholar’s own
+                program record; addresses, phone numbers and other contact details are kept by the
+                scholarship office and are never shown on this site.
+              </T>
             </p>
             <p>
-              For application schedules and other questions,{' '}
-              <Link href="/contact/">contact us</Link>.
+              <T k="sch-contact-a">For application schedules and other questions,</T>{' '}
+              <Link href="/contact/">
+                <T k="sch-contact-link">contact us</T>
+              </Link>
+              .
             </p>
           </div>
         </aside>
