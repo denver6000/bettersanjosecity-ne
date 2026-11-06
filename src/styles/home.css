@@ -98,6 +98,7 @@
   letter-spacing: -0.02em;
   color: var(--c-head, var(--color-navy));
   margin-bottom: 18px;
+  text-wrap: balance;
 }
 
 .home-hero-accent {

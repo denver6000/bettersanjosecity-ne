@@ -665,6 +665,7 @@ a.top-strip-item:hover {
 
 .top-strip-note {
   margin-left: auto;
+  text-wrap: balance;
 }
 
 @media (max-width: 767px) {

@@ -407,3 +407,22 @@
     font-size: 0.875rem;
   }
 }
+
+/* Filipino labels are longer: keep the compact nav at every desktop width, never wrap or squash. */
+@media (min-width: 1200px) {
+  :lang(fil) .main-nav ul {
+    gap: 16px;
+  }
+
+  :lang(fil) .main-nav a {
+    font-size: 0.875rem;
+  }
+
+  .main-nav a {
+    white-space: nowrap;
+  }
+
+  .logo-container {
+    flex-shrink: 0;
+  }
+}
