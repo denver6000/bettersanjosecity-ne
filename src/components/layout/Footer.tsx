@@ -103,6 +103,9 @@ export default function Footer() {
           <div className="footer-copyright">
             <span className="footer-copyright-text">&copy; 2026 Better San Jose</span>
             <span className="footer-copyright-license">MIT | CC BY 4.0</span>
+            <span className="footer-copyright-credits">
+              Built by Kurt Vincent F. Fariñas and Denver M. Ballesteros
+            </span>
             <span className="footer-copyright-disclaimer">
               All public information sourced from official government portals. Design based on{' '}
               <a
