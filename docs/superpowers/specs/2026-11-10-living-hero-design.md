@@ -1,120 +1,203 @@
-# Living hero — design
+# Living hero — design (revision 2)
 
-Branch: `frontend-wow-factor`. Part 1 of the "wow factor" set (the barangay map is done; the finder is next; the scroll story was dropped).
+Branch: `frontend-wow-factor`. Part 1 of the "wow factor" set (the barangay map is done; the finder is next; the scroll story was dropped). Revision 2 (2026-11-10) replaces the first draft after the user asked for a livelier, interactive hero whose holidays and occasions are built into the scene with intent.
 
 ## Intent
 
-The home page hero stops being a fixed photo and becomes an illustrated rice-field scene of San Jose City that matches the city right now: the real time of day, the real weather, and the date, including Philippine holiday themes. A visitor who opens the site at night during a storm in December sees a stormy night with parols; at 8 am on an ordinary day, a calm golden morning. It replaces the existing rice-field photo.
+The home page hero becomes an illustrated rice-field scene of San Jose City that is alive and true to the city right now: the real time, the real weather, the real farming season, and the occasion of the day. It replaces the rice-field photo. Visitors can play with it, but the sky never lies: it always shows the city's actual time and weather.
+
+An occasion (Christmas, Independence Day, the city's anniversary, Holy Week, Undas, harvest thanksgiving) is not a sticker on top of the picture. It is part of the scene: attached to its landmarks, in front of or behind the right layers, lit by the same light, moved by the same wind, and behaving the way the day deserves.
 
 ## Goals
 
-- Real time, real weather, real date, with no manual controls for visitors.
-- Look premium and cohesive: the same art style from sunrise to storm to Christmas.
-- Flat colours only (no gradients), matching the site's navy, gold and cream.
-- Light on weight: the scene must not slow the home page on a mid-range phone.
-- Works in English and Filipino, light and dark site theme, and respects reduced motion.
-- Static export friendly: nothing needs a server.
+- Real time, real weather, real date; the sky is never faked for visitors.
+- One cohesive art style from sunrise to storm to Christmas Eve.
+- Interactions that feel playful where the day is happy, and none where it is solemn.
+- Occasions that look designed into the scene (see "Rules of intent").
+- Light on weight: only what the visitor needs is loaded, and the base hero is small.
+- English and Filipino, light and dark site theme, reduced motion, phones.
+- Static export friendly; no server.
 
 ## Non-goals
 
-- No weather or time text in the hero (the weather section already shows it; the hero is visual only).
-- No holiday beyond the four below in this round; the holiday table must make adding one easy.
-- No sunrise and sunset lookups; fixed daylight hours are enough near the equator (see "My calls").
-- Not a replacement for the weather section.
+- No weather or time text in the hero (the weather section already shows it).
+- No sound.
+- No visitor control of the sky (no time slider or weather picker on the live site).
+- No label or caption for the occasion on the picture (the user's design taste is minimal sub-text); the occasion is announced only to screen readers in the scene's description.
 
 ## Anti-goals
 
-- A flash of the wrong scene on load (for example morning, then jumping to night).
-- A hero that hides or lowers contrast of the headline or search box.
+- A prop that looks pasted on: wrong scale, wrong light, floating, or in front of things it should be behind.
+- A playful reaction on a solemn day.
+- A flash of the wrong scene on load.
+- Reduced contrast on the headline or search box.
 - Motion for people who ask for reduced motion.
-- A layout shift while the images load.
+- Using the national flag in a way the Flag and Heraldic Code forbids (see "Occasions: care").
 
-## Art (decided, verified 2026-11-10)
+## Art
 
-Three layers made by ChatGPT from one flat-vector brief and delivered as transparent PNGs, all exactly 1586 × 992 so they stack with no shifts (a pixel comparison against the original image showed about 8% of pixels noticeably different, almost all in the redrawn foreground strip):
+### Base scene (made, verified)
 
-1. `hills`: far ridge and mid hills.
-2. `paddies`: terraced paddies, nipa hut, coconut palms.
-3. `foreground`: rice stalks with golden grain.
+Three transparent PNG layers from ChatGPT, all exactly 1586 × 992 so they stack without shifts: `hills`, `paddies` (terraced paddies, nipa hut, palms), `foreground` (rice stalks). Checked against the source image: about 8% of pixels noticeably differ, almost all in the redrawn foreground strip. ChatGPT's sun layer is discarded (the sun moves) and its sky layer came back empty (the sky is drawn in code). Layers must never be moved against each other (their edges and the seam between hills and paddies show); all life comes from code drawn on top of the stack.
 
-ChatGPT's fourth layer (sun, clouds, birds) is discarded because the sun must move; its sky layer came back empty and is not needed. Sky, sun, moon, stars, clouds, birds, rain, lightning, fireflies, the hut's window glow and all holiday decorations are drawn in code.
+The art is AI-generated; the user should confirm they are comfortable with that on a city site, and whether to credit it.
 
-The art is AI-generated; the user should confirm they are comfortable with that for a city site.
+### Occasion art (hybrid)
 
-Prototype: a working spike lives outside the repo (scratch folder `hero-spike/index.html`); it is throwaway but shows the intended result and contains workable code for the palette, filters and decorations.
+ChatGPT draws the signature art for each occasion; code supplies light, glow, wind, motion and reactions. Art comes in two kinds, both transparent PNG at 1586 × 992 so positions stay in the scene's coordinates:
 
-## Design
+1. **Set dressing**: a static layer that belongs to the composition (for example string lights along the hut roof, a carabao cart in a paddy). Placed in a named depth slot (see below).
+2. **Sprites**: separate objects that code moves or lights (a parol that swings, a flag that waves, a candle with a flame). Delivered as a sprite sheet (a clean grid of transparent objects at the scene's scale); a build script finds each object by its alpha bounding box and writes a small manifest (name, crop rectangle, anchor point). Sprites are cropped into one WebP per sheet.
 
-### Scene
+Each occasion's assets load only when that occasion is active.
 
-One inline `<svg viewBox="0 0 1586 992" preserveAspectRatio="xMaxYMid slice">` in the existing curved right-hand panel of `HomeHero` (the gold edge line, navy swoosh and clip path stay as they are today). Back to front: flat sky bands, stars, sun, moon, clouds, birds, `hills`, `paddies`, hut window glow, fireflies, `foreground` (gentle skew sway), rain, lightning, holiday decorations, a Holy Week tint.
+Season paddies: harvest is produced in code by recolouring the existing `paddies` layer (green toward gold); planting needs new art, a flooded-paddy variant of `paddies` (and of `foreground` if it clashes), made by ChatGPT.
 
-### Time, weather and day as data
+Production rules for every ChatGPT piece: give ChatGPT the base image as the reference, state the anchor landmark and depth, ask for real transparency at the same canvas size, and run the same stack check as the base (same size, aligned, no halo, style match) before accepting it. A piece that fails is regenerated, not patched.
 
-A pure module `src/lib/sky.ts` (no React, no DOM) with:
+## Rules of intent
 
-- `skyAt(hour: number)`: night factor `n` (0 to 1), sky colours, and a multiply tint colour, interpolated between fixed keyframes (night until 5:00, dawn 6:30, golden morning 8:00, noon 12:00, afternoon 16:00, dusk 18:00, night from 19:30). The spike's keyframe table is the starting point.
-- `weatherKind(code: number | null): 'clear' | 'cloudy' | 'rain' | 'storm'` from an Open-Meteo weather code: 0 and 1 clear; 2, 3, 45, 48 cloudy; 51 to 67 and 80 to 82 rain; 95 to 99 storm; `null` (unknown) clear.
-- `holidayOn(date: { y: number; m: number; d: number }): 'xmas' | 'indep' | 'saints' | 'holy' | null` using the table below, with Easter computed (Meeus/Jones/Butcher algorithm).
-- `manilaNow()`: hour (with half-hour precision is enough) and date parts in `Asia/Manila`. The scene always shows the city's time, not the visitor's, so someone abroad sees San Jose as it is.
+Every occasion must satisfy these; they are the review checklist.
 
-Holiday table (my calls, easy to edit):
+1. **Anchored.** Each prop attaches to a named landmark with fixed coordinates: hut eave, hut roof, palm crown, paddy dike, ridge line, foreground edge. Nothing floats in the sky unless it is meant to be in it (the Christmas star, fireworks).
+2. **Depth.** Every prop belongs to a slot: behind hills, between hills and paddies, between paddies and foreground, in front of foreground. The foreground rice always covers the lowest props.
+3. **One light.** Props take the same time-of-day and weather tint as the scene. Lamps, candles and window glow switch on with the night factor and stay lit in rain; their glow is flat shapes (no gradients).
+4. **One wind.** Cloth and light things (flags, bunting, banderitas) move with the real wind speed: calm air hangs, a gust whips.
+5. **Behaviour with a reason.** Each occasion has a small time script that fits it (for example the flag is raised at 8:00 on Independence Day).
+6. **Tone decides interaction.** Celebrate allows pokes, Remember allows none, Season changes the land and nothing else.
+7. **One at a time.** Only one occasion is drawn; precedence is below.
+8. **Budget.** A visitor downloads only the base layers and the active occasion.
 
-| Theme    | Dates                                                          | Decoration                       |
-| -------- | -------------------------------------------------------------- | -------------------------------- |
-| `xmas`   | 1 Dec to 6 Jan                                                 | parols and string lights         |
-| `indep`  | 10 to 12 Jun                                                   | flag bunting and a flag by hut   |
-| `saints` | 31 Oct to 2 Nov                                                | candles along the foreground     |
-| `holy`   | Palm Sunday to Holy Saturday (the 7 days before Easter Sunday) | muted tint and a cross on a hill |
+## Occasion system
 
-### Weather feed
+### Three tones
 
-The scene uses the Open-Meteo `weather_code` the weather widget already fetches. The fetch in `WeatherWidget` is extracted into one shared hook (one request, one cache, in `src/lib/`) used by both the widget and the hero; the widget's behaviour is unchanged. If no forecast is available yet, the hero uses the cached value if there is one and otherwise "clear". It re-reads when the forecast refreshes.
+| Tone      | Feel                                       | Interaction                              |
+| --------- | ------------------------------------------ | ---------------------------------------- |
+| Celebrate | Warm and lively                            | Pokes allowed, props react to the cursor |
+| Remember  | Quiet and respectful, muted, slower motion | No pokes; no birds scattering; no sparks |
+| Season    | The land itself                            | None; it changes the paddies only        |
+
+### Calendar
+
+Dates are my calls except where a law is cited; the local ones are to be confirmed with the city government before launch and live in one editable table.
+
+| Occasion                       | Tone      | Dates                                                          | Notes                                                                            |
+| ------------------------------ | --------- | -------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| Christmas                      | Celebrate | 1 Dec to 6 Jan                                                 | Simbang Gabi and Christmas Eve moments below                                     |
+| New Year                       | Celebrate | 31 Dec (evening) to 1 Jan                                      | Midnight countdown and first sunrise                                             |
+| Independence Day               | Celebrate | 10 to 12 Jun                                                   | Flag raising at 8:00 on 12 Jun                                                   |
+| Araw ng San Jose City          | Celebrate | 10 Aug (RA 9776 special holiday); 4 Aug (RA 6051 charter date) | To confirm which day the city celebrates                                         |
+| Fiesta of St. Joseph           | Celebrate | 19 Mar                                                         | Patron saint; lilies and banderitas                                              |
+| Pagibang Damara (harvest fest) | Celebrate | April, dates to confirm (sources conflict)                     | Harvest thanksgiving, sheaves and carabao cart                                   |
+| Labor Day                      | Celebrate | 1 May                                                          | A farmer and carabao ploughing a paddy                                           |
+| Araw ng Kagitingan             | Remember  | 9 Apr                                                          | One flag, quiet                                                                  |
+| Holy Week                      | Remember  | Palm Sunday to Holy Saturday                                   | Cross on the ridge, palaspas on the hut; Good Friday is the darkest              |
+| Undas                          | Remember  | 31 Oct to 2 Nov                                                | Candles and flowers at the dike and hut                                          |
+| Planting season                | Season    | 1 Dec to 31 Jan and 1 Jun to 31 Jul                            | Flooded paddies reflecting the sky (to confirm with the city agriculture office) |
+| Growing season                 | Season    | other dates not in planting or harvest                         | The existing green paddies                                                       |
+| Harvest season                 | Season    | 1 Mar to 30 Apr and 1 Oct to 30 Nov                            | Paddies recoloured golden (to confirm)                                           |
+
+### Precedence
+
+Remember beats Celebrate beats nothing. Among Celebrate occasions that overlap, the one with the narrower date range wins (for example 31 Dec to 1 Jan beats Christmas). Season always applies underneath the chosen occasion, so Christmas can sit on planted paddies. Holy Week and Araw ng Kagitingan overlap in some years (Remember with Remember): Holy Week wins.
+
+### Occasion compositions
+
+Each is a brief for the art and the behaviour. Anchors are named landmarks, not coordinates; the builder reads exact positions from the base layers.
+
+- **Christmas.** Parols (several sizes and colours) hang from the hut eaves and the palm fronds; string lights run along the hut roofline and between the palms. Set dressing sits between paddies and foreground; parols are sprites that sway with the wind and light up with the night factor. Simbang Gabi (16 to 24 Dec, 4:00 to 6:00): parols lit, hut window glowing, in the pre-dawn light. Christmas Eve evening (24 Dec): a single bright Christmas star over the ridge. Pokes: a parol swings and glows brighter.
+- **New Year.** 31 Dec evening: quiet build-up. At midnight in San Jose time the sky opens with a short fireworks finale behind the hills (code particles). 1 Jan sunrise: a brighter, clean golden dawn. Pokes: click the sky for a burst.
+- **Independence Day.** A tall bamboo flagpole on the highest dike with the flag, correctly drawn; at 8:00 on 12 Jun it is raised (one slow animation, once). Plain colour bunting (blue, red, white) is strung from the hut to the nearest palm. Fireworks as above. Pokes: click the sky for fireworks.
+- **Araw ng San Jose City.** Banderitas in the city's colours (navy, gold, green) across the paddies from hut to palm, and a banner post on the dike (no text). Pokes: the banderitas flutter.
+- **Fiesta of St. Joseph.** Banderitas in many colours; white lilies (St. Joseph's flower) in bunches at the hut steps and along the dike. Pokes: the banderitas flutter.
+- **Pagibang Damara.** Sheaves of palay stacked at the dike, a carabao with a cart in a golden paddy, baskets in the foreground. This is the harvest-thanksgiving day, so the season is also harvest; the two reinforce each other.
+- **Labor Day.** A farmer in a salakot ploughing a flooded paddy behind a carabao, drawn small in the mid-ground so it reads as part of the land. Pokes: the carabao lifts its head.
+- **Araw ng Kagitingan.** A single flag on the dike pole, flying calmly; a golden-hour palette no matter the hour is not used (the real time still rules); no pokes.
+- **Holy Week.** A muted tint over the whole scene, a cross on the far ridge, palaspas (woven palm) tied to the hut. The sway slows. Good Friday is the darkest. No pokes and no scattering birds.
+- **Undas.** Candles and chrysanthemums at the dike and the hut steps; lit at dusk, burning on through rain (the flames sit sheltered). Fireflies calm. No pokes.
+- **Planting season.** Flooded paddies reflecting the sky, young seedlings in rows (new art variant of `paddies`).
+- **Harvest season.** The paddies recoloured golden by code; extra sheaves optional.
+
+### Occasions: care
+
+- **The national flag** has legal display rules (the Flag and Heraldic Code, RA 8491). Show it only correctly drawn (blue over red, white triangle with eight-rayed sun and three stars) on a pole; never as bunting, a banner, or inside fireworks. The user should verify with the code before launch. Bunting uses plain blue, red and white pennants.
+- **Religious days** (Holy Week, Undas, St. Joseph): reverent, no jokes, no fireworks, no playful reactions.
+- **Local dates** come from the city's own calendar, not from my assumptions.
+
+## Interactions (the live sky stays real)
+
+Kept from the playable spike, to be built properly:
+
+- **Always moving, on the real sky:** sun rays turn slowly and the sun breathes; stars twinkle; clouds drift at the real wind speed; rain density follows the real rainfall with ripples spreading on the paddies; birds cross by day and fireflies come out at night.
+- **Cursor wind:** about 66 code-drawn rice stalks in front of the foreground part and lean away from the cursor and settle back.
+- **Pokes (Celebrate days and ordinary days only):** click the sun for a 14-second time-lapse through the day that lands back on the real time; click a cloud for a 6-second shower; click the birds to scatter the flock; fireflies gather round the cursor at night; the occasion's own pokes above. Remember days switch all pokes off; reduced motion switches them to instant, still responses or off.
+- Touch: no cursor wind; taps work for pokes.
+- Pointer hover gives clear affordance (a pointer cursor and a small scale on things you can poke).
+- Open question carried from the spike: the code stalks are dense and may cover too much of the picture; tune density and height so the artwork still shows.
+
+## Technical design
+
+### Modules
+
+- `src/lib/sky.ts` (pure, no React or DOM): `skyAt(hour)`, `weatherKind(code)`, `seasonOn(date)`, `occasionOn(date, hour)` returning the chosen occasion (with precedence), Easter calculation, and the calendar table. Unit tested with `node:test`.
+- `src/lib/forecast.ts`: the shared Open-Meteo hook (one request, one cache) extracted from `WeatherWidget`, which gains wind speed and precipitation; the widget's behaviour is unchanged.
+- `src/components/home/HeroScene.tsx` (client): the SVG, the animation loop, the interactions; one `requestAnimationFrame` loop, paused when the tab is hidden.
+- `src/components/home/hero/occasions/*`: one small module per occasion: its assets, anchors, time script, and pokes.
+- `scripts/build-hero-assets.mjs`: converts the layers and sprite sheets to WebP (via a headless-browser canvas if no tool is installed), finds sprite bounding boxes, writes manifests, and checks size and alignment.
+- `HomeHero.tsx`: the photo is removed and the scene mounted in the existing curved panel.
 
 ### First paint
 
-The static export renders a neutral scene. A small inline script (like the existing language gate) sets the time-of-day and holiday on the hero root before first paint, and reads the weather from the weather widget's `localStorage` cache if present. The scene therefore does not jump between morning and night on load. When a fresh forecast arrives, the weather layer updates in place.
+The static export renders a neutral scene. A small inline script (like the existing language gate) sets time of day, occasion and season on the hero root before first paint and reads the weather from the weather widget's `localStorage` cache, so the scene does not jump. A fresh forecast updates the weather in place.
 
-### Weight and performance
+### Time and weather
 
-- Layers converted from PNG (about 1.8 MB for three) to WebP, targeting about 300 KB or less in total; the conversion can be done with a browser canvas `toBlob('image/webp')` if no tool is installed, and the original PNGs are not shipped.
-- `hills` and `paddies` load with high priority; the explicit `width` and `height` on the `<image>` (and a fixed aspect ratio on the panel) prevent layout shift.
-- Decorations, sky and weather are code, so they add almost nothing.
-- Mouse-parallax only on devices with a fine pointer; none on touch.
+The scene uses San Jose time (`Asia/Manila`), not the visitor's. Weather comes from Open-Meteo `weather_code`, `wind_speed_10m` and `precipitation`; unknown means clear. Daylight uses fixed keyframes (night until 5:00, dawn 6:30, golden morning 8:00, noon 12:00, afternoon 16:00, dusk 18:00, night from 19:30).
+
+### Preview override
+
+`/?sky=21:00,storm&on=christmas&season=harvest` forces the time, weather, occasion and season so any combination can be reviewed and demoed. It only changes what is drawn and is ignored if malformed.
+
+### Weight
+
+The three base layers go from about 1.8 MB of PNG to WebP of about 300 KB in total. Each occasion's assets are expected under about 150 KB and load only when active. Decorations, sky, weather and interactions are code.
 
 ### Accessibility and i18n
 
-- The scene is decorative: `role="img"` with one translated label (`hero-photo-alt` is replaced by `hero-scene-alt`, English and Filipino, for example "Illustrated rice fields of San Jose City"). Changes in time and weather are not announced.
-- The headline and search keep the cream panel and their present contrast in light and dark themes; the scene does not depend on the site theme.
-- `prefers-reduced-motion`: no sway, drift, falling rain, birds, firefly pulse or parol swing; the scene is static but still reflects time, weather and holiday.
+The scene is decorative: `role="img"` with one translated description that mentions the occasion when there is one (for example "Illustrated rice fields of San Jose City, decorated for Christmas"); English and Filipino keys per occasion. No live announcements. The headline and search keep the cream panel and their contrast in light and dark themes. `prefers-reduced-motion` removes sway, drift, falling rain, birds, firefly motion and pokes; the scene stays static but still reflects time, weather and occasion.
 
 ### Replacing the photo
 
-Remove the old photo markup and the three `san-jose-rice-fields*.jpg` files from `public/assets/images/hero/`, and any now-unused CSS for `.home-hero-pic img`. If the photo's Wikimedia credit appears anywhere (footer, credits page), remove or update it; the builder greps for it. The AI-generated art may need a credit line if the user wants one.
+Remove the old photo markup and the three `san-jose-rice-fields*.jpg` files, unused CSS for `.home-hero-pic img`, and any photo credit (the builder greps for it).
 
-### Preview override (my call)
+## Delivery in two plans
 
-A query string such as `/?sky=21:00,storm,xmas` forces the time, weather and holiday, so the scene can be checked and demoed in any combination without waiting. It only changes what is drawn, and is ignored if malformed.
+The work is large and splits cleanly, so there are two plans in this order:
+
+1. **Engine plan:** `sky.ts`, `forecast.ts`, the base scene replacing the photo, the real-sky behaviour, the ambient motion, cursor wind, the ordinary pokes, the preview override, tests, and the asset build script for the base layers. Shippable on its own.
+2. **Occasion plan:** the occasion registry and each occasion's art (made in ChatGPT and checked), time scripts and pokes, the seasons, and the sprite-sheet pipeline. Delivered occasion by occasion, safest first.
 
 ## Verification
 
-- `npm run check` passes, including new `node:test` tests for `src/lib/sky.ts`.
-- Tests: Easter dates (2026-04-05, 2027-03-28, 2028-04-16); holiday boundaries (30 Nov no, 1 Dec yes, 6 Jan yes, 7 Jan no; 9 Jun no, 10 Jun yes; the Holy Week range); weather code mapping including `null`; `skyAt` continuity at keyframes and `n` of 1 at 0:00 and 0 at 12:00.
-- In the browser: morning, dusk, night, rain, storm and each holiday via the override; light and dark site theme; Filipino; 375 px wide; reduced motion; no horizontal scroll; first paint shows the right time of day (reload at night).
-- The page's total transferred weight is compared before and after.
+- `npm run check` passes, including `node:test` tests for `sky.ts`: Easter (2026-04-05, 2027-03-28, 2028-04-16); every occasion's boundary dates; precedence cases (31 Dec versus Christmas; Holy Week versus Araw ng Kagitingan; Remember versus Celebrate); season boundaries; weather-code mapping including unknown; `skyAt` continuity.
+- In the browser, for each occasion: morning, dusk, night, rain and storm via the override; check each of the eight rules of intent; light and dark site theme; Filipino; 375 px wide; reduced motion; no horizontal scroll; first paint shows the right scene when reloaded at night.
+- The user reviews each occasion's screenshots before it ships.
+- Page weight before and after.
 
 ## Left to the builder
 
 - Exact keyframe colours and tint values (start from the spike).
-- Where the hut window glow, flag and cross sit if the layer positions need nudging.
-- Whether the inline script is a standalone file or follows the language gate's pattern.
-- The WebP quality setting, as long as the budget above holds.
+- Exact anchor coordinates and sprite scales.
+- The WebP quality setting within the budget.
+- Stalk density and height.
 
 ## My calls (check these)
 
-- Replace the photo completely, with no fallback photo.
-- The scene shows San Jose's time (`Asia/Manila`), not the visitor's.
+- No label on the picture; screen-reader description only.
+- All dates and precedence above, especially the Season windows and the planting and harvest months.
+- Remember days have no pokes at all, and Easter Sunday is not themed.
+- The flag appears only on a pole, never as bunting.
+- San Jose time, not the visitor's.
+- Two plans, engine first.
 - Fixed daylight hours instead of sunrise and sunset data.
-- The holiday set and dates in the table above, and Easter Sunday itself not themed.
-- The `?sky=` preview override.
-- Using the existing weather source rather than the station feed (the station has no sky condition).
