@@ -1,6 +1,13 @@
 'use client';
 
-import { useEffect, useRef, useState, type MouseEvent, type PointerEvent } from 'react';
+import {
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+  type MouseEvent,
+  type PointerEvent,
+} from 'react';
 import { useLanguage } from '@/i18n/LanguageContext';
 import {
   birdPose,
@@ -118,7 +125,7 @@ export default function HeroScene() {
   const reduced = usePrefersReducedMotion();
   const svgRef = useRef<SVGSVGElement>(null);
   const ripplesRef = useRef<SVGGElement>(null);
-  const showerEl = useRef<SVGGElement>(null);
+  const showerEl = useRef<SVGGElement | null>(null);
   const cloudEls = useRef<(SVGGElement | null)[]>([]);
   const birdEls = useRef<(SVGGElement | null)[]>([]);
   const fireflyEls = useRef<(SVGCircleElement | null)[]>([]);
@@ -134,6 +141,12 @@ export default function HeroScene() {
   const lapseFrames = useRef(0);
   const rippleDebt = useRef(0);
   const timers = useRef(new Set<ReturnType<typeof setTimeout>>());
+
+  // HERO_GATE only runs on a full page load. When the visitor navigates here from another page,
+  // hide the neutral first frame before it paints; the reveal effect below clears this.
+  useLayoutEffect(() => {
+    document.documentElement.setAttribute('data-hero-pending', '');
+  }, []);
 
   useEffect(() => {
     const o = parseSkyOverride(window.location.search);
@@ -210,6 +223,7 @@ export default function HeroScene() {
 
   useEffect(() => {
     cloudPos.current = CLOUDS[weather].map((c) => c[0]);
+    setShowerCloud(null);
   }, [weather]);
 
   const later = (fn: () => void, ms: number) => {
@@ -466,7 +480,18 @@ export default function HeroScene() {
       </g>
 
       {showerCloud !== null && (
-        <g ref={showerEl} pointerEvents="none">
+        <g
+          ref={(el) => {
+            showerEl.current = el;
+            const c = CLOUDS[weather][showerCloud];
+            if (el && c && !el.hasAttribute('transform'))
+              el.setAttribute(
+                'transform',
+                `translate(${cloudPos.current[showerCloud] ?? c[0]} ${c[1]})`
+              );
+          }}
+          pointerEvents="none"
+        >
           {Array.from({ length: 16 }, (_, j) => {
             const w = (CLOUDS[weather][showerCloud]?.[2] ?? 1) * 14.5;
             return (
