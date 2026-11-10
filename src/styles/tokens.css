@@ -51,4 +51,24 @@
   --border-radius: 8px;
   --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.1);
+  --shadow-lift: 0 12px 24px rgba(0, 0, 0, 0.1);
+  --shadow-float: 0 4px 16px rgba(0, 0, 0, 0.2);
+  --line-faint: rgba(0, 0, 0, 0.05);
+
+  /* White text and washes on navy fills */
+  --on-fill-soft: rgba(255, 255, 255, 0.9);
+  --on-fill-wash: rgba(255, 255, 255, 0.15);
+  --on-fill-wash-strong: rgba(255, 255, 255, 0.2);
+  --on-fill-wash-hover: rgba(255, 255, 255, 0.35);
+
+  /* Navy-tinted depth for the search box and service tiles */
+  --brand-line-faint: rgba(0, 50, 160, 0.08);
+  --brand-line-soft: rgba(0, 50, 160, 0.15);
+  --brand-ring: 0 0 0 4px rgba(0, 50, 160, 0.1);
+  --brand-shadow-hover: 0 4px 12px rgba(0, 50, 160, 0.1);
+  --brand-shadow-button: 0 2px 8px rgba(0, 50, 160, 0.3);
+  --brand-shadow-button-hover: 0 4px 12px rgba(0, 50, 160, 0.4);
+  --brand-shadow-panel: 0 8px 32px rgba(0, 50, 160, 0.1), 0 2px 8px rgba(0, 0, 0, 0.04);
+  --brand-shadow-panel-focus: 0 12px 40px rgba(0, 50, 160, 0.15), 0 4px 12px rgba(0, 0, 0, 0.06);
+  --input-line-hover: #d0d5dd;
 }
