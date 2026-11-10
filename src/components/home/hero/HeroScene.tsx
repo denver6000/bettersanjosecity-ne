@@ -17,6 +17,14 @@ import {
   stalkTarget,
   timelapseHour,
 } from '@/lib/hero-motion';
+import { lampOpacity, pokesAllowed } from '@/lib/hero-light';
+import {
+  OCCASIONS,
+  occasionOn,
+  parseOccasionOverride,
+  type DateParts,
+  type Tone,
+} from '@/lib/occasions';
 import { useForecast } from '@/lib/use-forecast';
 import {
   bodies,
@@ -30,6 +38,11 @@ import {
   type Weather,
 } from '@/lib/sky';
 
+import { OCCASION_ALT_KEYS, loadOccasion } from './occasions';
+import { ANCHORS } from './occasions/anchors';
+import { clock } from './occasions/clock';
+import OccasionLayer from './occasions/OccasionLayer';
+import type { ActiveId, OccasionContext } from './occasions/types';
 import { useHeroLoop, usePrefersReducedMotion } from './useHeroLoop';
 
 const ART = '/assets/images/hero/scene';
@@ -118,6 +131,10 @@ export default function HeroScene() {
   const [override, setOverride] = useState<{ hour?: number; weather?: Weather }>({});
   const [lapseHour, setLapseHour] = useState<number | null>(null);
   const [showerCloud, setShowerCloud] = useState<number | null>(null);
+  // The date is unknown until after hydration, so no occasion is chosen on the neutral first render.
+  const [date, setDate] = useState<DateParts | null>(null);
+  const [occOverride, setOccOverride] = useState<ReturnType<typeof parseOccasionOverride>>({});
+  const [devPin, setDevPin] = useState(false);
 
   const retryRef = useRef(retry);
   retryRef.current = retry;
@@ -151,7 +168,15 @@ export default function HeroScene() {
   useEffect(() => {
     const o = parseSkyOverride(window.location.search);
     setOverride(o);
-    const tick = () => setHour(o.hour ?? manilaNow().hour);
+    const oo = parseOccasionOverride(window.location.search);
+    setOccOverride(oo);
+    if (process.env.NODE_ENV !== 'production')
+      setDevPin(new URLSearchParams(window.location.search).get('on') === 'test-pin');
+    const tick = () => {
+      const m = manilaNow();
+      setHour(o.hour ?? m.hour);
+      setDate(oo.date ?? { year: m.year, month: m.month, day: m.day });
+    };
     tick();
     const clock = setInterval(tick, 30 * 1000);
     const refresh = setInterval(() => retryRef.current(), 10 * 60 * 1000);
@@ -183,6 +208,22 @@ export default function HeroScene() {
 
   const shownHour = lapseHour ?? hour;
   const weather: Weather = override.weather ?? weatherKind(forecast?.code);
+
+  // Which occasion is drawn: a dev fixture, an override, or the calendar for San Jose's date.
+  const active: { id: ActiveId; tone: Tone } | null = devPin
+    ? { id: 'test-pin', tone: 'celebrate' }
+    : occOverride.occasion === 'none'
+      ? null
+      : occOverride.occasion
+        ? {
+            id: occOverride.occasion,
+            tone: OCCASIONS.find((o) => o.id === occOverride.occasion)?.tone ?? 'celebrate',
+          }
+        : date
+          ? occasionOn(date)
+          : null;
+  const tone: Tone | null = active?.tone ?? null;
+  const pokesOk = pokesAllowed(tone, reduced);
   const look = weatherLook(weather);
   const sky = skyAt(shownHour);
   const night = sky.night;
@@ -234,7 +275,7 @@ export default function HeroScene() {
     timers.current.add(id);
   };
 
-  function toScene(e: PointerEvent<SVGSVGElement>) {
+  function toScene(e: { clientX: number; clientY: number }) {
     const svg = svgRef.current;
     const m = svg?.getScreenCTM();
     if (!svg || !m) return null;
@@ -245,26 +286,35 @@ export default function HeroScene() {
     return { x: p.x, y: p.y };
   }
 
+  const skyPoke = (e: MouseEvent<SVGSVGElement>) => {
+    if (!pokesOk || !active) return;
+    const p = toScene(e);
+    if (!p) return;
+    loadOccasion(active.id)
+      .then((l) => l.module.pokes?.sky?.(p))
+      .catch(() => {});
+  };
+
   const startLapse = (e: MouseEvent) => {
     e.stopPropagation();
-    if (reduced || lapse.current) return;
+    if (!pokesOk || lapse.current) return;
     lapse.current = { t0: performance.now(), real: hour };
   };
 
   const startShower = (e: MouseEvent, i: number) => {
     e.stopPropagation();
-    if (reduced || showerCloud !== null) return;
+    if (!pokesOk || showerCloud !== null) return;
     setShowerCloud(i);
     later(() => setShowerCloud(null), SHOWER_MS);
   };
 
   const scareBirds = (e: MouseEvent) => {
     e.stopPropagation();
-    if (!reduced) scatter.current = 1;
+    if (pokesOk) scatter.current = 1;
   };
 
   const burstFireflies = () => {
-    if (reduced || night <= 0.5 || !cursor.current) return;
+    if (!pokesOk || night <= 0.5 || !cursor.current) return;
     fireflyVel.current.forEach((v) => {
       const a = Math.random() * Math.PI * 2;
       const s = 300 + Math.random() * 400;
@@ -277,6 +327,7 @@ export default function HeroScene() {
     (now, dt) => {
       const tSec = now / 1000;
       const c = cursor.current;
+      clock.tick(now);
 
       // Sun-click time-lapse: the sky runs through a day and lands back on the real hour.
       const lp = lapse.current;
@@ -334,7 +385,9 @@ export default function HeroScene() {
       STALKS.forEach((s, i) => {
         const el = stalkEls.current[i];
         if (!el) return;
-        const target = stalkTarget(s.x, c?.x ?? null, c?.y ?? null, moving, tSec, s.phase);
+        const target =
+          stalkTarget(s.x, c?.x ?? null, c?.y ?? null, moving, tSec, s.phase) *
+          (tone === 'remember' ? 0.6 : 1);
         const prev = stalkAngle.current[i] ?? 0;
         const a = prev + (target - prev) * Math.min(1, dt * 9);
         stalkAngle.current[i] = a;
@@ -369,7 +422,25 @@ export default function HeroScene() {
     </g>
   );
 
-  const poke = reduced ? undefined : 'hero-poke';
+  const baseLabel =
+    'Illustrated rice fields of San Jose City that follow the real time and weather';
+  const sceneLabel =
+    active && active.id !== 'test-pin'
+      ? t(OCCASION_ALT_KEYS[active.id], baseLabel)
+      : t('hero-scene-alt', baseLabel);
+
+  const occCtx: Omit<OccasionContext, 'tSec' | 'manifest' | 'assetBase'> = {
+    night,
+    windKmh,
+    hour: shownHour,
+    date: date ?? { year: 2000, month: 1, day: 1 },
+    reduced,
+    weatherGrey: look.greyMix,
+    pokes: pokesOk,
+  };
+  const occ = active?.id ?? null;
+
+  const poke = pokesOk ? 'hero-poke' : undefined;
 
   return (
     <svg
@@ -378,12 +449,10 @@ export default function HeroScene() {
       viewBox="0 0 1586 992"
       preserveAspectRatio="xMaxYMid slice"
       role="img"
-      aria-label={t(
-        'hero-scene-alt',
-        'Illustrated rice fields of San Jose City that follow the real time and weather'
-      )}
+      aria-label={sceneLabel}
       data-sky-hour={shownHour.toFixed(1)}
       data-weather={weather}
+      data-occasion={active?.id ?? 'none'}
       onPointerMove={(e) => {
         if (e.pointerType === 'touch' || reduced) return;
         const p = toScene(e);
@@ -394,7 +463,10 @@ export default function HeroScene() {
       onPointerLeave={() => {
         cursor.current = null;
       }}
-      onClick={burstFireflies}
+      onClick={(e) => {
+        burstFireflies();
+        skyPoke(e);
+      }}
     >
       <defs>
         <filter
@@ -433,7 +505,7 @@ export default function HeroScene() {
           transform={`translate(${sun.x} ${sun.y})`}
           opacity={sunOpacity}
           pointerEvents={sunOpacity > 0.3 ? 'auto' : 'none'}
-          onClick={reduced ? undefined : startLapse}
+          onClick={pokesOk ? startLapse : undefined}
         >
           <g className="hero-poke-in">
             <circle r={150} fill="transparent" />
@@ -451,7 +523,7 @@ export default function HeroScene() {
           className={poke}
           opacity={moonOpacity}
           pointerEvents={moonOpacity > 0.3 ? 'auto' : 'none'}
-          onClick={reduced ? undefined : startLapse}
+          onClick={pokesOk ? startLapse : undefined}
         >
           <path className="hero-poke-in" d={moonPath} fill="#f4f1d8" />
         </g>
@@ -467,7 +539,7 @@ export default function HeroScene() {
               if (el && !el.hasAttribute('transform'))
                 el.setAttribute('transform', `translate(${x} ${y}) scale(${s * 3.4})`);
             }}
-            onClick={reduced ? undefined : (e) => startShower(e, i)}
+            onClick={pokesOk ? (e) => startShower(e, i) : undefined}
           >
             <g className="hero-poke-in" fill={showerCloud === i ? stormCloud : undefined}>
               <ellipse cx={0} cy={0} rx={26} ry={9} />
@@ -517,7 +589,7 @@ export default function HeroScene() {
           {BIRDS.map((b, i) => (
             <g
               key={i}
-              className="hero-poke"
+              className={poke}
               ref={(el) => {
                 birdEls.current[i] = el;
               }}
@@ -540,17 +612,20 @@ export default function HeroScene() {
         </g>
       )}
 
+      <OccasionLayer slot="behindHills" occasion={occ} ctx={occCtx} />
       {tinted(`${ART}/hills.webp`)}
+      <OccasionLayer slot="betweenHillsAndPaddies" occasion={occ} ctx={occCtx} />
       {tinted(`${ART}/paddies.webp`)}
+      <OccasionLayer slot="betweenPaddiesAndForeground" occasion={occ} ctx={occCtx} />
 
       <g ref={ripplesRef} pointerEvents="none" />
 
       <circle
-        cx={1340}
-        cy={556}
+        cx={ANCHORS.hutWindow[0]}
+        cy={ANCHORS.hutWindow[1]}
         r={16}
         fill="#ffd25a"
-        opacity={Math.max(0, night - 0.2) / 0.8}
+        opacity={lampOpacity(night, look.greyMix)}
         pointerEvents="none"
       />
 
@@ -604,6 +679,8 @@ export default function HeroScene() {
           </g>
         ))}
       </g>
+
+      <OccasionLayer slot="frontOfForeground" occasion={occ} ctx={occCtx} />
 
       {rainCount > 0 && (
         <g

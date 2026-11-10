@@ -34,6 +34,20 @@ export const translations: Record<Language, Record<string, string>> = {
     'hero-lede': 'City services, permits and public information for San Jose, in one place.',
     'hero-scene-alt':
       'Illustrated rice fields of San Jose City that follow the real time and weather',
+    'hero-scene-alt-christmas': 'Illustrated rice fields of San Jose City, decorated for Christmas',
+    'hero-scene-alt-new-year': 'Illustrated rice fields of San Jose City, celebrating the New Year',
+    'hero-scene-alt-independence':
+      'Illustrated rice fields of San Jose City, decorated for Independence Day',
+    'hero-scene-alt-city-anniversary':
+      "Illustrated rice fields of San Jose City, celebrating the city's anniversary",
+    'hero-scene-alt-st-joseph':
+      'Illustrated rice fields of San Jose City, celebrating the fiesta of St. Joseph',
+    'hero-scene-alt-pagibang-damara':
+      'Illustrated rice fields of San Jose City, celebrating the Pagibang Damara harvest festival',
+    'hero-scene-alt-labor-day': 'Illustrated rice fields of San Jose City, on Labor Day',
+    'hero-scene-alt-kagitingan': 'Illustrated rice fields of San Jose City, on Araw ng Kagitingan',
+    'hero-scene-alt-holy-week': 'Illustrated rice fields of San Jose City, in Holy Week',
+    'hero-scene-alt-undas': 'Illustrated rice fields of San Jose City, at Undas',
     'hero-search-btn': 'Search',
     'home-find-a-service': 'Find a Service',
     'home-search-placeholder': 'e.g., birth certificate, business permit',
@@ -601,6 +615,20 @@ export const translations: Record<Language, Record<string, string>> = {
     'hero-lede': 'Serbisyo, permit at impormasyon ng San Jose, sa iisang lugar.',
     'hero-scene-alt':
       'Guhit ng mga palayan ng San Jose City na sumusunod sa tunay na oras at panahon',
+    'hero-scene-alt-christmas': 'Guhit ng mga palayan ng San Jose City, may palamuti para sa Pasko',
+    'hero-scene-alt-new-year': 'Guhit ng mga palayan ng San Jose City, nagdiriwang ng Bagong Taon',
+    'hero-scene-alt-independence':
+      'Guhit ng mga palayan ng San Jose City, may palamuti para sa Araw ng Kalayaan',
+    'hero-scene-alt-city-anniversary':
+      'Guhit ng mga palayan ng San Jose City, nagdiriwang ng anibersaryo ng lungsod',
+    'hero-scene-alt-st-joseph':
+      'Guhit ng mga palayan ng San Jose City, nagdiriwang ng pista ni San Jose',
+    'hero-scene-alt-pagibang-damara':
+      'Guhit ng mga palayan ng San Jose City, nagdiriwang ng Pagibang Damara',
+    'hero-scene-alt-labor-day': 'Guhit ng mga palayan ng San Jose City, sa Araw ng Paggawa',
+    'hero-scene-alt-kagitingan': 'Guhit ng mga palayan ng San Jose City, sa Araw ng Kagitingan',
+    'hero-scene-alt-holy-week': 'Guhit ng mga palayan ng San Jose City, sa Mahal na Araw',
+    'hero-scene-alt-undas': 'Guhit ng mga palayan ng San Jose City, sa Undas',
     'hero-search-btn': 'Maghanap',
     'home-find-a-service': 'Maghanap ng Serbisyo',
     'home-search-placeholder': 'hal., birth certificate, business permit',
