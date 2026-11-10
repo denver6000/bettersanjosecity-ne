@@ -15,8 +15,8 @@ import '@/styles/base.css';
 import '@/styles/components.css';
 import '@/styles/header.css';
 import '@/styles/footer.css';
-import '@/styles/a11y.css';
 import '@/styles/print.css';
+import '@/styles/a11y.css';
 import '@/styles/site.css';
 import '@/styles/theme.css';
 
