@@ -1,3 +1,12 @@
+## 2026-11-11 — 90384ba — Wow-factor set: barangay map, living hero, I need to finder, copy review
+
+- By: Claude Code, requested by Kurt Vincent F. Fariñas
+- Code: 57be8e8 → 90384ba (pushed to main as a fast-forward of frontend-wow-factor, PR #3; Hostinger auto-builds on push); barangay fly-in map, living hero with occasions and seasons, "I need to" finder replacing the popular services tiles, smaller finder and map, sentence-case headings, Tagalog wording fixes
+- Migrations: none
+- Backup: none (static site, no data changes)
+- Data changes: none
+- Verified: `npm run check` passed on 90384ba; live home page contains the finder, barangay and hero markup; /, /contact/, /business-taxes/estimator/ and /statistics/ return 200; a hero scene image returns 200; not checked visually on the live site; Filipino wording not yet read by a native speaker; flag and local dates still to be confirmed with the city
+
 ## 2026-11-06 — 0317597 — Breadcrumb label and language pill fixes
 
 - By: Claude Code, requested by Kurt Vincent F. Fariñas
