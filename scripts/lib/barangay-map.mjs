@@ -1,54 +1,36 @@
-// Geometry helpers for scripts/build-barangay-map.mjs. Points are [x, y]; lon/lat unless noted.
-
-const M_PER_DEG = 111320;
-
-/** Applies the topology transform and delta-decodes every arc into [lon, lat] points. */
-export function decodeTopology(topo) {
-  const { scale, translate } = topo.transform;
-  const arcs = topo.arcs.map((arc) => {
-    let x = 0;
-    let y = 0;
-    return arc.map(([dx, dy]) => {
-      x += dx;
-      y += dy;
-      return [x * scale[0] + translate[0], y * scale[1] + translate[1]];
-    });
-  });
-  return { arcs, objects: topo.objects };
-}
+// Geometry helpers for scripts/build-barangay-map.mjs. Points are planar [x, y] in metres.
 
 const lerp = (a, b, k) => [a[0] + (b[0] - a[0]) * k, a[1] + (b[1] - a[1]) * k];
 const same = (a, b) => a[0] === b[0] && a[1] === b[1];
+const key = (p) => `${p[0]},${p[1]}`;
+const cmp = (a, b) => a[0] - b[0] || a[1] - b[1];
 
-function pass(points) {
-  const closed = points.length > 2 && same(points[0], points.at(-1));
-  if (closed) {
+// Cuts each segment at k from both ends: a quarter of it, but never more than maxCut metres.
+function cut(p, q, maxCut) {
+  const k = Math.min(0.25, maxCut / (Math.hypot(q[0] - p[0], q[1] - p[1]) || 1));
+  return [lerp(p, q, k), lerp(p, q, 1 - k)];
+}
+
+function pass(points, maxCut) {
+  if (points.length > 2 && same(points[0], points.at(-1))) {
     const ring = points.slice(0, -1);
-    const out = ring.flatMap((p, i) => {
-      const q = ring[(i + 1) % ring.length];
-      return [lerp(p, q, 0.25), lerp(p, q, 0.75)];
-    });
+    const out = ring.flatMap((p, i) => cut(p, ring[(i + 1) % ring.length], maxCut));
     return [...out, out[0]];
   }
   const out = [points[0]];
-  for (let i = 0; i < points.length - 1; i++) {
-    out.push(lerp(points[i], points[i + 1], 0.25), lerp(points[i], points[i + 1], 0.75));
-  }
+  for (let i = 0; i < points.length - 1; i++) out.push(...cut(points[i], points[i + 1], maxCut));
   out.push(points.at(-1));
   return out;
 }
 
-/** Chaikin corner cutting. An open arc keeps both ends; a closed ring is smoothed around its seam. */
-export function chaikin(points, passes) {
+/**
+ * Chaikin corner cutting. An open arc keeps both ends; a closed ring is smoothed around its seam.
+ * `maxCut` (metres) stops a corner between two long straight segments being rounded off hugely.
+ */
+export function chaikin(points, passes, maxCut = Infinity) {
   let out = points;
-  for (let i = 0; i < passes; i++) out = pass(out);
+  for (let i = 0; i < passes; i++) out = pass(out, maxCut);
   return out;
-}
-
-/** Equirectangular projection to metres around (lat0, lon0); y is flipped so north is up. */
-export function projector(lat0, lon0) {
-  const cos = Math.cos((lat0 * Math.PI) / 180);
-  return ([lon, lat]) => [(lon - lon0) * M_PER_DEG * cos, -(lat - lat0) * M_PER_DEG];
 }
 
 function distToSegment(p, a, b) {
@@ -72,15 +54,103 @@ function maxDistTo(points, line) {
 }
 
 /**
- * Largest gap in metres between the two lines, measured both ways: smoothed points to the
- * original line and original points to the smoothed line (a cut corner only shows in the second).
+ * Largest gap in metres between two lines, measured both ways: smoothed points to the original
+ * line and original points to the smoothed line (a cut corner only shows in the second).
  */
-export function maxDriftMeters(original, smoothed) {
-  const lat0 = original.reduce((s, p) => s + p[1], 0) / original.length;
-  const project = projector(lat0, original[0][0]);
-  const o = original.map(project);
-  const s = smoothed.map(project);
-  return Math.max(maxDistTo(s, o), maxDistTo(o, s));
+export function maxGapMeters(original, smoothed) {
+  return Math.max(maxDistTo(smoothed, original), maxDistTo(original, smoothed));
+}
+
+function dpOpen(pts, tol) {
+  if (pts.length < 3) return pts;
+  const a = pts[0];
+  const b = pts.at(-1);
+  let worst = 0;
+  let at = 0;
+  for (let i = 1; i < pts.length - 1; i++) {
+    const d = distToSegment(pts[i], a, b);
+    if (d > worst) {
+      worst = d;
+      at = i;
+    }
+  }
+  if (worst <= tol) return [a, b];
+  return [...dpOpen(pts.slice(0, at + 1), tol), ...dpOpen(pts.slice(at), tol).slice(1)];
+}
+
+/** Douglas-Peucker. Keeps both ends; a closed ring is split at its farthest point first. */
+export function simplify(points, tol) {
+  if (!(points.length > 3 && same(points[0], points.at(-1)))) return dpOpen(points, tol);
+  let at = 0;
+  let far = 0;
+  points.forEach((p, i) => {
+    const d = Math.hypot(p[0] - points[0][0], p[1] - points[0][1]);
+    if (d > far) {
+      far = d;
+      at = i;
+    }
+  });
+  return [...dpOpen(points.slice(0, at + 1), tol), ...dpOpen(points.slice(at), tol).slice(1)];
+}
+
+/**
+ * Splits polygons into arcs so a border shared by two polygons becomes ONE arc, which can then be
+ * simplified and smoothed once. `polygons` maps id to rings (closed, first point repeated last).
+ * Returns the unique arcs and, per id, each ring as signed arc indices (`~i` = arc i reversed).
+ */
+export function splitIntoArcs(polygons) {
+  const edgeKey = (p, q) => [key(p), key(q)].sort().join('|');
+  const owners = new Map();
+  const loops = [];
+  for (const [id, rings] of polygons) {
+    for (const ring of rings) {
+      const pts = ring.slice(0, -1);
+      loops.push({ id, pts });
+      pts.forEach((p, i) => {
+        const e = edgeKey(p, pts[(i + 1) % pts.length]);
+        if (!owners.has(e)) owners.set(e, new Set());
+        owners.get(e).add(id);
+      });
+    }
+  }
+  const sig = (p, q) => [...owners.get(edgeKey(p, q))].sort().join(',');
+
+  const arcs = [];
+  const index = new Map();
+  const intern = (pts) => {
+    const fwd = pts.map(key).join(';');
+    const rev = [...pts].reverse().map(key).join(';');
+    const canon = fwd <= rev ? fwd : rev;
+    let i = index.get(canon);
+    if (i === undefined) {
+      i = arcs.length;
+      arcs.push(fwd <= rev ? pts : [...pts].reverse());
+      index.set(canon, i);
+    }
+    return fwd <= rev ? i : ~i;
+  };
+
+  const rings = new Map([...polygons.keys()].map((id) => [id, []]));
+  for (const { id, pts } of loops) {
+    const n = pts.length;
+    const at = (i) => pts[((i % n) + n) % n];
+    const breaks = pts.flatMap((_, i) =>
+      sig(at(i - 1), at(i)) === sig(at(i), at(i + 1)) ? [] : [i]
+    );
+    const ring = [];
+    if (breaks.length === 0) {
+      const m = pts.reduce((best, p, i) => (cmp(p, pts[best]) < 0 ? i : best), 0);
+      const rot = pts.map((_, i) => at(m + i));
+      ring.push(intern([...rot, rot[0]]));
+    } else {
+      breaks.forEach((from, k) => {
+        const to = k + 1 < breaks.length ? breaks[k + 1] : breaks[0] + n;
+        ring.push(intern(Array.from({ length: to - from + 1 }, (_, j) => at(from + j))));
+      });
+    }
+    rings.get(id).push(ring);
+  }
+  return { arcs, rings };
 }
 
 /** Joins a ring's arcs in order; a negative index `i` is arc `~i` reversed. */

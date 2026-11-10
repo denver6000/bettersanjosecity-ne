@@ -91,3 +91,11 @@ All visible strings go through the existing translation system with English and 
 - Separate home section rather than replacing `CityMap`.
 - The "Find a barangay" select.
 - Names appear only when zoomed in.
+
+## Revision, 2026-11-10 (found while building)
+
+The medium-resolution TopoJSON named in "Data" turned out to be almost entirely straight chords (74 of 110 border segments had two points), so no smoothing could stay within the 40 m cap (worst drift 415 m). With the user's go-ahead the build now starts from the full-resolution release (`faeldon/philippines-psgc-shapefiles` v1.0.1, checksum verified, same CC BY-IGO boundaries) and:
+
+- `scripts/extract-san-jose.mjs` cuts San Jose City's 38 barangays out of the shapefile once (coordinates are UTM 51N metres; neighbours share exact border points) into `scripts/source/san-jose-city-barangays.json`.
+- `scripts/build-barangay-map.mjs` splits them into shared arcs, simplifies each arc once (Douglas-Peucker, 15 m), then smooths with Chaikin (2 passes, cut length capped at 25 m so real corners between long straight borders stay sharp).
+- The 40 m cap is measured both ways against the full-resolution arcs; the committed data's worst gap is 24.4 m.
