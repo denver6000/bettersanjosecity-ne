@@ -1,3 +1,12 @@
+## 2026-11-11 — 367381e — Remove the install app pop-up
+
+- By: Claude Code, requested by Kurt Vincent F. Fariñas
+- Code: 179c9c7 → 367381e (pushed to main; Hostinger auto-builds on push); removed the "Install Better San Jose" banner and its styles, regenerated the icon font subset
+- Migrations: none
+- Backup: none
+- Data changes: none
+- Verified: `npm run check` passed; live site CSS no longer contains the install banner styles; not checked visually on the live site
+
 ## 2026-11-11 — 90384ba — Wow-factor set: barangay map, living hero, I need to finder, copy review
 
 - By: Claude Code, requested by Kurt Vincent F. Fariñas
