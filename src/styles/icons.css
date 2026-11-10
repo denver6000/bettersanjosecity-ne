@@ -3,7 +3,7 @@
 @font-face {
   font-family: "Phosphor";
   src:
-    url("/assets/fonts/phosphor/Phosphor.woff2?v=1afbb0cb") format("woff2");
+    url("/assets/fonts/phosphor/Phosphor.woff2?v=b191f5b7") format("woff2");
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -96,9 +96,6 @@
 }
 .ph.ph-coins:before {
   content: "\e78e";
-}
-.ph.ph-download-simple:before {
-  content: "\e20c";
 }
 .ph.ph-drop:before {
   content: "\e210";
@@ -254,7 +251,7 @@
 @font-face {
   font-family: "Phosphor-Duotone";
   src:
-    url("/assets/fonts/phosphor/Phosphor-Duotone.woff2?v=677901ac") format("woff2");
+    url("/assets/fonts/phosphor/Phosphor-Duotone.woff2?v=70079c25") format("woff2");
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -441,14 +438,6 @@
 }
 .ph-duotone.ph-coins:after {
   content: "\e78f";
-  margin-left: -1em;
-}
-.ph-duotone.ph-download-simple:before {
-  content: "\e20c";
-  opacity: 0.2;
-}
-.ph-duotone.ph-download-simple:after {
-  content: "\e20d";
   margin-left: -1em;
 }
 .ph-duotone.ph-drop:before {
@@ -855,7 +844,7 @@
 @font-face {
   font-family: "Phosphor-Bold";
   src:
-    url("/assets/fonts/phosphor/Phosphor-Bold.woff2?v=77762afe") format("woff2");
+    url("/assets/fonts/phosphor/Phosphor-Bold.woff2?v=bfc19836") format("woff2");
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -948,9 +937,6 @@
 }
 .ph-bold.ph-coins:before {
   content: "\e78e";
-}
-.ph-bold.ph-download-simple:before {
-  content: "\e20c";
 }
 .ph-bold.ph-drop:before {
   content: "\e210";
@@ -1106,7 +1092,7 @@
 @font-face {
   font-family: "Phosphor-Fill";
   src:
-    url("/assets/fonts/phosphor/Phosphor-Fill.woff2?v=6a426092") format("woff2");
+    url("/assets/fonts/phosphor/Phosphor-Fill.woff2?v=6a4ebce9") format("woff2");
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -1199,9 +1185,6 @@
 }
 .ph-fill.ph-coins:before {
   content: "\e78e";
-}
-.ph-fill.ph-download-simple:before {
-  content: "\e20c";
 }
 .ph-fill.ph-drop:before {
   content: "\e210";
