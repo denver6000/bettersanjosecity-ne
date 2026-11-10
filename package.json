@@ -14,7 +14,8 @@
     "icons": "node scripts/build-icons.mjs",
     "map:build": "node scripts/build-barangay-map.mjs",
     "test:scripts": "node --test scripts/lib/*.test.mjs",
-    "check": "node scripts/build-icons.mjs --check && node scripts/check-icons.mjs && node scripts/check-i18n.mjs && node scripts/check-theme.mjs && npm run format:check && npm run typecheck && npm run test:scripts && npm run build"
+    "test:lib": "node --test src/lib/*.test.ts",
+    "check": "node scripts/build-icons.mjs --check && node scripts/check-icons.mjs && node scripts/check-i18n.mjs && node scripts/check-theme.mjs && npm run format:check && npm run typecheck && npm run test:scripts && npm run test:lib && npm run build"
   },
   "dependencies": {
     "@phosphor-icons/web": "2.1.1",
