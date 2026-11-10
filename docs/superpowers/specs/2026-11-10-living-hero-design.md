@@ -51,7 +51,7 @@ ChatGPT draws the signature art for each occasion; code supplies light, glow, wi
 
 Each occasion's assets load only when that occasion is active.
 
-Season paddies: harvest is produced in code by recolouring the existing `paddies` layer (green toward gold); planting needs new art, a flooded-paddy variant of `paddies` (and of `foreground` if it clashes), made by ChatGPT.
+Season paddies: both planting and harvest are new art, made by ChatGPT as variants of the `paddies` layer (a flooded, freshly planted paddy and a ripe golden one) with the same hut, palms and terraces. Recolouring the existing layer was tested and rejected: the hue shift turns the hut pink and the golden patches red.
 
 Production rules for every ChatGPT piece: give ChatGPT the base image as the reference, state the anchor landmark and depth, ask for real transparency at the same canvas size, and run the same stack check as the base (same size, aligned, no halo, style match) before accepting it. A piece that fails is regenerated, not patched.
 
@@ -96,7 +96,7 @@ Dates are my calls except where a law is cited; the local ones are to be confirm
 | Undas                          | Remember  | 31 Oct to 2 Nov                                                | Candles and flowers at the dike and hut                                          |
 | Planting season                | Season    | 1 Dec to 31 Jan and 1 Jun to 31 Jul                            | Flooded paddies reflecting the sky (to confirm with the city agriculture office) |
 | Growing season                 | Season    | other dates not in planting or harvest                         | The existing green paddies                                                       |
-| Harvest season                 | Season    | 1 Mar to 30 Apr and 1 Oct to 30 Nov                            | Paddies recoloured golden (to confirm)                                           |
+| Harvest season                 | Season    | 1 Mar to 30 Apr and 1 Oct to 30 Nov                            | Golden paddies, new art (to confirm)                                             |
 
 ### Precedence
 
@@ -117,7 +117,7 @@ Each is a brief for the art and the behaviour. Anchors are named landmarks, not 
 - **Holy Week.** A muted tint over the whole scene, a cross on the far ridge, palaspas (woven palm) tied to the hut. The sway slows. Good Friday is the darkest. No pokes and no scattering birds.
 - **Undas.** Candles and chrysanthemums at the dike and the hut steps; lit at dusk, burning on through rain (the flames sit sheltered). Fireflies calm. No pokes.
 - **Planting season.** Flooded paddies reflecting the sky, young seedlings in rows (new art variant of `paddies`).
-- **Harvest season.** The paddies recoloured golden by code; extra sheaves optional.
+- **Harvest season.** A new golden-paddy variant of `paddies`, with a few sheaves on a dike.
 
 ### Occasions: care
 
