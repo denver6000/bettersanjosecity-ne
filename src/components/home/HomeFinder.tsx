@@ -9,13 +9,14 @@ import { T, useLanguage } from '@/i18n/LanguageContext';
 export default function HomeFinder() {
   const { t } = useLanguage();
   const [selected, setSelected] = useState<Intent | null>(null);
-  const [byKeyboard, setByKeyboard] = useState(false);
+  const [keyPicks, setKeyPicks] = useState(0);
   const goRef = useRef<HTMLAnchorElement>(null);
 
-  // Only a keyboard pick moves focus, so keyboard users skip the remaining choices; mouse clicks never do.
+  // Only a keyboard pick moves focus (so keyboard users skip the other choices); mouse clicks never do.
+  // A counter, not a flag, so picking the same choice again still refocuses.
   useEffect(() => {
-    if (selected && byKeyboard) goRef.current?.focus({ preventScroll: true });
-  }, [selected, byKeyboard]);
+    if (keyPicks > 0) goRef.current?.focus({ preventScroll: true });
+  }, [keyPicks]);
 
   return (
     <section className="home-sec home-finder" aria-labelledby="home-finder-h">
@@ -38,7 +39,7 @@ export default function HomeFinder() {
               className="home-finder-pill"
               aria-pressed={selected?.id === intent.id}
               onClick={(e) => {
-                setByKeyboard(e.detail === 0);
+                if (e.detail === 0) setKeyPicks((n) => n + 1);
                 setSelected(intent);
               }}
             >

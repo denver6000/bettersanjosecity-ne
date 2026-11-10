@@ -264,7 +264,7 @@ html[data-hero-pending] .hero-scene {
 }
 
 /* ===== "I need to" finder ===== */
-.home-finder-sentence {
+.home-sec .home-finder-sentence {
   font-family: var(--font-display), Georgia, serif;
   font-weight: 700;
   font-size: 56px;
@@ -312,9 +312,9 @@ html[data-hero-pending] .hero-scene {
 }
 
 .home-finder-pill[aria-pressed='true'] {
-  background: var(--fill-brand);
-  border-color: var(--fill-brand);
-  color: var(--color-white);
+  background: var(--color-navy);
+  border-color: var(--color-navy);
+  color: var(--color-bg);
 }
 
 .home-finder-pill:focus-visible,
@@ -389,7 +389,7 @@ html[data-hero-pending] .hero-scene {
 }
 
 @media (max-width: 899px) {
-  .home-finder-sentence {
+  .home-sec .home-finder-sentence {
     font-size: 34px;
   }
 
