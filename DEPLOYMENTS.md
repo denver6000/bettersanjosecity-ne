@@ -1,3 +1,12 @@
+## 2026-11-11 — 39c23d4 — Filipino dates on station details, clearer scholarship line
+
+- By: Claude Code, requested by Kurt Vincent F. Fariñas
+- Code: 107874c → 39c23d4 (pushed to main; Hostinger auto-builds on push); station details dates use the Filipino format in Filipino mode, scholarship line reworded
+- Migrations: none
+- Backup: none
+- Data changes: none
+- Verified: live site in Filipino mode shows "Disyembre 18, 2025" and the new scholarship line; `npm run check` could not run in full (another session's unformatted plan file), so typecheck, i18n check, lib tests and Prettier on src were run instead and passed
+
 ## 2026-11-11 — 367381e — Remove the install app pop-up
 
 - By: Claude Code, requested by Kurt Vincent F. Fariñas
