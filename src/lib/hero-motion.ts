@@ -42,3 +42,29 @@ export function fireflyTarget(
     y: base.y + Math.cos(0.9 * tSec + phase * 1.7) * 24,
   };
 }
+
+/** Angle in degrees for a rice stalk: a gentle idle sway, leaning away from a cursor in the grass. */
+export function stalkTarget(
+  stalkX: number,
+  cursorX: number | null,
+  cursorY: number | null,
+  moving: boolean,
+  tSec: number,
+  phase: number
+): number {
+  let angle = Math.sin(1.3 * tSec + phase) * 2.4;
+  if (cursorX !== null && cursorY !== null && cursorY > 380) {
+    const d = stalkX - cursorX;
+    const w = Math.exp(-Math.pow(d / 280, 2)) * (moving ? 1.25 : 0.8);
+    angle += Math.sign(d || 1) * 30 * w;
+  }
+  return angle;
+}
+
+/** The hour shown during the sun-click time-lapse: eased through 24 hours, back to `realHour`. */
+export function timelapseHour(realHour: number, elapsedMs: number, durationMs: number): number {
+  const k = elapsedMs / durationMs;
+  if (k >= 1) return realHour;
+  const eased = k < 0.5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
+  return (realHour + 24 * eased) % 24;
+}

@@ -1303,3 +1303,35 @@
     opacity: 0.25;
   }
 }
+
+/* Living hero: things you can poke */
+.hero-poke {
+  cursor: pointer;
+}
+
+.hero-poke-in {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  transition: transform 0.25s;
+}
+
+.hero-poke:hover > .hero-poke-in {
+  transform: scale(1.07);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero-shower-line {
+    animation: hero-shower 0.8s linear infinite;
+  }
+}
+
+@keyframes hero-shower {
+  from {
+    transform: translateY(0);
+    opacity: 0.9;
+  }
+  to {
+    transform: translateY(520px);
+    opacity: 0.2;
+  }
+}
