@@ -16,6 +16,7 @@ import {
   rippleRate,
   stalkTarget,
   timelapseHour,
+  fireflyChasesCursor,
 } from '@/lib/hero-motion';
 import { lampOpacity, pokesAllowed } from '@/lib/hero-light';
 import {
@@ -399,7 +400,11 @@ export default function HeroScene() {
         const pos = fireflyPos.current[i];
         const vel = fireflyVel.current[i];
         let goal = fireflyTarget(f, tSec, f.phase);
-        if (c && night > 0.5 && Math.hypot(c.x - pos.x, c.y - pos.y) < 520) {
+        if (
+          c &&
+          fireflyChasesCursor(tone, night, true) &&
+          Math.hypot(c.x - pos.x, c.y - pos.y) < 520
+        ) {
           goal = {
             x: c.x + Math.sin(f.phase * 2 + tSec / 0.7) * 60,
             y: c.y + Math.cos(f.phase * 3 + tSec / 0.8) * 40,

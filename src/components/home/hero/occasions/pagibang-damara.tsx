@@ -2,7 +2,8 @@
 // front edge, and a carabao pulling a little cart of sacks, very slowly, along the dike. The date is
 // unconfirmed with the city government.
 import { ANCHORS } from './anchors';
-import { Carabao, crawl } from './carabao';
+import { crawl } from '@/lib/hero-motion';
+import { Carabao } from './carabao';
 import type { OccasionContext, OccasionModule, Slot } from './types';
 
 const [ax, ay] = ANCHORS.dikeLineStart;
@@ -31,7 +32,7 @@ function Basket({ x, y }: { x: number; y: number }) {
 }
 
 function Cart({ ctx }: { ctx: OccasionContext }) {
-  const { dx, fade } = crawl(ctx.reduced ? 0 : ctx.tSec, 5, 520);
+  const { dx, fade } = crawl(ctx.tSec, 5, 520, ctx.reduced);
   const x = ANCHORS.paddyMidLeft[0] - 20 + dx;
   const y = ANCHORS.paddyMidLeft[1];
   const t = ctx.reduced ? 0 : ctx.tSec;

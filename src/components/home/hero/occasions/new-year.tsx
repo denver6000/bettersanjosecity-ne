@@ -3,13 +3,14 @@
 // scene's palette (never a flag). Reduced motion shows no fireworks.
 import { newYearPhase } from '@/lib/occasions';
 import { clock } from './clock';
+import christmas from './christmas';
 import { createFireworks } from './fireworks';
 import type { OccasionContext, OccasionModule, Slot } from './types';
 
 const fireworks = createFireworks(['#f2b100', '#ffffff', '#7fb2ff', '#ff9d6e']);
 let nextAuto = 0;
 
-function render(slot: Slot, ctx: OccasionContext) {
+function fireworksLayer(slot: Slot, ctx: OccasionContext) {
   if (slot !== 'behindHills') return null;
   const phase = newYearPhase(ctx.date, ctx.hour);
 
@@ -25,6 +26,18 @@ function render(slot: Slot, ctx: OccasionContext) {
       ctx.tSec + (phase === 'midnight' ? 0.5 + Math.random() * 0.4 : 20 + Math.random() * 10);
   }
   return fireworks.render(ctx.tSec);
+}
+
+// New Year wins 31 Dec and 1 Jan, but the parols and lights are still up: Christmas is drawn too.
+function render(slot: Slot, ctx: OccasionContext) {
+  const own = fireworksLayer(slot, ctx);
+  const xmas = christmas.render(slot, ctx);
+  return own || xmas ? (
+    <>
+      {xmas}
+      {own}
+    </>
+  ) : null;
 }
 
 const newYear: OccasionModule = {

@@ -4,6 +4,7 @@
 // the hoist with an eight-rayed gold sun and a gold star at each point) and appears ONLY on the pole:
 // never as bunting, a banner or inside fireworks.
 import { windSway } from '@/lib/hero-light';
+import { raiseEase } from '@/lib/hero-motion';
 import { flagProgress } from '@/lib/occasions';
 import { ANCHORS } from './anchors';
 import { clock } from './clock';
@@ -47,11 +48,31 @@ function bunting(from: Pt, to: Pt, sag: number, ctx: OccasionContext) {
   );
 }
 
+// The raise eases up over two minutes and never comes back down while the page stays open, so the
+// 30-second hour tick and the sun time-lapse cannot make it jump or vanish.
+let shown = 0;
+let shownDay = '';
+let lastT = 0;
+function raised(ctx: OccasionContext): number {
+  const day = `${ctx.date.year}-${ctx.date.month}-${ctx.date.day}`;
+  const target = flagProgress(ctx.date, ctx.hour);
+  const dt = Math.max(0, Math.min(5, ctx.tSec - lastT));
+  lastT = ctx.tSec;
+  if (day !== shownDay) {
+    shownDay = day;
+    shown = target;
+  } else {
+    shown = raiseEase(shown, target, dt);
+  }
+  return shown;
+}
+
 function render(slot: Slot, ctx: OccasionContext) {
-  if (slot === 'frontOfForeground') return ctx.reduced ? null : fireworks.render(ctx.tSec);
+  // Fireworks burst in the sky behind the hills, never over the hut, palms or rice.
+  if (slot === 'behindHills') return ctx.reduced ? null : fireworks.render(ctx.tSec);
   if (slot !== 'betweenPaddiesAndForeground') return null;
 
-  const progress = flagProgress(ctx.date, ctx.hour);
+  const progress = raised(ctx);
   const top = POLE.top + 8;
   const flagY = POLE.base - H - 20 - (POLE.base - H - 20 - top) * progress;
   return (

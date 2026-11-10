@@ -7,6 +7,9 @@ import {
   rippleRate,
   stalkTarget,
   timelapseHour,
+  crawl,
+  fireflyChasesCursor,
+  raiseEase,
 } from './hero-motion.ts';
 
 test('cloudX advances faster in wind', () => {
@@ -77,4 +80,30 @@ test('timelapseHour moves forward through the whole day', () => {
     prev = h;
   }
   assert.ok(travelled > 20 && travelled < 24);
+});
+
+test('crawl keeps a figure visible when motion is reduced', () => {
+  const r = crawl(0, 5, 520, true);
+  assert.equal(r.fade, 1);
+  assert.equal(r.dx, 260);
+});
+
+test('crawl fades at the ends of its span and moves on', () => {
+  assert.equal(crawl(0, 5, 520, false).fade, 0);
+  assert.equal(crawl(40, 5, 520, false).fade, 1);
+  assert.equal(crawl(10, 5, 520, false).dx, 50);
+});
+
+test('fireflyChasesCursor is off on Remember days and by day', () => {
+  assert.equal(fireflyChasesCursor('celebrate', 0.9, true), true);
+  assert.equal(fireflyChasesCursor('remember', 0.9, true), false);
+  assert.equal(fireflyChasesCursor(null, 0.4, true), false);
+  assert.equal(fireflyChasesCursor(null, 0.9, false), false);
+});
+
+test('raiseEase rises at most 1/120 per second and never falls', () => {
+  assert.equal(raiseEase(0.5, 1, 30), 0.75);
+  assert.equal(raiseEase(0.9, 1, 30), 1);
+  assert.equal(raiseEase(0.6, 0, 30), 0.6);
+  assert.equal(raiseEase(0, 0.1, 30), 0.1);
 });

@@ -42,10 +42,3 @@ export function Carabao({
     </g>
   );
 }
-
-/** Slow one-way travel that wraps: the figure slips in and out at the ends. */
-export function crawl(tSec: number, speed: number, span: number): { dx: number; fade: number } {
-  const p = (tSec * speed) % span;
-  const edge = Math.min(p, span - p);
-  return { dx: p, fade: Math.min(1, edge / 40) };
-}

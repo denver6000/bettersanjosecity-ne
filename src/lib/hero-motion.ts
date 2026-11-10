@@ -68,3 +68,29 @@ export function timelapseHour(realHour: number, elapsedMs: number, durationMs: n
   const eased = k < 0.5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
   return (realHour + 24 * eased) % 24;
 }
+
+/** Slow one-way travel that wraps, fading in and out at the ends; reduced motion parks it mid-span, visible. */
+export function crawl(
+  tSec: number,
+  speed: number,
+  span: number,
+  reduced: boolean
+): { dx: number; fade: number } {
+  if (reduced) return { dx: span / 2, fade: 1 };
+  const p = (tSec * speed) % span;
+  return { dx: p, fade: Math.min(1, Math.min(p, span - p) / 40) };
+}
+
+/** Fireflies gather round the cursor only at night and never on a Remember day. */
+export function fireflyChasesCursor(
+  tone: 'celebrate' | 'remember' | null,
+  night: number,
+  hasCursor: boolean
+): boolean {
+  return hasCursor && night > 0.5 && tone !== 'remember';
+}
+
+/** A raise eases up at most 1/120 per second (two minutes in all) and never comes back down. */
+export function raiseEase(prev: number, target: number, dtSec: number): number {
+  return Math.max(prev, Math.min(target, prev + dtSec / 120));
+}

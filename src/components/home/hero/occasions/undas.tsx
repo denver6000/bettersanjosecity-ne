@@ -1,6 +1,6 @@
 // Undas: votive candles in glass jars on the hut steps and along the dike, with white and yellow
 // chrysanthemums. Flames are flat gold ellipses with a gentle flicker, lit from dusk and still burning
-// in rain (a flame is drawn above the rain, so it never gets drawn in front of it by accident).
+// in rain.
 import { lampOpacity } from '@/lib/hero-light';
 import { ANCHORS } from './anchors';
 import type { OccasionContext, OccasionModule, Slot } from './types';

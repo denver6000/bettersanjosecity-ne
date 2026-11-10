@@ -2,7 +2,8 @@
 // reads as part of the land. They plod slowly; a click on the carabao makes it lift its head and the
 // farmer pause for two seconds (only where pokes are allowed).
 import { ANCHORS } from './anchors';
-import { Carabao, crawl } from './carabao';
+import { crawl } from '@/lib/hero-motion';
+import { Carabao } from './carabao';
 import { clock } from './clock';
 import type { OccasionContext, OccasionModule, Slot } from './types';
 
@@ -31,9 +32,10 @@ function render(slot: Slot, ctx: OccasionContext) {
   const sincePoke = raisedAt === null ? Infinity : ctx.tSec - raisedAt;
   const resting = sincePoke < 2;
   const { dx, fade } = crawl(
-    ctx.reduced ? 0 : t - closedPause - Math.min(2, Math.max(0, sincePoke)),
+    t - closedPause - Math.min(2, Math.max(0, sincePoke)),
     4,
-    420
+    420,
+    ctx.reduced
   );
   const x = ANCHORS.paddyMidLeft[0] + 40 + dx;
   const y = ANCHORS.paddyMidLeft[1] + 10;
