@@ -3,8 +3,7 @@
 Civic portal for **San Jose City, Nueva Ecija**, served at
 [sanjose.betternuevaecija.org](https://sanjose.betternuevaecija.org).
 
-Built with Next.js + React + TypeScript, exported as a static site. The design system
-comes from [BetterSolano.org](https://github.com/BetterSolano/bettersolano) (MIT / CC BY 4.0).
+Built with Next.js + React + TypeScript, exported as a static site, with its own design system in `src/styles/`.
 
 ## Highlights
 
@@ -127,7 +126,7 @@ a directory index. `/services` redirects to `/services/`.
 | `src/config/site.ts`     | LGU identity, coordinates, hotlines, nav, service categories                                                                                                                                              |
 | `src/i18n/`              | EN/FIL dictionary, `LanguageProvider`, and the `<T k="...">` helper                                                                                                                                       |
 | `src/data/*.json`        | Content data, read at build time                                                                                                                                                                          |
-| `src/styles/`            | Upstream BetterSolano CSS, plus `site.css` for San Jose additions                                                                                                                                         |
+| `src/styles/`            | Design tokens (`tokens.css`), shared styles, then `site.css` and per-page sheets                                                                                                                          |
 | `public/`                | Logo and icons, OG banner, manifest, service worker, offline page, `.htaccess`                                                                                                                            |
 | `src/lib/`               | Station feed, PSIC search, tax estimator logic, number formatting                                                                                                                                         |
 | `public/api/`            | `weather-station.php`, the only server-side code                                                                                                                                                          |

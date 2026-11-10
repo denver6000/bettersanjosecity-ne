@@ -8,7 +8,7 @@ import PWAManager from '@/components/PWAManager';
 import { LanguageProvider, T } from '@/i18n/LanguageContext';
 import { SITE } from '@/config/site';
 
-// BetterSolano design system (order matters), then San Jose additions.
+// Design system (order matters): tokens, shared styles, then site-wide additions and dark theme.
 import '@/styles/icons.css';
 import '@/styles/tokens.css';
 import '@/styles/base.css';

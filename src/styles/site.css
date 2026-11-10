@@ -1,6 +1,5 @@
-/* Better San Jose - Site-specific additions
- * Upstream design system (style.css, responsive.css, footer.css, ...) is kept
- * as close to BetterSolano.org as possible; San Jose changes live here.
+/* Better San Jose - site-wide additions on top of the shared styles
+ * (tokens, base, components, header, footer, a11y, print).
  */
 
 /* ===== Brand lockup: BetterLGU emblem + wordmark ===== */
