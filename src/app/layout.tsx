@@ -80,6 +80,11 @@ export const metadata: Metadata = {
 // provider; the timeout is a safety net so a failed hydration can never leave the page hidden.
 const LANG_GATE = `try{var s=localStorage.getItem('selectedLang'),b=navigator.language.split('-')[0].toLowerCase(),l=s==='en'||s==='fil'?s:(b==='fil'||b==='tl'?'fil':'en');if(l!=='en'){var d=document.documentElement;d.setAttribute('data-lang-pending',l);setTimeout(function(){d.removeAttribute('data-lang-pending')},3000)}}catch(e){}`;
 
+// Runs before first paint. The static HTML always contains the neutral morning scene, so hide the
+// hero scene (home.css) until HeroScene has applied San Jose's real time and weather. Same safety
+// net as LANG_GATE: a failed hydration can never leave the scene hidden.
+const HERO_GATE = `try{var d=document.documentElement;d.setAttribute('data-hero-pending','');setTimeout(function(){d.removeAttribute('data-hero-pending')},3000)}catch(e){}`;
+
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html
@@ -90,6 +95,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: LANG_GATE }} />
+        <script dangerouslySetInnerHTML={{ __html: HERO_GATE }} />
       </head>
       <body>
         <LanguageProvider>

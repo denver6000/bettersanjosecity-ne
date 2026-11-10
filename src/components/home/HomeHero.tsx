@@ -7,6 +7,18 @@ import HeroScene from '@/components/home/hero/HeroScene';
 export default function HomeHero() {
   return (
     <section className="home-hero">
+      <link
+        rel="preload"
+        as="image"
+        type="image/webp"
+        href="/assets/images/hero/scene/hills.webp"
+      />
+      <link
+        rel="preload"
+        as="image"
+        type="image/webp"
+        href="/assets/images/hero/scene/paddies.webp"
+      />
       <svg
         className="home-hero-grain"
         viewBox="0 0 1280 500"

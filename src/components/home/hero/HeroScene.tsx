@@ -105,7 +105,7 @@ const STALKS = Array.from({ length: 53 }, (_, i) => ({
 
 export default function HeroScene() {
   const { t } = useLanguage();
-  const { forecast, retry } = useForecast();
+  const { forecast, failed, retry } = useForecast();
   // Neutral first render (golden morning, clear); the real sky is applied after hydration.
   const [hour, setHour] = useState(8);
   const [override, setOverride] = useState<{ hour?: number; weather?: Weather }>({});
@@ -155,6 +155,18 @@ export default function HeroScene() {
       pending.clear();
     };
   }, []);
+
+  // Reveal once the real weather is known (cached, fetched, failed, or overridden), or after a
+  // moment, so a reload at night never shows the neutral morning scene first (see HERO_GATE).
+  useEffect(() => {
+    const reveal = () => document.documentElement.removeAttribute('data-hero-pending');
+    if (override.weather || forecast || failed) {
+      reveal();
+      return;
+    }
+    const id = setTimeout(reveal, 1200);
+    return () => clearTimeout(id);
+  }, [override.weather, forecast, failed]);
 
   const shownHour = lapseHour ?? hour;
   const weather: Weather = override.weather ?? weatherKind(forecast?.code);
