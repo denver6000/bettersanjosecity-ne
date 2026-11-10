@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { useLanguage } from '@/i18n/LanguageContext';
+import { birdPose, cloudX, fireflyTarget, rippleRate } from '@/lib/hero-motion';
 import { useForecast } from '@/lib/use-forecast';
 import {
   bodies,
@@ -14,6 +15,8 @@ import {
   weatherLook,
   type Weather,
 } from '@/lib/sky';
+
+import { useHeroLoop, usePrefersReducedMotion } from './useHeroLoop';
 
 const ART = '/assets/images/hero/scene';
 
@@ -66,6 +69,22 @@ const RAIN = Array.from({ length: 130 }, (_, i) => ({
   y: ((i * 89) % 1150) - 160,
 }));
 
+const NS = 'http://www.w3.org/2000/svg';
+
+const BIRDS = Array.from({ length: 5 }, (_, i) => ({
+  index: i,
+  y: 170 + i * 52,
+  speed: 70 + i * 9,
+  offset: i * 260,
+  phase: i * 1.3,
+}));
+
+const FIREFLIES = Array.from({ length: 10 }, (_, i) => ({
+  x: 300 + ((i * 211) % 1100),
+  y: 620 + ((i * 97) % 300),
+  phase: i,
+}));
+
 export default function HeroScene() {
   const { t } = useLanguage();
   const { forecast, retry } = useForecast();
@@ -75,6 +94,17 @@ export default function HeroScene() {
 
   const retryRef = useRef(retry);
   retryRef.current = retry;
+
+  const reduced = usePrefersReducedMotion();
+  const svgRef = useRef<SVGSVGElement>(null);
+  const ripplesRef = useRef<SVGGElement>(null);
+  const cloudEls = useRef<(SVGGElement | null)[]>([]);
+  const birdEls = useRef<(SVGGElement | null)[]>([]);
+  const fireflyEls = useRef<(SVGCircleElement | null)[]>([]);
+  const cloudPos = useRef<number[]>([]);
+  const fireflyPos = useRef(FIREFLIES.map((f) => ({ x: f.x, y: f.y })));
+  const rippleDebt = useRef(0);
+  const rippleTimers = useRef(new Set<ReturnType<typeof setTimeout>>());
 
   useEffect(() => {
     const o = parseSkyOverride(window.location.search);
@@ -117,7 +147,80 @@ export default function HeroScene() {
   const moonPath = moon
     ? `M${moon.x},${moon.y - r} A${r},${r} 0 1 0 ${moon.x},${moon.y + r} A${r * 0.75},${r} 0 1 1 ${moon.x},${moon.y - r}Z`
     : '';
-  const rainCount = weather === 'storm' ? 130 : weather === 'rain' ? 60 : 0;
+  const precipitation = forecast?.precipitation ?? 0;
+  const windKmh = forecast?.windSpeed ?? 8;
+  const rainCount =
+    weather === 'storm'
+      ? 130
+      : weather === 'rain'
+        ? Math.round(40 + Math.min(1, precipitation / 4) * 70)
+        : 0;
+
+  useEffect(() => {
+    cloudPos.current = CLOUDS[weather].map((c) => c[0]);
+  }, [weather]);
+
+  useEffect(() => {
+    const timers = rippleTimers.current;
+    return () => {
+      timers.forEach(clearTimeout);
+      timers.clear();
+    };
+  }, []);
+
+  useHeroLoop(
+    (now, dt) => {
+      const tSec = now / 1000;
+      CLOUDS[weather].forEach((c, i) => {
+        const el = cloudEls.current[i];
+        if (!el) return;
+        const x = cloudX(cloudPos.current[i] ?? c[0], dt, windKmh, i);
+        cloudPos.current[i] = x;
+        el.setAttribute('transform', `translate(${x.toFixed(1)} ${c[1]}) scale(${c[2] * 3.4})`);
+      });
+      BIRDS.forEach((b, i) => {
+        const p = birdPose(tSec, b, 0);
+        birdEls.current[i]?.setAttribute(
+          'transform',
+          `translate(${p.x.toFixed(1)} ${p.y.toFixed(1)})`
+        );
+      });
+      FIREFLIES.forEach((f, i) => {
+        const el = fireflyEls.current[i];
+        if (!el) return;
+        const goal = fireflyTarget(f, tSec, f.phase);
+        const pos = fireflyPos.current[i];
+        pos.x += (goal.x - pos.x) * Math.min(1, dt * 1.6);
+        pos.y += (goal.y - pos.y) * Math.min(1, dt * 1.6);
+        el.setAttribute('cx', pos.x.toFixed(1));
+        el.setAttribute('cy', pos.y.toFixed(1));
+        el.setAttribute('opacity', (0.5 + 0.5 * Math.sin(tSec * 3.3 + f.phase)).toFixed(2));
+      });
+      rippleDebt.current += rippleRate(weather, precipitation, false) * dt;
+      while (rippleDebt.current >= 1) {
+        rippleDebt.current -= 1;
+        const group = ripplesRef.current;
+        if (!group) break;
+        const e = document.createElementNS(NS, 'ellipse');
+        e.setAttribute('class', 'hero-ripple');
+        e.setAttribute('cx', String(300 + Math.random() * 1250));
+        e.setAttribute('cy', String(640 + Math.random() * 250));
+        e.setAttribute('rx', '34');
+        e.setAttribute('ry', '9');
+        e.setAttribute('fill', 'none');
+        e.setAttribute('stroke', '#e4ecf5');
+        e.setAttribute('stroke-width', '3');
+        group.appendChild(e);
+        const timer = setTimeout(() => {
+          e.remove();
+          rippleTimers.current.delete(timer);
+        }, 1300);
+        rippleTimers.current.add(timer);
+      }
+    },
+    !reduced,
+    svgRef
+  );
 
   const tinted = (href: string) => (
     <g filter="url(#hero-tint)">
@@ -127,6 +230,7 @@ export default function HeroScene() {
 
   return (
     <svg
+      ref={svgRef}
       className="hero-scene"
       viewBox="0 0 1586 992"
       preserveAspectRatio="xMaxYMid slice"
@@ -158,25 +262,39 @@ export default function HeroScene() {
 
       <g opacity={starOpacity} fill="#fff">
         {STARS.map((s, i) => (
-          <circle key={i} cx={s.x} cy={s.y} r={s.r} />
+          <circle
+            key={i}
+            className="hero-star"
+            cx={s.x}
+            cy={s.y}
+            r={s.r}
+            style={{ animationDelay: `${-(i % 9) * 0.33}s` }}
+          />
         ))}
       </g>
 
       {sun && (
         <g transform={`translate(${sun.x} ${sun.y})`} opacity={sunOpacity}>
-          <g fill={mix(sunColor, '#ffffff', 0.25)}>
+          <g className="hero-rays" fill={mix(sunColor, '#ffffff', 0.25)}>
             {RAYS.map((p, i) => (
               <polygon key={i} points={p} />
             ))}
           </g>
-          <circle r={74} fill={sunColor} />
+          <circle className="hero-sun-disc" r={74} fill={sunColor} />
         </g>
       )}
       {moon && <path d={moonPath} fill="#f4f1d8" opacity={moonOpacity} />}
 
       <g fill={cloud}>
         {CLOUDS[weather].map(([x, y, s], i) => (
-          <g key={i} transform={`translate(${x} ${y}) scale(${s * 3.4})`}>
+          <g
+            key={`${weather}-${i}`}
+            ref={(el) => {
+              cloudEls.current[i] = el;
+              if (el && !el.hasAttribute('transform'))
+                el.setAttribute('transform', `translate(${x} ${y}) scale(${s * 3.4})`);
+            }}
+          >
             <ellipse cx={0} cy={0} rx={26} ry={9} />
             <ellipse cx={-14} cy={-6} rx={14} ry={10} />
             <ellipse cx={6} cy={-10} rx={17} ry={12} />
@@ -185,19 +303,77 @@ export default function HeroScene() {
         ))}
       </g>
 
+      {!reduced && (
+        <g opacity={(1 - night) * (weather === 'clear' || weather === 'cloudy' ? 1 : 0)}>
+          {BIRDS.map((b, i) => (
+            <g
+              key={i}
+              ref={(el) => {
+                birdEls.current[i] = el;
+              }}
+            >
+              <path
+                className="hero-wing"
+                d="M-30 0 q15 -22 30 0 q15 -22 30 0"
+                fill="none"
+                stroke="#2a3a55"
+                strokeWidth={i % 2 ? 5 : 6}
+                strokeLinecap="round"
+                style={{ animationDelay: `${-i * 0.11}s` }}
+              />
+            </g>
+          ))}
+        </g>
+      )}
+
       {tinted(`${ART}/hills.webp`)}
       {tinted(`${ART}/paddies.webp`)}
 
+      <g ref={ripplesRef} />
+
       <circle cx={1340} cy={556} r={16} fill="#ffd25a" opacity={Math.max(0, night - 0.2) / 0.8} />
+
+      {!reduced && (
+        <g opacity={Math.max(0, night - 0.5) * (weather === 'storm' ? 0 : 1)}>
+          {FIREFLIES.map((f, i) => (
+            <circle
+              key={i}
+              ref={(el) => {
+                fireflyEls.current[i] = el;
+              }}
+              cx={f.x}
+              cy={f.y}
+              r={6}
+              fill="#f6e27a"
+            />
+          ))}
+        </g>
+      )}
 
       {tinted(`${ART}/foreground.webp`)}
 
       {rainCount > 0 && (
-        <g stroke="#e4ecf5" strokeWidth={3} strokeLinecap="round" opacity={0.75}>
+        <g
+          className="hero-rain"
+          stroke="#e4ecf5"
+          strokeWidth={3}
+          strokeLinecap="round"
+          opacity={0.75}
+        >
           {RAIN.slice(0, rainCount).map((p, i) => (
             <line key={i} x1={p.x} y1={p.y} x2={p.x - 18} y2={p.y + 60} />
           ))}
         </g>
+      )}
+      {weather === 'storm' && !reduced && (
+        <>
+          <polygon
+            className="hero-bolt"
+            fill="#fff8d0"
+            points="950,0 880,230 940,230 850,470 1010,200 950,200 1010,0"
+          />
+          <rect className="hero-flash" width={1586} height={992} fill="#fff8d0" />
+        </>
       )}
     </svg>
   );
