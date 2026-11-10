@@ -18,6 +18,7 @@ export const OCCASION_ALT_KEYS: Record<OccasionId, string> = {
 // One dynamic import per occasion, so a visitor only ever downloads the occasion that is active.
 const LOADERS: Partial<Record<ActiveId, () => Promise<{ default: OccasionModule }>>> = {
   christmas: () => import('./christmas'),
+  'new-year': () => import('./new-year'),
   ...(process.env.NODE_ENV !== 'production' ? { 'test-pin': () => import('./test-pin') } : {}),
 };
 
