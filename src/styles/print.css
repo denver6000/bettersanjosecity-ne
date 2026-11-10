@@ -1,0 +1,25 @@
+/* Printing a page (forms, fees, requirements): just the content, in plain ink. */
+@media print {
+  .site-header,
+  .site-footer,
+  .mobile-menu-toggle,
+  .lang-selector,
+  .skip-link,
+  .btn {
+    display: none !important;
+  }
+
+  .section {
+    padding: 1rem 0;
+  }
+
+  .card {
+    border: 1px solid var(--print-line);
+    box-shadow: none;
+  }
+
+  a {
+    color: var(--print-ink);
+    text-decoration: underline;
+  }
+}

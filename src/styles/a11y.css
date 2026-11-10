@@ -1,0 +1,40 @@
+/* Accessibility: keyboard focus, stronger edges for high-contrast users, calmer motion. */
+
+/* A visible ring for keyboard users only; mouse clicks don't leave one behind. */
+:focus,
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+@media (prefers-contrast: high) {
+  .card {
+    border: 2px solid var(--color-text);
+  }
+
+  .btn {
+    border-width: 2px;
+  }
+
+  a:focus-visible {
+    outline: 3px solid var(--color-text);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  * {
+    scroll-behavior: auto !important;
+  }
+}

@@ -2,7 +2,9 @@
 // theme.css only, so the dark theme can still switch them all.
 import { existsSync, readFileSync } from 'node:fs';
 
-const FILES = ['base', 'header', 'components', 'a11y', 'print'].map((f) => `src/styles/${f}.css`);
+const FILES = ['base', 'header', 'components', 'footer', 'a11y', 'print'].map(
+  (f) => `src/styles/${f}.css`
+);
 const LITERAL = /#[0-9a-fA-F]{3,8}\b|\b(?:rgba?|hsla?)\(/;
 
 let bad = 0;

@@ -60,6 +60,15 @@
   --on-fill-wash: rgba(255, 255, 255, 0.15);
   --on-fill-wash-strong: rgba(255, 255, 255, 0.2);
   --on-fill-wash-hover: rgba(255, 255, 255, 0.35);
+  --on-fill-wash-faint: rgba(255, 255, 255, 0.1);
+  --on-fill-line: rgba(255, 255, 255, 0.14);
+  --on-fill-text: rgba(255, 255, 255, 0.8);
+  --on-fill-text-soft: rgba(255, 255, 255, 0.7);
+  --on-fill-text-mute: rgba(255, 255, 255, 0.65);
+
+  /* Paper */
+  --print-ink: #000000;
+  --print-line: #dddddd;
 
   /* Navy-tinted depth for the search box and service tiles */
   --brand-line-faint: rgba(0, 50, 160, 0.08);

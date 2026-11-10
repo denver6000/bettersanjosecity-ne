@@ -64,7 +64,7 @@
 
 /* ===== Hero ===== */
 .home-hero {
-  /* Matches .container: 1200px, or 960px at 1025-1199px (responsive.css). */
+  /* Matches .container: 1200px, or 960px at 1025-1199px (base.css). */
   --hero-w: 1200px;
   container-type: inline-size;
   position: relative;

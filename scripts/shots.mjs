@@ -152,7 +152,7 @@ async function shoot(cdp, origin, c, dir) {
       ],
     });
     await s('Page.addScriptToEvaluateOnNewDocument', {
-      source: `(()=>{const T=Date.parse(${JSON.stringify(NOW)}),D=Date;class F extends D{constructor(...a){super(...(a.length?a:[T]))}static now(){return T}}globalThis.Date=F;try{localStorage.setItem('selectedLang',${JSON.stringify(c.lang)})}catch(e){}document.addEventListener('DOMContentLoaded',()=>document.head.insertAdjacentHTML('beforeend','<style>*,*::before,*::after{transition:none!important;animation:none!important;caret-color:transparent!important}</style>'))})()`,
+      source: `(()=>{const T=Date.parse(${JSON.stringify(NOW)}),D=Date;class F extends D{constructor(...a){super(...(a.length?a:[T]))}static now(){return T}}globalThis.Date=F;const L=${JSON.stringify(c.lang)},g=Storage.prototype.getItem;Storage.prototype.getItem=function(k){return k==='selectedLang'?L:g.call(this,k)};document.addEventListener('DOMContentLoaded',()=>document.head.insertAdjacentHTML('beforeend','<style>*,*::before,*::after{transition:none!important;animation:none!important;caret-color:transparent!important}</style>'))})()`,
     });
     await s('Page.navigate', { url: origin + c.path });
     for (let i = 0; i < 200; i++) {
@@ -160,6 +160,11 @@ async function shoot(cdp, origin, c, dir) {
       await new Promise((r) => setTimeout(r, 50));
     }
     await evaluate(s, 'document.fonts.ready.then(() => true)');
+    // The saved language is applied after hydration; once in a while it lands late. Wait for it.
+    for (let i = 0; i < 100; i++) {
+      if ((await evaluate(s, 'document.documentElement.lang')) === c.lang) break;
+      await new Promise((r) => setTimeout(r, 100));
+    }
     // Lazy images load at random points in a tall capture and shift the layout: load them all now.
     await evaluate(
       s,

@@ -1,151 +1,35 @@
-/* Footer - Minimal Professional Design */
+/* Site footer: brand, link columns, cost badge and the bottom bar, on the navy strip colour. */
 
 .site-footer {
-  background: var(--fill-strip);
-  color: #ffffff;
-  padding: 0;
   margin-top: 0;
+  padding: 0;
+  background: var(--fill-strip);
+  color: var(--color-white);
 }
 
-/* Main Footer Content */
 .footer-main-new {
   display: grid;
   grid-template-columns: 1.5fr 1fr 1fr 1fr;
   gap: 48px;
   padding: 60px 0 40px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+  border-bottom: 1px solid var(--on-fill-line);
 }
 
-/* Brand Column */
+/* Brand column */
 .footer-brand {
   max-width: 320px;
 }
 
 .footer-tagline {
+  max-width: 400px;
+  margin: 0 0 24px;
+  color: var(--on-fill-text-soft);
   font-size: 0.875rem;
   line-height: 1.6;
-  color: rgba(255, 255, 255, 0.7);
-  margin-bottom: 24px;
 }
 
-/* Foo
-ter Columns */
-.footer-column h2 {
-  font-size: 0.8125rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  color: rgba(255, 255, 255, 0.65);
-  margin-bottom: 20px;
-}
-
-.footer-links-new {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.footer-links-new li {
-  margin-bottom: 8px;
-}
-
-.footer-links-new a {
-  display: block;
-  font-size: 0.8125rem;
-  font-weight: 400;
-  color: rgba(255, 255, 255, 0.8);
-  text-decoration: none;
-  transition: color 0.2s ease;
-}
-
-.footer-links-new a:hover {
-  color: white;
-  text-decoration: none;
-}
-
-/* Cost Badge - Compact */
-.footer-cost {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 12px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 6px;
-  font-size: 0.75rem;
-  color: rgba(255, 255, 255, 0.8);
-  white-space: nowrap;
-}
-
-.footer-cost-value {
-  font-weight: 700;
-  color: var(--color-white);
-}
-
-/* Version Badge */
-.footer-version {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 0.8125rem;
-  color: rgba(255, 255, 255, 0.65);
-  white-space: nowrap;
-}
-
-.footer-version i {
-  font-size: 0.875rem;
-  color: rgba(255, 255, 255, 0.65);
-}
-
-/* Bottom Bar */
-.footer-bottom-new {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 24px 0;
-  flex-wrap: wrap;
-  gap: 16px;
-}
-
-.footer-copyright {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 6px;
-  width: 100%;
-  font-size: 0.8125rem;
-  color: rgba(255, 255, 255, 0.65);
-}
-
-.footer-copyright-text {
-  color: rgba(255, 255, 255, 0.8);
-}
-
-.footer-copyright-license {
-  color: rgba(255, 255, 255, 0.65);
-}
-
-.footer-copyright-disclaimer {
-  color: rgba(255, 255, 255, 0.65);
-}
-
-.footer-copyright .footer-version {
-  margin-left: auto;
-}
-
-.footer-copyright a {
-  color: rgba(255, 255, 255, 0.7);
-  text-decoration: none;
-}
-
-.footer-copyright a:hover {
-  color: white;
-  text-decoration: none;
-}
-
-/* Partner Logos */
 .footer-partners {
   display: flex;
-  flex-direction: row;
   align-items: center;
   gap: 20px;
   margin-top: 16px;
@@ -163,26 +47,153 @@ ter Columns */
 }
 
 .footer-partner-logo {
-  height: 54px;
-  width: auto;
   display: block;
+  width: auto;
+  height: 54px;
 }
 
-/* Responsive */
+/* Link columns */
+.footer-column h2 {
+  margin-bottom: 20px;
+  color: var(--on-fill-text-mute);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.footer-links-new {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.footer-links-new li {
+  margin-bottom: 8px;
+}
+
+.footer-links-new a {
+  display: block;
+  color: var(--on-fill-text);
+  font-size: 0.8125rem;
+  font-weight: 400;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer-links-new a:hover {
+  color: var(--color-white);
+  text-decoration: none;
+}
+
+/* Cost badge */
+.footer-cost {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  background: var(--on-fill-wash-faint);
+  color: var(--on-fill-text);
+  font-size: 0.75rem;
+  white-space: nowrap;
+}
+
+.footer-cost-value {
+  color: var(--color-white);
+  font-weight: 700;
+}
+
+/* Bottom bar */
+.footer-bottom-new {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 24px 0;
+}
+
+.footer-copyright {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  color: var(--on-fill-text-mute);
+  font-size: 0.8125rem;
+}
+
+.footer-copyright-text {
+  color: var(--on-fill-text);
+}
+
+.footer-copyright-license,
+.footer-copyright-disclaimer {
+  color: var(--on-fill-text-mute);
+}
+
+.footer-copyright a {
+  color: var(--on-fill-text-soft);
+  text-decoration: none;
+}
+
+.footer-copyright a:hover {
+  color: var(--color-white);
+  text-decoration: none;
+}
+
+/* Underlined so the inline link is not told apart by colour alone. */
+.footer-copyright-disclaimer a {
+  text-decoration: underline;
+}
+
+.footer-version {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--on-fill-text-mute);
+  font-size: 0.8125rem;
+  white-space: nowrap;
+}
+
+.footer-version i {
+  color: var(--on-fill-text-mute);
+  font-size: 0.875rem;
+}
+
+.footer-copyright .footer-version {
+  margin-left: auto;
+}
+
+/* Breakpoints */
+@media (max-width: 1199px) {
+  .footer-brand {
+    grid-column: 1 / -1;
+    text-align: left;
+  }
+
+  .footer-tagline {
+    text-align: left;
+  }
+}
+
 @media (max-width: 991px) {
   .footer-main-new {
     grid-template-columns: 1fr 1fr;
     gap: 40px;
   }
 
-  .footer-brand {
-    grid-column: 1 / -1;
-    max-width: 100%;
-    text-align: left;
-  }
-
+  .footer-brand,
   .footer-tagline {
-    text-align: left;
+    max-width: 100%;
+  }
+}
+
+/* Phones: 44px tall link rows for touch. */
+@media (max-width: 599px) {
+  .footer-links-new a {
+    min-height: 44px;
   }
 }
 
@@ -205,37 +216,28 @@ ter Columns */
   }
 
   .footer-column {
-    text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
-  }
-
-  .footer-links-new a {
-    justify-content: center;
+    text-align: center;
   }
 
   .footer-cost {
     margin: 0 auto;
   }
 
+  .footer-bottom-new {
+    text-align: center;
+  }
+
   .footer-copyright {
     flex-direction: column;
-    gap: 4px;
     align-items: center;
+    gap: 4px;
     text-align: center;
   }
 
   .footer-copyright .footer-version {
     margin-left: 0;
   }
-
-  .footer-bottom-new {
-    text-align: center;
-  }
-}
-
-/* Inline link in the copyright text: underlined so it is not told apart by colour alone. */
-.footer-copyright-disclaimer a {
-  text-decoration: underline;
 }

@@ -13,11 +13,10 @@ import '@/styles/icons.css';
 import '@/styles/tokens.css';
 import '@/styles/base.css';
 import '@/styles/components.css';
-import '@/styles/style.css';
-import '@/styles/responsive.css';
 import '@/styles/header.css';
-import '@/styles/accessibility.css';
 import '@/styles/footer.css';
+import '@/styles/a11y.css';
+import '@/styles/print.css';
 import '@/styles/site.css';
 import '@/styles/theme.css';
 
@@ -80,7 +79,7 @@ export const metadata: Metadata = {
 };
 
 // Runs before first paint. A Filipino visitor would otherwise see the English static HTML until React
-// hydrates, so hide the page (style.css) until LanguageProvider has switched. Same lookup as the
+// hydrates, so hide the page (base.css) until LanguageProvider has switched. Same lookup as the
 // provider; the timeout is a safety net so a failed hydration can never leave the page hidden.
 const LANG_GATE = `try{var s=localStorage.getItem('selectedLang'),b=navigator.language.split('-')[0].toLowerCase(),l=s==='en'||s==='fil'?s:(b==='fil'||b==='tl'?'fil':'en');if(l!=='en'){var d=document.documentElement;d.setAttribute('data-lang-pending',l);setTimeout(function(){d.removeAttribute('data-lang-pending')},3000)}}catch(e){}`;
 
