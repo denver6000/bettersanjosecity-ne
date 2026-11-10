@@ -10,6 +10,10 @@ import { SITE } from '@/config/site';
 
 // BetterSolano design system (order matters), then San Jose additions.
 import '@/styles/icons.css';
+import '@/styles/tokens.css';
+import '@/styles/base.css';
+import '@/styles/header.css';
+import '@/styles/components.css';
 import '@/styles/style.css';
 import '@/styles/responsive.css';
 import '@/styles/accessibility.css';

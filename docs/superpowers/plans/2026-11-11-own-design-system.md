@@ -39,10 +39,12 @@ it commits. Once every area is done, the upstream files are empty and get delete
 ### Task 1: Screenshot harness and baseline
 
 **Files:**
+
 - Create: `scripts/shots.mjs` (CLI), `scripts/lib/shots.mjs` (helpers), `scripts/lib/shots.test.mjs`
 - Modify: `.gitignore` (add `.shots/`), `package.json` (scripts `shots:capture`, `shots:compare`)
 
 **Interfaces:**
+
 - Produces: `npm run shots:capture -- <name>` builds nothing; it serves the existing `out/` on 127.0.0.1 and writes `.shots/<name>/<id>.png` for every capture in the matrix. `npm run shots:compare -- baseline <name>` prints one line per differing capture, `<id> <pixels>`, then `DIFF 0` or `DIFF <n captures>`, writes `.shots/diff/<id>.png` highlighting changed pixels, and exits 1 when n > 0.
 - `scripts/lib/shots.mjs` exports:
   - `routes(outDir: string): string[]`: every `index.html` under `out/` as a URL path (`/`, `/services/`, …), plus `/404.html`. Skips `_next`, `api`, `assets`.
@@ -65,6 +67,7 @@ it commits. Once every area is done, the upstream files are empty and get delete
   - Wait for `document.fonts.ready` plus 3.5 s (past the 3 s `HERO_GATE` and `LANG_GATE` fallbacks in `layout.tsx`), then take a full-page `Page.captureScreenshot` with `captureBeyondViewport: true`.
 
   `compare` decodes both PNGs in the same headless browser (load them as images on a canvas, read `getImageData`), runs `countDiff`, and paints differing pixels red for `.shots/diff/`. Clean up the browser by pid and the server on exit.
+
 - [ ] **Step 6: Capture the baseline.** Run `npm run build`, then `npm run shots:capture -- baseline`. Expected: one PNG per matrix entry. Look at five of them (home light 1280, home dark 375, services print, home menu-open, home fil 375): each must show a real, styled page.
 - [ ] **Step 7: Check that the harness can go green and red.**
   - Run `npm run shots:capture -- check` then `npm run shots:compare -- baseline check`. Expected: `DIFF 0`. If it isn't 0, the capture is not deterministic; fix that before going on.
@@ -74,10 +77,12 @@ it commits. Once every area is done, the upstream files are empty and get delete
 ### Task 2: Tokens and base styles
 
 **Files:**
+
 - Create: `src/styles/tokens.css`, `src/styles/base.css`, `scripts/check-css-colors.mjs`
 - Modify: `src/styles/style.css` (cut rules), `src/app/layout.tsx:11-18` (imports), `package.json` (`check` runs `check-css-colors.mjs`)
 
 **Interfaces:**
+
 - Produces: `tokens.css` holds the light `:root` custom properties now at the top of `style.css`, under the same names. `base.css` holds the reset, `html`/`body`, headings, paragraphs, links, images, `.container`, `.skip-link`, `.sr-only` and other utility classes.
 - Import order in `layout.tsx` from this task on: `icons.css`, `tokens.css`, `base.css`, `header.css`, `components.css`, (what's left of) `style.css`, `responsive.css`, `accessibility.css`, `footer.css`, `site.css`, `theme.css`. Create `header.css` and `components.css` as empty files in this task so the import list is fixed from here on.
 - `scripts/check-css-colors.mjs`: fails with `check-css-colors: <file>:<line> has a literal colour` for any `#hex`, `rgb(`, `rgba(`, `hsl(` in `base.css`, `header.css`, `components.css`, `footer.css`, `a11y.css`, `print.css`. Missing files are skipped.
@@ -91,10 +96,12 @@ it commits. Once every area is done, the upstream files are empty and get delete
 ### Task 3: Header, top strip and navigation
 
 **Files:**
+
 - Create content in: `src/styles/header.css`
 - Modify: `src/styles/style.css`, `src/styles/responsive.css` (cut the header, top strip, nav, language switcher and mobile-menu rules, including their media-query parts)
 
 Steps:
+
 - [ ] **Step 1:** Write `header.css` fresh, with its breakpoints inside the file, and cut the old rules.
 - [ ] **Step 2:** Rebuild, capture `t3` and compare. Expected: `DIFF 0`. The `menu-open`, `focus` and `fil` captures must be among the passes.
 - [ ] **Step 3:** Run `npm run check`. Expected: exit 0.
@@ -103,10 +110,12 @@ Steps:
 ### Task 4: Shared components
 
 **Files:**
+
 - Create content in: `src/styles/components.css`
 - Modify: `src/styles/style.css`, `src/styles/responsive.css` (cut buttons, cards, grids, sections, page headers, breadcrumbs, forms, tables, badges, alerts and their media-query parts)
 
 Steps:
+
 - [ ] **Step 1:** Write `components.css` fresh and cut the old rules. Expected afterwards: `style.css` is empty apart from comments. Run `grep -c "{" src/styles/style.css` and expect `0`. Any rule still left belongs in `base.css` or `components.css`.
 - [ ] **Step 2:** Rebuild, capture `t4` and compare. Expected: `DIFF 0`.
 - [ ] **Step 3:** Run `npm run check`. Expected: exit 0.
@@ -115,12 +124,14 @@ Steps:
 ### Task 5: Footer, accessibility and print
 
 **Files:**
+
 - Rewrite from scratch: `src/styles/footer.css` (delete all old content first)
 - Create: `src/styles/a11y.css`, `src/styles/print.css`
 - Delete: `src/styles/accessibility.css`, `src/styles/responsive.css`, `src/styles/style.css`
 - Modify: `src/app/layout.tsx` imports. Final order: `icons`, `tokens`, `base`, `header`, `components`, `footer`, `a11y`, `print`, `site`, `theme`.
 
 Steps:
+
 - [ ] **Step 1:** Write `footer.css`, `a11y.css` (focus, reduced motion, `prefers-contrast: high`) and `print.css` (the `@media print` behaviour: hide header, footer, menu toggle, language selector, skip link and buttons; flatten cards). Drop `body.high-contrast`, `body.font-large` and `body.font-xlarge`.
 - [ ] **Step 2:** Delete the three upstream files. Run `grep -rn "style.css\|responsive.css\|accessibility.css" src`. Expected: no matches.
 - [ ] **Step 3:** Rebuild, capture `t5` and compare. Expected: `DIFF 0`, including the print captures.
@@ -130,9 +141,11 @@ Steps:
 ### Task 6: Credits and final check
 
 **Files:**
+
 - Modify: `README.md:7` (drop the BetterSolano design-system sentence), `README.md:130` (describe `src/styles/` as our own stylesheets), `src/app/layout.tsx:11` comment, `src/styles/site.css:1-4` header comment
 
 Steps:
+
 - [ ] **Step 1:** Edit the four places. Then run `grep -rn -i "bettersolano" README.md src`. Expected: no matches.
 - [ ] **Step 2:** Run the full capture `final` and compare with the baseline. Expected: `DIFF 0`. Otherwise list every differing id with `.shots/baseline/<id>.png`, `.shots/final/<id>.png` and `.shots/diff/<id>.png` for the user.
 - [ ] **Step 3:** By-eye check with the network on. Run `npm run dev`, open home and business-taxes at 1280 and 375. Weather, news, map and estimator must look like the live site.

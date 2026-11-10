@@ -1,0 +1,155 @@
+/* Base: reset, type, links, page frame and helpers shared by every page. */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--color-cream);
+  color: var(--color-text);
+  font-family: var(--font-main);
+  line-height: var(--line-height-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Kept hidden until the saved language is applied (LANG_GATE in app/layout.tsx). */
+html[data-lang-pending] body {
+  visibility: hidden;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+ul {
+  list-style: none;
+}
+
+/* Type */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-bottom: var(--spacing-sm);
+  color: var(--c-head, var(--color-primary));
+  font-family: var(--font-display), Georgia, serif;
+  font-weight: 700;
+  line-height: var(--line-height-heading);
+  letter-spacing: -0.02em;
+}
+
+h1 {
+  font-size: 2.5rem;
+}
+
+h2 {
+  color: var(--c-head, var(--color-text));
+  font-size: 2rem;
+}
+
+h3 {
+  color: var(--c-head, var(--color-text));
+  font-size: 1.5rem;
+}
+
+h4 {
+  font-size: 1.25rem;
+}
+
+p {
+  margin-bottom: var(--spacing-sm);
+}
+
+.lead {
+  color: var(--color-text-light);
+  font-size: 1.125rem;
+}
+
+/* Links */
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--color-primary-dark);
+  text-decoration: underline;
+}
+
+/* Page frame */
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--spacing-md);
+}
+
+.section {
+  padding: var(--spacing-xl) 0;
+}
+
+@media (min-width: 768px) {
+  .section {
+    padding: 64px 0;
+  }
+}
+
+.grid {
+  display: grid;
+  gap: var(--spacing-md);
+}
+
+/* Helpers */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.skip-link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1001;
+  padding: 8px 16px;
+  background: var(--fill-strip);
+  color: var(--color-white);
+  /* Its own height plus room for the focus outline, so nothing peeks out until focused. */
+  transform: translateY(calc(-100% - 8px));
+  transition: transform 0.2s;
+}
+
+.skip-link:focus,
+.skip-link:focus-visible {
+  transform: none;
+  border-radius: 0;
+  background-color: var(--fill-strip);
+  outline: 2px solid var(--color-white);
+  outline-offset: -4px;
+  text-decoration: none;
+}
+
+/* Focus */
+:focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+a:focus-visible {
+  border-radius: 2px;
+  background-color: var(--focus-tint);
+  text-decoration: none;
+}

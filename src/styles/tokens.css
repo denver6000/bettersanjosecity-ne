@@ -1,0 +1,54 @@
+/*
+ * Better San Jose design tokens (light). The dark values live in theme.css.
+ * Every other shared stylesheet reads colours from here, never as literals
+ * (scripts/check-css-colors.mjs).
+ */
+:root {
+  /* Brand: the logo's navy, sun gold and leaf green */
+  --color-navy: #0a2f86;
+  --color-navy-dark: #071f5c;
+  --color-navy-tint: #eef2fa;
+  --color-steel: #4f6fb3;
+  --color-gold: #f2b100;
+  --color-gold-text: #b88200;
+  --color-live: #16722b;
+
+  /* Neutrals */
+  --color-white: #ffffff;
+  --color-cream: #faf7f0;
+  --color-line: #e7e3d8;
+  --color-ink: #141b2d;
+  --color-mute: #636b7d;
+
+  /* Status */
+  --color-success: #06a77d;
+  --color-danger: #d62828;
+  --color-info: #0077be;
+
+  /* Roles */
+  --color-primary: var(--color-navy);
+  --color-primary-dark: var(--color-navy-dark);
+  --color-secondary: var(--color-navy-dark);
+  --color-accent: var(--color-gold);
+  --color-bg: var(--color-white);
+  --color-bg-alt: var(--color-cream);
+  --color-text: var(--color-ink);
+  --color-text-light: var(--color-mute);
+  --focus-tint: rgba(10, 47, 134, 0.1);
+
+  /* Type */
+  --font-main: var(--font-inter), 'Inter', sans-serif;
+  --line-height-body: 1.6;
+  --line-height-heading: 1.2;
+
+  /* Space and shape */
+  --spacing-xs: 8px;
+  --spacing-sm: 16px;
+  --spacing-md: 24px;
+  --spacing-lg: 32px;
+  --spacing-xl: 48px;
+  --max-width: 1200px;
+  --border-radius: 8px;
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
