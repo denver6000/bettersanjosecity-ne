@@ -145,7 +145,6 @@ export default function HeroScene() {
   // The date is unknown until after hydration, so no occasion is chosen on the neutral first render.
   const [date, setDate] = useState<DateParts | null>(null);
   const [occOverride, setOccOverride] = useState<ReturnType<typeof parseOccasionOverride>>({});
-  const [devPin, setDevPin] = useState(false);
   const [seasonReady, setSeasonReady] = useState<string | null>(null);
 
   // The farming season changes the paddies (and, in planting, the foreground). The variant is shown
@@ -189,8 +188,6 @@ export default function HeroScene() {
     setOverride(o);
     const oo = parseOccasionOverride(window.location.search);
     setOccOverride(oo);
-    if (process.env.NODE_ENV !== 'production')
-      setDevPin(new URLSearchParams(window.location.search).get('on') === 'test-pin');
     const tick = () => {
       const m = manilaNow();
       setHour(o.hour ?? m.hour);
@@ -245,10 +242,9 @@ export default function HeroScene() {
   const shownHour = lapseHour ?? hour;
   const weather: Weather = override.weather ?? weatherKind(forecast?.code);
 
-  // Which occasion is drawn: a dev fixture, an override, or the calendar for San Jose's date.
-  const active: { id: ActiveId; tone: Tone } | null = devPin
-    ? { id: 'test-pin', tone: 'celebrate' }
-    : occOverride.occasion === 'none'
+  // Which occasion is drawn: an override, or the calendar for San Jose's date.
+  const active: { id: ActiveId; tone: Tone } | null =
+    occOverride.occasion === 'none'
       ? null
       : occOverride.occasion
         ? {
@@ -461,10 +457,9 @@ export default function HeroScene() {
 
   const baseLabel =
     'Illustrated rice fields of San Jose City that follow the real time and weather';
-  const sceneLabel =
-    active && active.id !== 'test-pin'
-      ? t(OCCASION_ALT_KEYS[active.id], baseLabel)
-      : t('hero-scene-alt', baseLabel);
+  const sceneLabel = active
+    ? t(OCCASION_ALT_KEYS[active.id], baseLabel)
+    : t('hero-scene-alt', baseLabel);
 
   const occCtx: Omit<OccasionContext, 'tSec' | 'manifest' | 'assetBase'> = {
     night,

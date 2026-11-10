@@ -201,3 +201,11 @@ The work is large and splits cleanly, so there are two plans in this order:
 - San Jose time, not the visitor's.
 - Two plans, engine first.
 - Fixed daylight hours instead of sunrise and sunset data.
+
+## Build outcome (2026-11-10, end of the occasions plan)
+
+- **Art approach.** Only the season paddies (planting, harvest) are ChatGPT art. Every occasion prop (parols, lights, fireworks, the flag and pole, bunting, banderitas, banner post, lilies, cross, palaspas, candles, chrysanthemums, carabao, farmer, cart, sheaves, baskets) is drawn in code in the scene's flat style and anchored to named landmarks. The planned shared ChatGPT sheets were dropped: code drawing was proven, avoids the frozen-download risk and keeps one palette. Painted props can replace any of them later without changing the modules.
+- **Harvest recolour finding.** Recolouring the green paddies to gold in code was tried and rejected (the hut turns pink, the golden patches turn red), which is why harvest and planting are separate art.
+- **Flag (RA 8491).** One implementation, `occasions/flag.tsx`, used on Independence Day and Araw ng Kagitingan. It must be checked against RA 8491 by the user before launch. It never appears as bunting, a banner or in fireworks.
+- **Date status.** Confirmed by law or fixed calendar: Christmas, New Year, Independence Day (10 to 12 Jun, raise at 8:00 on the 12th), Araw ng Kagitingan (9 Apr), Holy Week (computed from Easter), Undas (31 Oct to 2 Nov), Labor Day (1 May). **Unconfirmed, to check with the city government:** Araw ng San Jose City (default 10 Aug; charter date 4 Aug), Pagibang Damara (default 8 to 21 Apr), Fiesta of St. Joseph (default 19 Mar), and the planting and harvest season windows.
+- **Dev fixture removed.** `test-pin` and its `?on=test-pin` handling are gone; `?on=<id>`, `?season=`, `?date=` and `?sky=` remain for review.

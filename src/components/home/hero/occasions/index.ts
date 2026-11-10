@@ -27,7 +27,6 @@ const LOADERS: Partial<Record<ActiveId, () => Promise<{ default: OccasionModule 
   'st-joseph': () => import('./st-joseph'),
   'pagibang-damara': () => import('./pagibang-damara'),
   'labor-day': () => import('./labor-day'),
-  ...(process.env.NODE_ENV !== 'production' ? { 'test-pin': () => import('./test-pin') } : {}),
 };
 
 export interface LoadedOccasion {

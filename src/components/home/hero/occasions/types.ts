@@ -36,8 +36,8 @@ export interface OccasionContext {
   assetBase: string;
 }
 
-/** `test-pin` is a development-only fixture; real occasions use an OccasionId. */
-export type ActiveId = OccasionId | 'test-pin';
+/** The occasion drawn on the scene. */
+export type ActiveId = OccasionId;
 
 export interface OccasionModule {
   id: ActiveId;
