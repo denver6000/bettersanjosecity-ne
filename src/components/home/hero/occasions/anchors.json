@@ -1,0 +1,16 @@
+{
+  "hutRoofPeak": [1290, 487],
+  "hutEaveLeft": [1197, 566],
+  "hutEaveRight": [1475, 566],
+  "hutWindow": [1390, 577],
+  "hutSteps": [1310, 640],
+  "palmBigCrown": [1450, 180],
+  "palmSmallCrown": [1295, 330],
+  "palmBigBase": [1530, 540],
+  "dikeFlagpole": [1100, 640],
+  "ridgeCross": [1150, 408],
+  "paddyMidLeft": [560, 725],
+  "dikeLineStart": [300, 700],
+  "dikeLineEnd": [1100, 700],
+  "foregroundEdge": [800, 840]
+}
