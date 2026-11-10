@@ -981,3 +981,163 @@
     display: none;
   }
 }
+
+/* ===== Barangay map ===== */
+.bm {
+  padding: 16px;
+}
+
+.bm-bar {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 12px;
+}
+
+.bm-find {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: var(--color-mute);
+}
+
+.bm-find select {
+  min-width: 220px;
+  padding: 8px 10px;
+  font: inherit;
+  color: var(--color-ink);
+  background: var(--surface);
+  border: 1px solid var(--color-line);
+  border-radius: 10px;
+}
+
+.bm-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: var(--color-bg-alt);
+  border-radius: 12px;
+  touch-action: manipulation;
+}
+
+.bm-shape {
+  cursor: pointer;
+  stroke: var(--surface);
+  stroke-width: 1.5px;
+  vector-effect: non-scaling-stroke;
+  outline: none;
+}
+
+.bm-shape[data-tone='0'] {
+  fill: color-mix(in srgb, var(--color-navy) 8%, var(--surface));
+}
+.bm-shape[data-tone='1'] {
+  fill: color-mix(in srgb, var(--color-navy) 14%, var(--surface));
+}
+.bm-shape[data-tone='2'] {
+  fill: color-mix(in srgb, var(--color-navy) 20%, var(--surface));
+}
+.bm-shape[data-tone='3'] {
+  fill: color-mix(in srgb, var(--color-navy) 26%, var(--surface));
+}
+.bm-shape[data-tone='4'] {
+  fill: color-mix(in srgb, var(--color-navy) 32%, var(--surface));
+}
+
+.bm-shape:hover {
+  fill: color-mix(in srgb, var(--color-navy) 45%, var(--surface));
+}
+
+.bm-shape:focus-visible {
+  stroke: var(--color-navy);
+  stroke-width: 3px;
+}
+
+.bm-shape[aria-pressed='true'] {
+  fill: var(--color-gold, #f2b100);
+}
+
+.bm-label {
+  fill: var(--color-ink);
+  font-weight: 600;
+  paint-order: stroke;
+  stroke: var(--surface);
+  stroke-width: 3px;
+  stroke-linejoin: round;
+  pointer-events: none;
+}
+
+.bm-card {
+  margin-top: 12px;
+  padding: 14px;
+  border: 1px solid var(--color-line);
+  border-radius: 12px;
+}
+
+.bm-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.bm-card-head h3 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.bm-back {
+  padding: 6px 12px;
+  font: inherit;
+  font-size: 13px;
+  color: var(--color-navy);
+  background: transparent;
+  border: 1px solid var(--color-line);
+  border-radius: 99px;
+  cursor: pointer;
+}
+
+.bm-tiles {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.bm-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 10px;
+  font-size: 13px;
+  color: var(--color-mute);
+  border: 1px dashed var(--color-line);
+  border-radius: 10px;
+}
+
+.bm-note {
+  margin: 12px 0 0;
+  font-size: 12px;
+  color: var(--color-mute);
+}
+
+@media (max-width: 640px) {
+  .bm {
+    padding: 12px;
+  }
+  .bm-bar {
+    justify-content: stretch;
+  }
+  .bm-find,
+  .bm-find select {
+    width: 100%;
+  }
+  .bm-find {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .bm-tiles {
+    grid-template-columns: 1fr;
+  }
+}
