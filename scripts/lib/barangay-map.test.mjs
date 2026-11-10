@@ -77,6 +77,16 @@ test('maxDriftMeters is zero for identical lines and about 111 m for a 0.001 deg
   assert.ok(d > 110 && d < 113, `got ${d}`);
 });
 
+test('maxDriftMeters sees a cut corner even though every smoothed point lies on the original line', () => {
+  const corner = [
+    [121, 15.8],
+    [121.01, 15.8],
+    [121.01, 15.81],
+  ];
+  const d = maxDriftMeters(corner, chaikin(corner, 1));
+  assert.ok(d > 50, `got ${d}`);
+});
+
 test('ringToPoints reverses a negative arc index', () => {
   const arcs = [
     [

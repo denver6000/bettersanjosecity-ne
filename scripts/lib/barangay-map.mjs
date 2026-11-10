@@ -60,19 +60,27 @@ function distToSegment(p, a, b) {
   return Math.hypot(p[0] - (a[0] + k * dx), p[1] - (a[1] + k * dy));
 }
 
-/** Largest distance in metres from a smoothed point to the original polyline. */
+function maxDistTo(points, line) {
+  let worst = 0;
+  for (const p of points) {
+    let best = Infinity;
+    for (let i = 0; i < line.length - 1; i++)
+      best = Math.min(best, distToSegment(p, line[i], line[i + 1]));
+    worst = Math.max(worst, best);
+  }
+  return worst;
+}
+
+/**
+ * Largest gap in metres between the two lines, measured both ways: smoothed points to the
+ * original line and original points to the smoothed line (a cut corner only shows in the second).
+ */
 export function maxDriftMeters(original, smoothed) {
   const lat0 = original.reduce((s, p) => s + p[1], 0) / original.length;
   const project = projector(lat0, original[0][0]);
   const o = original.map(project);
-  let worst = 0;
-  for (const p of smoothed.map(project)) {
-    let best = Infinity;
-    for (let i = 0; i < o.length - 1; i++) best = Math.min(best, distToSegment(p, o[i], o[i + 1]));
-    if (o.length === 1) best = Math.hypot(p[0] - o[0][0], p[1] - o[0][1]);
-    worst = Math.max(worst, best);
-  }
-  return worst;
+  const s = smoothed.map(project);
+  return Math.max(maxDistTo(s, o), maxDistTo(o, s));
 }
 
 /** Joins a ring's arcs in order; a negative index `i` is arc `~i` reversed. */
