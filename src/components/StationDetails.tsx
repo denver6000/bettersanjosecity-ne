@@ -8,7 +8,8 @@ const TYPES: Record<string, string> = { WEATHERSTATION: 'Automatic weather stati
 
 /** Everything KloudTrack tells us about the station itself, under the map. */
 export default function StationDetails() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  const locale = language === 'fil' ? 'fil-PH' : 'en-PH';
   const tr = (s: string) =>
     t(
       `sd-${s
@@ -52,11 +53,11 @@ export default function StationDetails() {
   ]);
   // KloudTrack reports 0 when the elevation hasn't been set.
   if (station?.elevation_m) rows.push(['Elevation', `${Math.round(station.elevation_m)} m`]);
-  if (station?.active_since) rows.push(['Active since', manilaDate(station.active_since)]);
+  if (station?.active_since) rows.push(['Active since', manilaDate(station.active_since, locale)]);
   if (r?.recorded_at) {
     rows.push([
       'Latest reading',
-      `${manilaDate(r.recorded_at)}, ${manilaTime(r.recorded_at)}${r.id ? ` (#${r.id})` : ''}`,
+      `${manilaDate(r.recorded_at, locale)}, ${manilaTime(r.recorded_at, locale)}${r.id ? ` (#${r.id})` : ''}`,
     ]);
   }
   rows.push([

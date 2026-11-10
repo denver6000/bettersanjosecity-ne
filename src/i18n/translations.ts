@@ -682,7 +682,7 @@ export const translations: Record<Language, Record<string, string>> = {
     'home-all-services': 'Lahat ng serbisyo',
     'home-scholar-title': 'Tingnan ang iyong scholarship',
     'home-scholar-lede':
-      'Para sa city scholars: tingnan ang status ng payout at kulang na requirements.',
+      'Para sa mga scholar ng lungsod: tingnan ang status ng payout at mga kulang na requirement.',
     'home-scholar-details': 'Detalye ng programa',
     'home-scholar-check': 'Tingnan',
     'scholar-crumb': 'Scholarship',

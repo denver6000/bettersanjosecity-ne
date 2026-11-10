@@ -170,8 +170,8 @@ export function timeAgo(iso: string, now = Date.now()) {
   return h < 24 ? `${h} hr ago` : `${Math.floor(h / 24)} day${h >= 48 ? 's' : ''} ago`;
 }
 
-export function manilaDate(iso: string) {
-  return new Intl.DateTimeFormat('en-PH', {
+export function manilaDate(iso: string, locale = 'en-PH') {
+  return new Intl.DateTimeFormat(locale, {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
@@ -179,8 +179,8 @@ export function manilaDate(iso: string) {
   }).format(new Date(iso));
 }
 
-export function manilaTime(iso: string) {
-  return new Intl.DateTimeFormat('en-PH', {
+export function manilaTime(iso: string, locale = 'en-PH') {
+  return new Intl.DateTimeFormat(locale, {
     hour: 'numeric',
     minute: '2-digit',
     timeZone: 'Asia/Manila',
