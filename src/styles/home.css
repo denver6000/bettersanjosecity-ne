@@ -267,17 +267,17 @@ html[data-hero-pending] .hero-scene {
 .home-sec .home-finder-sentence {
   font-family: var(--font-display), Georgia, serif;
   font-weight: 700;
-  font-size: 56px;
+  font-size: 38px;
   line-height: 1.1;
   letter-spacing: -0.02em;
-  margin-bottom: 28px;
+  margin-bottom: 18px;
 }
 
 .home-finder-blank {
   display: inline-block;
   min-width: 6ch;
   padding: 0 4px;
-  border-bottom: 4px solid var(--color-gold);
+  border-bottom: 3px solid var(--color-gold);
   color: var(--color-ink);
   letter-spacing: -0.01em;
 }
@@ -291,10 +291,10 @@ html[data-hero-pending] .hero-scene {
 .home-finder-pill {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 10px 16px;
+  gap: 6px;
+  padding: 7px 13px;
   font: inherit;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 600;
   color: var(--c-head, var(--color-navy));
   background: var(--surface);
@@ -304,7 +304,7 @@ html[data-hero-pending] .hero-scene {
 }
 
 .home-finder-pill i {
-  font-size: 20px;
+  font-size: 18px;
 }
 
 .home-finder-pill:hover {
@@ -324,24 +324,24 @@ html[data-hero-pending] .hero-scene {
 }
 
 .home-finder-result {
-  margin-top: 24px;
-  min-height: 96px;
+  margin-top: 18px;
+  min-height: 76px;
 }
 
 .home-finder-card {
   display: flex;
   align-items: center;
-  gap: 20px;
-  padding: 20px 24px;
+  gap: 16px;
+  padding: 14px 18px;
 }
 
 .home-finder-icon {
   flex: none;
   display: grid;
   place-items: center;
-  width: 56px;
-  height: 56px;
-  font-size: 30px;
+  width: 44px;
+  height: 44px;
+  font-size: 24px;
   color: var(--color-navy);
   background: var(--color-navy-tint);
   border-radius: 50%;
@@ -353,7 +353,7 @@ html[data-hero-pending] .hero-scene {
 }
 
 .home-finder-title {
-  font-size: 22px;
+  font-size: 18px;
   font-weight: 700;
   color: var(--c-head, var(--color-navy));
 }
@@ -390,7 +390,7 @@ html[data-hero-pending] .hero-scene {
 
 @media (max-width: 899px) {
   .home-sec .home-finder-sentence {
-    font-size: 34px;
+    font-size: 28px;
   }
 
   .home-finder-card {
@@ -1079,6 +1079,15 @@ html[data-hero-pending] .hero-scene {
 }
 
 /* ===== Barangay map ===== */
+.home-brgy {
+  max-width: 720px;
+  margin-inline: auto;
+}
+
+.home-sec .home-brgy h2 {
+  font-size: 26px;
+}
+
 .bm {
   --bm-t0: 8%;
   --bm-t1: 14%;

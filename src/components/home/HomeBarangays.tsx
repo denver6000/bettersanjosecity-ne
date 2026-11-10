@@ -4,7 +4,7 @@ import BarangayMap from '@/components/BarangayMap';
 export default function HomeBarangays() {
   return (
     <section className="home-sec">
-      <div className="container">
+      <div className="container home-brgy">
         <div className="home-sec-head" data-reveal>
           <h2>
             <T k="home-barangays-title">Explore your barangay</T>
