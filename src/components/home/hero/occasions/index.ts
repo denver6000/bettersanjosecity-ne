@@ -20,6 +20,9 @@ const LOADERS: Partial<Record<ActiveId, () => Promise<{ default: OccasionModule 
   christmas: () => import('./christmas'),
   'new-year': () => import('./new-year'),
   independence: () => import('./independence'),
+  kagitingan: () => import('./kagitingan'),
+  'holy-week': () => import('./holy-week'),
+  undas: () => import('./undas'),
   ...(process.env.NODE_ENV !== 'production' ? { 'test-pin': () => import('./test-pin') } : {}),
 };
 
