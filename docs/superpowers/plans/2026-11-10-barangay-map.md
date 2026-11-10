@@ -119,7 +119,7 @@ git commit -m "feat: build smoothed barangay shapes from PSGC boundaries"
   - Footer paragraph with `bm-note`.
 - [ ] **Step 2: Add CSS** in `home.css`: `.bm-svg` (width 100%, aspect ratio matching the city bbox, `background: var(--surface)`), `.bm-shape` fills via `color-mix(in srgb, var(--color-navy) N%, var(--surface))` for `data-tone` 0 to 4 with N = 8, 14, 20, 26, 32; stroke `var(--surface)` 1.5px; hover darkens; selected uses `var(--color-gold)` fill; `:focus-visible` outline 2px `var(--color-navy)`; label text `var(--color-ink)`; tiles reuse the dashed style of the existing coming-soon tiles; mobile stacks the card under the map. No gradients.
 - [ ] **Step 3: Add the translation keys** to both language blocks in `translations.ts`, 4-space key indent like the file's existing keys.
-- [ ] **Step 4: Run** `npm run typecheck && npm run check:i18n` is not a script; run `node scripts/check-i18n.mjs && npm run typecheck && npm run format:check`. Expected: i18n OK with equal key counts, typecheck clean, format clean (run `npx prettier --write` on the touched files first if needed).
+- [ ] **Step 4: Run** `node scripts/check-i18n.mjs && npm run typecheck && npm run format:check`. Expected: i18n OK with equal key counts, typecheck clean, format clean (run `npx prettier --write` on the touched files first if needed).
 - [ ] **Step 5: Commit**
 
 ```bash
