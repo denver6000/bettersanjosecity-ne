@@ -984,7 +984,33 @@
 
 /* ===== Barangay map ===== */
 .bm {
+  --bm-t0: 8%;
+  --bm-t1: 14%;
+  --bm-t2: 20%;
+  --bm-t3: 26%;
+  --bm-t4: 32%;
+  --bm-hover: 45%;
   padding: 16px;
+}
+
+:root[data-theme='dark'] .bm {
+  --bm-t0: 20%;
+  --bm-t1: 28%;
+  --bm-t2: 36%;
+  --bm-t3: 44%;
+  --bm-t4: 52%;
+  --bm-hover: 72%;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .bm {
+    --bm-t0: 20%;
+    --bm-t1: 28%;
+    --bm-t2: 36%;
+    --bm-t3: 44%;
+    --bm-t4: 52%;
+    --bm-hover: 72%;
+  }
 }
 
 .bm-bar {
@@ -1029,23 +1055,23 @@
 }
 
 .bm-shape[data-tone='0'] {
-  fill: color-mix(in srgb, var(--color-navy) 8%, var(--surface));
+  fill: color-mix(in srgb, var(--color-navy) var(--bm-t0), var(--surface));
 }
 .bm-shape[data-tone='1'] {
-  fill: color-mix(in srgb, var(--color-navy) 14%, var(--surface));
+  fill: color-mix(in srgb, var(--color-navy) var(--bm-t1), var(--surface));
 }
 .bm-shape[data-tone='2'] {
-  fill: color-mix(in srgb, var(--color-navy) 20%, var(--surface));
+  fill: color-mix(in srgb, var(--color-navy) var(--bm-t2), var(--surface));
 }
 .bm-shape[data-tone='3'] {
-  fill: color-mix(in srgb, var(--color-navy) 26%, var(--surface));
+  fill: color-mix(in srgb, var(--color-navy) var(--bm-t3), var(--surface));
 }
 .bm-shape[data-tone='4'] {
-  fill: color-mix(in srgb, var(--color-navy) 32%, var(--surface));
+  fill: color-mix(in srgb, var(--color-navy) var(--bm-t4), var(--surface));
 }
 
 .bm-shape:hover {
-  fill: color-mix(in srgb, var(--color-navy) 45%, var(--surface));
+  fill: color-mix(in srgb, var(--color-navy) var(--bm-hover), var(--surface));
 }
 
 .bm-shape:focus-visible {

@@ -118,7 +118,7 @@ export default function BarangayMap() {
             x={b.centroid[0]}
             y={b.centroid[1]}
             textAnchor="middle"
-            fontSize={targetW * 0.028}
+            fontSize={targetW * 0.04}
           >
             {b.name}
           </text>
