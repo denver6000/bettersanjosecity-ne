@@ -3,6 +3,8 @@
 import { useEffect, useState } from 'react';
 import { LGU_LABEL, SITE } from '@/config/site';
 import { useLanguage } from '@/i18n/LanguageContext';
+import type { Forecast } from '@/lib/forecast';
+import { useForecast } from '@/lib/use-forecast';
 import {
   compass,
   heatIndexLevel,
@@ -12,28 +14,6 @@ import {
   uvLevel,
   type StationReading,
 } from '@/lib/station';
-
-const CACHE_KEY = 'lgu_weather_cache_v2';
-const CACHE_TTL = 30 * 60 * 1000;
-
-const CODES: Record<number, { condition: string; icon: string }> = {
-  0: { condition: 'Clear sky', icon: 'ph-sun' },
-  1: { condition: 'Mainly clear', icon: 'ph-cloud-sun' },
-  2: { condition: 'Partly cloudy', icon: 'ph-cloud-sun' },
-  3: { condition: 'Overcast', icon: 'ph-cloud' },
-  45: { condition: 'Foggy', icon: 'ph-cloud-fog' },
-  48: { condition: 'Depositing rime fog', icon: 'ph-cloud-fog' },
-  51: { condition: 'Light drizzle', icon: 'ph-cloud-rain' },
-  53: { condition: 'Moderate drizzle', icon: 'ph-cloud-rain' },
-  55: { condition: 'Dense drizzle', icon: 'ph-cloud-rain' },
-  61: { condition: 'Slight rain', icon: 'ph-cloud-rain' },
-  63: { condition: 'Moderate rain', icon: 'ph-cloud-rain' },
-  65: { condition: 'Heavy rain', icon: 'ph-cloud-rain' },
-  80: { condition: 'Rain showers', icon: 'ph-cloud-rain' },
-  95: { condition: 'Thunderstorm', icon: 'ph-cloud-lightning' },
-};
-const mapCode = (code: number) =>
-  CODES[code] ?? { condition: 'Partly cloudy', icon: 'ph-cloud-sun' };
 
 const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-');
 
@@ -50,98 +30,6 @@ function ago(iso: string, now: number, t: Tr) {
   return d === 1
     ? t('wx-ago-day', '{n} day ago').replace('{n}', '1')
     : t('wx-ago-days', '{n} days ago').replace('{n}', String(d));
-}
-
-/** Open-Meteo model data: the sky condition and hourly forecast the station can't give. */
-interface Forecast {
-  temperature: number;
-  humidity: number;
-  windSpeed: number;
-  condition: string;
-  icon: string;
-  hourly: { time: string; icon: string; temperature: number }[];
-}
-
-function readCache(): Forecast | null {
-  try {
-    const entry = JSON.parse(localStorage.getItem(CACHE_KEY) ?? 'null');
-    return entry && Date.now() < entry.expiresAt && entry.data?.hourly ? entry.data : null;
-  } catch {
-    return null;
-  }
-}
-
-function writeCache(data: Forecast) {
-  try {
-    localStorage.setItem(CACHE_KEY, JSON.stringify({ data, expiresAt: Date.now() + CACHE_TTL }));
-  } catch {
-    // Storage unavailable; we'll just refetch next time.
-  }
-}
-
-async function fetchForecast(): Promise<Forecast> {
-  const params = new URLSearchParams({
-    latitude: String(SITE.coordinates.lat),
-    longitude: String(SITE.coordinates.lon),
-    current: 'temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m',
-    hourly: 'temperature_2m,weather_code',
-    timezone: 'Asia/Manila',
-    forecast_days: '2',
-  });
-  const res = await fetch(`https://api.open-meteo.com/v1/forecast?${params}`);
-  if (!res.ok) throw new Error(`Weather API ${res.status}`);
-  const { current, hourly } = await res.json();
-
-  // Hourly arrays are in Manila time (timezone param); start from the next full hour.
-  const manilaHour =
-    Number(
-      new Intl.DateTimeFormat('en-US', {
-        hour: 'numeric',
-        hour12: false,
-        timeZone: 'Asia/Manila',
-      }).format(new Date())
-    ) % 24;
-  const next: Forecast['hourly'] = [];
-  for (let i = 1; i <= 4 && manilaHour + i < hourly.time.length; i++) {
-    const idx = manilaHour + i;
-    const hour = idx % 24;
-    next.push({
-      time: `${hour % 12 || 12} ${hour >= 12 ? 'PM' : 'AM'}`,
-      icon: mapCode(hourly.weather_code[idx]).icon,
-      temperature: Math.round(hourly.temperature_2m[idx]),
-    });
-  }
-
-  return {
-    temperature: Math.round(current.temperature_2m),
-    humidity: current.relative_humidity_2m,
-    windSpeed: Math.round(current.wind_speed_10m),
-    ...mapCode(current.weather_code),
-    hourly: next,
-  };
-}
-
-function useForecast() {
-  const [forecast, setForecast] = useState<Forecast | null>(null);
-  const [failed, setFailed] = useState(false);
-
-  const load = () => {
-    setFailed(false);
-    fetchForecast()
-      .then((data) => {
-        writeCache(data);
-        setForecast(data);
-      })
-      .catch(() => setFailed(true));
-  };
-
-  useEffect(() => {
-    const cached = readCache();
-    if (cached) setForecast(cached);
-    else load();
-  }, []);
-
-  return { forecast, failed, retry: load };
 }
 
 /** Re-render every 30s so "updated N min ago" stays current between refreshes. */
