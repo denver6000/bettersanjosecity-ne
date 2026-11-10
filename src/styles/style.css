@@ -1,6 +1,5 @@
 /* Better San Jose - Complete Main Stylesheet */
 
-
 .btn {
   display: inline-block;
   padding: 12px 24px;
@@ -40,109 +39,6 @@
 .btn-sm {
   padding: 8px 16px;
   font-size: 0.875rem;
-}
-
-.site-header {
-  background-color: var(--surface);
-  border-bottom: 1px solid var(--color-line);
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  padding: 12px 0;
-}
-
-.header-inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  min-height: 48px;
-}
-
-.logo-container {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-sm);
-  padding: 4px 0;
-}
-
-.main-nav ul {
-  display: flex;
-  gap: var(--spacing-md);
-}
-
-.main-nav a {
-  color: var(--color-mute);
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  font-weight: 500;
-}
-
-.main-nav a:hover,
-.main-nav a.active {
-  color: var(--color-navy);
-}
-
-.main-nav a:hover {
-  text-decoration: none;
-}
-
-.main-nav a.active {
-  text-decoration: underline 2px var(--color-navy);
-  text-underline-offset: 8px;
-}
-
-/* Dropdown Menu Styles */
-.main-nav > ul > li {
-  position: relative;
-}
-
-/* Body scroll lock when mobile menu is open */
-body.mobile-menu-open {
-  overflow: hidden;
-  position: fixed;
-  width: 100%;
-  top: 0;
-  left: 0;
-}
-
-.header-actions {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-xs);
-  padding: 4px 0;
-}
-
-.lang-selector {
-  display: flex;
-  gap: 2px;
-  padding: 2px;
-  border: 1px solid var(--color-line);
-  border-radius: 999px;
-}
-
-.lang-selector .lang-btn {
-  padding: 5px 12px;
-  border: 0;
-  border-radius: 999px;
-  background-color: transparent;
-  color: var(--color-mute);
-  font-size: 0.75rem;
-  font-family: var(--font-main);
-  font-weight: 600;
-  transition:
-    background-color 0.2s ease,
-    color 0.2s ease;
-}
-
-.lang-selector .lang-btn:hover {
-  color: var(--color-navy);
-}
-
-.lang-selector .lang-btn.active {
-  background-color: var(--color-navy);
-  color: var(--lang-active-fg);
 }
 
 .card {
@@ -321,7 +217,6 @@ body.mobile-menu-open {
   margin: 0 8px;
 }
 
-
 /* SW Update Banner */
 .sw-update-banner {
   position: fixed;
@@ -357,7 +252,6 @@ body.mobile-menu-open {
   background: rgba(255, 255, 255, 0.35);
 }
 
-
 @keyframes swBannerIn {
   from {
     opacity: 0;
@@ -366,62 +260,6 @@ body.mobile-menu-open {
   to {
     opacity: 1;
     transform: translateX(-50%) translateY(0);
-  }
-}
-
-
-html[data-lang-pending] .lang-btn {
-  transition: none;
-}
-
-/* Top strip: location, hotline and the disclaimer, on every page */
-.top-strip {
-  background: var(--fill-strip);
-  color: var(--color-white);
-  font-size: 0.75rem;
-  line-height: 1.4;
-  padding: 6px 0;
-}
-
-.top-strip-inner {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 2px 16px;
-}
-
-.top-strip-item {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  color: inherit;
-  white-space: nowrap;
-}
-
-a.top-strip-item:hover {
-  color: var(--color-white);
-  text-decoration: underline;
-}
-
-.top-strip i {
-  color: var(--color-gold);
-  font-size: 0.875rem;
-}
-
-.top-strip-note {
-  margin-left: auto;
-  text-wrap: balance;
-}
-
-@media (max-width: 767px) {
-  .top-strip-inner {
-    gap: 2px 12px;
-  }
-
-  .top-strip-note {
-    flex-basis: 100%;
-    margin-left: 0;
-    white-space: normal;
   }
 }
 
@@ -509,13 +347,11 @@ a.top-strip-item:hover {
 
 /* BetterGov Improvements */
 
-
 /* Button Focus */
 .btn:focus-visible {
   box-shadow: 0 0 0 3px var(--focus-glow);
   outline: none;
 }
-
 
 /* Card Hover Effect Enhancement */
 .card {
@@ -528,7 +364,6 @@ a.top-strip-item:hover {
   transform: translateY(-4px);
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
 }
-
 
 /*
  New Footer Styles */
