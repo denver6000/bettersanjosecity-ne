@@ -19,6 +19,7 @@ export const OCCASION_ALT_KEYS: Record<OccasionId, string> = {
 const LOADERS: Partial<Record<ActiveId, () => Promise<{ default: OccasionModule }>>> = {
   christmas: () => import('./christmas'),
   'new-year': () => import('./new-year'),
+  independence: () => import('./independence'),
   ...(process.env.NODE_ENV !== 'production' ? { 'test-pin': () => import('./test-pin') } : {}),
 };
 
