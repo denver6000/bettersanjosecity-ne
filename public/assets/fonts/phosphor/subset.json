@@ -67,12 +67,14 @@
       "e6da",
       "e6f6",
       "e78e",
+      "e810",
       "e95c",
       "e9a8",
+      "eb7a",
       "ebae",
       "ee3a"
     ],
-    "hash": "625fc1ea"
+    "hash": "1afbb0cb"
   },
   "duotone": {
     "codepoints": [
@@ -208,16 +210,20 @@
       "e6f7",
       "e78e",
       "e78f",
+      "e810",
+      "e811",
       "e95c",
       "e95d",
       "e9a8",
       "e9a9",
+      "eb7a",
+      "eb7b",
       "ebae",
       "ebaf",
       "ee3a",
       "ee3b"
     ],
-    "hash": "33566da7"
+    "hash": "677901ac"
   },
   "bold": {
     "codepoints": [
@@ -287,12 +293,14 @@
       "e6da",
       "e6f6",
       "e78e",
+      "e810",
       "e95c",
       "e9a8",
+      "eb7a",
       "ebae",
       "ee3a"
     ],
-    "hash": "c4af8c51"
+    "hash": "77762afe"
   },
   "fill": {
     "codepoints": [
@@ -362,11 +370,13 @@
       "e6da",
       "e6f6",
       "e78e",
+      "e810",
       "e95c",
       "e9a8",
+      "eb7a",
       "ebae",
       "ee3a"
     ],
-    "hash": "680bf5e9"
+    "hash": "6a426092"
   }
 }

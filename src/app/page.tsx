@@ -1,5 +1,5 @@
 import HomeHero from '@/components/home/HomeHero';
-import HomeServices from '@/components/home/HomeServices';
+import HomeFinder from '@/components/home/HomeFinder';
 import HomeScholar from '@/components/home/HomeScholar';
 import HomeNumbers from '@/components/home/HomeNumbers';
 import HomeWeather from '@/components/home/HomeWeather';
@@ -16,7 +16,7 @@ export default function HomePage() {
     <>
       <ScrollReveal />
       <HomeHero />
-      <HomeServices />
+      <HomeFinder />
       <HomeScholar />
       <HomeNumbers />
       <HomeWeather />

@@ -263,29 +263,144 @@ html[data-hero-pending] .hero-scene {
   }
 }
 
-/* ===== Popular services ===== */
-.home-svc {
-  display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
-  gap: 14px;
+/* ===== "I need to" finder ===== */
+.home-finder-sentence {
+  font-family: var(--font-display), Georgia, serif;
+  font-weight: 700;
+  font-size: 56px;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-bottom: 28px;
 }
 
-.home-svc .home-card {
+.home-finder-blank {
+  display: inline-block;
+  min-width: 6ch;
+  padding: 0 4px;
+  border-bottom: 4px solid var(--color-gold);
+  color: var(--color-ink);
+  letter-spacing: -0.01em;
+}
+
+.home-finder-choices {
   display: flex;
-  flex-direction: column;
-  gap: 14px;
-  padding: 22px 18px;
-  color: var(--c-head, var(--color-navy));
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.home-finder-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  font: inherit;
   font-size: 15px;
   font-weight: 600;
+  color: var(--c-head, var(--color-navy));
+  background: var(--surface);
+  border: 1px solid var(--color-line);
+  border-radius: 999px;
+  cursor: pointer;
 }
 
-.home-svc .home-card:hover {
+.home-finder-pill i {
+  font-size: 20px;
+}
+
+.home-finder-pill:hover {
   border-color: var(--color-navy);
 }
 
-.home-svc .home-card i {
-  font-size: 32px;
+.home-finder-pill[aria-pressed='true'] {
+  background: var(--fill-brand);
+  border-color: var(--fill-brand);
+  color: var(--color-white);
+}
+
+.home-finder-pill:focus-visible,
+.home-finder-go:focus-visible {
+  outline: 2px solid var(--color-navy);
+  outline-offset: 3px;
+}
+
+.home-finder-result {
+  margin-top: 24px;
+  min-height: 96px;
+}
+
+.home-finder-card {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px 24px;
+}
+
+.home-finder-icon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  font-size: 30px;
+  color: var(--color-navy);
+  background: var(--color-navy-tint);
+  border-radius: 50%;
+}
+
+.home-finder-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.home-finder-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--c-head, var(--color-navy));
+}
+
+.home-finder-soon {
+  margin-top: 4px;
+  font-size: 14px;
+  color: var(--color-mute);
+}
+
+.home-finder-go {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.home-finder-all {
+  margin-top: 20px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes finder-card-in {
+    from {
+      opacity: 0;
+      translate: 0 12px;
+    }
+  }
+
+  .home-finder-card {
+    animation: finder-card-in 250ms ease-out;
+  }
+}
+
+@media (max-width: 899px) {
+  .home-finder-sentence {
+    font-size: 34px;
+  }
+
+  .home-finder-card {
+    flex-wrap: wrap;
+  }
+
+  .home-finder-go {
+    width: 100%;
+    justify-content: center;
+  }
 }
 
 /* ===== Scholarship band ===== */
@@ -361,10 +476,6 @@ html[data-hero-pending] .hero-scene {
 }
 
 @media (max-width: 1099px) {
-  .home-svc {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
   .home-numbers {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -385,10 +496,6 @@ html[data-hero-pending] .hero-scene {
 
   .home-sec h2 {
     font-size: 28px;
-  }
-
-  .home-svc {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .home-numbers .home-card {
@@ -852,20 +959,6 @@ html[data-hero-pending] .hero-scene {
 
   .coming-soon {
     font-size: 13px;
-  }
-
-  /* Service tiles: icon over name, centered. */
-  .home-svc {
-    gap: 12px;
-  }
-
-  .home-svc .home-card {
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    min-height: 112px;
-    padding: 18px 10px;
-    text-align: center;
   }
 
   .home-numbers {

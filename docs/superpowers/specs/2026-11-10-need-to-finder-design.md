@@ -41,20 +41,20 @@ the barangay map: one big, calm sentence, not another grid of tiles.
 
 Starting intents (my proposal; the user can reword):
 
-| Choice | Goes to |
-|---|---|
-| pay my business tax | /business-taxes |
-| estimate my business tax | /business-taxes/estimator |
-| apply for a scholarship | /scholarship |
-| read city news | /news |
-| see where the budget goes | /budget |
-| look up city numbers | /statistics |
-| read city ordinances | /legislative |
-| find an office or official | /government |
-| get a certificate | soon, then /contact |
-| ask for senior, PWD or welfare help | soon, then /contact |
-| get farming help | soon, then /contact |
-| reach City Hall | /contact |
+| Choice                              | Goes to                   |
+| ----------------------------------- | ------------------------- |
+| pay my business tax                 | /business-taxes           |
+| estimate my business tax            | /business-taxes/estimator |
+| apply for a scholarship             | /scholarship              |
+| read city news                      | /news                     |
+| see where the budget goes           | /budget                   |
+| look up city numbers                | /statistics               |
+| read city ordinances                | /legislative              |
+| find an office or official          | /government               |
+| get a certificate                   | soon, then /contact       |
+| ask for senior, PWD or welfare help | soon, then /contact       |
+| get farming help                    | soon, then /contact       |
+| reach City Hall                     | /contact                  |
 
 **Behaviour.** The sentence reads "I need to ___". Choices are buttons (radio-like, one selected). On
 select the blank fills with the chosen phrase and a result card appears below: icon, headline, one

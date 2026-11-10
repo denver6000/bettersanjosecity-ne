@@ -40,7 +40,6 @@
 
 /* Clickable cards only: a 2px lift and a slightly stronger shadow on pointer devices. */
 @media (prefers-reduced-motion: no-preference) and (hover: hover) {
-  .home-svc .home-card,
   .home-numbers .home-card {
     transition:
       transform 150ms ease-out,
@@ -48,7 +47,6 @@
       border-color 150ms ease-out;
   }
 
-  .home-svc .home-card:hover,
   .home-numbers .home-card:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 20px rgba(7, 31, 92, 0.1);

@@ -33,10 +33,12 @@
 ### Task 1: Intent data, copy and tests
 
 **Files:**
+
 - Create: `src/lib/finder.ts`, `src/lib/finder.test.ts`
 - Modify: `src/i18n/translations.ts` (en block and fil block)
 
 **Interfaces:**
+
 - Produces: `interface Intent { id: string; icon: string; key: string; titleKey: string; href?: string; soon?: boolean }`, `const INTENTS: Intent[]` (12 entries, order below), `resolveIntent(id: string): Intent | undefined`, `destination(intent: Intent): string` (returns `href`, or `'/contact'` when the intent has none).
 - Also produces translation keys: `finder-label` (group aria-label), `finder-lead` ("I need to"), `finder-go` ("Go"), `finder-contact` ("Contact City Hall"), `finder-soon` ("Not online yet. City Hall can help."), and per intent `finder-<id>` (choice, lowercase phrase that finishes the sentence) and `finder-<id>-t` (card headline).
 
@@ -58,12 +60,14 @@ Intents, in order (id, icon, destination): `business-tax` ph-storefront /busines
 ### Task 2: Finder component, styles, home page swap
 
 **Files:**
+
 - Create: `src/components/home/HomeFinder.tsx`
 - Modify: `src/styles/home.css` (add finder styles; remove `.home-svc` rules and their responsive overrides), `src/styles/motion.css` (drop `.home-svc` selectors), `src/app/page.tsx` (render `<HomeFinder />` in place of `<HomeServices />`), `src/i18n/translations.ts` (remove now-unused `home-popular-services` and the six `home-svc-*` keys in both languages)
 - Delete: `src/components/home/HomeServices.tsx`
 - Regenerate: `src/styles/icons.css` via `npm run icons`
 
 **Interfaces:**
+
 - Consumes: `INTENTS`, `destination`, `Intent` from `@/lib/finder`; `useLanguage` / `T` from `@/i18n/LanguageContext`; `data-reveal` for the section header like sibling sections.
 - Produces: default export `HomeFinder()` client component (`'use client'`).
 

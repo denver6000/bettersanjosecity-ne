@@ -3,7 +3,7 @@
 @font-face {
   font-family: "Phosphor";
   src:
-    url("/assets/fonts/phosphor/Phosphor.woff2?v=625fc1ea") format("woff2");
+    url("/assets/fonts/phosphor/Phosphor.woff2?v=1afbb0cb") format("woff2");
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -118,6 +118,9 @@
 .ph.ph-graduation-cap:before {
   content: "\e62c";
 }
+.ph.ph-hand-heart:before {
+  content: "\e810";
+}
 .ph.ph-heartbeat:before {
   content: "\e2ac";
 }
@@ -180,6 +183,9 @@
 }
 .ph.ph-ruler:before {
   content: "\e6b8";
+}
+.ph.ph-scroll:before {
+  content: "\eb7a";
 }
 .ph.ph-seal-check:before {
   content: "\e606";
@@ -248,7 +254,7 @@
 @font-face {
   font-family: "Phosphor-Duotone";
   src:
-    url("/assets/fonts/phosphor/Phosphor-Duotone.woff2?v=33566da7") format("woff2");
+    url("/assets/fonts/phosphor/Phosphor-Duotone.woff2?v=677901ac") format("woff2");
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -493,6 +499,14 @@
   content: "\e62d";
   margin-left: -1em;
 }
+.ph-duotone.ph-hand-heart:before {
+  content: "\e810";
+  opacity: 0.2;
+}
+.ph-duotone.ph-hand-heart:after {
+  content: "\e811";
+  margin-left: -1em;
+}
 .ph-duotone.ph-heartbeat:before {
   content: "\e2ac";
   opacity: 0.2;
@@ -659,6 +673,14 @@
 }
 .ph-duotone.ph-ruler:after {
   content: "\e6b9";
+  margin-left: -1em;
+}
+.ph-duotone.ph-scroll:before {
+  content: "\eb7a";
+  opacity: 0.2;
+}
+.ph-duotone.ph-scroll:after {
+  content: "\eb7b";
   margin-left: -1em;
 }
 .ph-duotone.ph-seal-check:before {
@@ -833,7 +855,7 @@
 @font-face {
   font-family: "Phosphor-Bold";
   src:
-    url("/assets/fonts/phosphor/Phosphor-Bold.woff2?v=c4af8c51") format("woff2");
+    url("/assets/fonts/phosphor/Phosphor-Bold.woff2?v=77762afe") format("woff2");
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -948,6 +970,9 @@
 .ph-bold.ph-graduation-cap:before {
   content: "\e62c";
 }
+.ph-bold.ph-hand-heart:before {
+  content: "\e810";
+}
 .ph-bold.ph-heartbeat:before {
   content: "\e2ac";
 }
@@ -1010,6 +1035,9 @@
 }
 .ph-bold.ph-ruler:before {
   content: "\e6b8";
+}
+.ph-bold.ph-scroll:before {
+  content: "\eb7a";
 }
 .ph-bold.ph-seal-check:before {
   content: "\e606";
@@ -1078,7 +1106,7 @@
 @font-face {
   font-family: "Phosphor-Fill";
   src:
-    url("/assets/fonts/phosphor/Phosphor-Fill.woff2?v=680bf5e9") format("woff2");
+    url("/assets/fonts/phosphor/Phosphor-Fill.woff2?v=6a426092") format("woff2");
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -1193,6 +1221,9 @@
 .ph-fill.ph-graduation-cap:before {
   content: "\e62c";
 }
+.ph-fill.ph-hand-heart:before {
+  content: "\e810";
+}
 .ph-fill.ph-heartbeat:before {
   content: "\e2ac";
 }
@@ -1255,6 +1286,9 @@
 }
 .ph-fill.ph-ruler:before {
   content: "\e6b8";
+}
+.ph-fill.ph-scroll:before {
+  content: "\eb7a";
 }
 .ph-fill.ph-seal-check:before {
   content: "\e606";
