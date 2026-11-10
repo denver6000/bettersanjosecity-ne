@@ -21,6 +21,7 @@ import { lampOpacity, pokesAllowed } from '@/lib/hero-light';
 import {
   OCCASIONS,
   occasionOn,
+  seasonOn,
   parseOccasionOverride,
   type DateParts,
   type Tone,
@@ -46,6 +47,16 @@ import type { ActiveId, OccasionContext } from './occasions/types';
 import { useHeroLoop, usePrefersReducedMotion } from './useHeroLoop';
 
 const ART = '/assets/images/hero/scene';
+const SEASON_ART = '/assets/images/hero/occasions';
+
+function preload(url: string): Promise<void> {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => resolve();
+    img.onerror = () => reject(new Error(url));
+    img.src = url;
+  });
+}
 const LAPSE_MS = 14000;
 const SHOWER_MS = 6000;
 
@@ -135,6 +146,14 @@ export default function HeroScene() {
   const [date, setDate] = useState<DateParts | null>(null);
   const [occOverride, setOccOverride] = useState<ReturnType<typeof parseOccasionOverride>>({});
   const [devPin, setDevPin] = useState(false);
+  const [seasonReady, setSeasonReady] = useState<string | null>(null);
+
+  // The farming season changes the paddies (and, in planting, the foreground). The variant is shown
+  // only once it has loaded; if it fails, the plain scene stays.
+  const season = occOverride.season ?? (date ? seasonOn(date) : 'growing');
+  const paddiesUrl = `${SEASON_ART}/season-${season}/paddies-${season}.webp`;
+  const foregroundUrl = `${SEASON_ART}/season-planting/foreground-planting.webp`;
+  const seasonShown = season !== 'growing' && seasonReady === season;
 
   const retryRef = useRef(retry);
   retryRef.current = retry;
@@ -194,17 +213,34 @@ export default function HeroScene() {
     };
   }, []);
 
+  useEffect(() => {
+    if (season === 'growing') return;
+    let alive = true;
+    const urls = season === 'planting' ? [paddiesUrl, foregroundUrl] : [paddiesUrl];
+    Promise.all(urls.map(preload))
+      .then(() => alive && setSeasonReady(season))
+      .catch(() => {
+        // A missing variant leaves the plain scene as it is.
+      });
+    return () => {
+      alive = false;
+    };
+  }, [season, paddiesUrl, foregroundUrl]);
+
   // Reveal once the real weather is known (cached, fetched, failed, or overridden), or after a
   // moment, so a reload at night never shows the neutral morning scene first (see HERO_GATE).
   useEffect(() => {
     const reveal = () => document.documentElement.removeAttribute('data-hero-pending');
-    if (override.weather || forecast || failed) {
+    if (
+      (override.weather || forecast || failed) &&
+      (season === 'growing' || seasonReady === season)
+    ) {
       reveal();
       return;
     }
     const id = setTimeout(reveal, 1200);
     return () => clearTimeout(id);
-  }, [override.weather, forecast, failed]);
+  }, [override.weather, forecast, failed, season, seasonReady]);
 
   const shownHour = lapseHour ?? hour;
   const weather: Weather = override.weather ?? weatherKind(forecast?.code);
@@ -224,6 +260,7 @@ export default function HeroScene() {
           : null;
   const tone: Tone | null = active?.tone ?? null;
   const pokesOk = pokesAllowed(tone, reduced);
+
   const look = weatherLook(weather);
   const sky = skyAt(shownHour);
   const night = sky.night;
@@ -453,6 +490,7 @@ export default function HeroScene() {
       data-sky-hour={shownHour.toFixed(1)}
       data-weather={weather}
       data-occasion={active?.id ?? 'none'}
+      data-season={season}
       onPointerMove={(e) => {
         if (e.pointerType === 'touch' || reduced) return;
         const p = toScene(e);
@@ -615,7 +653,7 @@ export default function HeroScene() {
       <OccasionLayer slot="behindHills" occasion={occ} ctx={occCtx} />
       {tinted(`${ART}/hills.webp`)}
       <OccasionLayer slot="betweenHillsAndPaddies" occasion={occ} ctx={occCtx} />
-      {tinted(`${ART}/paddies.webp`)}
+      {tinted(seasonShown ? paddiesUrl : `${ART}/paddies.webp`)}
       <OccasionLayer slot="betweenPaddiesAndForeground" occasion={occ} ctx={occCtx} />
 
       <g ref={ripplesRef} pointerEvents="none" />
@@ -646,7 +684,7 @@ export default function HeroScene() {
         </g>
       )}
 
-      {tinted(`${ART}/foreground.webp`)}
+      {tinted(seasonShown && season === 'planting' ? foregroundUrl : `${ART}/foreground.webp`)}
 
       <g filter="url(#hero-tint)" pointerEvents="none">
         {STALKS.map((s, i) => (
@@ -673,7 +711,15 @@ export default function HeroScene() {
                 rx={7}
                 ry={16}
                 transform={`rotate(${18 + k * 6} ${5 + k * 1.5} ${-s.h + 10 + k * 17})`}
-                fill={k % 2 ? '#e8a400' : '#f2b100'}
+                fill={
+                  season === 'planting'
+                    ? k % 2
+                      ? '#3f9a45'
+                      : '#4fae4a'
+                    : k % 2
+                      ? '#e8a400'
+                      : '#f2b100'
+                }
               />
             ))}
           </g>

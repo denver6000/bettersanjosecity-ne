@@ -5,7 +5,7 @@
 import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { runPage, webpInfo } from './lib/headless.mjs';
-import { findSprites, maskIoU } from './lib/sprites.mjs';
+import { findSprites, maskIoU, maskOverlap } from './lib/sprites.mjs';
 
 const ROOT = resolve(import.meta.dirname, '..');
 const W = 1586;
@@ -77,7 +77,6 @@ try {
 
 mkdirSync(OUT, { recursive: true });
 let total = 0;
-let isVariant = false;
 const sheets = [];
 for (const n of names) {
   const buf = webp[`${n}.png`];
@@ -86,7 +85,15 @@ for (const n of names) {
   if (!info || info.w !== W || info.h !== H) fail(`${n}.webp is not a ${W} x ${H} WebP`);
   if (!info.alpha) fail(`${n}.webp has no transparency`);
   writeFileSync(join(OUT, `${n}.webp`), buf);
-  total += buf.length;
+  const variantCap = n.startsWith('paddies-') ? 140 : n.startsWith('foreground-') ? 160 : 0;
+  if (variantCap) {
+    if (buf.length > variantCap * 1024)
+      fail(
+        `${n}.webp is ${(buf.length / 1024).toFixed(0)} KB, over its ${variantCap} KB budget; lower HERO_WEBP_QUALITY in steps of 0.05`
+      );
+  } else {
+    total += buf.length;
+  }
   console.log(`${n}.webp  ${(buf.length / 1024).toFixed(0)} KB`);
 
   if (n.startsWith('sheet')) {
@@ -100,15 +107,20 @@ for (const n of names) {
     console.log(`  ${sprites.length} sprites`);
   }
   if (n.startsWith('paddies-')) {
-    isVariant = true;
-    const iou = maskIoU(alpha[`${n}.png`], alpha['__base-paddies.png'], REGION, W);
-    console.log(`  alignment IoU ${iou.toFixed(3)} (hut and palm region)`);
-    if (iou < 0.97)
-      fail(`${n} drifts from the base paddies layer (IoU ${iou.toFixed(3)}, need 0.97)`);
+    const base = alpha['__base-paddies.png'];
+    const iou = maskIoU(alpha[`${n}.png`], base, REGION, W);
+    const fit = maskOverlap(alpha[`${n}.png`], base, REGION, W, 3);
+    console.log(
+      `  alignment ${fit.toFixed(3)} within 3 px (plain IoU ${iou.toFixed(3)}), hut and palm region`
+    );
+    if (fit < 0.99)
+      fail(
+        `${n} drifts from the base paddies layer (overlap within 3 px is ${fit.toFixed(3)}, need 0.99)`
+      );
   }
 }
 if (sheets.length) writeFileSync(join(OUT, 'manifest.json'), JSON.stringify({ sheets }));
 
-const budget = (isVariant ? 140 : 150) * 1024;
-console.log(`total ${(total / 1024).toFixed(0)} KB (budget ${budget / 1024} KB)`);
+const budget = 150 * 1024;
+if (total > 0) console.log(`total ${(total / 1024).toFixed(0)} KB (budget ${budget / 1024} KB)`);
 if (total > budget) fail('over budget; lower HERO_WEBP_QUALITY in steps of 0.05 and rerun');

@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { findSprites, maskIoU } from './sprites.mjs';
+import { findSprites, maskIoU, maskOverlap } from './sprites.mjs';
 
 const W = 200;
 const H = 160;
@@ -67,4 +67,31 @@ test('maskIoU is 1 for identical masks, 0 for disjoint ones, and respects the re
   const region = { x: 0, y: 0, w: 100, h: 100 };
   assert.equal(maskIoU(a, c, region, W), 1);
   assert.ok(maskIoU(a, c) < 1);
+});
+
+test('maskOverlap tolerates a thin edge fringe but not a real drift', () => {
+  const base = blank();
+  rect(base, 40, 40, 100, 100);
+  const fringe = blank();
+  rect(fringe, 42, 41, 100, 100); // 2 px and 1 px off
+  assert.ok(maskOverlap(base, fringe, undefined, W) >= 0.99);
+  const drifted = blank();
+  rect(drifted, 52, 40, 100, 100); // 12 px off
+  assert.ok(maskOverlap(base, drifted, undefined, W) < 0.95);
+  assert.equal(maskOverlap(base, base, undefined, W), 1);
+  const far = blank();
+  rect(far, 150, 10, 30, 30);
+  assert.equal(maskOverlap(base, far, undefined, W), 0);
+});
+
+test('maskOverlap respects the region and treats two empty masks as a match', () => {
+  const a = blank();
+  rect(a, 10, 10, 30, 30);
+  const b = blank();
+  rect(b, 10, 10, 30, 30);
+  rect(b, 150, 100, 30, 30);
+  const region = { x: 0, y: 0, w: 100, h: 100 };
+  assert.equal(maskOverlap(a, b, region, W), 1);
+  assert.ok(maskOverlap(a, b, undefined, W) < 1);
+  assert.equal(maskOverlap(blank(), blank(), region, W), 1);
 });

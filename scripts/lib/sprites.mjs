@@ -95,3 +95,66 @@ export function maskIoU(a, b, region, width) {
   }
   return union === 0 ? 1 : inter / union;
 }
+
+/** Grows a binary mask by `radius` px in every direction (square window, separable). */
+function dilate(bin, width, height, radius) {
+  const tmp = new Uint8Array(bin.length);
+  for (let y = 0; y < height; y++) {
+    for (let x = 0; x < width; x++) {
+      let hit = 0;
+      for (let k = Math.max(0, x - radius); k <= Math.min(width - 1, x + radius); k++) {
+        if (bin[y * width + k]) {
+          hit = 1;
+          break;
+        }
+      }
+      tmp[y * width + x] = hit;
+    }
+  }
+  const out = new Uint8Array(bin.length);
+  for (let x = 0; x < width; x++) {
+    for (let y = 0; y < height; y++) {
+      let hit = 0;
+      for (let k = Math.max(0, y - radius); k <= Math.min(height - 1, y + radius); k++) {
+        if (tmp[k * width + x]) {
+          hit = 1;
+          break;
+        }
+      }
+      out[y * width + x] = hit;
+    }
+  }
+  return out;
+}
+
+/**
+ * How well two alpha masks agree once a thin edge fringe is forgiven: the smaller of "the share of
+ * A's pixels within `radius` px of B" and "the share of B's pixels within `radius` px of A", inside
+ * an optional region. A 1 to 3 px fringe (thin palm fronds) scores about 1; a real drift scores low.
+ */
+export function maskOverlap(a, b, region, width, radius = 3) {
+  const height = a.length / width;
+  const A = a.map((v) => (v > 16 ? 1 : 0));
+  const B = b.map((v) => (v > 16 ? 1 : 0));
+  const dA = dilate(A, width, height, radius);
+  const dB = dilate(B, width, height, radius);
+  const r = region ?? { x: 0, y: 0, w: width, h: height };
+  let nA = 0;
+  let nB = 0;
+  let aNearB = 0;
+  let bNearA = 0;
+  for (let y = r.y; y < r.y + r.h; y++) {
+    for (let x = r.x; x < r.x + r.w; x++) {
+      const i = y * width + x;
+      if (A[i]) {
+        nA++;
+        if (dB[i]) aNearB++;
+      }
+      if (B[i]) {
+        nB++;
+        if (dA[i]) bNearA++;
+      }
+    }
+  }
+  return Math.min(nA ? aNearB / nA : 1, nB ? bNearA / nB : 1);
+}

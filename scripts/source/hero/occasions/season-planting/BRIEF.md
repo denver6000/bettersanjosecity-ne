@@ -1,0 +1,5 @@
+# Planting season
+
+- `paddies-planting.png`: made in ChatGPT (continuing the "Generate Hero Illustration" chat). Prompt: "Using the paddies layer you made earlier in this chat (the transparent layer with the terraced rice paddies, the nipa hut on stilts and the coconut palms), make a new version of that same layer. Same canvas size 1586 x 992, the same hut, the same palms and the same terrace shapes in exactly the same positions and scale. Only the fields change: they are freshly flooded and just planted, with shallow sky-blue water mirroring the sky between neat rows of tiny bright-green seedlings, and no golden patches. Keep real transparency everywhere the original layer is transparent (sky area), flat vector style as before, no gradients. Give it as a single transparent PNG." Alignment 0.999 within 3 px.
+- `foreground-planting.png`: made by `node scripts/recolor-foreground.mjs` (every golden grain head recoloured to leaf green, nothing else changed), because ChatGPT's own file download kept freezing the browser tab.
+- Build: `HERO_WEBP_QUALITY=0.77 npm run hero:occasion -- season-planting`
