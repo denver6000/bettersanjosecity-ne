@@ -221,6 +221,15 @@
   clip-path: url(#hero-arc);
 }
 
+.hero-scene {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  clip-path: url(#hero-arc);
+}
+
 .home-hero-edge {
   position: absolute;
   inset: 0;
@@ -239,7 +248,8 @@
     height: 260px;
   }
 
-  .home-hero-pic img {
+  .home-hero-pic img,
+  .hero-scene {
     clip-path: inset(0 round 24px 24px 0 0);
   }
 

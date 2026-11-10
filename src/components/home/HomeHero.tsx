@@ -1,10 +1,10 @@
 'use client';
 
-import { T, useLanguage } from '@/i18n/LanguageContext';
+import { T } from '@/i18n/LanguageContext';
 import ServiceSearch from '@/components/ServiceSearch';
+import HeroScene from '@/components/home/hero/HeroScene';
 
 export default function HomeHero() {
-  const { t } = useLanguage();
   return (
     <section className="home-hero">
       <svg
@@ -68,15 +68,7 @@ export default function HomeHero() {
             <path d="M0.16,0 H1 V1 H0.03 C0.14,0.78 0.02,0.42 0.16,0 Z" />
           </clipPath>
         </svg>
-        <img
-          src="/assets/images/hero/san-jose-rice-fields.jpg"
-          srcSet="/assets/images/hero/san-jose-rice-fields-640.jpg 640w, /assets/images/hero/san-jose-rice-fields-960.jpg 960w, /assets/images/hero/san-jose-rice-fields.jpg 1600w"
-          sizes="(max-width: 899px) 100vw, 50vw"
-          alt={t('hero-photo-alt', 'Rice fields and hills in San Jose City')}
-          width={1600}
-          height={1200}
-          fetchPriority="high"
-        />
+        <HeroScene />
         <svg
           className="home-hero-edge"
           viewBox="0 0 100 100"

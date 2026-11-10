@@ -33,6 +33,8 @@ export const translations: Record<Language, Record<string, string>> = {
     'hero-line-3': 'Made simpler.',
     'hero-lede': 'City services, permits and public information for San Jose, in one place.',
     'hero-photo-alt': 'Rice fields and hills in San Jose City',
+    'hero-scene-alt':
+      'Illustrated rice fields of San Jose City that follow the real time and weather',
     'hero-search-btn': 'Search',
     'home-find-a-service': 'Find a Service',
     'home-search-placeholder': 'e.g., birth certificate, business permit',
@@ -599,6 +601,8 @@ export const translations: Record<Language, Record<string, string>> = {
     'hero-line-3': 'Mas pinadali.',
     'hero-lede': 'Serbisyo, permit at impormasyon ng San Jose, sa iisang lugar.',
     'hero-photo-alt': 'Mga palayan at burol sa Lungsod ng San Jose',
+    'hero-scene-alt':
+      'Guhit ng mga palayan ng San Jose City na sumusunod sa tunay na oras at panahon',
     'hero-search-btn': 'Maghanap',
     'home-find-a-service': 'Maghanap ng Serbisyo',
     'home-search-placeholder': 'hal., birth certificate, business permit',
