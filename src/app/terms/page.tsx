@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import PageShell, { DataPending } from '@/components/PageShell';
 
 export const metadata: Metadata = {
-  title: 'Terms of Use',
+  title: 'Terms of use',
   description: 'Terms of use of Better San Jose.',
   alternates: { canonical: '/terms/' },
 };
@@ -13,7 +13,7 @@ export default function TermsPage() {
       k="terms"
       badge="Terms"
       badgeIcon="ph-file-text"
-      title="Terms of Use"
+      title="Terms of use"
       subtitle="Terms governing the use of Better San Jose"
     >
       <DataPending

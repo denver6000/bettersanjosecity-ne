@@ -13,7 +13,7 @@ export default function ContactPage() {
       k="contact"
       badge="Contact"
       badgeIcon="ph-phone"
-      title="Contact & Hotlines"
+      title="Contact & hotlines"
       subtitle="Reach the City Government of San Jose and its emergency services"
     >
       <div className="pending-grid">

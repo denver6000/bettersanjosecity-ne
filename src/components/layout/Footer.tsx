@@ -24,17 +24,17 @@ export default function Footer() {
           </div>
           <div className="footer-column">
             <h2>
-              <T k="home-quick-links">Quick Links</T>
+              <T k="home-quick-links">Quick links</T>
             </h2>
             <ul className="footer-links-new">
               <li>
                 <Link href="/business-taxes">
-                  <T k="foot-business-taxes">Business Taxes and Fees</T>
+                  <T k="foot-business-taxes">Business taxes and fees</T>
                 </Link>
               </li>
               <li>
                 <Link href="/business-taxes/estimator">
-                  <T k="foot-estimator">Business Tax Estimator</T>
+                  <T k="foot-estimator">Business tax estimator</T>
                 </Link>
               </li>
               <li>
@@ -44,12 +44,12 @@ export default function Footer() {
               </li>
               <li>
                 <Link href="/terms">
-                  <T k="home-terms-of-use">Terms of Use</T>
+                  <T k="home-terms-of-use">Terms of use</T>
                 </Link>
               </li>
               <li>
                 <Link href="/privacy">
-                  <T k="home-privacy-policy">Privacy Policy</T>
+                  <T k="home-privacy-policy">Privacy policy</T>
                 </Link>
               </li>
               <li>

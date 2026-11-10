@@ -13,7 +13,7 @@ export default function FaqPage() {
       k="faq"
       badge="FAQ"
       badgeIcon="ph-question"
-      title="Frequently Asked Questions"
+      title="Frequently asked questions"
       subtitle="Answers to common questions about city services"
     >
       <DataPending

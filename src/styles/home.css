@@ -1084,10 +1084,6 @@ html[data-hero-pending] .hero-scene {
   margin-inline: auto;
 }
 
-.home-sec .home-brgy h2 {
-  font-size: 26px;
-}
-
 .bm {
   --bm-t0: 8%;
   --bm-t1: 14%;

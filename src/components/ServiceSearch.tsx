@@ -54,7 +54,7 @@ export default function ServiceSearch() {
             id="hero-search"
             className="service-search-input"
             placeholder={t('home-search-placeholder', 'e.g., birth certificate, business permit')}
-            aria-label={t('home-find-a-service', 'Find a Service')}
+            aria-label={t('home-find-a-service', 'Find a service')}
             autoComplete="off"
             value={query}
             onKeyDown={(e) => e.key === 'Escape' && setOpen(false)}
@@ -80,7 +80,7 @@ export default function ServiceSearch() {
           : ''}
       </p>
       {open && query.trim().length >= 2 && (
-        <ul className="search-results-list" aria-label={t('home-find-a-service', 'Find a Service')}>
+        <ul className="search-results-list" aria-label={t('home-find-a-service', 'Find a service')}>
           {results.length === 0 ? (
             <li className="search-results-empty">
               {services.length === 0

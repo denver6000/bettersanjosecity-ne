@@ -9,7 +9,7 @@ import '@/styles/taxes.css';
 import '@/styles/estimator.css';
 
 export const metadata: Metadata = {
-  title: 'Business Tax Estimator',
+  title: 'Business tax estimator',
   description:
     'Estimate the yearly business tax and fees for a business in San Jose City, Nueva Ecija. Find your activity in the PSA industry classification (PSIC), then enter your gross sales.',
   alternates: { canonical: '/business-taxes/estimator/' },
@@ -22,9 +22,9 @@ export default function EstimatorPage() {
       badge="Tax Estimator"
       badgeIcon="ph-calculator"
       parents={[
-        { href: '/business-taxes/', label: 'Business Taxes and Fees', k: 'foot-business-taxes' },
+        { href: '/business-taxes/', label: 'Business taxes and fees', k: 'foot-business-taxes' },
       ]}
-      title="Business Tax Estimator"
+      title="Business tax estimator"
       subtitle="Find what your business does, enter a few details, and see the city taxes and fees that likely apply, worked out from the Treasurer’s printed schedules."
     >
       <div className="tax-page">

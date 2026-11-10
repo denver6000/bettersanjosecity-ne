@@ -8,7 +8,7 @@ import { allCodes, codeAnchor, EFFECTIVITY, PRINTED_ON, schedules, totals } from
 import '@/styles/taxes.css';
 
 export const metadata: Metadata = {
-  title: 'Business Taxes and Fees',
+  title: 'Business taxes and fees',
   description:
     'Every business tax and fee code of San Jose City, Nueva Ecija, as printed by the City Treasurer: business tax, mayor’s permit, sanitary, garbage and fixed fees.',
   alternates: { canonical: '/business-taxes/' },
@@ -22,7 +22,7 @@ export default function BusinessTaxesPage() {
       k="business-taxes"
       badge="Business Taxes and Fees"
       badgeIcon="ph-coins"
-      title="Business Taxes and Fees"
+      title="Business taxes and fees"
       subtitle={`Every tax and fee code a business in San Jose City may be charged, copied from the Treasurer’s schedules (effective ${EFFECTIVITY}). Search for your line of business, or find your row by gross sales.`}
     >
       <div className="tax-page">

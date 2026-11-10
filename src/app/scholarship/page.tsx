@@ -8,7 +8,7 @@ import '@/styles/scholarship.css';
 import '@/styles/motion.css';
 
 export const metadata: Metadata = {
-  title: 'City Scholarship Program',
+  title: 'City scholarship program',
   description:
     'The San Jose City scholarship program: how many scholars it supports each semester, the requirements for new and renewing scholars, and a Student ID lookup for each scholar’s payout status and requirements.',
   alternates: { canonical: '/scholarship/' },
@@ -42,7 +42,7 @@ export default function ScholarshipPage() {
               </span>
             </nav>
             <h1>
-              <T k="sitemap-scholarship">City Scholarship Program</T>
+              <T k="sitemap-scholarship">City scholarship program</T>
             </h1>
             <p>
               <T k="sch-lede">

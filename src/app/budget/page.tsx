@@ -13,19 +13,19 @@ export default function BudgetPage() {
       k="budget"
       badge="Transparency"
       badgeIcon="ph-chart-pie"
-      title="Budget & Transparency"
+      title="Budget & transparency"
       subtitle="How the City Government of San Jose raises and spends public funds"
     >
       <div className="pending-grid">
-        <DataPending k="budget-income-expenditure" title="Income & Expenditure" icon="ph-money">
+        <DataPending k="budget-income-expenditure" title="Income & expenditure" icon="ph-money">
           Annual revenue and spending from BLGF Statements of Receipts and Expenditures.
         </DataPending>
-        <DataPending k="budget-annual-budget" title="Annual Budget" icon="ph-wallet">
+        <DataPending k="budget-annual-budget" title="Annual budget" icon="ph-wallet">
           Approved annual budget by sector and office.
         </DataPending>
         <DataPending
           k="budget-infrastructure-projects"
-          title="Infrastructure Projects"
+          title="Infrastructure projects"
           icon="ph-traffic-cone"
         >
           Ongoing and completed public works within the city.

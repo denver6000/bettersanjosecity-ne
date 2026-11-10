@@ -14,7 +14,7 @@ export default function StatisticsPage() {
       k="statistics"
       badge="Statistics"
       badgeIcon="ph-chart-bar"
-      title="City Statistics"
+      title="City statistics"
       subtitle="Data and statistics about San Jose City, Nueva Ecija"
     >
       <div className="pending-grid">
@@ -23,14 +23,14 @@ export default function StatisticsPage() {
         </DataPending>
         <DataPending
           k="statistics-population-by-barangay"
-          title="Population by Barangay"
+          title="Population by barangay"
           icon="ph-map-pin-area"
         >
           Barangay-level population figures.
         </DataPending>
         <DataPending
           k="statistics-competitiveness-index"
-          title="Competitiveness Index"
+          title="Competitiveness index"
           icon="ph-chart-line-up"
         >
           Cities and Municipalities Competitiveness Index (CMCI) rankings.

@@ -13,20 +13,20 @@ export default function GovernmentPage() {
       k="government"
       badge="Government"
       badgeIcon="ph-bank"
-      title="City Government"
+      title="City government"
       subtitle="Elected officials, city departments, and barangays of San Jose City"
     >
       <div className="pending-grid">
         <DataPending
           k="government-elected-officials"
-          title="Elected Officials"
+          title="Elected officials"
           icon="ph-identification-badge"
         >
           City Mayor, Vice Mayor, and members of the Sangguniang Panlungsod.
         </DataPending>
         <DataPending
           k="government-city-departments"
-          title="City Departments"
+          title="City departments"
           icon="ph-tree-structure"
         >
           Department heads, offices, and contact directory.

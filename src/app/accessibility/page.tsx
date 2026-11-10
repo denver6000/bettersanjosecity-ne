@@ -13,7 +13,7 @@ export default function AccessibilityPage() {
       k="accessibility"
       badge="Accessibility"
       badgeIcon="ph-wheelchair"
-      title="Accessibility Statement"
+      title="Accessibility statement"
       subtitle="Our commitment to an accessible website for everyone"
     >
       <DataPending

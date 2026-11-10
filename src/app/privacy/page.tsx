@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import PageShell, { DataPending } from '@/components/PageShell';
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy',
+  title: 'Privacy policy',
   description: 'Privacy policy of Better San Jose.',
   alternates: { canonical: '/privacy/' },
 };
@@ -13,7 +13,7 @@ export default function PrivacyPage() {
       k="privacy"
       badge="Privacy"
       badgeIcon="ph-lock"
-      title="Privacy Policy"
+      title="Privacy policy"
       subtitle="How Better San Jose handles your information"
     >
       <DataPending

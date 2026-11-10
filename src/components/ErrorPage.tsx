@@ -34,7 +34,7 @@ export default function ErrorPage({
             <T k="err-home">Go to Homepage</T>
           </Link>
           <Link href="/services" className="btn btn-secondary">
-            <T k="err-services">Browse Services</T>
+            <T k="err-services">Browse services</T>
           </Link>
         </div>
       </div>

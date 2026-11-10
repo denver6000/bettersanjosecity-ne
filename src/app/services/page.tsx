@@ -19,7 +19,7 @@ export default function ServicesPage() {
       k="services"
       badge="Services"
       badgeIcon="ph-squares-four"
-      title="City Services"
+      title="City services"
       subtitle="Requirements, fees, and processing times for services of the City Government of San Jose"
     >
       <div className="home-services-grid">
