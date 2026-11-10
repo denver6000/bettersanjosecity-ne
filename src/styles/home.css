@@ -1070,7 +1070,8 @@
   fill: color-mix(in srgb, var(--color-navy) var(--bm-t4), var(--surface));
 }
 
-.bm-shape:hover {
+.bm-shape:hover,
+.bm-shape:focus-visible {
   fill: color-mix(in srgb, var(--color-navy) var(--bm-hover), var(--surface));
 }
 
@@ -1090,7 +1091,13 @@
   stroke: var(--surface);
   stroke-width: 3px;
   stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
   pointer-events: none;
+}
+
+.bm-label.is-selected {
+  fill: #141b2d;
+  stroke: var(--color-gold, #f2b100);
 }
 
 .bm-card {

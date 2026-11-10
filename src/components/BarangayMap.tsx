@@ -91,6 +91,7 @@ export default function BarangayMap() {
           <path
             key={b.id}
             d={b.path}
+            data-id={b.id}
             className="bm-shape"
             data-tone={b.tone}
             fillRule="evenodd"
@@ -114,7 +115,7 @@ export default function BarangayMap() {
         {labeled.map((b) => (
           <text
             key={b.id}
-            className="bm-label"
+            className={`bm-label${b.id === selectedId ? ' is-selected' : ''}`}
             x={b.centroid[0]}
             y={b.centroid[1]}
             textAnchor="middle"
@@ -131,7 +132,16 @@ export default function BarangayMap() {
             <h3>
               {t('bm-barangay', 'Barangay')} {selected.name}
             </h3>
-            <button type="button" className="bm-back" onClick={() => select(null)}>
+            <button
+              type="button"
+              className="bm-back"
+              onClick={() => {
+                select(null);
+                svgRef.current
+                  ?.querySelector<SVGPathElement>(`[data-id="${selectedId}"]`)
+                  ?.focus({ preventScroll: true });
+              }}
+            >
               {t('bm-back', 'Back to city')}
             </button>
           </div>
