@@ -1,76 +1,77 @@
 'use client';
 
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useLanguage } from '@/i18n/LanguageContext';
 
+const UPDATE_CHECK_MS = 30 * 60 * 1000;
+
+/**
+ * Registers the offline worker (production builds only: under `next dev` it would cache stale bundles)
+ * and offers a new version once one has downloaded. The new version takes over when the visitor
+ * presses Update; the page then reloads once.
+ */
 export default function PWAManager() {
-  const [showUpdate, setShowUpdate] = useState(false);
-  const waitingWorker = useRef<ServiceWorker | null>(null);
-
-  const handleUpdate = useCallback(() => {
-    waitingWorker.current?.postMessage({ type: 'SKIP_WAITING' });
-    setShowUpdate(false);
-  }, []);
+  const { t } = useLanguage();
+  const [waiting, setWaiting] = useState<ServiceWorker | null>(null);
 
   useEffect(() => {
-    // No custom install banner: just stop the browser's own mini-infobar from appearing.
-    const onBeforeInstall = (e: Event) => e.preventDefault();
-    window.addEventListener('beforeinstallprompt', onBeforeInstall);
+    // No install banner of our own, and none from the browser either.
+    const noInstallPrompt = (e: Event) => e.preventDefault();
+    window.addEventListener('beforeinstallprompt', noInstallPrompt);
+    const cleanup = () => window.removeEventListener('beforeinstallprompt', noInstallPrompt);
+    if (!('serviceWorker' in navigator) || process.env.NODE_ENV !== 'production') return cleanup;
 
-    // The service worker is only registered in production builds; in `next dev`
-    // its caching would serve stale bundles.
-    if ('serviceWorker' in navigator && process.env.NODE_ENV === 'production') {
-      let interval: ReturnType<typeof setInterval> | undefined;
-      navigator.serviceWorker.register('/sw.js').then((reg) => {
-        interval = setInterval(() => reg.update(), 30 * 60 * 1000);
-        reg.addEventListener('updatefound', () => {
-          const newWorker = reg.installing;
-          if (!newWorker) return;
-          newWorker.addEventListener('statechange', () => {
-            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-              waitingWorker.current = newWorker;
-              setShowUpdate(true);
-            }
-          });
+    const sw = navigator.serviceWorker;
+    // A page that had no worker yet is just being claimed on its first visit: no reload for that.
+    const wasControlled = Boolean(sw.controller);
+    let reloaded = false;
+    const onTakeover = () => {
+      if (!wasControlled || reloaded) return;
+      reloaded = true;
+      window.location.reload();
+    };
+    sw.addEventListener('controllerchange', onTakeover);
+
+    let timer: ReturnType<typeof setInterval> | undefined;
+    sw.register('/sw.js').then((reg) => {
+      const offer = (worker: ServiceWorker | null) => worker && sw.controller && setWaiting(worker);
+      offer(reg.waiting);
+      reg.addEventListener('updatefound', () => {
+        const incoming = reg.installing;
+        incoming?.addEventListener('statechange', () => {
+          if (incoming.state === 'installed') offer(incoming);
         });
       });
+      timer = setInterval(() => reg.update(), UPDATE_CHECK_MS);
+    });
 
-      // First visit: the new worker claims the page, which is not an update, so don't reload it.
-      const hadController = !!navigator.serviceWorker.controller;
-      let refreshing = false;
-      const onControllerChange = () => {
-        if (!hadController || refreshing) return;
-        refreshing = true;
-        window.location.reload();
-      };
-      navigator.serviceWorker.addEventListener('controllerchange', onControllerChange);
-
-      return () => {
-        clearInterval(interval);
-        navigator.serviceWorker.removeEventListener('controllerchange', onControllerChange);
-        window.removeEventListener('beforeinstallprompt', onBeforeInstall);
-      };
-    }
-
-    return () => window.removeEventListener('beforeinstallprompt', onBeforeInstall);
+    return () => {
+      cleanup();
+      clearInterval(timer);
+      sw.removeEventListener('controllerchange', onTakeover);
+    };
   }, []);
 
+  if (!waiting) return null;
   return (
-    <>
-      {showUpdate && (
-        <div className="sw-update-banner" role="alert" aria-live="polite">
-          <span>A new version is available.</span>
-          <button className="sw-update-btn" onClick={handleUpdate} aria-label="Update now">
-            Update
-          </button>
-          <button
-            className="sw-update-dismiss"
-            onClick={() => setShowUpdate(false)}
-            aria-label="Dismiss update notice"
-          >
-            &times;
-          </button>
-        </div>
-      )}
-    </>
+    <div className="sw-update-banner" role="alert" aria-live="polite">
+      <span>{t('sw-update-text', 'A new version is available.')}</span>
+      <button
+        className="sw-update-btn"
+        onClick={() => {
+          waiting.postMessage({ type: 'SKIP_WAITING' });
+          setWaiting(null);
+        }}
+      >
+        {t('sw-update-btn', 'Update')}
+      </button>
+      <button
+        className="sw-update-dismiss"
+        onClick={() => setWaiting(null)}
+        aria-label={t('sw-update-dismiss', 'Dismiss update notice')}
+      >
+        &times;
+      </button>
+    </div>
   );
 }

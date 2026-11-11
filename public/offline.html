@@ -1,246 +1,148 @@
 <!doctype html>
+<!--
+  Shown by /sw.js when a page is requested offline and no stored copy exists.
+  Self-contained: the site's stylesheets may not be available offline. Colours are the brand tokens'
+  values (src/styles/tokens.css); hotlines mirror the emergency entries in src/config/site.ts.
+-->
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#0a2f86" />
-    <title>Offline - Better San Jose</title>
+    <title>Offline | Better San Jose</title>
     <style>
-      *,
-      *::before,
-      *::after {
+      :root {
+        --navy: #0a2f86;
+        --gold: #f2b100;
+        --cream: #faf7f0;
+        --line: #e7e3d8;
+        --ink: #141b2d;
+        --mute: #636b7d;
+        --card: #ffffff;
+        --link: #0a2f86;
+      }
+      * {
         box-sizing: border-box;
-        margin: 0;
-        padding: 0;
       }
       body {
-        font-family:
-          'Inter',
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        padding: 24px 16px;
+        background: var(--cream);
+        color: var(--ink);
+        font:
+          16px/1.5 Inter,
+          system-ui,
           -apple-system,
-          BlinkMacSystemFont,
           'Segoe UI',
           Roboto,
           sans-serif;
-        background: #f5f7f5;
-        color: #1a1a1a;
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: 2rem 1rem;
       }
-      .skip-link {
-        position: absolute;
-        top: -100%;
-        left: 0;
-        padding: 0.5rem 1rem;
-        background: #0a2f86;
-        color: #fff;
-        z-index: 100;
-      }
-      .skip-link:focus {
-        top: 0;
-      }
-      .container {
-        max-width: 600px;
+      main {
         width: 100%;
+        max-width: 460px;
         text-align: center;
       }
-      .logo {
-        width: 180px;
+      img {
+        width: 96px;
         height: auto;
-        margin-bottom: 1.5rem;
       }
       h1 {
-        font-size: 1.5rem;
-        color: #0a2f86;
-        margin-bottom: 0.5rem;
+        margin: 16px 0 4px;
+        color: var(--link);
+        font-size: 1.75rem;
+        line-height: 1.2;
       }
-      .disclaimer {
-        margin-top: 1.5rem;
-        font-size: 0.8125rem;
-        color: #555;
+      .lead {
+        margin: 0 0 4px;
+        color: var(--mute);
       }
-      .subtitle {
-        color: #555;
-        margin-bottom: 2rem;
-        line-height: 1.5;
+      .lead[lang='fil'] {
+        margin-bottom: 24px;
+        font-size: 0.9375rem;
       }
-      .hotlines {
-        background: #fff;
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        padding: 1.5rem;
-        margin-bottom: 2rem;
+      ul {
+        margin: 0 0 24px;
+        padding: 0;
+        list-style: none;
         text-align: left;
       }
-      .hotlines h2 {
-        font-size: 1.1rem;
-        color: #0a2f86;
-        margin-bottom: 1rem;
-        text-align: center;
-      }
-      .hotline-list {
-        list-style: none;
-      }
-      .hotline-list li {
+      li {
         display: flex;
-        justify-content: space-between;
+        flex-wrap: wrap;
         align-items: center;
-        padding: 0.6rem 0;
-        border-bottom: 1px solid #eee;
+        justify-content: space-between;
+        gap: 4px 12px;
+        padding: 12px 16px;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        background: var(--card);
       }
-      .hotline-list li:last-child {
-        border-bottom: none;
+      li + li {
+        margin-top: 8px;
       }
-      .hotline-label {
+      li span {
         font-weight: 600;
-        color: #333;
       }
-      .hotline-number {
-        color: #0a2f86;
+      li a {
+        color: var(--link);
         font-weight: 600;
         text-decoration: none;
+        min-height: 44px;
+        display: inline-flex;
+        align-items: center;
       }
-      .hotline-number:focus {
-        outline: 2px solid #0a2f86;
-        outline-offset: 2px;
-      }
-      .retry-btn {
-        display: inline-block;
-        background: #0a2f86;
-        color: #fff;
-        border: none;
-        padding: 0.75rem 2rem;
-        font-size: 1rem;
-        border-radius: 6px;
+      button {
+        min-height: 48px;
+        padding: 0 28px;
+        border: 0;
+        border-radius: 999px;
+        background: var(--gold);
+        color: #141b2d;
+        font: inherit;
+        font-weight: 600;
         cursor: pointer;
-        text-decoration: none;
       }
-      .retry-btn:hover {
-        background: #071f5c;
-      }
-      .retry-btn:focus {
-        outline: 2px solid #0a2f86;
+      button:focus-visible,
+      a:focus-visible {
+        outline: 3px solid var(--link);
         outline-offset: 2px;
       }
-      @media (max-width: 480px) {
-        .hotline-list li {
-          flex-direction: column;
-          align-items: flex-start;
-          gap: 0.25rem;
-        }
-      }
-      @media (prefers-color-scheme: dark) {
-        html:not([data-theme='light']) body {
-          background: #0b1324;
-          color: #e8ecf5;
-        }
-        html:not([data-theme='light']) h1,
-        html:not([data-theme='light']) h2,
-        html:not([data-theme='light']) h3,
-        html:not([data-theme='light']) a {
-          color: #9fb6ff;
-        }
-        html:not([data-theme='light']) p,
-        html:not([data-theme='light']) li {
-          color: #9aa6bf;
-        }
-        html:not([data-theme='light']) .hotlines,
-        html:not([data-theme='light']) .disclaimer {
-          background: #121c33;
-          border-color: #22304f;
-        }
-        html:not([data-theme='light']) .hotline-label,
-        html:not([data-theme='light']) .hotline-number,
-        html:not([data-theme='light']) .subtitle {
-          color: #e8ecf5;
-        }
-        html:not([data-theme='light']) .retry-btn {
-          background: #f2b100;
-          color: #071f5c;
-        }
-        html:not([data-theme='light']) .retry-btn:hover {
-          background: #f2b100;
-          filter: brightness(0.94);
-        }
-        html:not([data-theme='light']) .retry-btn:focus {
-          outline-color: #9fb6ff;
-        }
-      }
-
-      html[data-theme='dark'] body {
-        background: #0b1324;
-        color: #e8ecf5;
-      }
-      html[data-theme='dark'] h1,
-      html[data-theme='dark'] h2,
-      html[data-theme='dark'] h3,
-      html[data-theme='dark'] a {
-        color: #9fb6ff;
-      }
-      html[data-theme='dark'] p,
-      html[data-theme='dark'] li {
-        color: #9aa6bf;
-      }
-      html[data-theme='dark'] .hotlines,
-      html[data-theme='dark'] .disclaimer {
-        background: #121c33;
-        border-color: #22304f;
-      }
-      html[data-theme='dark'] .hotline-label,
-      html[data-theme='dark'] .hotline-number,
-      html[data-theme='dark'] .subtitle {
-        color: #e8ecf5;
-      }
-      html[data-theme='dark'] .retry-btn {
-        background: #f2b100;
-        color: #071f5c;
-      }
-      html[data-theme='dark'] .retry-btn:hover {
-        background: #f2b100;
-        filter: brightness(0.94);
-      }
-      html[data-theme='dark'] .retry-btn:focus {
-        outline-color: #9fb6ff;
+      .note {
+        margin-top: 24px;
+        color: var(--mute);
+        font-size: 0.8125rem;
       }
     </style>
-    <script>
-      try {
-        var t = localStorage.getItem('theme');
-        if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
-      } catch (e) {}
-    </script>
   </head>
   <body>
-    <a href="#main-content" class="skip-link">Skip to main content</a>
-    <main id="main-content" class="container">
-      <img
-        class="logo"
-        src="/assets/images/logo/logo-full.png"
-        alt="BetterLGU San Jose City"
-        width="168"
-        height="160"
-        style="width: 168px"
-      />
-      <h1>You are currently offline</h1>
-      <p class="subtitle">
-        Check your internet connection and try again. Emergency numbers are listed below.
+    <main>
+      <img src="/assets/images/logo/logo-emblem.png" alt="Better San Jose" width="96" height="96" />
+      <h1>You're offline</h1>
+      <p class="lead">This page isn't saved on your device yet. Reconnect and try again.</p>
+      <p class="lead" lang="fil">
+        Hindi pa naka-save ang pahinang ito. Kumonekta at subukang muli.
       </p>
 
-      <!-- TODO(data): add verified San Jose City hotlines -->
-      <div class="hotlines">
-        <h2>Emergency Hotlines - San Jose City, Nueva Ecija</h2>
-        <ul class="hotline-list">
-          <li>
-            <span class="hotline-label">National Emergency Hotline</span>
-            <a href="tel:911" class="hotline-number">911</a>
-          </li>
-        </ul>
-      </div>
+      <ul aria-label="Emergency hotlines">
+        <li><span>MDRRMO Rescue</span><a href="tel:+639151689878">0915-168-9878</a></li>
+        <li><span>National Emergency</span><a href="tel:911">911</a></li>
+        <li>
+          <span>PNP San Jose</span>
+          <a href="tel:+63446047954">(044) 604-7954</a>
+          <a href="tel:+639985985421">0998-598-5421</a>
+        </li>
+        <li>
+          <span>Fire Station (BFP)</span>
+          <a href="tel:+63449405258">(044) 940-5258</a>
+          <a href="tel:+639254530777">0925-453-0777</a>
+        </li>
+      </ul>
 
-      <button class="retry-btn" onclick="window.location.reload()">Try Again</button>
-      <p class="disclaimer">Independent civic site · not the official LGU website</p>
+      <button type="button" onclick="location.reload()">Try again</button>
+      <p class="note">Independent civic site · not the official LGU website</p>
     </main>
   </body>
 </html>

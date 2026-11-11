@@ -2,15 +2,16 @@
   "name": "Better San Jose - San Jose City, Nueva Ecija",
   "short_name": "Better San Jose",
   "description": "Access government services, hotlines, and transparency data for San Jose City, Nueva Ecija.",
+  "lang": "en",
+  "dir": "ltr",
   "start_url": "/?source=pwa",
   "scope": "/",
   "display": "standalone",
   "orientation": "any",
-  "background_color": "#ffffff",
   "theme_color": "#0a2f86",
-  "lang": "en",
-  "dir": "ltr",
+  "background_color": "#ffffff",
   "categories": ["government", "utilities"],
+  "prefer_related_applications": false,
   "icons": [
     {
       "src": "/assets/images/logo/icon-192.png",
@@ -30,57 +31,12 @@
       "type": "image/png",
       "purpose": "maskable"
     },
-    {
-      "src": "/assets/images/logo/favicon.ico",
-      "sizes": "48x48",
-      "type": "image/x-icon"
-    }
+    { "src": "/assets/images/logo/favicon.ico", "sizes": "48x48", "type": "image/x-icon" }
   ],
   "shortcuts": [
-    {
-      "name": "Services",
-      "short_name": "Services",
-      "url": "/services/?source=pwa",
-      "icons": [
-        {
-          "src": "/assets/images/logo/icon-192.png",
-          "sizes": "192x192"
-        }
-      ]
-    },
-    {
-      "name": "Contact & Hotlines",
-      "short_name": "Contact",
-      "url": "/contact/?source=pwa",
-      "icons": [
-        {
-          "src": "/assets/images/logo/icon-192.png",
-          "sizes": "192x192"
-        }
-      ]
-    },
-    {
-      "name": "Government",
-      "short_name": "Government",
-      "url": "/government/?source=pwa",
-      "icons": [
-        {
-          "src": "/assets/images/logo/icon-192.png",
-          "sizes": "192x192"
-        }
-      ]
-    },
-    {
-      "name": "Transparency",
-      "short_name": "Budget",
-      "url": "/budget/?source=pwa",
-      "icons": [
-        {
-          "src": "/assets/images/logo/icon-192.png",
-          "sizes": "192x192"
-        }
-      ]
-    }
-  ],
-  "prefer_related_applications": false
+    { "name": "Services", "short_name": "Services", "url": "/services/?source=pwa" },
+    { "name": "Contact & Hotlines", "short_name": "Contact", "url": "/contact/?source=pwa" },
+    { "name": "Government", "short_name": "Government", "url": "/government/?source=pwa" },
+    { "name": "Transparency", "short_name": "Budget", "url": "/budget/?source=pwa" }
+  ]
 }

@@ -1,17 +1,19 @@
-/**
- * Better San Jose Service Worker
- * Enterprise-grade PWA with versioned caching, runtime strategies, and offline resilience.
+/*
+ * Offline support for the San Jose City civic site, served as /sw.js.
+ * Pages: fresh from the network, the stored copy when offline, else the offline page.
+ * Static files: stored copy at once, refreshed in the background.
+ * A new version waits until the visitor presses Update (or closes every tab of the site).
  */
 
-var CACHE_VERSION = 'v4';
-var STATIC_CACHE = 'bettersanjose-static-' + CACHE_VERSION;
-var RUNTIME_CACHE = 'bettersanjose-runtime-' + CACHE_VERSION;
-var OFFLINE_URL = '/offline.html';
+const VERSION = '2026-11-11';
+const STATIC = `sanjose-static-${VERSION}`;
+const RUNTIME = `sanjose-runtime-${VERSION}`;
+const OFFLINE_PAGE = '/offline.html';
 
-// Core shell: precached on install for instant offline load
-var PRECACHE_URLS = [
+/** Stored at install so the first offline visit still has a home page, logo and icons. */
+const SHELL = [
   '/',
-  '/offline.html',
+  OFFLINE_PAGE,
   '/assets/images/logo/logo-emblem.png',
   '/assets/images/logo/icon-192.png',
   '/assets/images/logo/icon-512.png',
@@ -19,242 +21,113 @@ var PRECACHE_URLS = [
   '/manifest.webmanifest',
 ];
 
-// Max items in runtime cache to prevent unbounded growth
-var RUNTIME_CACHE_LIMIT = 80;
-
-// Max age for runtime-cached responses (7 days)
-var RUNTIME_MAX_AGE = 7 * 24 * 60 * 60 * 1000;
-
-// ─── Install ────────────────────────────────────────────────────────────────
-self.addEventListener('install', function (event) {
-  event.waitUntil(
-    caches
-      .open(STATIC_CACHE)
-      .then(function (cache) {
-        // Use addAll for atomic precaching — if any fail, install fails
-        return cache.addAll(PRECACHE_URLS);
-      })
-      .then(function () {
-        return self.skipWaiting();
-      })
-  );
-});
-
-// ─── Activate ───────────────────────────────────────────────────────────────
-self.addEventListener('activate', function (event) {
-  var currentCaches = [STATIC_CACHE, RUNTIME_CACHE];
-  event.waitUntil(
-    caches
-      .keys()
-      .then(function (cacheNames) {
-        return Promise.all(
-          cacheNames
-            .filter(function (name) {
-              return currentCaches.indexOf(name) === -1;
-            })
-            .map(function (name) {
-              return caches.delete(name);
-            })
-        );
-      })
-      .then(function () {
-        return self.clients.claim();
-      })
-  );
-});
-
-// ─── Message handler — allow clients to trigger skipWaiting ─────────────────
-self.addEventListener('message', function (event) {
-  if (event.data && event.data.type === 'SKIP_WAITING') {
-    self.skipWaiting();
-  }
-});
-
-// ─── Helpers ────────────────────────────────────────────────────────────────
+const RUNTIME_MAX_ENTRIES = 80;
+const RUNTIME_MAX_AGE_MS = 7 * 24 * 60 * 60 * 1000;
+const STATIC_FILE = /\.(?:css|js|svg|ico|png|jpe?g|webp|woff2?|ttf|json)$/i;
 
 /**
- * Trim a cache to a max number of entries (FIFO)
+ * Which strategy a request gets: 'skip' (leave it to the browser), 'navigate', 'static',
+ * 'cross-origin' or 'other'. `req.rsc` is true when the request carries the RSC header.
  */
-function trimCache(cacheName, maxItems) {
-  caches.open(cacheName).then(function (cache) {
-    cache.keys().then(function (keys) {
-      if (keys.length > maxItems) {
-        cache.delete(keys[0]).then(function () {
-          trimCache(cacheName, maxItems);
-        });
+function classifyRequest(req, origin) {
+  const url = new URL(req.url);
+  if (req.method !== 'GET' || (url.protocol !== 'http:' && url.protocol !== 'https:'))
+    return 'skip';
+  // Next.js page payloads must never come from a cache, or visitors see pre-deploy content.
+  if (req.rsc || url.searchParams.has('_rsc')) return 'skip';
+  if (req.mode === 'navigate') return 'navigate';
+  if (STATIC_FILE.test(url.pathname)) return 'static';
+  if (url.origin !== origin) return 'cross-origin';
+  return 'other';
+}
+
+async function keep(cacheName, request, response, maxEntries) {
+  if (!response.ok) return;
+  const cache = await caches.open(cacheName);
+  await cache.put(request, response);
+  if (!maxEntries) return;
+  const keys = await cache.keys();
+  for (const old of keys.slice(0, Math.max(0, keys.length - maxEntries))) await cache.delete(old);
+}
+
+const stored = async (request) => (await caches.match(request)) ?? Response.error();
+
+const strategies = {
+  async navigate(request) {
+    try {
+      const response = await fetch(request);
+      keep(RUNTIME, request, response.clone());
+      return response;
+    } catch {
+      return (
+        (await caches.match(request)) ?? (await caches.match(OFFLINE_PAGE)) ?? Response.error()
+      );
+    }
+  },
+
+  async static(request) {
+    const cached = await caches.match(request);
+    const refresh = fetch(request).then(
+      (response) => (keep(STATIC, request, response.clone()), response),
+      () => cached ?? Response.error()
+    );
+    return cached ?? refresh;
+  },
+
+  async 'cross-origin'(request) {
+    try {
+      const response = await fetch(request);
+      keep(RUNTIME, request, response.clone(), RUNTIME_MAX_ENTRIES);
+      return response;
+    } catch {
+      return stored(request);
+    }
+  },
+
+  async other(request) {
+    const cached = await caches.match(request);
+    const date = cached?.headers.get('date');
+    if (cached && (!date || Date.now() - Date.parse(date) < RUNTIME_MAX_AGE_MS)) return cached;
+    try {
+      const response = await fetch(request);
+      keep(RUNTIME, request, response.clone(), RUNTIME_MAX_ENTRIES);
+      return response;
+    } catch {
+      return cached ?? Response.error();
+    }
+  },
+};
+
+self.addEventListener('install', (event) => {
+  // No skipWaiting here: a first install activates on its own, and an update waits for the visitor.
+  event.waitUntil(caches.open(STATIC).then((cache) => cache.addAll(SHELL)));
+});
+
+self.addEventListener('activate', (event) => {
+  event.waitUntil(
+    (async () => {
+      for (const name of await caches.keys()) {
+        if (name !== STATIC && name !== RUNTIME) await caches.delete(name);
       }
-    });
-  });
-}
-
-/**
- * Check if a cached response is still fresh
- */
-function isFresh(response, maxAge) {
-  if (!response) return false;
-  var dateHeader = response.headers.get('date');
-  if (!dateHeader) return true; // no date = assume fresh
-  var age = Date.now() - new Date(dateHeader).getTime();
-  return age < maxAge;
-}
-
-/**
- * Determine if a request is for a static asset
- */
-function isStaticAsset(url) {
-  return /\.(css|js|svg|ico|png|jpg|jpeg|webp|woff2?|ttf|eot|json)(\?.*)?$/i.test(url.pathname);
-}
-
-/**
- * Determine if a request is for a data/API endpoint
- */
-function isDataRequest(url) {
-  return url.pathname.startsWith('/data/') || url.hostname !== self.location.hostname;
-}
-
-// ─── Fetch Strategies ───────────────────────────────────────────────────────
-self.addEventListener('fetch', function (event) {
-  var url = new URL(event.request.url);
-
-  // Skip non-GET requests and chrome-extension/devtools
-  if (event.request.method !== 'GET') return;
-  if (url.protocol !== 'http:' && url.protocol !== 'https:') return;
-
-  // Next.js client-side navigation payloads (RSC) must always come from the
-  // network, otherwise visitors see pre-deploy content after an update.
-  if (url.searchParams.has('_rsc') || event.request.headers.get('RSC') === '1') return;
-
-  // ── Navigation requests: Network-first with offline fallback ──
-  if (event.request.mode === 'navigate') {
-    event.respondWith(
-      fetch(event.request)
-        .then(function (response) {
-          // Cache successful navigation responses
-          if (response.ok) {
-            var clone = response.clone();
-            caches.open(RUNTIME_CACHE).then(function (cache) {
-              cache.put(event.request, clone);
-            });
-          }
-          return response;
-        })
-        .catch(function () {
-          // Try cached version first, then offline page
-          return caches.match(event.request).then(function (cached) {
-            return cached || caches.match(OFFLINE_URL);
-          });
-        })
-    );
-    return;
-  }
-
-  // ── Static assets: Stale-while-revalidate ──
-  if (isStaticAsset(url)) {
-    event.respondWith(
-      caches.match(event.request).then(function (cached) {
-        var fetchPromise = fetch(event.request)
-          .then(function (response) {
-            if (response.ok) {
-              var clone = response.clone();
-              caches.open(STATIC_CACHE).then(function (cache) {
-                cache.put(event.request, clone);
-              });
-            }
-            return response;
-          })
-          .catch(function () {
-            return cached;
-          });
-
-        // Return cached immediately, update in background
-        return cached || fetchPromise;
-      })
-    );
-    return;
-  }
-
-  // ── Data/API requests: Network-first with short cache ──
-  if (isDataRequest(url)) {
-    event.respondWith(
-      fetch(event.request)
-        .then(function (response) {
-          if (response.ok) {
-            var clone = response.clone();
-            caches.open(RUNTIME_CACHE).then(function (cache) {
-              cache.put(event.request, clone);
-              trimCache(RUNTIME_CACHE, RUNTIME_CACHE_LIMIT);
-            });
-          }
-          return response;
-        })
-        .catch(function () {
-          return caches.match(event.request);
-        })
-    );
-    return;
-  }
-
-  // ── Everything else: Cache-first with network fallback ──
-  event.respondWith(
-    caches.match(event.request).then(function (cached) {
-      if (cached && isFresh(cached, RUNTIME_MAX_AGE)) {
-        return cached;
-      }
-      return fetch(event.request)
-        .then(function (response) {
-          if (response.ok) {
-            var clone = response.clone();
-            caches.open(RUNTIME_CACHE).then(function (cache) {
-              cache.put(event.request, clone);
-              trimCache(RUNTIME_CACHE, RUNTIME_CACHE_LIMIT);
-            });
-          }
-          return response;
-        })
-        .catch(function () {
-          return cached;
-        });
-    })
+      await self.clients.claim();
+    })()
   );
 });
 
-// ─── Background Sync (for future form submissions) ─────────────────────────
-self.addEventListener('sync', function (event) {
-  if (event.tag === 'sync-pending') {
-    event.waitUntil(
-      // Placeholder for background sync logic
-      Promise.resolve()
-    );
-  }
+self.addEventListener('message', (event) => {
+  if (event.data?.type === 'SKIP_WAITING') self.skipWaiting();
 });
 
-// ─── Push Notifications (foundation) ────────────────────────────────────────
-self.addEventListener('push', function (event) {
-  if (!event.data) return;
-  var data = event.data.json();
-  event.waitUntil(
-    self.registration.showNotification(data.title || 'Better San Jose', {
-      body: data.body || '',
-      icon: '/assets/images/logo/icon-192.png',
-      badge: '/assets/images/logo/icon-64.png',
-      tag: data.tag || 'bettersanjose-notification',
-      data: { url: data.url || '/' },
-    })
+self.addEventListener('fetch', (event) => {
+  const { request } = event;
+  const kind = classifyRequest(
+    {
+      url: request.url,
+      method: request.method,
+      mode: request.mode,
+      rsc: request.headers.get('RSC') === '1',
+    },
+    self.location.origin
   );
-});
-
-self.addEventListener('notificationclick', function (event) {
-  event.notification.close();
-  var url =
-    event.notification.data && event.notification.data.url ? event.notification.data.url : '/';
-  event.waitUntil(
-    self.clients.matchAll({ type: 'window' }).then(function (clients) {
-      for (var i = 0; i < clients.length; i++) {
-        if (clients[i].url === url && 'focus' in clients[i]) {
-          return clients[i].focus();
-        }
-      }
-      return self.clients.openWindow(url);
-    })
-  );
+  if (kind !== 'skip') event.respondWith(strategies[kind](request));
 });
