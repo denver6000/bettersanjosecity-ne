@@ -1,3 +1,27 @@
+## 2026-11-11 09:22 — 5043fd3 — Own stylesheets, real city data, calmer inner pages, site search
+
+- By: Claude Code, requested by Kurt Vincent F. Fariñas
+- Code: 7bbade6 → 5043fd3 (branches discard-bettersolano-theme and content-pages-and-search, rebased onto main and fast-forwarded; Hostinger auto-builds on push)
+  - BetterSolano CSS replaced by our own stylesheets, with no visual change
+  - Contact and Government pages and the home leadership/contact panels show officials, 43 offices and 8 hotlines copied from sjc.gov.ph (checked 2026-11-11)
+  - Inner pages use a new layout without the navy band
+  - Site-wide bilingual search in the header and the home search box
+  - Phone menu button moved to the right
+  - Barangay map section removed from the home page
+- Migrations: none
+- Backup: none (static site)
+- Data changes: none (the city data ships in the code; undo by reverting to 7bbade6)
+- Verified:
+  - `npm run check` steps passed on 5043fd3. Prettier ran on git files only: an untracked local plugin cache fails `prettier --check .`.
+  - The live site went up about 1 minute after the push.
+  - `/`, `/government/`, `/contact/`, `/privacy/`, `/business-taxes/` and `/scholarship/` all return 200.
+  - The live home page has the search button and the mayor's name, and no barangay map.
+  - `/contact/` has the separate PNP `tel:` link.
+  - The live CSS has the new page layout and note styles.
+  - Not checked visually on the live site.
+  - Filipino wording not yet read by a native speaker.
+  - City Hall street number and department heads still unconfirmed.
+
 ## 2026-11-11 — 39c23d4 — Filipino dates on station details, clearer scholarship line
 
 - By: Claude Code, requested by Kurt Vincent F. Fariñas
