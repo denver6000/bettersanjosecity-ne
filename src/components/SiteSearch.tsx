@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useLanguage } from '@/i18n/LanguageContext';
-import { search } from '@/lib/search';
+import { search, shownCount } from '@/lib/search';
 import { SITE_INDEX } from '@/lib/search-index';
 import SearchResults from './SearchResults';
 
@@ -85,7 +85,7 @@ export default function SiteSearch() {
           </div>
           <p className="sr-only" role="status">
             {active
-              ? t('search-results-count', '{n} results').replace('{n}', String(results.length))
+              ? t('search-results-count', '{n} results').replace('{n}', String(shownCount(results)))
               : ''}
           </p>
           {active && <SearchResults results={results} onPick={close} />}

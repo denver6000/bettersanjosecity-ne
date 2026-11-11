@@ -21,9 +21,11 @@ export function normalize(s: string): string {
 
 /** Every word must match; entries whose title holds every word come first. */
 export function search(entries: SearchEntry[], query: string): SearchEntry[] {
-  const q = normalize(query);
-  if (q.replace(/\s/g, '').length < 2) return [];
-  const words = q.split(/\s+/).filter(Boolean);
+  // Words without a letter or digit are noise; at least one word needs two letters or digits.
+  const words = normalize(query)
+    .split(/\s+/)
+    .filter((w) => /[\p{L}\p{N}]/u.test(w));
+  if (!words.some((w) => w.replace(/[^\p{L}\p{N}]/gu, '').length >= 2)) return [];
   const titleHits: SearchEntry[] = [];
   const otherHits: SearchEntry[] = [];
   for (const entry of entries) {
@@ -40,4 +42,9 @@ export function groupByType(results: SearchEntry[], perType = 5): [EntryType, Se
     (type) =>
       [type, results.filter((r) => r.type === type).slice(0, perType)] as [EntryType, SearchEntry[]]
   ).filter(([, list]) => list.length > 0);
+}
+
+/** How many results the grouped list actually shows (for the screen-reader count). */
+export function shownCount(results: SearchEntry[], perType = 5): number {
+  return groupByType(results, perType).reduce((n, [, list]) => n + list.length, 0);
 }
