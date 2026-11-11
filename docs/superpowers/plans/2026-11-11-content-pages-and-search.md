@@ -62,7 +62,7 @@ runner (`npm run test:lib` runs `src/lib/*.test.ts` with `--experimental-strip-t
 
 **Branch and gate**
 
-- Branch `content-pages-and-search`, cut from `discard-bettersolano-theme`.
+- Branch `content-pages-and-search`, cut from the earlier stylesheet branch.
 - No merge, push or deploy without the user's say-so.
 - Gate for every task: `npm run check` is green before the task's commit, unless a step names a narrower
   command.
@@ -161,7 +161,7 @@ runner (`npm run test:lib` runs `src/lib/*.test.ts` with `--experimental-strip-t
 - [ ] **Step 1: Create the branch and commit the spec and plan**
 
 ```bash
-git checkout -b content-pages-and-search discard-bettersolano-theme
+git checkout -b content-pages-and-search <earlier stylesheet branch>
 git add docs/superpowers/specs/2026-11-11-content-pages-and-search-design.md docs/superpowers/plans/2026-11-11-content-pages-and-search.md
 git commit -m "docs: spec and plan for content pages, city data and site search"
 ```
@@ -495,7 +495,7 @@ Take screenshots of the phone header and the open dialog.
   `npm run shots:compare -- baseline after-content`.
   - Expected: differences on inner pages, in the header and in the home panels only. Note any other route
     that changed.
-  - If `.shots/baseline` is stale or missing, capture one from `discard-bettersolano-theme` first.
+  - If `.shots/baseline` is stale or missing, capture one from the earlier stylesheet branch first.
 - Write the report.
   - Name the screenshots.
   - Say the Filipino wording is unreviewed by a native speaker, and that nothing is pushed or deployed.

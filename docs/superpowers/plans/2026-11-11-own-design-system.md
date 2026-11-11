@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Replace the four BetterSolano stylesheets with stylesheets written fresh by us, with no visible change on any page.
+**Goal:** Replace the four inherited stylesheets with stylesheets written fresh by us, with no visible change on any page.
 
 **Architecture:** First build a screenshot harness and capture a baseline of every route. Then
 take the site apart one area at a time. Each task cuts that area's rules out of the upstream
@@ -15,7 +15,7 @@ it commits. Once every area is done, the upstream files are empty and get delete
 
 ## Global Constraints
 
-- Branch `discard-bettersolano-theme`. Don't merge, push or deploy.
+- Branch: the earlier stylesheet branch. Don't merge, push or deploy.
 - No new dependencies. Flat colours only, no gradients.
 - Keep every class name used in TSX. Write declarations fresh from what the page needs; never translate upstream rules line by line.
 - Keep every custom property name that our own files read (`--color-navy`, `--color-gold`, `--color-live`, `--color-cream`, `--font-main`, `--spacing-*`, …). Run `grep -rhoE "var\(--[a-z0-9-]+" src/styles | sort -u` to get the list.
@@ -136,18 +136,18 @@ Steps:
 - [ ] **Step 2:** Delete the three upstream files. Run `grep -rn "style.css\|responsive.css\|accessibility.css" src`. Expected: no matches.
 - [ ] **Step 3:** Rebuild, capture `t5` and compare. Expected: `DIFF 0`, including the print captures.
 - [ ] **Step 4:** Run `npm run check`. Expected: exit 0.
-- [ ] **Step 5:** Commit with message `style: own footer, accessibility and print styles; remove BetterSolano CSS`.
+- [ ] **Step 5:** Commit with message `style: own footer, accessibility and print styles; remove inherited CSS`.
 
 ### Task 6: Credits and final check
 
 **Files:**
 
-- Modify: `README.md:7` (drop the BetterSolano design-system sentence), `README.md:130` (describe `src/styles/` as our own stylesheets), `src/app/layout.tsx:11` comment, `src/styles/site.css:1-4` header comment
+- Modify: `README.md:7` (drop the inherited design-system sentence), `README.md:130` (describe `src/styles/` as our own stylesheets), `src/app/layout.tsx:11` comment, `src/styles/site.css:1-4` header comment
 
 Steps:
 
-- [ ] **Step 1:** Edit the four places. Then run `grep -rn -i "bettersolano" README.md src`. Expected: no matches.
+- [ ] **Step 1:** Edit the four places. Then run `grep -rn -i "<original template name>" README.md src`. Expected: no matches.
 - [ ] **Step 2:** Run the full capture `final` and compare with the baseline. Expected: `DIFF 0`. Otherwise list every differing id with `.shots/baseline/<id>.png`, `.shots/final/<id>.png` and `.shots/diff/<id>.png` for the user.
 - [ ] **Step 3:** By-eye check with the network on. Run `npm run dev`, open home and business-taxes at 1280 and 375. Weather, news, map and estimator must look like the live site.
 - [ ] **Step 4:** Run `npm run check`. Expected: exit 0.
-- [ ] **Step 5:** Commit with message `docs: drop the BetterSolano design-system credit`.
+- [ ] **Step 5:** Commit with message `docs: drop the inherited design-system credit`.

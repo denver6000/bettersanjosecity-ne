@@ -228,4 +228,4 @@ changing official data. Report wrong figures with the "Data correction" issue te
 
 ## License
 
-MIT (code) and CC BY 4.0 (content), as in upstream. See `LICENSE`.
+MIT (code) and CC BY 4.0 (content). See `LICENSE`.

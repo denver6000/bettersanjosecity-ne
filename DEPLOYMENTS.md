@@ -1,8 +1,8 @@
 ## 2026-11-11 09:22 — 5043fd3 — Own stylesheets, real city data, calmer inner pages, site search
 
 - By: Claude Code, requested by Kurt Vincent F. Fariñas
-- Code: 7bbade6 → 5043fd3 (branches discard-bettersolano-theme and content-pages-and-search, rebased onto main and fast-forwarded; Hostinger auto-builds on push)
-  - BetterSolano CSS replaced by our own stylesheets, with no visual change
+- Code: 7bbade6 → 5043fd3 (the earlier stylesheet branch and content-pages-and-search, rebased onto main and fast-forwarded; Hostinger auto-builds on push)
+  - Inherited CSS replaced by our own stylesheets, with no visual change
   - Contact and Government pages and the home leadership/contact panels show officials, 43 offices and 8 hotlines copied from sjc.gov.ph (checked 2026-11-11)
   - Inner pages use a new layout without the navy band
   - Site-wide bilingual search in the header and the home search box
@@ -94,14 +94,14 @@
 - Data changes: none
 - Verified: `npm run check` passed; live CSS contains the new `:lang(fil)` nav rules (header no longer squashes at 1440px+ in Filipino); not re-checked visually on the live site
 
-## 2026-11-06 08:21 — dce76a8 — Force light theme; remove hero credit and BetterSolano footer note
+## 2026-11-06 08:21 — dce76a8 — Force light theme; remove hero credit and inherited footer note
 
 - By: Claude Code, requested by Kurt Vincent F. Fariñas
 - Code: d03e7db → dce76a8 (pushed to main; Hostinger auto-builds on push)
 - Migrations: none
 - Backup: none
 - Data changes: none
-- Verified: `npm run check` passed (icons, i18n, theme, prettier, typecheck, build); live homepage no longer contains the Judgefloro photo credit or "Design based on BetterSolano.org", and `<html>` is `data-theme="light"`
+- Verified: `npm run check` passed (icons, i18n, theme, prettier, typecheck, build); live homepage no longer contains the Judgefloro photo credit or the "Design based on …" note crediting the original template, and `<html>` is `data-theme="light"`
 
 ## 2026-11-06 — 9f60c97 — Footer credits + frontend-kurt to main
 

@@ -1,10 +1,10 @@
-# Own design system: replace the BetterSolano CSS
+# Own design system: replace the inherited CSS
 
-Date: 2026-11-11 · Branch: `discard-bettersolano-theme` (from `main` at 107874c)
+Date: 2026-11-11 · Branch: the earlier stylesheet branch (from `main` at 107874c)
 
 ## Intent
 
-The site's shared styling still comes from BetterSolano.org. The user wants the styling to be
+The site's shared styling still comes from the original template. The user wants the styling to be
 San Jose's own, written by us, while the site keeps exactly the look it has today on
 https://sanjose.betternuevaecija.org: the same colours (navy `#0a2f86`, gold `#f2b100`, green
 `#16722b`, cream `#faf6ec`/`#faf7f0`), the same fonts (Fraunces headings, Inter body), the same
@@ -20,19 +20,19 @@ The user looked at new palettes and rejected all of them. This is not a redesign
   radius, shadow) plus the shared base, layout, header, footer, buttons, cards, forms,
   accessibility helpers and responsive rules that the pages use today.
 - Every page looks the same as before at phone, tablet and desktop widths.
-- Remove the "design system comes from BetterSolano" wording from `README.md` (lines 7 and 130),
+- Remove the "design system comes from the original template" wording from `README.md` (lines 7 and 130),
   the import comment in `src/app/layout.tsx:11`, and the header comment in `src/styles/site.css`.
 
 ## Non-goals
 
 - No new colours, fonts, layouts or components. No content changes.
 - No change to `icons.css`. It is generated from the `@phosphor-icons/web` package by
-  `scripts/build-icons.mjs` and was never BetterSolano's.
+  `scripts/build-icons.mjs` and was never the original template's.
 - No rewrite of the stylesheets that are already ours: `site.css`, `theme.css`, `home.css`,
   `motion.css`, `taxes.css`, `estimator.css`, `scholarship.css`. They change only where they
   depend on a token or rule that moves.
 - No CSS Modules or move to per-component CSS. This was approach 3 and was turned down.
-- `LICENSE` stays unchanged. The repository was forked from BetterSolano as a whole (first commit
+- `LICENSE` stays unchanged. The repository was forked from the original template as a whole (first commit
   e6fe432 added everything at once), so code other than these four CSS files may still be
   theirs, and the MIT notice must stay while any of it remains.
 
@@ -68,7 +68,7 @@ The user looked at new palettes and rejected all of them. This is not a redesign
    compare new screenshots with the old ones page by page. All the CSS becomes ours, and the
    screenshots catch regressions. About a day.
 2. **Rewrite in place**, rule by rule inside the old files. Faster (about half a day), but it
-   keeps BetterSolano's structure and naming, so it is ours only on paper. Rejected.
+   keeps the original template's structure and naming, so it is ours only on paper. Rejected.
 3. **CSS Modules per component.** Cleanest long-term, but touches every component, takes several
    days and makes before/after comparison harder. Rejected as a bigger restructure than asked.
 
@@ -76,7 +76,7 @@ The user looked at new palettes and rejected all of them. This is not a redesign
 
 - Approach 1.
 - Keep the colours, fonts and look of the live site exactly.
-- Branch `discard-bettersolano-theme`.
+- Branch: the earlier stylesheet branch.
 - Dark mode stays ready to switch back on (light stays forced on the live site).
 
 ## Calls made by Claude (user can overrule)
@@ -127,5 +127,5 @@ The user looked at new palettes and rejected all of them. This is not a redesign
 - Screenshot comparison shows no differences beyond anti-aliasing on every route and width, or
   each remaining difference is listed with images for the user to accept.
 - `npm run check` passes.
-- README, `layout.tsx` and `site.css` no longer say the design system comes from BetterSolano.
+- README, `layout.tsx` and `site.css` no longer say the design system comes from the original template.
 - Nothing is deployed; deploying is a separate step the user asks for.

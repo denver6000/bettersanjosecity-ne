@@ -7,7 +7,7 @@ Date: 2026-11-11. Status: draft for approval.
 The site should feel designed for San Jose City, not built from a template. Today, 10 of the 16 inner pages
 are "data pending" placeholders under the same generic header: a big navy band, a pill badge, then a grid
 of dashed cards. This is the first step of a larger goal: redesign the frontend so it is entirely our own,
-then remove every mention of BetterSolano. That removal is a separate, later project.
+then remove every mention of the original template. That removal is a separate, later project.
 
 This step does four things the user asked for:
 
@@ -36,7 +36,7 @@ This step does four things the user asked for:
 
 ## Non-goals
 
-- **Removing BetterSolano mentions** (LICENSE, README) is the next project, after the redesign.
+- **Removing mentions of the original template** (LICENSE, README) is the next project, after the redesign.
 - **The home page** keeps its current sections. It changes in three places only:
   - the header gets the new search button;
   - the hero search now searches the whole site;
@@ -83,7 +83,7 @@ This step does four things the user asked for:
   - The search dialog traps focus, closes on Esc and returns focus to the button that opened it.
   - Results are announced politely, as `ServiceSearch` does today.
 - **`npm run check` must pass** (Prettier, typecheck, theme, CSS colours, i18n, tests, build).
-- **Branch** (my call): `content-pages-and-search`, cut from `discard-bettersolano-theme`, because it builds
+- **Branch** (my call): `content-pages-and-search`, cut from the earlier stylesheet branch, because it builds
   on the new stylesheets. Nothing is merged, pushed or deployed without the user's say-so.
 
 ## Approaches considered
