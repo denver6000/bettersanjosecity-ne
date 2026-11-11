@@ -40,7 +40,15 @@ test('static files', () => {
   assert.equal(kind('https://site.test/assets/fonts/x.woff2'), 'static');
 });
 
-test('other sites and everything else', () => {
+test('other sites go network first', () => {
   assert.equal(kind('https://api.open-meteo.com/v1/forecast?x=1'), 'cross-origin');
-  assert.equal(kind('https://site.test/api/weather-station.php'), 'other');
+});
+
+test('live data from our own /api/ goes network first, never a week-old copy', () => {
+  assert.equal(kind('https://site.test/api/weather-station.php'), 'live-data');
+  assert.equal(kind('https://site.test/api/scholarship-stats.php?term=1'), 'live-data');
+});
+
+test('everything else', () => {
+  assert.equal(kind('https://site.test/sitemap.xml'), 'other');
 });

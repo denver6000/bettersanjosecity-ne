@@ -42,8 +42,12 @@ export default function Header() {
   useEffect(() => pinPage(open, scrollY.current), [open]);
   useEffect(() => () => pinPage(false, scrollY.current), []);
 
-  // Arriving on another page closes the menu.
-  useEffect(() => setOpen(false), [pathname]);
+  // Arriving on another page closes the menu. The new page starts at its top, so the lock is
+  // released here without scrolling back to where the old page was.
+  useEffect(() => {
+    scrollY.current = 0;
+    setOpen(false);
+  }, [pathname]);
 
   // While open: close on a click elsewhere, on Esc (back to the button), or once the full nav fits.
   useEffect(() => {

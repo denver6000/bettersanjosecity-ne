@@ -102,6 +102,9 @@ data, weather station, scholarship, hero, search, city data and pages.
     cache if present, while a fresh copy is fetched and stored in the background.
   - Cross-origin requests (weather APIs and similar) go network first, falling back to the stored copy.
     The stored copies are capped at 80 entries, oldest dropped first.
+  - The site's own live data under `/api/` (weather station, scholarship figures) is handled the same
+    network-first way. (Added after the final review: under the "anything else" rule, a reading could be
+    served from a copy up to 7 days old.)
   - Anything else is cache first if the stored copy is under 7 days old, otherwise network, with a
     fallback to the stored copy.
 - **Dropped:** the empty background-sync handler and the unused push-notification handlers. Nothing sends
@@ -129,6 +132,8 @@ The markup and class names stay the same, so the existing CSS keeps working. The
     `mobile-menu-open` body class plus `top` offset).
   - It closes on a click outside the nav and button, on Esc (focus returns to the button), on navigating
     to another page, and when the window widens past 1199px.
+  - Navigating to another page opens it at the top, not at the old page's scroll position. (A bug found
+    in the final review; the old code had it too.)
 - The active nav link gets `aria-current="page"`, matched on the exact path, or the path prefix for
   non-home links.
 - The language pills and the search button work as today.
@@ -164,9 +169,9 @@ Same content and order, written fresh:
   - Today the worker activates as soon as it installs, so after a deploy the page reloads by itself, even
     mid-read, and the notice only flashes.
   - Now a newer worker waits for the Update click, or for all tabs to close.
-  - The one exception is the first worker that replaces today's old one: today's page script only reloads
-    the page, so the new worker activates straight away on that first update. After that, the notice works
-    as designed.
+  - The same holds for the first update after this change. The old page code's Update button also sends
+    `SKIP_WAITING`, so visitors on the old worker see its notice and update with one tap. (Corrected
+    after testing: the draft said the first update would take over straight away.)
 - **The README licence line** reads "MIT (code) and CC BY 4.0 (content). See `LICENSE`."
 
 ## Verification

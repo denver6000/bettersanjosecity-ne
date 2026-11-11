@@ -27,7 +27,7 @@ const STATIC_FILE = /\.(?:css|js|svg|ico|png|jpe?g|webp|woff2?|ttf|json)$/i;
 
 /**
  * Which strategy a request gets: 'skip' (leave it to the browser), 'navigate', 'static',
- * 'cross-origin' or 'other'. `req.rsc` is true when the request carries the RSC header.
+ * 'cross-origin', 'live-data' or 'other'. `req.rsc` is true when the request carries the RSC header.
  */
 function classifyRequest(req, origin) {
   const url = new URL(req.url);
@@ -38,6 +38,8 @@ function classifyRequest(req, origin) {
   if (req.mode === 'navigate') return 'navigate';
   if (STATIC_FILE.test(url.pathname)) return 'static';
   if (url.origin !== origin) return 'cross-origin';
+  // The weather station and scholarship figures change by the minute: never a week-old copy.
+  if (url.pathname.startsWith('/api/')) return 'live-data';
   return 'other';
 }
 
@@ -82,6 +84,10 @@ const strategies = {
     } catch {
       return stored(request);
     }
+  },
+
+  'live-data'(request) {
+    return strategies['cross-origin'](request);
   },
 
   async other(request) {

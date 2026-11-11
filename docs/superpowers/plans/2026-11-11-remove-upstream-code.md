@@ -285,7 +285,7 @@ npm run build && npm run shots:capture -- before-relicense
   - Words that only appear inside a branch name become "the earlier stylesheet branch".
 
 - [ ] **Step 4: Check that nothing is left.**
-  - Run `git grep -n -i -E "s[o]lano|ramon l[o]gan" -- ':!LICENSE'`.
+  - Run a case-insensitive `git grep` for the original template's name and its author's name, excluding `LICENSE` (the pattern is kept in scratch, not here).
   - Expected: no output. `LICENSE` is handled in Task 5.
 
 - [ ] **Step 5: Run the gate, then commit** with the message
@@ -314,7 +314,7 @@ npm run build && npm run shots:capture -- before-relicense
   - Section 2: the CC BY 4.0 notice for non-code content, with the same copyright line.
 
 - [ ] **Step 3: Check that nothing is left.**
-  - Run `git grep -n -i -E "s[o]lano|ramon l[o]gan"`.
+  - Run the same case-insensitive `git grep` for the template's name and author across all files.
   - Expected: no output.
 
 - [ ] **Step 4: Run the gate, then commit** with the message
