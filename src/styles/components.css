@@ -303,8 +303,8 @@
   gap: 14px;
   max-width: 720px;
   padding: var(--spacing-md);
-  border-left: 3px solid var(--color-gold);
-  border-radius: 0 var(--border-radius) var(--border-radius) 0;
+  border: 1px solid var(--color-line);
+  border-radius: var(--border-radius);
   background: var(--color-bg-alt);
 }
 
@@ -828,10 +828,6 @@
   border: 1px solid var(--color-line);
   border-radius: var(--border-radius);
   background: var(--color-bg);
-}
-
-.official-card.is-lead {
-  border-top: 3px solid var(--color-gold);
 }
 
 .official-title {
