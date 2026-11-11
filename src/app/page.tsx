@@ -3,7 +3,6 @@ import HomeFinder from '@/components/home/HomeFinder';
 import HomeScholar from '@/components/home/HomeScholar';
 import HomeNumbers from '@/components/home/HomeNumbers';
 import HomeWeather from '@/components/home/HomeWeather';
-import HomeBarangays from '@/components/home/HomeBarangays';
 import HomeNews from '@/components/home/HomeNews';
 import HomeLeadershipContact from '@/components/home/HomeLeadershipContact';
 import '@/styles/scholarship.css';
@@ -20,7 +19,6 @@ export default function HomePage() {
       <HomeScholar />
       <HomeNumbers />
       <HomeWeather />
-      <HomeBarangays />
       <HomeNews />
       <HomeLeadershipContact />
     </>

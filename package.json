@@ -12,7 +12,6 @@
     "format:check": "prettier --check .",
     "dev:next": "next dev",
     "icons": "node scripts/build-icons.mjs",
-    "map:build": "node scripts/build-barangay-map.mjs",
     "hero:assets": "node scripts/build-hero-assets.mjs",
     "hero:occasion": "node scripts/build-occasion-assets.mjs",
     "hero:overlay": "node scripts/hero-overlay.mjs",
