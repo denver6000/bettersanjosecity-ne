@@ -1,8 +1,7 @@
 /**
  * Single source of truth for LGU identity.
  *
- * TODO(data): verify coordinates, address, and contact details against
- * official LGU San Jose City sources before launch.
+ * TODO(data): verify coordinates against official LGU San Jose City sources before launch.
  */
 export const SITE = {
   name: 'Better San Jose',
@@ -26,8 +25,73 @@ export const SITE = {
   mapZoom: 14,
   // KloudTrack AWS; the live feed overrides these once it loads.
   weatherStation: { name: 'San Jose City AWS', lat: 15.794954, lon: 120.993156, radiusKm: 10 },
-  // TODO(data): add verified San Jose City hotlines.
-  hotlines: [{ icon: 'ph-phone', label: 'National Emergency', number: '911', tel: '911' }],
+  // City Hall and hotlines as published on sjc.gov.ph. The street number is left out: the source
+  // gives both "15" and "115" Cardenas St.
+  cityHall: {
+    street: 'Cardenas St.',
+    email: 'piosanjosecity@gmail.com',
+    source: 'https://www.sjc.gov.ph',
+    checked: '2026-11-11',
+  },
+  // Emergency lines first. Labels are English fallbacks for the `hotline-<id>` keys.
+  hotlines: [
+    {
+      id: 'rescue',
+      label: 'MDRRMO Rescue Hotline',
+      numbers: ['0915-168-9878'],
+      emergency: true,
+      keywords: ['rescue', 'sagip', 'emergency', 'MDRRMO'],
+    },
+    {
+      id: 'emergency',
+      label: 'National Emergency',
+      numbers: ['911'],
+      emergency: true,
+      keywords: ['emergency', 'emerhensiya'],
+    },
+    {
+      id: 'pnp',
+      label: 'PNP San Jose',
+      numbers: ['(044) 604-7954', '0998-598-5421'],
+      emergency: true,
+      keywords: ['police', 'pulis', 'PNP'],
+    },
+    {
+      id: 'bfp',
+      label: 'Fire Station (BFP)',
+      numbers: ['(044) 940-5258', '0925-453-0777'],
+      emergency: true,
+      keywords: ['fire', 'sunog', 'bumbero', 'BFP'],
+    },
+    {
+      id: 'hospital',
+      label: 'Ospital ng Lungsod',
+      numbers: ['(044) 456-6671'],
+      emergency: false,
+      keywords: ['hospital', 'ospital', 'ambulance', 'ambulansya'],
+    },
+    {
+      id: 'ocm',
+      label: 'Office of the City Mayor (OCM)',
+      numbers: ['(044) 940-1404'],
+      emergency: false,
+      keywords: ['mayor', 'punong lungsod', 'city hall', 'munisipyo'],
+    },
+    {
+      id: 'pio',
+      label: 'Public Information Office (PIO)',
+      numbers: ['(044) 331-0667'],
+      emergency: false,
+      keywords: ['information', 'impormasyon', 'PIO'],
+    },
+    {
+      id: 'sajelco',
+      label: 'SAJELCO',
+      numbers: ['(044) 940-5818'],
+      emergency: false,
+      keywords: ['electricity', 'kuryente', 'brownout', 'power'],
+    },
+  ],
 } as const;
 
 export const LGU_LABEL = `${SITE.lgu.name}, ${SITE.lgu.province}`;

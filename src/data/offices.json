@@ -1,0 +1,117 @@
+{
+  "source": "https://www.sjc.gov.ph/public/departments",
+  "checked": "2026-11-11",
+  "offices": [
+    {
+      "name": "Business Permit and License Office",
+      "keywords": ["business permit", "permiso", "negosyo", "mayor's permit", "BPLO"]
+    },
+    { "name": "City Accounting Office", "keywords": ["accounting", "accounting office"] },
+    { "name": "City Administrator's Office", "keywords": ["administrator"] },
+    {
+      "name": "City Agriculture and Biosystem Engineering Office",
+      "keywords": ["irrigation", "patubig", "farm machinery"]
+    },
+    {
+      "name": "City Agriculture Office",
+      "keywords": ["farmer", "magsasaka", "agrikultura", "palay", "rice"]
+    },
+    { "name": "City Architect Office", "keywords": ["architect", "design"] },
+    {
+      "name": "City Assessor's Office",
+      "keywords": ["real property", "tax declaration", "amilyar", "lupa", "land"]
+    },
+    { "name": "City Budget Office", "keywords": ["budget", "badyet"] },
+    { "name": "City Cooperative Development Office", "keywords": ["cooperative", "kooperatiba"] },
+    {
+      "name": "City Disaster Risk Reduction and Management Office",
+      "keywords": ["rescue", "sakuna", "baha", "flood", "typhoon", "bagyo", "CDRRMO", "MDRRMO"]
+    },
+    {
+      "name": "City Engineering Office",
+      "keywords": ["building permit", "road", "kalsada", "engineering"]
+    },
+    {
+      "name": "City Environment and Natural Resources Office",
+      "keywords": ["garbage", "basura", "environment", "kapaligiran", "CENRO"]
+    },
+    {
+      "name": "City Franchising and Regulatory Office",
+      "keywords": ["tricycle franchise", "prangkisa", "franchise"]
+    },
+    { "name": "City General Services Office", "keywords": ["general services", "GSO"] },
+    {
+      "name": "City Health Office",
+      "keywords": ["health", "kalusugan", "clinic", "klinika", "bakuna", "vaccine"]
+    },
+    {
+      "name": "City Housing and Homesite Regulations Office",
+      "keywords": ["housing", "pabahay", "bahay"]
+    },
+    {
+      "name": "City Human Resource Management Office",
+      "keywords": ["human resource", "HR", "empleyado"]
+    },
+    { "name": "City Legal Office", "keywords": ["legal", "abogado", "lawyer"] },
+    { "name": "City Library and Information Center", "keywords": ["library", "aklatan"] },
+    {
+      "name": "City Local Civil Registry Office",
+      "keywords": [
+        "birth certificate",
+        "marriage certificate",
+        "death certificate",
+        "sertipiko ng kapanganakan",
+        "sertipiko ng kasal",
+        "PSA",
+        "civil registry"
+      ]
+    },
+    { "name": "City Nutrition Office", "keywords": ["nutrition", "nutrisyon"] },
+    { "name": "City Planning and Development Office", "keywords": ["planning", "zoning"] },
+    { "name": "City Population Office", "keywords": ["population", "family planning"] },
+    { "name": "City Slaughterhouse Office", "keywords": ["slaughterhouse", "katayan"] },
+    { "name": "City Tourism Office", "keywords": ["tourism", "turismo", "Tanduyong"] },
+    {
+      "name": "City Treasurer's Office",
+      "keywords": ["tax", "buwis", "bayad", "payment", "cedula", "community tax"]
+    },
+    {
+      "name": "City Veterinary Office",
+      "keywords": ["veterinary", "beterinaryo", "rabies", "aso", "dog"]
+    },
+    { "name": "Community Affairs Office", "keywords": ["community affairs"] },
+    { "name": "Management Information Systems Office", "keywords": ["MIS", "IT"] },
+    { "name": "Office of the City Mayor", "keywords": ["mayor", "punong lungsod", "OCM"] },
+    {
+      "name": "Office of the City Vice Mayor",
+      "keywords": ["vice mayor", "pangalawang punong lungsod"]
+    },
+    {
+      "name": "Office Senior Citizens Affairs Office",
+      "keywords": ["senior citizen", "nakatatanda", "OSCA"]
+    },
+    { "name": "Ospital ng Lungsod ng San Jose", "keywords": ["hospital", "ospital"] },
+    {
+      "name": "Person with Disability Affairs Office",
+      "keywords": ["PWD", "disability", "may kapansanan"]
+    },
+    { "name": "Public Employment Service Office", "keywords": ["trabaho", "job", "PESO"] },
+    { "name": "Public Information Office", "keywords": ["information", "news", "balita", "PIO"] },
+    { "name": "Public Market Office", "keywords": ["market", "palengke"] },
+    { "name": "Public Order and Safety Office", "keywords": ["safety", "kaligtasan", "POSO"] },
+    {
+      "name": "Sangguniang Panlungsod Office",
+      "keywords": ["council", "konseho", "ordinance", "ordinansa"]
+    },
+    {
+      "name": "Social Welfare and Development Office",
+      "keywords": ["ayuda", "social welfare", "DSWD", "CSWDO"]
+    },
+    { "name": "Solo Parent Office", "keywords": ["solo parent", "solong magulang"] },
+    { "name": "Sports Development Office", "keywords": ["sports", "palakasan"] },
+    {
+      "name": "Transportation, Communication and Public Utilities Service office",
+      "keywords": ["transportation", "transportasyon", "tricycle"]
+    }
+  ]
+}

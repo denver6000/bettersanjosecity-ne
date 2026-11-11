@@ -1,7 +1,18 @@
 {
-  "_status": "pending",
-  "_note": "Awaiting official list of elected officials of San Jose City",
-  "mayor": null,
-  "vice_mayor": null,
-  "councilors": []
+  "source": "https://www.sjc.gov.ph/public/about",
+  "checked": "2026-11-11",
+  "mayor": "Hon. Josel F. Violago",
+  "viceMayor": "Hon. Evangel Shalom S. Manugue",
+  "councilors": [
+    "Hon. Glenda F. Macadangdang",
+    "Hon. Mary Eleanor B. Villena",
+    "Hon. Atty. Ronald Lee Hortizuela",
+    "Hon. Edward John A. Divina",
+    "Hon. Andrei Benedict T. Ignacio",
+    "Hon. Dr. Arturo Vittorio P. Donayre III",
+    "Hon. Jennifer O. Salvador",
+    "Hon. Manuel G. Chua Jr.",
+    "Hon. Banjo Z. Munar",
+    "Hon. Carina Clarizze M. Dela Cruz"
+  ]
 }
