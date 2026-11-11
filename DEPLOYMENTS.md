@@ -1,3 +1,33 @@
+## 2026-11-11 10:36 — 81ffd92 — Last inherited code rewritten, relicensed under the team's names
+
+- By: Claude Code, requested by Kurt Vincent F. Fariñas
+- Code: 535826b → 81ffd92 (branch own-code-relicense fast-forwarded onto main; Hostinger auto-builds on push)
+  - Rewritten as the team's own code: offline worker, update notice, header, footer, offline page, app
+    manifest and robots.txt.
+  - LICENSE now names Kurt Vincent F. Fariñas and Denver M. Ballesteros (MIT code, CC BY 4.0 content).
+  - History records reworded to "the original template".
+  - The update notice waits for the visitor's tap and is translated.
+  - Live `/api/` data is fetched network first.
+  - Phone-menu links open pages at the top, and the menu no longer moves the page 16px.
+  - New footer disclaimer wording.
+- Migrations: none
+- Backup: none (static site)
+- Data changes: none (undo by reverting to 535826b)
+- Verified:
+  - `npm run check` steps passed. Prettier ran on git files only, because untracked local plugin files fail
+    `prettier --check .`.
+  - The screenshot harness shows only the footer disclaimer and weather data changed.
+  - Offline update, offline fallback and the Filipino notice were tested by hand in Chrome on a local
+    production build.
+  - The live site took about 1 minute.
+  - `/`, `/government/`, `/contact/`, `/offline.html`, `/manifest.webmanifest`, `/robots.txt` and
+    `/sw.js` return 200.
+  - The live `sw.js` has the new rules, `robots.txt` has no author line, and the manifest has the new
+    description.
+  - The offline page has 6 tap-to-call links, and the home page has the new disclaimer.
+  - Not yet checked on a phone that had the old version cached.
+  - Filipino wording not yet read by a native speaker.
+
 ## 2026-11-11 09:22 — 5043fd3 — Own stylesheets, real city data, calmer inner pages, site search
 
 - By: Claude Code, requested by Kurt Vincent F. Fariñas
