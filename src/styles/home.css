@@ -215,7 +215,7 @@ html[data-hero-pending] .hero-scene {
 }
 
 .hero-scene {
-  transition: opacity 0.5s ease;
+  transition: opacity 0.25s ease;
   position: absolute;
   inset: 0;
   width: 100%;
@@ -1194,6 +1194,26 @@ html[data-hero-pending] .hero-scene {
   }
   96% {
     opacity: 0.25;
+  }
+}
+
+/* Weather arriving after the scene is showing: colours ease, new clouds fade in (HeroScene). */
+@media (prefers-reduced-motion: no-preference) {
+  .hero-weather-easing * {
+    transition:
+      fill 1.2s ease,
+      stop-color 1.2s ease,
+      opacity 1.2s ease;
+  }
+
+  .hero-weather-easing .hero-clouds > g {
+    animation: hero-fade-in 1.2s ease both;
+  }
+}
+
+@keyframes hero-fade-in {
+  from {
+    opacity: 0;
   }
 }
 

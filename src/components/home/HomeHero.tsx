@@ -4,6 +4,8 @@ import { T } from '@/i18n/LanguageContext';
 import ServiceSearch from '@/components/ServiceSearch';
 import HeroScene from '@/components/home/hero/HeroScene';
 
+const SEASON_PRELOAD = `try{var m=+new Intl.DateTimeFormat('en-US',{month:'numeric',timeZone:'Asia/Manila'}).format(new Date()),a='/assets/images/hero/occasions/',u=m==12||m==1||m==6||m==7?[a+'season-planting/paddies-planting.webp',a+'season-planting/foreground-planting.webp']:m==3||m==4||m==10||m==11?[a+'season-harvest/paddies-harvest.webp']:[];u.forEach(function(h){var l=document.createElement('link');l.rel='preload';l.as='image';l.type='image/webp';l.href=h;document.head.appendChild(l)})}catch(e){}`;
+
 export default function HomeHero() {
   return (
     <section className="home-hero">
@@ -19,6 +21,9 @@ export default function HomeHero() {
         type="image/webp"
         href="/assets/images/hero/scene/paddies.webp"
       />
+      {/* The season's paddies (and planting foreground) start downloading while the page parses,
+          not after the page script runs. Months mirror seasonOn() in src/lib/occasions.ts. */}
+      <script dangerouslySetInnerHTML={{ __html: SEASON_PRELOAD }} />
       <svg
         className="home-hero-grain"
         viewBox="0 0 1280 500"

@@ -137,7 +137,7 @@ const STALKS = Array.from({ length: 53 }, (_, i) => ({
 
 export default function HeroScene() {
   const { t } = useLanguage();
-  const { forecast, failed, retry } = useForecast();
+  const { forecast, retry } = useForecast();
   // Neutral first render (golden morning, clear); the real sky is applied after hydration.
   const [hour, setHour] = useState(8);
   const [override, setOverride] = useState<{ hour?: number; weather?: Weather }>({});
@@ -225,23 +225,37 @@ export default function HeroScene() {
     };
   }, [season, paddiesUrl, foregroundUrl]);
 
-  // Reveal once the real weather is known (cached, fetched, failed, or overridden), or after a
-  // moment, so a reload at night never shows the neutral morning scene first (see HERO_GATE).
+  // Reveal as soon as San Jose's clock and date are applied (and the season's art, if any, has
+  // loaded), so a reload at night never shows the neutral morning scene first (see HERO_GATE).
+  // The weather does not hold the scene back: it eases in when the forecast arrives.
+  const revealed = useRef(false);
   useEffect(() => {
-    const reveal = () => document.documentElement.removeAttribute('data-hero-pending');
-    if (
-      (override.weather || forecast || failed) &&
-      (season === 'growing' || seasonReady === season)
-    ) {
+    const reveal = () => {
+      if (revealed.current) return;
+      revealed.current = true;
+      document.documentElement.removeAttribute('data-hero-pending');
+      // Readable in the browser's performance timeline when checking how fast the hero shows.
+      performance.mark('hero-revealed');
+    };
+    if (date && (season === 'growing' || seasonReady === season)) {
       reveal();
       return;
     }
-    const id = setTimeout(reveal, 1200);
+    const id = setTimeout(reveal, 800);
     return () => clearTimeout(id);
-  }, [override.weather, forecast, failed, season, seasonReady]);
+  }, [date, season, seasonReady]);
 
   const shownHour = lapseHour ?? hour;
   const weather: Weather = override.weather ?? weatherKind(forecast?.code);
+
+  // Weather that changes while the scene is showing (the forecast arriving) eases in instead of popping.
+  const [weatherEasing, setWeatherEasing] = useState(false);
+  useEffect(() => {
+    if (!revealed.current) return;
+    setWeatherEasing(true);
+    const id = setTimeout(() => setWeatherEasing(false), 1500);
+    return () => clearTimeout(id);
+  }, [weather]);
 
   // Which occasion is drawn: an override, or the calendar for San Jose's date.
   const active: { id: ActiveId; tone: Tone } | null =
@@ -482,7 +496,7 @@ export default function HeroScene() {
   return (
     <svg
       ref={svgRef}
-      className="hero-scene"
+      className={weatherEasing ? 'hero-scene hero-weather-easing' : 'hero-scene'}
       viewBox="0 0 1586 992"
       preserveAspectRatio="xMaxYMid slice"
       role="img"
@@ -567,7 +581,7 @@ export default function HeroScene() {
         </g>
       )}
 
-      <g fill={cloud}>
+      <g className="hero-clouds" fill={cloud}>
         {CLOUDS[weather].map(([x, y, s], i) => (
           <g
             key={`${weather}-${i}`}
