@@ -1,118 +1,72 @@
 'use client';
 
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { NAV } from '@/config/site';
 import { useLanguage } from '@/i18n/LanguageContext';
 import { LANGUAGES } from '@/i18n/translations';
-import BrandLockup from './BrandLockup';
+import { isActivePath } from '@/lib/nav';
 import SiteSearch from '@/components/SiteSearch';
+import BrandLockup from './BrandLockup';
 
-function isMobileNav(): boolean {
-  return typeof window !== 'undefined' && window.matchMedia('(max-width: 1199px)').matches;
-}
+/** The width at which header.css folds the nav into the menu panel. */
+const FOLDED = '(max-width: 1199px)';
 
-function isActive(pathname: string, href: string) {
-  if (href === '/') return pathname === '/';
-  return pathname === href || pathname.startsWith(`${href}/`);
+/**
+ * Hold the page still behind the open menu at scroll position `y`, or release it back to `y`.
+ * `y` is read when the button is tapped: by the time React re-renders, the opening nav has already
+ * nudged the scroll (scroll anchoring), and each open/close would creep the page by that much.
+ */
+function pinPage(pinned: boolean, y: number) {
+  const body = document.body;
+  if (pinned) {
+    body.style.top = `-${y}px`;
+    body.classList.add('mobile-menu-open');
+  } else if (body.classList.contains('mobile-menu-open')) {
+    body.classList.remove('mobile-menu-open');
+    body.style.top = '';
+    window.scrollTo(0, y);
+  }
 }
 
 export default function Header() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
   const { language, setLanguage, t } = useLanguage();
+  const [open, setOpen] = useState(false);
   const navRef = useRef<HTMLElement>(null);
-  const toggleRef = useRef<HTMLButtonElement>(null);
-  const scrollYRef = useRef(0);
-  const isAnimatingRef = useRef(false);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const scrollY = useRef(0);
 
-  const lockBodyScroll = useCallback(() => {
-    scrollYRef.current = window.scrollY;
-    document.body.classList.add('mobile-menu-open');
-    document.body.style.top = `-${scrollYRef.current}px`;
-  }, []);
+  // The page lock follows the open state, so even a fast double tap leaves the page scrollable.
+  useEffect(() => pinPage(open, scrollY.current), [open]);
+  useEffect(() => () => pinPage(false, scrollY.current), []);
 
-  const unlockBodyScroll = useCallback(() => {
-    if (!document.body.classList.contains('mobile-menu-open')) return;
-    document.body.classList.remove('mobile-menu-open');
-    document.body.style.top = '';
-    window.scrollTo(0, scrollYRef.current);
-  }, []);
+  // Arriving on another page closes the menu.
+  useEffect(() => setOpen(false), [pathname]);
 
-  const closeMenu = useCallback(() => {
-    if (isAnimatingRef.current) return;
-    isAnimatingRef.current = true;
-    setMobileMenuOpen(false);
-    unlockBodyScroll();
-    setTimeout(() => {
-      isAnimatingRef.current = false;
-    }, 320);
-  }, [unlockBodyScroll]);
-
-  const openMenu = useCallback(() => {
-    if (isAnimatingRef.current) return;
-    isAnimatingRef.current = true;
-    setMobileMenuOpen(true);
-    lockBodyScroll();
-    setTimeout(() => {
-      isAnimatingRef.current = false;
-    }, 320);
-  }, [lockBodyScroll]);
-
-  // Close menu on route change
+  // While open: close on a click elsewhere, on Esc (back to the button), or once the full nav fits.
   useEffect(() => {
-    isAnimatingRef.current = false;
-    closeMenu();
-  }, [pathname, closeMenu]);
-
-  // Cleanup body scroll lock on unmount
-  useEffect(() => {
-    return () => {
-      document.body.classList.remove('mobile-menu-open');
-      document.body.style.top = '';
+    if (!open) return;
+    const onClick = (e: MouseEvent) => {
+      const node = e.target as Node;
+      if (!navRef.current?.contains(node) && !buttonRef.current?.contains(node)) setOpen(false);
     };
-  }, []);
-
-  // Click outside / Escape to close
-  useEffect(() => {
-    if (!mobileMenuOpen) return;
-    function handleClickOutside(e: MouseEvent) {
-      const target = e.target as Node;
-      if (!navRef.current?.contains(target) && !toggleRef.current?.contains(target)) closeMenu();
-    }
-    function handleEscape(e: KeyboardEvent) {
-      if (e.key === 'Escape') {
-        closeMenu();
-        toggleRef.current?.focus();
-      }
-    }
-    document.addEventListener('click', handleClickOutside);
-    document.addEventListener('keydown', handleEscape);
-    return () => {
-      document.removeEventListener('click', handleClickOutside);
-      document.removeEventListener('keydown', handleEscape);
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== 'Escape') return;
+      setOpen(false);
+      buttonRef.current?.focus();
     };
-  }, [mobileMenuOpen, closeMenu]);
-
-  // Close mobile menu on resize to desktop (debounced)
-  useEffect(() => {
-    let timer: ReturnType<typeof setTimeout>;
-    function handleResize() {
-      clearTimeout(timer);
-      timer = setTimeout(() => {
-        if (!isMobileNav() && mobileMenuOpen) {
-          isAnimatingRef.current = false;
-          closeMenu();
-        }
-      }, 150);
-    }
-    window.addEventListener('resize', handleResize);
+    const onResize = () => !window.matchMedia(FOLDED).matches && setOpen(false);
+    document.addEventListener('click', onClick);
+    document.addEventListener('keydown', onKey);
+    window.addEventListener('resize', onResize);
     return () => {
-      clearTimeout(timer);
-      window.removeEventListener('resize', handleResize);
+      document.removeEventListener('click', onClick);
+      document.removeEventListener('keydown', onKey);
+      window.removeEventListener('resize', onResize);
     };
-  }, [mobileMenuOpen, closeMenu]);
+  }, [open]);
 
   return (
     <header className="site-header">
@@ -123,20 +77,20 @@ export default function Header() {
 
         <nav
           ref={navRef}
-          className={`main-nav ${mobileMenuOpen ? 'active' : ''}`}
+          className={open ? 'main-nav active' : 'main-nav'}
           aria-label={t('nav-main-aria', 'Main Navigation')}
         >
           <ul>
-            {NAV.map((item) => {
-              const active = isActive(pathname, item.href);
+            {NAV.map(({ href, key, label }) => {
+              const here = isActivePath(pathname, href);
               return (
-                <li key={item.href}>
+                <li key={href}>
                   <Link
-                    href={item.href}
-                    className={active ? 'active' : undefined}
-                    aria-current={active ? 'page' : undefined}
+                    href={href}
+                    className={here ? 'active' : undefined}
+                    aria-current={here ? 'page' : undefined}
                   >
-                    {t(item.key, item.label)}
+                    {t(key, label)}
                   </Link>
                 </li>
               );
@@ -146,16 +100,16 @@ export default function Header() {
 
         <div className="header-actions">
           <div className="lang-selector">
-            {LANGUAGES.map((lang) => (
+            {LANGUAGES.map(({ code, label, name }) => (
               <button
-                key={lang.code}
+                key={code}
                 type="button"
-                className={`btn btn-secondary btn-sm lang-btn ${language === lang.code ? 'active' : ''}`}
-                onClick={() => setLanguage(lang.code)}
-                aria-label={`${lang.label} - ${lang.name}`}
-                aria-pressed={language === lang.code}
+                className={`btn btn-secondary btn-sm lang-btn${language === code ? ' active' : ''}`}
+                aria-pressed={language === code}
+                aria-label={`${label} - ${name}`}
+                onClick={() => setLanguage(code)}
               >
-                {lang.label}
+                {label}
               </button>
             ))}
           </div>
@@ -163,16 +117,19 @@ export default function Header() {
         </div>
 
         <button
-          ref={toggleRef}
+          ref={buttonRef}
           type="button"
           className="mobile-menu-toggle btn btn-secondary"
-          onClick={() => (mobileMenuOpen ? closeMenu() : openMenu())}
-          aria-label={
-            mobileMenuOpen ? t('nav-close-menu', 'Close menu') : t('nav-open-menu', 'Open menu')
-          }
-          aria-expanded={mobileMenuOpen}
+          aria-expanded={open}
+          aria-label={open ? t('nav-close-menu', 'Close menu') : t('nav-open-menu', 'Open menu')}
+          onClick={() => {
+            // Only an unlocked page has a real scroll position (a locked one reads 0).
+            if (!document.body.classList.contains('mobile-menu-open'))
+              scrollY.current = window.scrollY;
+            setOpen((was) => !was);
+          }}
         >
-          <i className={`ph ${mobileMenuOpen ? 'ph-x' : 'ph-list'}`} aria-hidden="true" />
+          <i className={`ph ${open ? 'ph-x' : 'ph-list'}`} aria-hidden="true" />
         </button>
       </div>
     </header>
