@@ -194,14 +194,16 @@ html[data-lang-pending] .lang-btn {
     display: flex;
     align-items: center;
     justify-content: center;
-    order: 2;
-    flex-shrink: 0;
-    margin: 0 auto;
-  }
-
-  .header-actions {
     order: 3;
     flex-shrink: 0;
+    margin: 0 0 0 var(--spacing-xs);
+  }
+
+  /* Phones and tablets: logo, then language and search, then the menu button at the right edge. */
+  .header-actions {
+    order: 2;
+    flex-shrink: 0;
+    margin-left: auto;
     padding: 2px 0;
   }
 
@@ -324,11 +326,17 @@ html[data-lang-pending] .lang-btn {
   }
 
   .header-inner {
+    column-gap: 0;
     min-height: 32px;
   }
 
+  /* Logo, pills, search and menu must share one row at 360px. */
   .header-actions {
-    gap: var(--spacing-xs);
+    gap: 2px;
+  }
+
+  .mobile-menu-toggle {
+    margin-left: 0;
   }
 }
 
@@ -368,4 +376,22 @@ html[data-lang-pending] .lang-btn {
   .main-nav a {
     font-size: 0.875rem;
   }
+}
+
+/* Site search button (opens the search dialog) */
+.site-search-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--color-primary);
+  font-size: 1.375rem;
+}
+
+.site-search-btn:hover {
+  background: var(--hover-tint);
 }

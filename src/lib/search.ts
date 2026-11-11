@@ -8,7 +8,7 @@ export interface SearchEntry {
   /** Body text and keywords, both languages. */
   extra: string;
   href: string;
-  /** Dialable numbers, for hotlines. */
+  /** Hotline numbers as printed; render each with toTel() for its `tel:` link. */
   tel?: string[];
 }
 

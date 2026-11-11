@@ -1,35 +1,19 @@
 'use client';
 
 import { useMemo, useRef, useState, useEffect, type FormEvent } from 'react';
-import Link from 'next/link';
 import { useLanguage } from '@/i18n/LanguageContext';
-import { services, type Service } from '@/lib/data';
+import { search } from '@/lib/search';
+import { SITE_INDEX } from '@/lib/search-index';
+import SearchResults from './SearchResults';
 
-function matches(service: Service, terms: string[]) {
-  const haystack = [
-    service.title,
-    service.category,
-    service.description,
-    service.office,
-    ...(service.keywords ?? []),
-  ]
-    .join(' ')
-    .toLowerCase();
-  return terms.every((term) => haystack.includes(term));
-}
-
-/** Hero "Find a Service" box: filters data/services.json as you type. */
+/** Hero search box: searches the whole site (pages, officials, offices, hotlines, services) as you type. */
 export default function ServiceSearch() {
   const { t } = useLanguage();
   const [query, setQuery] = useState('');
   const [open, setOpen] = useState(false);
   const wrapperRef = useRef<HTMLDivElement>(null);
-
-  const results = useMemo(() => {
-    const terms = query.toLowerCase().split(/\s+/).filter(Boolean);
-    if (query.trim().length < 2) return [];
-    return services.filter((s) => matches(s, terms)).slice(0, 6);
-  }, [query]);
+  const active = open && query.replace(/\s/g, '').length >= 2;
+  const results = useMemo(() => search(SITE_INDEX, query), [query]);
 
   useEffect(() => {
     function onClick(e: MouseEvent) {
@@ -70,35 +54,11 @@ export default function ServiceSearch() {
       </form>
       {/* Links, not a combobox: a plain list plus a polite count keeps Tab order and announcements simple. */}
       <p className="sr-only" role="status">
-        {open && query.trim().length >= 2
-          ? results.length === 0
-            ? t('search-results-none', 'No matching services')
-            : t('search-results-count', '{n} matching services').replace(
-                '{n}',
-                String(results.length)
-              )
+        {active
+          ? t('search-results-count', '{n} results').replace('{n}', String(results.length))
           : ''}
       </p>
-      {open && query.trim().length >= 2 && (
-        <ul className="search-results-list" aria-label={t('home-find-a-service', 'Find a service')}>
-          {results.length === 0 ? (
-            <li className="search-results-empty">
-              {services.length === 0
-                ? 'The service directory is being compiled. Please check back soon.'
-                : `No services match “${query}”.`}
-            </li>
-          ) : (
-            results.map((s) => (
-              <li key={s.id}>
-                <Link href={s.url || '/services'}>
-                  <strong>{s.title}</strong>
-                  <span>{s.category}</span>
-                </Link>
-              </li>
-            ))
-          )}
-        </ul>
-      )}
+      {active && <SearchResults results={results} onPick={() => setOpen(false)} />}
     </div>
   );
 }

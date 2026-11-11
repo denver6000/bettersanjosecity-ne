@@ -916,3 +916,137 @@
     overflow-wrap: anywhere;
   }
 }
+
+/* Site search dialog */
+html.search-open {
+  overflow: hidden;
+}
+
+.site-search {
+  width: min(640px, calc(100vw - 32px));
+  max-height: min(80vh, 720px);
+  margin: 10vh auto auto;
+  padding: 0;
+  border: 0;
+  border-radius: var(--border-radius);
+  background: transparent;
+  color: var(--color-text);
+}
+
+.site-search::backdrop {
+  background: var(--color-navy-dark);
+  opacity: 0.55;
+}
+
+.site-search-panel {
+  display: flex;
+  flex-direction: column;
+  max-height: inherit;
+  border: 1px solid var(--color-line);
+  border-radius: var(--border-radius);
+  background: var(--color-bg);
+  box-shadow: var(--shadow-float);
+  overflow: hidden;
+}
+
+.site-search-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 6px 6px 16px;
+  border-bottom: 1px solid var(--color-line);
+}
+
+.site-search-bar > i {
+  color: var(--color-text-light);
+  font-size: 1.25rem;
+}
+
+.site-search-bar input {
+  flex: 1;
+  min-width: 0;
+  min-height: 48px;
+  border: 0;
+  background: transparent;
+  color: var(--color-text);
+  font: inherit;
+  font-size: 1.0625rem;
+  outline: none;
+}
+
+.site-search-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: var(--border-radius);
+  background: none;
+  color: var(--color-text-light);
+  font-size: 1.25rem;
+  cursor: pointer;
+}
+
+.site-search-close:hover {
+  background: var(--hover-tint);
+  color: var(--color-text);
+}
+
+.site-search .search-results-list {
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  overflow-y: auto;
+}
+
+/* Grouped results (dialog and hero box) */
+.search-group-title {
+  margin: 0;
+  padding: 10px 14px 4px;
+  color: var(--color-text-light);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.search-group ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.search-hotline {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0 8px;
+  padding-right: 10px;
+}
+
+.search-results-list .search-tels {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 0 4px 8px 14px;
+}
+
+.search-results-list .search-tels a {
+  flex-direction: row;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  padding: 0 12px;
+  border: 1px solid var(--color-line);
+  border-radius: 999px;
+  color: var(--color-primary);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+/* The dialog has its own close button; hide the browser's clear-field cross next to it. */
+.site-search-bar input::-webkit-search-cancel-button {
+  display: none;
+}
