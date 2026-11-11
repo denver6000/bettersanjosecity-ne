@@ -20,7 +20,6 @@ export default function EstimatorPage() {
     <PageShell
       k="estimator"
       badge="Tax Estimator"
-      badgeIcon="ph-calculator"
       parents={[
         { href: '/business-taxes/', label: 'Business taxes and fees', k: 'foot-business-taxes' },
       ]}

@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import PageShell, { DataPending } from '@/components/PageShell';
+import PageShell, { PendingNote } from '@/components/PageShell';
 
 export const metadata: Metadata = {
   title: 'Terms of use',
@@ -12,18 +12,18 @@ export default function TermsPage() {
     <PageShell
       k="terms"
       badge="Terms"
-      badgeIcon="ph-file-text"
       title="Terms of use"
       subtitle="Terms governing the use of Better San Jose"
     >
-      <DataPending
-        k="terms-terms-being-drafted"
-        title="Terms being drafted"
-        icon="ph-file-text"
-        as="h2"
-      >
-        The terms of use will be published before launch.
-      </DataPending>
+      <PendingNote
+        items={[
+          {
+            k: 'terms-terms-being-drafted',
+            title: 'Terms being drafted',
+            desc: 'The terms of use will be published before launch.',
+          },
+        ]}
+      />
     </PageShell>
   );
 }

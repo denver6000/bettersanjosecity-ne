@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import PageShell, { DataPending } from '@/components/PageShell';
+import PageShell, { PendingNote } from '@/components/PageShell';
 
 export const metadata: Metadata = {
   title: 'Government',
@@ -12,29 +12,28 @@ export default function GovernmentPage() {
     <PageShell
       k="government"
       badge="Government"
-      badgeIcon="ph-bank"
       title="City government"
       subtitle="Elected officials, city departments, and barangays of San Jose City"
     >
-      <div className="pending-grid">
-        <DataPending
-          k="government-elected-officials"
-          title="Elected officials"
-          icon="ph-identification-badge"
-        >
-          City Mayor, Vice Mayor, and members of the Sangguniang Panlungsod.
-        </DataPending>
-        <DataPending
-          k="government-city-departments"
-          title="City departments"
-          icon="ph-tree-structure"
-        >
-          Department heads, offices, and contact directory.
-        </DataPending>
-        <DataPending k="government-barangays" title="Barangays" icon="ph-map-pin">
-          Barangay officials and locations across San Jose City.
-        </DataPending>
-      </div>
+      <PendingNote
+        items={[
+          {
+            k: 'government-elected-officials',
+            title: 'Elected officials',
+            desc: 'City Mayor, Vice Mayor, and members of the Sangguniang Panlungsod.',
+          },
+          {
+            k: 'government-city-departments',
+            title: 'City departments',
+            desc: 'Department heads, offices, and contact directory.',
+          },
+          {
+            k: 'government-barangays',
+            title: 'Barangays',
+            desc: 'Barangay officials and locations across San Jose City.',
+          },
+        ]}
+      />
     </PageShell>
   );
 }

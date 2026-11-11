@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import PageShell, { DataPending } from '@/components/PageShell';
+import PageShell, { PendingNote } from '@/components/PageShell';
 
 export const metadata: Metadata = {
   title: 'Privacy policy',
@@ -12,19 +12,18 @@ export default function PrivacyPage() {
     <PageShell
       k="privacy"
       badge="Privacy"
-      badgeIcon="ph-lock"
       title="Privacy policy"
       subtitle="How Better San Jose handles your information"
     >
-      <DataPending
-        k="privacy-policy-being-drafted"
-        title="Policy being drafted"
-        icon="ph-file-lock"
-        as="h2"
-      >
-        The privacy policy will be published before launch, in line with the Data Privacy Act of
-        2012 (RA 10173).
-      </DataPending>
+      <PendingNote
+        items={[
+          {
+            k: 'privacy-policy-being-drafted',
+            title: 'Policy being drafted',
+            desc: 'The privacy policy will be published before launch, in line with the Data Privacy Act of 2012 (RA 10173).',
+          },
+        ]}
+      />
     </PageShell>
   );
 }

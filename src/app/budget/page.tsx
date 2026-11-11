@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import PageShell, { DataPending } from '@/components/PageShell';
+import PageShell, { PendingNote } from '@/components/PageShell';
 
 export const metadata: Metadata = {
   title: 'Transparency',
@@ -12,25 +12,28 @@ export default function BudgetPage() {
     <PageShell
       k="budget"
       badge="Transparency"
-      badgeIcon="ph-chart-pie"
       title="Budget & transparency"
       subtitle="How the City Government of San Jose raises and spends public funds"
     >
-      <div className="pending-grid">
-        <DataPending k="budget-income-expenditure" title="Income & expenditure" icon="ph-money">
-          Annual revenue and spending from BLGF Statements of Receipts and Expenditures.
-        </DataPending>
-        <DataPending k="budget-annual-budget" title="Annual budget" icon="ph-wallet">
-          Approved annual budget by sector and office.
-        </DataPending>
-        <DataPending
-          k="budget-infrastructure-projects"
-          title="Infrastructure projects"
-          icon="ph-traffic-cone"
-        >
-          Ongoing and completed public works within the city.
-        </DataPending>
-      </div>
+      <PendingNote
+        items={[
+          {
+            k: 'budget-income-expenditure',
+            title: 'Income & expenditure',
+            desc: 'Annual revenue and spending from BLGF Statements of Receipts and Expenditures.',
+          },
+          {
+            k: 'budget-annual-budget',
+            title: 'Annual budget',
+            desc: 'Approved annual budget by sector and office.',
+          },
+          {
+            k: 'budget-infrastructure-projects',
+            title: 'Infrastructure projects',
+            desc: 'Ongoing and completed public works within the city.',
+          },
+        ]}
+      />
     </PageShell>
   );
 }

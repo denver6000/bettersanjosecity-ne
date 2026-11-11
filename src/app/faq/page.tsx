@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import PageShell, { DataPending } from '@/components/PageShell';
+import PageShell, { PendingNote } from '@/components/PageShell';
 
 export const metadata: Metadata = {
   title: 'FAQ',
@@ -12,18 +12,18 @@ export default function FaqPage() {
     <PageShell
       k="faq"
       badge="FAQ"
-      badgeIcon="ph-question"
       title="Frequently asked questions"
       subtitle="Answers to common questions about city services"
     >
-      <DataPending
-        k="faq-questions-are-being-compiled"
-        title="Questions are being compiled"
-        as="h2"
-      >
-        Common questions about certificates, permits, taxes, and city programs will be answered
-        here.
-      </DataPending>
+      <PendingNote
+        items={[
+          {
+            k: 'faq-questions-are-being-compiled',
+            title: 'Questions are being compiled',
+            desc: 'Common questions about certificates, permits, taxes, and city programs will be answered here.',
+          },
+        ]}
+      />
     </PageShell>
   );
 }

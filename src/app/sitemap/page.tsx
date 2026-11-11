@@ -23,13 +23,7 @@ export const metadata: Metadata = {
 
 export default function SitemapPage() {
   return (
-    <PageShell
-      k="sitemap"
-      badge="Sitemap"
-      badgeIcon="ph-tree-structure"
-      title="Sitemap"
-      subtitle="Every page on Better San Jose"
-    >
+    <PageShell k="sitemap" badge="Sitemap" title="Sitemap" subtitle="Every page on Better San Jose">
       <ul className="footer-links-new" style={{ display: 'grid', gap: 10 }}>
         {PAGES.map((p) => (
           <li key={p.href}>

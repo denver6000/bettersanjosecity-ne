@@ -3,7 +3,7 @@
 @font-face {
   font-family: "Phosphor";
   src:
-    url("/assets/fonts/phosphor/Phosphor.woff2?v=b191f5b7") format("woff2");
+    url("/assets/fonts/phosphor/Phosphor.woff2?v=d66a89fb") format("woff2");
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -43,12 +43,6 @@
 .ph.ph-arrows-clockwise:before {
   content: "\e094";
 }
-.ph.ph-bank:before {
-  content: "\e0b4";
-}
-.ph.ph-bookmark-simple:before {
-  content: "\e0ea";
-}
 .ph.ph-broadcast:before {
   content: "\e0f2";
 }
@@ -69,9 +63,6 @@
 }
 .ph.ph-chart-line-up:before {
   content: "\e156";
-}
-.ph.ph-chart-pie:before {
-  content: "\e158";
 }
 .ph.ph-check:before {
   content: "\e182";
@@ -103,9 +94,6 @@
 .ph.ph-envelope-simple:before {
   content: "\e218";
 }
-.ph.ph-file-lock:before {
-  content: "\e95c";
-}
 .ph.ph-file-text:before {
   content: "\e23a";
 }
@@ -124,9 +112,6 @@
 .ph.ph-hourglass:before {
   content: "\e2b2";
 }
-.ph.ph-identification-badge:before {
-  content: "\e6f6";
-}
 .ph.ph-identification-card:before {
   content: "\e2c8";
 }
@@ -136,9 +121,6 @@
 .ph.ph-list:before {
   content: "\e2f0";
 }
-.ph.ph-lock:before {
-  content: "\e2fa";
-}
 .ph.ph-lock-simple:before {
   content: "\e308";
 }
@@ -147,9 +129,6 @@
 }
 .ph.ph-map-pin:before {
   content: "\e316";
-}
-.ph.ph-map-pin-area:before {
-  content: "\ee3a";
 }
 .ph.ph-map-trifold:before {
   content: "\e31a";
@@ -163,9 +142,6 @@
 .ph.ph-newspaper:before {
   content: "\e344";
 }
-.ph.ph-notebook:before {
-  content: "\e34e";
-}
 .ph.ph-package:before {
   content: "\e390";
 }
@@ -174,9 +150,6 @@
 }
 .ph.ph-plant:before {
   content: "\ebae";
-}
-.ph.ph-question:before {
-  content: "\e3e8";
 }
 .ph.ph-ruler:before {
   content: "\e6b8";
@@ -189,9 +162,6 @@
 }
 .ph.ph-shield-check:before {
   content: "\e40c";
-}
-.ph.ph-squares-four:before {
-  content: "\e464";
 }
 .ph.ph-storefront:before {
   content: "\e470";
@@ -214,9 +184,6 @@
 .ph.ph-tree:before {
   content: "\e6da";
 }
-.ph.ph-tree-structure:before {
-  content: "\e67c";
-}
 .ph.ph-user:before {
   content: "\e4c2";
 }
@@ -228,15 +195,6 @@
 }
 .ph.ph-users-three:before {
   content: "\e68e";
-}
-.ph.ph-wallet:before {
-  content: "\e68a";
-}
-.ph.ph-warning:before {
-  content: "\e4e0";
-}
-.ph.ph-wheelchair:before {
-  content: "\e4e8";
 }
 .ph.ph-wind:before {
   content: "\e5d2";
@@ -251,7 +209,7 @@
 @font-face {
   font-family: "Phosphor-Duotone";
   src:
-    url("/assets/fonts/phosphor/Phosphor-Duotone.woff2?v=70079c25") format("woff2");
+    url("/assets/fonts/phosphor/Phosphor-Duotone.woff2?v=af192557") format("woff2");
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -294,22 +252,6 @@
 }
 .ph-duotone.ph-arrows-clockwise:after {
   content: "\e095";
-  margin-left: -1em;
-}
-.ph-duotone.ph-bank:before {
-  content: "\e0b4";
-  opacity: 0.2;
-}
-.ph-duotone.ph-bank:after {
-  content: "\e0b5";
-  margin-left: -1em;
-}
-.ph-duotone.ph-bookmark-simple:before {
-  content: "\e0ea";
-  opacity: 0.2;
-}
-.ph-duotone.ph-bookmark-simple:after {
-  content: "\e0eb";
   margin-left: -1em;
 }
 .ph-duotone.ph-broadcast:before {
@@ -366,14 +308,6 @@
 }
 .ph-duotone.ph-chart-line-up:after {
   content: "\e157";
-  margin-left: -1em;
-}
-.ph-duotone.ph-chart-pie:before {
-  content: "\e158";
-  opacity: 0.2;
-}
-.ph-duotone.ph-chart-pie:after {
-  content: "\e159";
   margin-left: -1em;
 }
 .ph-duotone.ph-check:before {
@@ -456,14 +390,6 @@
   content: "\e219";
   margin-left: -1em;
 }
-.ph-duotone.ph-file-lock:before {
-  content: "\e95c";
-  opacity: 0.2;
-}
-.ph-duotone.ph-file-lock:after {
-  content: "\e95d";
-  margin-left: -1em;
-}
 .ph-duotone.ph-file-text:before {
   content: "\e23a";
   opacity: 0.2;
@@ -512,14 +438,6 @@
   content: "\e2b3";
   margin-left: -1em;
 }
-.ph-duotone.ph-identification-badge:before {
-  content: "\e6f6";
-  opacity: 0.2;
-}
-.ph-duotone.ph-identification-badge:after {
-  content: "\e6f7";
-  margin-left: -1em;
-}
 .ph-duotone.ph-identification-card:before {
   content: "\e2c8";
   opacity: 0.2;
@@ -544,14 +462,6 @@
   content: "\e2f1";
   margin-left: -1em;
 }
-.ph-duotone.ph-lock:before {
-  content: "\e2fa";
-  opacity: 0.2;
-}
-.ph-duotone.ph-lock:after {
-  content: "\e2fb";
-  margin-left: -1em;
-}
 .ph-duotone.ph-lock-simple:before {
   content: "\e308";
   opacity: 0.2;
@@ -574,14 +484,6 @@
 }
 .ph-duotone.ph-map-pin:after {
   content: "\e317";
-  margin-left: -1em;
-}
-.ph-duotone.ph-map-pin-area:before {
-  content: "\ee3a";
-  opacity: 0.2;
-}
-.ph-duotone.ph-map-pin-area:after {
-  content: "\ee3b";
   margin-left: -1em;
 }
 .ph-duotone.ph-map-trifold:before {
@@ -616,14 +518,6 @@
   content: "\e345";
   margin-left: -1em;
 }
-.ph-duotone.ph-notebook:before {
-  content: "\e34e";
-  opacity: 0.2;
-}
-.ph-duotone.ph-notebook:after {
-  content: "\e34f";
-  margin-left: -1em;
-}
 .ph-duotone.ph-package:before {
   content: "\e390";
   opacity: 0.2;
@@ -646,14 +540,6 @@
 }
 .ph-duotone.ph-plant:after {
   content: "\ebaf";
-  margin-left: -1em;
-}
-.ph-duotone.ph-question:before {
-  content: "\e3e8";
-  opacity: 0.2;
-}
-.ph-duotone.ph-question:after {
-  content: "\e3eb";
   margin-left: -1em;
 }
 .ph-duotone.ph-ruler:before {
@@ -686,14 +572,6 @@
 }
 .ph-duotone.ph-shield-check:after {
   content: "\e40f";
-  margin-left: -1em;
-}
-.ph-duotone.ph-squares-four:before {
-  content: "\e464";
-  opacity: 0.2;
-}
-.ph-duotone.ph-squares-four:after {
-  content: "\e465";
   margin-left: -1em;
 }
 .ph-duotone.ph-storefront:before {
@@ -752,14 +630,6 @@
   content: "\e6db";
   margin-left: -1em;
 }
-.ph-duotone.ph-tree-structure:before {
-  content: "\e67c";
-  opacity: 0.2;
-}
-.ph-duotone.ph-tree-structure:after {
-  content: "\e67d";
-  margin-left: -1em;
-}
 .ph-duotone.ph-user:before {
   content: "\e4c2";
   opacity: 0.2;
@@ -792,30 +662,6 @@
   content: "\e68f";
   margin-left: -1em;
 }
-.ph-duotone.ph-wallet:before {
-  content: "\e68a";
-  opacity: 0.2;
-}
-.ph-duotone.ph-wallet:after {
-  content: "\e68b";
-  margin-left: -1em;
-}
-.ph-duotone.ph-warning:before {
-  content: "\e4e0";
-  opacity: 0.2;
-}
-.ph-duotone.ph-warning:after {
-  content: "\e4e1";
-  margin-left: -1em;
-}
-.ph-duotone.ph-wheelchair:before {
-  content: "\e4e8";
-  opacity: 0.2;
-}
-.ph-duotone.ph-wheelchair:after {
-  content: "\e4e9";
-  margin-left: -1em;
-}
 .ph-duotone.ph-wind:before {
   content: "\e5d2";
   opacity: 0.2;
@@ -844,7 +690,7 @@
 @font-face {
   font-family: "Phosphor-Bold";
   src:
-    url("/assets/fonts/phosphor/Phosphor-Bold.woff2?v=bfc19836") format("woff2");
+    url("/assets/fonts/phosphor/Phosphor-Bold.woff2?v=26e25b7c") format("woff2");
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -884,12 +730,6 @@
 .ph-bold.ph-arrows-clockwise:before {
   content: "\e094";
 }
-.ph-bold.ph-bank:before {
-  content: "\e0b4";
-}
-.ph-bold.ph-bookmark-simple:before {
-  content: "\e0ea";
-}
 .ph-bold.ph-broadcast:before {
   content: "\e0f2";
 }
@@ -910,9 +750,6 @@
 }
 .ph-bold.ph-chart-line-up:before {
   content: "\e156";
-}
-.ph-bold.ph-chart-pie:before {
-  content: "\e158";
 }
 .ph-bold.ph-check:before {
   content: "\e182";
@@ -944,9 +781,6 @@
 .ph-bold.ph-envelope-simple:before {
   content: "\e218";
 }
-.ph-bold.ph-file-lock:before {
-  content: "\e95c";
-}
 .ph-bold.ph-file-text:before {
   content: "\e23a";
 }
@@ -965,9 +799,6 @@
 .ph-bold.ph-hourglass:before {
   content: "\e2b2";
 }
-.ph-bold.ph-identification-badge:before {
-  content: "\e6f6";
-}
 .ph-bold.ph-identification-card:before {
   content: "\e2c8";
 }
@@ -977,9 +808,6 @@
 .ph-bold.ph-list:before {
   content: "\e2f0";
 }
-.ph-bold.ph-lock:before {
-  content: "\e2fa";
-}
 .ph-bold.ph-lock-simple:before {
   content: "\e308";
 }
@@ -988,9 +816,6 @@
 }
 .ph-bold.ph-map-pin:before {
   content: "\e316";
-}
-.ph-bold.ph-map-pin-area:before {
-  content: "\ee3a";
 }
 .ph-bold.ph-map-trifold:before {
   content: "\e31a";
@@ -1004,9 +829,6 @@
 .ph-bold.ph-newspaper:before {
   content: "\e344";
 }
-.ph-bold.ph-notebook:before {
-  content: "\e34e";
-}
 .ph-bold.ph-package:before {
   content: "\e390";
 }
@@ -1015,9 +837,6 @@
 }
 .ph-bold.ph-plant:before {
   content: "\ebae";
-}
-.ph-bold.ph-question:before {
-  content: "\e3e8";
 }
 .ph-bold.ph-ruler:before {
   content: "\e6b8";
@@ -1030,9 +849,6 @@
 }
 .ph-bold.ph-shield-check:before {
   content: "\e40c";
-}
-.ph-bold.ph-squares-four:before {
-  content: "\e464";
 }
 .ph-bold.ph-storefront:before {
   content: "\e470";
@@ -1055,9 +871,6 @@
 .ph-bold.ph-tree:before {
   content: "\e6da";
 }
-.ph-bold.ph-tree-structure:before {
-  content: "\e67c";
-}
 .ph-bold.ph-user:before {
   content: "\e4c2";
 }
@@ -1069,15 +882,6 @@
 }
 .ph-bold.ph-users-three:before {
   content: "\e68e";
-}
-.ph-bold.ph-wallet:before {
-  content: "\e68a";
-}
-.ph-bold.ph-warning:before {
-  content: "\e4e0";
-}
-.ph-bold.ph-wheelchair:before {
-  content: "\e4e8";
 }
 .ph-bold.ph-wind:before {
   content: "\e5d2";
@@ -1092,7 +896,7 @@
 @font-face {
   font-family: "Phosphor-Fill";
   src:
-    url("/assets/fonts/phosphor/Phosphor-Fill.woff2?v=6a4ebce9") format("woff2");
+    url("/assets/fonts/phosphor/Phosphor-Fill.woff2?v=ff5767a7") format("woff2");
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -1132,12 +936,6 @@
 .ph-fill.ph-arrows-clockwise:before {
   content: "\e094";
 }
-.ph-fill.ph-bank:before {
-  content: "\e0b4";
-}
-.ph-fill.ph-bookmark-simple:before {
-  content: "\e0ea";
-}
 .ph-fill.ph-broadcast:before {
   content: "\e0f2";
 }
@@ -1158,9 +956,6 @@
 }
 .ph-fill.ph-chart-line-up:before {
   content: "\e156";
-}
-.ph-fill.ph-chart-pie:before {
-  content: "\e158";
 }
 .ph-fill.ph-check:before {
   content: "\e182";
@@ -1192,9 +987,6 @@
 .ph-fill.ph-envelope-simple:before {
   content: "\e218";
 }
-.ph-fill.ph-file-lock:before {
-  content: "\e95c";
-}
 .ph-fill.ph-file-text:before {
   content: "\e23a";
 }
@@ -1213,9 +1005,6 @@
 .ph-fill.ph-hourglass:before {
   content: "\e2b2";
 }
-.ph-fill.ph-identification-badge:before {
-  content: "\e6f6";
-}
 .ph-fill.ph-identification-card:before {
   content: "\e2c8";
 }
@@ -1225,9 +1014,6 @@
 .ph-fill.ph-list:before {
   content: "\e2f0";
 }
-.ph-fill.ph-lock:before {
-  content: "\e2fa";
-}
 .ph-fill.ph-lock-simple:before {
   content: "\e308";
 }
@@ -1236,9 +1022,6 @@
 }
 .ph-fill.ph-map-pin:before {
   content: "\e316";
-}
-.ph-fill.ph-map-pin-area:before {
-  content: "\ee3a";
 }
 .ph-fill.ph-map-trifold:before {
   content: "\e31a";
@@ -1252,9 +1035,6 @@
 .ph-fill.ph-newspaper:before {
   content: "\e344";
 }
-.ph-fill.ph-notebook:before {
-  content: "\e34e";
-}
 .ph-fill.ph-package:before {
   content: "\e390";
 }
@@ -1263,9 +1043,6 @@
 }
 .ph-fill.ph-plant:before {
   content: "\ebae";
-}
-.ph-fill.ph-question:before {
-  content: "\e3e8";
 }
 .ph-fill.ph-ruler:before {
   content: "\e6b8";
@@ -1278,9 +1055,6 @@
 }
 .ph-fill.ph-shield-check:before {
   content: "\e40c";
-}
-.ph-fill.ph-squares-four:before {
-  content: "\e464";
 }
 .ph-fill.ph-storefront:before {
   content: "\e470";
@@ -1303,9 +1077,6 @@
 .ph-fill.ph-tree:before {
   content: "\e6da";
 }
-.ph-fill.ph-tree-structure:before {
-  content: "\e67c";
-}
 .ph-fill.ph-user:before {
   content: "\e4c2";
 }
@@ -1317,15 +1088,6 @@
 }
 .ph-fill.ph-users-three:before {
   content: "\e68e";
-}
-.ph-fill.ph-wallet:before {
-  content: "\e68a";
-}
-.ph-fill.ph-warning:before {
-  content: "\e4e0";
-}
-.ph-fill.ph-wheelchair:before {
-  content: "\e4e8";
 }
 .ph-fill.ph-wind:before {
   content: "\e5d2";

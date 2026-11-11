@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import PageShell, { DataPending } from '@/components/PageShell';
+import PageShell, { PendingNote } from '@/components/PageShell';
 
 export const metadata: Metadata = {
   title: 'Contact',
@@ -12,21 +12,28 @@ export default function ContactPage() {
     <PageShell
       k="contact"
       badge="Contact"
-      badgeIcon="ph-phone"
       title="Contact & hotlines"
       subtitle="Reach the City Government of San Jose and its emergency services"
     >
-      <div className="pending-grid">
-        <DataPending k="contact-emergency-hotlines" title="Emergency Hotlines" icon="ph-warning">
-          Police, fire, CDRRMO, and medical emergency numbers. For any emergency, call 911.
-        </DataPending>
-        <DataPending k="contact-city-hall" title="City Hall" icon="ph-buildings">
-          Address, office hours, phone, and email of San Jose City Hall.
-        </DataPending>
-        <DataPending k="contact-office-directory" title="Office Directory" icon="ph-notebook">
-          Direct lines of city departments.
-        </DataPending>
-      </div>
+      <PendingNote
+        items={[
+          {
+            k: 'contact-emergency-hotlines',
+            title: 'Emergency Hotlines',
+            desc: 'Police, fire, CDRRMO, and medical emergency numbers. For any emergency, call 911.',
+          },
+          {
+            k: 'contact-city-hall',
+            title: 'City Hall',
+            desc: 'Address, office hours, phone, and email of San Jose City Hall.',
+          },
+          {
+            k: 'contact-office-directory',
+            title: 'Office Directory',
+            desc: 'Direct lines of city departments.',
+          },
+        ]}
+      />
     </PageShell>
   );
 }

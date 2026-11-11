@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import PageShell, { DataPending } from '@/components/PageShell';
+import PageShell, { PendingNote } from '@/components/PageShell';
 import { T } from '@/i18n/LanguageContext';
 import { SERVICE_CATEGORIES } from '@/config/site';
 
@@ -18,7 +18,6 @@ export default function ServicesPage() {
     <PageShell
       k="services"
       badge="Services"
-      badgeIcon="ph-squares-four"
       title="City services"
       subtitle="Requirements, fees, and processing times for services of the City Government of San Jose"
     >
@@ -51,15 +50,15 @@ export default function ServicesPage() {
         })}
       </div>
       <div style={{ marginTop: 24 }}>
-        <DataPending
-          k="services-service-details-coming-soon"
-          title="Service details coming soon"
-          icon="ph-notebook"
-          as="h2"
-        >
-          Requirements, fees, and step-by-step guides for each service are being compiled from the
-          San Jose City Citizen&apos;s Charter.
-        </DataPending>
+        <PendingNote
+          items={[
+            {
+              k: 'services-service-details-coming-soon',
+              title: 'Service details coming soon',
+              desc: "Requirements, fees, and step-by-step guides for each service are being compiled from the San Jose City Citizen's Charter.",
+            },
+          ]}
+        />
       </div>
     </PageShell>
   );

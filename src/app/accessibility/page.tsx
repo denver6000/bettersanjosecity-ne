@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import PageShell, { DataPending } from '@/components/PageShell';
+import PageShell, { PendingNote } from '@/components/PageShell';
 
 export const metadata: Metadata = {
   title: 'Accessibility',
@@ -12,19 +12,18 @@ export default function AccessibilityPage() {
     <PageShell
       k="accessibility"
       badge="Accessibility"
-      badgeIcon="ph-wheelchair"
       title="Accessibility statement"
       subtitle="Our commitment to an accessible website for everyone"
     >
-      <DataPending
-        k="accessibility-statement-being-drafted"
-        title="Statement being drafted"
-        icon="ph-wheelchair"
-        as="h2"
-      >
-        Better San Jose targets WCAG 2.1 AA. A full accessibility statement and feedback channel
-        will be published here.
-      </DataPending>
+      <PendingNote
+        items={[
+          {
+            k: 'accessibility-statement-being-drafted',
+            title: 'Statement being drafted',
+            desc: 'Better San Jose targets WCAG 2.1 AA. A full accessibility statement and feedback channel will be published here.',
+          },
+        ]}
+      />
     </PageShell>
   );
 }

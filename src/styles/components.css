@@ -205,42 +205,132 @@
   margin: 0 8px;
 }
 
-/* Page header band on inner pages */
-.page-header {
-  padding: var(--spacing-xl) 0;
-  background: var(--fill-band);
-  color: var(--color-white);
+/* Inner pages: breadcrumbs, title and intro on the page background (PageShell) */
+.page-intro {
+  padding: var(--spacing-sm) 0 var(--spacing-lg);
+  border-bottom: 1px solid var(--color-line);
 }
 
-.page-header-content {
-  max-width: 600px;
-  margin: 0 auto;
-  text-align: center;
+.page-intro .breadcrumbs {
+  padding-bottom: var(--spacing-md);
 }
 
-.page-header-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  margin-bottom: var(--spacing-sm);
-  padding: 6px 16px;
-  border-radius: 50px;
-  background: var(--on-fill-wash);
-  color: var(--color-white);
-  font-size: 0.8125rem;
-  font-weight: 500;
-}
-
-.page-header h1 {
+.page-intro h1 {
+  max-width: 22ch;
   margin-bottom: var(--spacing-xs);
-  color: var(--color-white);
-  font-size: 2rem;
+  color: var(--color-primary);
+  font-size: clamp(2rem, 4vw, 2.75rem);
 }
 
-.page-header-desc {
+.page-intro-lead {
+  max-width: 60ch;
   margin: 0;
-  color: var(--on-fill-soft);
-  font-size: 1rem;
+  color: var(--color-text-light);
+  font-size: 1.0625rem;
+}
+
+.page-body.has-toc {
+  display: grid;
+  gap: var(--spacing-lg);
+}
+
+.page-content {
+  min-width: 0;
+}
+
+.page-toc {
+  display: none;
+}
+
+.page-section {
+  scroll-margin-top: 96px;
+}
+
+.page-section + .page-section {
+  margin-top: var(--spacing-xl);
+}
+
+.page-section > h2 {
+  margin-bottom: var(--spacing-sm);
+  font-size: 1.5rem;
+}
+
+@media (min-width: 1024px) {
+  .page-body.has-toc {
+    grid-template-columns: 200px minmax(0, 1fr);
+    gap: var(--spacing-xl);
+  }
+
+  .page-toc {
+    display: block;
+    position: sticky;
+    top: 96px;
+    align-self: start;
+  }
+
+  .page-toc-label {
+    margin-bottom: var(--spacing-xs);
+    color: var(--color-text-light);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .page-toc ul {
+    margin: 0;
+    padding: 0;
+    border-left: 2px solid var(--color-line);
+    list-style: none;
+  }
+
+  .page-toc a {
+    display: block;
+    padding: 6px 0 6px 14px;
+    color: var(--color-text);
+    font-size: 0.9375rem;
+  }
+
+  .page-toc a:hover {
+    color: var(--color-primary);
+  }
+}
+
+/* "Still gathering" note: one per page instead of empty cards */
+.pending-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  max-width: 720px;
+  padding: var(--spacing-md);
+  border-left: 3px solid var(--color-gold);
+  border-radius: 0 var(--border-radius) var(--border-radius) 0;
+  background: var(--color-bg-alt);
+}
+
+.pending-note > i {
+  flex-shrink: 0;
+  color: var(--color-gold-text);
+  font-size: 1.5rem;
+}
+
+.pending-note-lead {
+  margin: 0 0 var(--spacing-xs);
+  font-weight: 600;
+}
+
+.pending-note ul {
+  margin: 0;
+  padding-left: 1.1em;
+}
+
+.pending-note li {
+  margin-top: 6px;
+  color: var(--color-text-light);
+}
+
+.pending-note strong {
+  color: var(--color-text);
 }
 
 /* Error pages (403, 404, 500) */

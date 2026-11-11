@@ -21,7 +21,6 @@ export default function BusinessTaxesPage() {
     <PageShell
       k="business-taxes"
       badge="Business Taxes and Fees"
-      badgeIcon="ph-coins"
       title="Business taxes and fees"
       subtitle={`Every tax and fee code a business in San Jose City may be charged, copied from the Treasurer’s schedules (effective ${EFFECTIVITY}). Search for your line of business, or find your row by gross sales.`}
     >

@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import PageShell, { DataPending } from '@/components/PageShell';
+import PageShell, { PendingNote } from '@/components/PageShell';
 
 export const metadata: Metadata = {
   title: 'Legislative',
@@ -12,18 +12,23 @@ export default function LegislativePage() {
     <PageShell
       k="legislative"
       badge="Legislative"
-      badgeIcon="ph-bookmark-simple"
       title="Sangguniang Panlungsod"
       subtitle="Ordinances and resolutions enacted by the San Jose City Council"
     >
-      <div className="pending-grid">
-        <DataPending k="legislative-city-ordinances" title="City Ordinances" icon="ph-file-text">
-          A searchable list of enacted ordinances.
-        </DataPending>
-        <DataPending k="legislative-resolutions" title="Resolutions" icon="ph-seal-check">
-          A searchable list of approved resolutions.
-        </DataPending>
-      </div>
+      <PendingNote
+        items={[
+          {
+            k: 'legislative-city-ordinances',
+            title: 'City Ordinances',
+            desc: 'A searchable list of enacted ordinances.',
+          },
+          {
+            k: 'legislative-resolutions',
+            title: 'Resolutions',
+            desc: 'A searchable list of approved resolutions.',
+          },
+        ]}
+      />
     </PageShell>
   );
 }

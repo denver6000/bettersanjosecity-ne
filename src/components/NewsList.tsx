@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { formatDate, news, safeUrl } from '@/lib/data';
 import { T } from '@/i18n/LanguageContext';
-import { DataPending } from './PageShell';
+import { PendingNote } from './PageShell';
 
 const EMPTY = 'News and advisories from the City Government of San Jose will appear here.';
 
@@ -52,11 +52,7 @@ export function HomeNews() {
 /** Full list for /news. */
 export function NewsGrid() {
   if (!news.length) {
-    return (
-      <DataPending title="No updates yet" icon="ph-newspaper" as="h2">
-        {EMPTY}
-      </DataPending>
-    );
+    return <PendingNote items={[{ k: 'news-empty', title: 'No updates yet', desc: EMPTY }]} />;
   }
   return (
     <div className="news-grid" id="news-grid">

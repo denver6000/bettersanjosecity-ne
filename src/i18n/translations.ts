@@ -246,6 +246,10 @@ export const translations: Record<Language, Record<string, string>> = {
     'official-councilor': 'City Councilor',
     'city-hall-hours': 'Monday to Friday, 8:00 AM to 5:00 PM',
     'source-line': 'Source: {src} · checked {date}',
+    'pending-note': "We're still gathering this information. Coming to this page:",
+    'on-this-page': 'On this page',
+    'news-empty-t': 'No updates yet',
+    'news-empty-d': 'News and advisories from the City Government of San Jose will appear here.',
     'pg-services-badge': 'Services',
     'pg-services-title': 'City services',
     'pg-services-sub':
@@ -867,6 +871,10 @@ export const translations: Record<Language, Record<string, string>> = {
     'official-councilor': 'Konsehal ng Lungsod',
     'city-hall-hours': 'Lunes hanggang Biyernes, 8:00 AM hanggang 5:00 PM',
     'source-line': 'Pinagmulan: {src} · sinuri noong {date}',
+    'pending-note': 'Inaayos pa namin ang impormasyong ito. Darating sa pahinang ito:',
+    'on-this-page': 'Sa pahinang ito',
+    'news-empty-t': 'Wala pang update',
+    'news-empty-d': 'Lalabas dito ang mga balita at abiso mula sa Pamahalaang Lungsod ng San Jose.',
     'pg-services-badge': 'Mga serbisyo',
     'pg-services-title': 'Mga serbisyo ng lungsod',
     'pg-services-sub':

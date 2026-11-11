@@ -15,8 +15,8 @@ export const metadata: Metadata = {
 };
 
 /*
- * Not wrapped in PageShell: that shell draws the navy band every other inner page shares. This page
- * has its own cream hero (title left, Student ID lookup right) with the same breadcrumb semantics.
+ * Not wrapped in PageShell: this page puts the Student ID lookup beside its title, which the shared
+ * intro has no slot for. It keeps the same cream, left-aligned look and breadcrumb semantics.
  */
 export default function ScholarshipPage() {
   return (
