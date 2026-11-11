@@ -208,7 +208,7 @@ export const translations: Record<Language, Record<string, string>> = {
     'foot-foi': 'Freedom of information',
     'foot-cost': 'Cost to the People of San Jose =',
     'foot-credits': 'Built by Kurt Vincent F. Fariñas and Denver M. Ballesteros',
-    'foot-disclaimer': 'All public information sourced from official government portals.',
+    'foot-disclaimer': 'Information on this site comes from official government sources.',
     'nav-main-aria': 'Main navigation',
     'scholar-lookup-aria': 'Scholarship record lookup',
     'pg-contact-badge': 'Contact',
@@ -839,7 +839,7 @@ export const translations: Record<Language, Record<string, string>> = {
     'foot-cost': 'Gastos ng mga Taga-San Jose =',
     'foot-credits': 'Binuo nina Kurt Vincent F. Fariñas at Denver M. Ballesteros',
     'foot-disclaimer':
-      'Lahat ng pampublikong impormasyon ay mula sa mga opisyal na portal ng pamahalaan.',
+      'Ang impormasyon sa site na ito ay mula sa mga opisyal na pinagmulan ng pamahalaan.',
     'nav-main-aria': 'Pangunahing nabigasyon',
     'scholar-lookup-aria': 'Paghahanap ng talaan ng scholarship',
     'pg-contact-badge': 'Makipag-ugnayan',

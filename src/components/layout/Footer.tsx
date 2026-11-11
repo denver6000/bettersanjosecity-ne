@@ -1,15 +1,51 @@
+import type { ReactNode } from 'react';
 import Link from 'next/link';
 import { T } from '@/i18n/LanguageContext';
 import { SITE } from '@/config/site';
 import pkg from '../../../package.json';
 import BrandLockup from './BrandLockup';
 
-const RESOURCES = [
+type FooterLink = { href: string; label: string; k?: string };
+
+/** Pages on this site, in footer order. */
+const QUICK_LINKS: FooterLink[] = [
+  { href: '/business-taxes', k: 'foot-business-taxes', label: 'Business taxes and fees' },
+  { href: '/business-taxes/estimator', k: 'foot-estimator', label: 'Business tax estimator' },
+  { href: '/sitemap', k: 'home-sitemap', label: 'Sitemap' },
+  { href: '/terms', k: 'home-terms-of-use', label: 'Terms of use' },
+  { href: '/privacy', k: 'home-privacy-policy', label: 'Privacy policy' },
+  { href: '/accessibility', k: 'home-accessibility', label: 'Accessibility' },
+  { href: '/faq', label: 'FAQ' },
+];
+
+/** National portals, opened in a new tab. */
+const RESOURCES: FooterLink[] = [
   { href: 'https://data.gov.ph', label: 'Open Data Philippines' },
-  { href: 'https://www.foi.gov.ph/', label: 'Freedom of Information', key: 'foot-foi' },
+  { href: 'https://www.foi.gov.ph/', k: 'foot-foi', label: 'Freedom of Information' },
   { href: 'https://blgf.gov.ph/', label: 'BLGF Portal' },
   { href: 'https://cmci.dti.gov.ph/', label: 'CMCI DTI Portal' },
 ];
+
+const text = ({ k, label }: FooterLink) => (k ? <T k={k}>{label}</T> : label);
+
+function LinkColumn({
+  titleKey,
+  title,
+  children,
+}: {
+  titleKey: string;
+  title: string;
+  children: ReactNode;
+}) {
+  return (
+    <div className="footer-column">
+      <h2>
+        <T k={titleKey}>{title}</T>
+      </h2>
+      <ul className="footer-links-new">{children}</ul>
+    </div>
+  );
+}
 
 export default function Footer() {
   return (
@@ -22,60 +58,25 @@ export default function Footer() {
               <T k="footer-tagline">{SITE.tagline}</T>
             </p>
           </div>
-          <div className="footer-column">
-            <h2>
-              <T k="home-quick-links">Quick links</T>
-            </h2>
-            <ul className="footer-links-new">
-              <li>
-                <Link href="/business-taxes">
-                  <T k="foot-business-taxes">Business taxes and fees</T>
-                </Link>
+
+          <LinkColumn titleKey="home-quick-links" title="Quick links">
+            {QUICK_LINKS.map((l) => (
+              <li key={l.href}>
+                <Link href={l.href}>{text(l)}</Link>
               </li>
-              <li>
-                <Link href="/business-taxes/estimator">
-                  <T k="foot-estimator">Business tax estimator</T>
-                </Link>
+            ))}
+          </LinkColumn>
+
+          <LinkColumn titleKey="home-resources" title="Resources">
+            {RESOURCES.map((l) => (
+              <li key={l.href}>
+                <a href={l.href} target="_blank" rel="noopener noreferrer">
+                  {text(l)}
+                </a>
               </li>
-              <li>
-                <Link href="/sitemap">
-                  <T k="home-sitemap">Sitemap</T>
-                </Link>
-              </li>
-              <li>
-                <Link href="/terms">
-                  <T k="home-terms-of-use">Terms of use</T>
-                </Link>
-              </li>
-              <li>
-                <Link href="/privacy">
-                  <T k="home-privacy-policy">Privacy policy</T>
-                </Link>
-              </li>
-              <li>
-                <Link href="/accessibility">
-                  <T k="home-accessibility">Accessibility</T>
-                </Link>
-              </li>
-              <li>
-                <Link href="/faq">FAQ</Link>
-              </li>
-            </ul>
-          </div>
-          <div className="footer-column">
-            <h2>
-              <T k="home-resources">Resources</T>
-            </h2>
-            <ul className="footer-links-new">
-              {RESOURCES.map((r) => (
-                <li key={r.href}>
-                  <a href={r.href} target="_blank" rel="noopener noreferrer">
-                    {r.key ? <T k={r.key}>{r.label}</T> : r.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
+            ))}
+          </LinkColumn>
+
           <div className="footer-column">
             <div className="footer-cost" role="status">
               <T k="foot-cost">Cost to the People of San Jose =</T>{' '}
@@ -100,16 +101,17 @@ export default function Footer() {
             </div>
           </div>
         </div>
+
         <div className="footer-bottom-new">
           <div className="footer-copyright">
-            <span className="footer-copyright-text">&copy; 2026 Better San Jose</span>
+            <span className="footer-copyright-text">&copy; 2026 {SITE.name}</span>
             <span className="footer-copyright-license">MIT | CC BY 4.0</span>
             <span className="footer-copyright-credits">
               <T k="foot-credits">Built by Kurt Vincent F. Fariñas and Denver M. Ballesteros</T>
             </span>
             <span className="footer-copyright-disclaimer">
               <T k="foot-disclaimer">
-                All public information sourced from official government portals.
+                Information on this site comes from official government sources.
               </T>
             </span>
             <span className="footer-version">
