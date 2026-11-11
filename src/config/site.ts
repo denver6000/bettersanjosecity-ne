@@ -96,6 +96,8 @@ export const SITE = {
 
 export const LGU_LABEL = `${SITE.lgu.name}, ${SITE.lgu.province}`;
 
+export const CITY_HALL_ADDRESS = `${SITE.cityHall.street}, ${SITE.lgu.name}, ${SITE.lgu.postalCode} ${SITE.lgu.province}`;
+
 export const NAV = [
   { href: '/', key: 'nav-home', label: 'Home' },
   { href: '/services', key: 'nav-services', label: 'Services' },

@@ -1,8 +1,12 @@
 import Link from 'next/link';
 import type { ReactNode } from 'react';
 import { T } from '@/i18n/LanguageContext';
-import { SITE } from '@/config/site';
-import ComingSoon from '@/components/ComingSoon';
+import { SITE, CITY_HALL_ADDRESS } from '@/config/site';
+import { toTel } from '@/lib/phone';
+import SourceLine from '@/components/SourceLine';
+import officials from '@/data/officials.json';
+
+const OCM = SITE.hotlines.find((h) => h.id === 'ocm')!.numbers[0];
 
 function Row({ icon, label, children }: { icon: string; label: ReactNode; children: ReactNode }) {
   return (
@@ -31,12 +35,13 @@ export default function HomeLeadershipContact() {
             </div>
             <ul className="home-list">
               <Row icon="ph-user-circle" label={<T k="home-city-mayor">City Mayor</T>}>
-                <ComingSoon />
+                {officials.mayor}
               </Row>
               <Row icon="ph-user-circle" label={<T k="home-city-vice-mayor">City Vice Mayor</T>}>
-                <ComingSoon />
+                {officials.viceMayor}
               </Row>
             </ul>
+            <SourceLine source={officials.source} checked={officials.checked} />
           </div>
 
           <div className="home-card home-panel">
@@ -51,15 +56,16 @@ export default function HomeLeadershipContact() {
             </div>
             <ul className="home-list">
               <Row icon="ph-phone" label={<T k="contact-phone">Phone</T>}>
-                <ComingSoon />
+                <a href={`tel:${toTel(OCM)}`}>{OCM}</a>
               </Row>
               <Row icon="ph-envelope-simple" label={<T k="contact-email">Email</T>}>
-                <ComingSoon />
+                <a href={`mailto:${SITE.cityHall.email}`}>{SITE.cityHall.email}</a>
               </Row>
               <Row icon="ph-buildings" label={SITE.lgu.seatOfGovernment}>
-                {`${SITE.lgu.name}, ${SITE.lgu.province} ${SITE.lgu.postalCode}`}
+                {CITY_HALL_ADDRESS}
               </Row>
             </ul>
+            <SourceLine source={SITE.cityHall.source} checked={SITE.cityHall.checked} />
           </div>
         </div>
       </div>

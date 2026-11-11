@@ -3,7 +3,7 @@
 @font-face {
   font-family: "Phosphor";
   src:
-    url("/assets/fonts/phosphor/Phosphor.woff2?v=d66a89fb") format("woff2");
+    url("/assets/fonts/phosphor/Phosphor.woff2?v=14f9e4c3") format("woff2");
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -69,6 +69,9 @@
 }
 .ph.ph-check-circle:before {
   content: "\e184";
+}
+.ph.ph-clock:before {
+  content: "\e19a";
 }
 .ph.ph-cloud:before {
   content: "\e1aa";
@@ -209,7 +212,7 @@
 @font-face {
   font-family: "Phosphor-Duotone";
   src:
-    url("/assets/fonts/phosphor/Phosphor-Duotone.woff2?v=af192557") format("woff2");
+    url("/assets/fonts/phosphor/Phosphor-Duotone.woff2?v=0f6c67f9") format("woff2");
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -324,6 +327,14 @@
 }
 .ph-duotone.ph-check-circle:after {
   content: "\e185";
+  margin-left: -1em;
+}
+.ph-duotone.ph-clock:before {
+  content: "\e19a";
+  opacity: 0.2;
+}
+.ph-duotone.ph-clock:after {
+  content: "\e19b";
   margin-left: -1em;
 }
 .ph-duotone.ph-cloud:before {
@@ -690,7 +701,7 @@
 @font-face {
   font-family: "Phosphor-Bold";
   src:
-    url("/assets/fonts/phosphor/Phosphor-Bold.woff2?v=26e25b7c") format("woff2");
+    url("/assets/fonts/phosphor/Phosphor-Bold.woff2?v=3097ecbf") format("woff2");
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -756,6 +767,9 @@
 }
 .ph-bold.ph-check-circle:before {
   content: "\e184";
+}
+.ph-bold.ph-clock:before {
+  content: "\e19a";
 }
 .ph-bold.ph-cloud:before {
   content: "\e1aa";
@@ -896,7 +910,7 @@
 @font-face {
   font-family: "Phosphor-Fill";
   src:
-    url("/assets/fonts/phosphor/Phosphor-Fill.woff2?v=ff5767a7") format("woff2");
+    url("/assets/fonts/phosphor/Phosphor-Fill.woff2?v=05dbb12a") format("woff2");
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -962,6 +976,9 @@
 }
 .ph-fill.ph-check-circle:before {
   content: "\e184";
+}
+.ph-fill.ph-clock:before {
+  content: "\e19a";
 }
 .ph-fill.ph-cloud:before {
   content: "\e1aa";
