@@ -1,3 +1,23 @@
+## 2026-11-11 10:47 — 338e4d5 — Faster hero
+
+- By: Claude Code, requested by Kurt Vincent F. Fariñas
+- Code: 05184df → 338e4d5 (branch faster-hero fast-forwarded onto main; Hostinger auto-builds on push)
+  - The hero scene shows once San Jose's time and date are applied, instead of waiting for the weather
+    forecast. The weather eases in when it arrives.
+  - The fade-in is 0.25s.
+  - The season's paddies start downloading while the page parses.
+- Migrations: none
+- Backup: none (static site)
+- Data changes: none (undo by reverting to 05184df)
+- Verified:
+  - `npm run check` steps passed. Prettier ran on git files only.
+  - No console errors on a production build.
+  - The live home page has the new code.
+  - Live first visit in Chrome, with caches cleared: the hero shows at 0.80s, while the forecast arrived at
+    1.75s (before: about 2.2s).
+  - Repeat visit: 1.12s.
+  - Not checked on a slow phone connection.
+
 ## 2026-11-11 10:36 — 81ffd92 — Last inherited code rewritten, relicensed under the team's names
 
 - By: Claude Code, requested by Kurt Vincent F. Fariñas
