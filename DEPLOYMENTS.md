@@ -1,3 +1,19 @@
+## 2026-11-13 17:25 — 236240d — Filipino footer, station labels and top-strip hotline
+
+- By: Claude Code, requested by Kurt Vincent F. Fariñas
+- Code: 7360484 → 236240d (branch fil-polish fast-forwarded onto main; Hostinger auto-builds on push)
+  - Footer heading "Mga sanggunian" is now "Mga kaugnay na site". It clashed with "Sanggunian" (the
+    council) in the menu.
+  - Station details say "Huling sukat", matching the weather card, and "Dalas ng update" instead of
+    "Pag-update".
+  - The top-strip emergency hotline label switches language (Filipino: "National Emergency Hotline").
+- Migrations: none
+- Backup: none (static site)
+- Data changes: none (undo by reverting to 7360484)
+- Verified:
+  - i18n check, typecheck and build passed. Prettier ran on the changed files.
+  - Live home page in Filipino, about 40s after the push: all four labels show and the old wording is gone.
+
 ## 2026-11-13 17:18 — 3698f19 — Natural Filipino, capitalized labels, scroll reveal on every page
 
 - By: Claude Code, requested by Kurt Vincent F. Fariñas
