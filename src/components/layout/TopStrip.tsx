@@ -15,7 +15,7 @@ export default function TopStrip() {
           .map((h) => (
             <a key={h.id} href={`tel:${toTel(h.numbers[0])}`} className="top-strip-item">
               <i className="ph-fill ph-phone" aria-hidden="true" />
-              {h.label}: {h.numbers[0]}
+              <T k={`hotline-${h.id}`}>{h.label}</T>: {h.numbers[0]}
             </a>
           ))}
         <span className="top-strip-item top-strip-note">
