@@ -285,7 +285,7 @@ function CycleRow({ cycle, rich }: { cycle: Cycle; rich: boolean }) {
             {r.met ? (
               <span className="sr-only">, {t('scholar-req-submitted', 'submitted')}</span>
             ) : (
-              <span className="scholar-missing">{t('scholar-req-missing', 'missing')}</span>
+              <span className="scholar-missing">{t('scholar-req-missing', 'Missing')}</span>
             )}
           </li>
         ))}

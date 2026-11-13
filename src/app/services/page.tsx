@@ -21,7 +21,7 @@ export default function ServicesPage() {
       title="City services"
       subtitle="Requirements, fees, and processing times for services of the City Government of San Jose"
     >
-      <div className="home-services-grid">
+      <div className="home-services-grid" data-reveal-children>
         {SERVICE_CATEGORIES.map((c) => {
           const body = (
             <>

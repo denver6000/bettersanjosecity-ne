@@ -85,7 +85,7 @@ function StationTiles({ r }: { r: StationReading }) {
           value={`${msToKmh(r.wind_speed_ms)} km/h`}
           note={
             r.wind_direction_deg != null
-              ? `${t('wx-from', 'from')} ${compass(r.wind_direction_deg)} (${Math.round(r.wind_direction_deg)}°)`
+              ? `${t('wx-from', 'From')} ${compass(r.wind_direction_deg)} (${Math.round(r.wind_direction_deg)}°)`
               : undefined
           }
         />
@@ -95,7 +95,7 @@ function StationTiles({ r }: { r: StationReading }) {
           icon="ph-cloud-rain"
           label={t('wx-rain-now', 'Rain now')}
           value={`${r.precipitation_mm.toFixed(1)} mm`}
-          note={t('wx-latest-reading', 'latest reading')}
+          note={t('wx-latest-reading', 'Latest reading')}
         />
       )}
       {r.hourly_precipitation_mm != null && (
@@ -103,7 +103,7 @@ function StationTiles({ r }: { r: StationReading }) {
           icon="ph-cloud-rain"
           label={t('wx-rain', 'Rain')}
           value={`${r.hourly_precipitation_mm.toFixed(1)} mm`}
-          note={t('wx-past-hour', 'past hour')}
+          note={t('wx-past-hour', 'Past hour')}
         />
       )}
       {uv && r.uv_index != null && (

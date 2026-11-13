@@ -5,6 +5,7 @@ import TopStrip from '@/components/layout/TopStrip';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import PWAManager from '@/components/PWAManager';
+import ScrollReveal from '@/components/ScrollReveal';
 import { LanguageProvider, T } from '@/i18n/LanguageContext';
 import { SITE } from '@/config/site';
 
@@ -18,6 +19,7 @@ import '@/styles/footer.css';
 import '@/styles/print.css';
 import '@/styles/a11y.css';
 import '@/styles/site.css';
+import '@/styles/motion.css';
 import '@/styles/theme.css';
 
 const fraunces = Fraunces({
@@ -110,6 +112,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           <main id="main-content">{children}</main>
           <Footer />
           <PWAManager />
+          <ScrollReveal />
         </LanguageProvider>
       </body>
     </html>

@@ -3,14 +3,12 @@ import Link from 'next/link';
 import { T } from '@/i18n/LanguageContext';
 import ScholarLookup from '@/components/ScholarLookup';
 import ScholarshipStats from '@/components/ScholarshipStats';
-import ScrollReveal from '@/components/ScrollReveal';
 import '@/styles/scholarship.css';
-import '@/styles/motion.css';
 
 export const metadata: Metadata = {
-  title: 'City scholarship program',
+  title: 'City Scholarship Program',
   description:
-    'The San Jose City scholarship program: how many scholars it supports each semester, the requirements for new and renewing scholars, and a Student ID lookup for each scholar’s payout status and requirements.',
+    'The San Jose City Scholarship Program: how many scholars it supports each semester, the requirements for new and renewing scholars, and a Student ID lookup for each scholar’s payout status and requirements.',
   alternates: { canonical: '/scholarship/' },
 };
 
@@ -21,7 +19,6 @@ export const metadata: Metadata = {
 export default function ScholarshipPage() {
   return (
     <div className="scholar-page">
-      <ScrollReveal />
       <div className="container">
         <div className="scholar-hero">
           <div className="scholar-hero-text">
@@ -42,7 +39,7 @@ export default function ScholarshipPage() {
               </span>
             </nav>
             <h1>
-              <T k="sitemap-scholarship">City scholarship program</T>
+              <T k="sitemap-scholarship">City Scholarship Program</T>
             </h1>
             <p>
               <T k="sch-lede">

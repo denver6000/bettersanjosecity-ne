@@ -30,6 +30,10 @@ export default function ScrollReveal() {
       { rootMargin: '0px 0px -8% 0px' }
     );
     const watch = (root: ParentNode) => {
+      // Inner pages: each top-level block of the page body fades in on its own, with no markup needed.
+      root
+        .querySelectorAll('.page-content > :not([data-reveal], [data-reveal-children])')
+        .forEach((el) => el.setAttribute('data-reveal', ''));
       root.querySelectorAll(TARGETS).forEach((el) => {
         const r = el.getBoundingClientRect();
         if (r.top < window.innerHeight && r.bottom > 0) el.classList.add('is-in', 'is-static');
