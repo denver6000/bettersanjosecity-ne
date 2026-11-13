@@ -1,3 +1,18 @@
+## 2026-11-13 09:44 — 0ea08a5 — Weather toggle polish
+
+- By: Claude Code, requested by Kurt Vincent F. Fariñas
+- Code: d831427 → 0ea08a5 (branch weather-polish fast-forwarded onto main; Hostinger auto-builds on push)
+  - The 12px gap above the opened station list now applies on the home card.
+  - On phones the "More station details" toggle is at least 44px tall.
+  - The list inside the toggle has its own accessible name.
+- Migrations: none
+- Backup: none (static site)
+- Data changes: none (undo by reverting to d831427)
+- Verified:
+  - i18n, color and theme checks, typecheck, script tests (17/17), lib tests (61/61) and the build passed.
+  - Live home page about 60s after the push: opened list has 12px top padding and its label, and the
+    phone 44px rule is in the served stylesheet. The phone height itself was not measured on a phone-size window.
+
 ## 2026-11-13 09:42 — 4a81f67 — Tidier weather card: station details behind a toggle
 
 - By: Claude Code, requested by Kurt Vincent F. Fariñas
