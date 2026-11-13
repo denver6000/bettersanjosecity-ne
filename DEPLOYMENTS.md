@@ -1,3 +1,22 @@
+## 2026-11-13 09:42 — 4a81f67 — Tidier weather card: station details behind a toggle
+
+- By: Claude Code, requested by Kurt Vincent F. Fariñas
+- Code: 071e9aa → 4a81f67 (branch weather-cleanup fast-forwarded onto main; Hostinger auto-builds on push)
+  - The Light tile is gone, so the 6 remaining tiles fill the grid evenly.
+  - The station panel shows station, status, address, latest reading and refresh rate. Type,
+    operator, station ID, coordinates, elevation and active-since sit under a closed "More station
+    details" toggle (Filipino: "Iba pang detalye ng istasyon").
+  - The latest reading no longer shows the internal reading number.
+  - The toggle's keyboard focus ring stays inside the map card.
+- Migrations: none
+- Backup: none (static site)
+- Data changes: none (undo by reverting to 071e9aa)
+- Verified:
+  - i18n check, typecheck, script tests (17/17), lib tests (61/61) and the build passed.
+  - Local preview: toggle closed by default, opens with the keyboard, Filipino label shows.
+  - Live home page about 60s after the push: 6 tiles in two rows of 3, 5 visible station rows, the
+    other 5 under the closed toggle, station online.
+
 ## 2026-11-13 17:25 — 236240d — Filipino footer, station labels and top-strip hotline
 
 - By: Claude Code, requested by Kurt Vincent F. Fariñas
