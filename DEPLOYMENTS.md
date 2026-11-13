@@ -1,3 +1,27 @@
+## 2026-11-13 17:18 — 3698f19 — Natural Filipino, capitalized labels, scroll reveal on every page
+
+- By: Claude Code, requested by Kurt Vincent F. Fariñas
+- Code: 6ff6f89 → 3698f19 (branch copy-and-motion fast-forwarded onto main; Hostinger auto-builds on push)
+  - About 130 Filipino strings rewritten in everyday Filipino instead of word-for-word English. A
+    mistranslation ("isinalin" for copied) and a broken phrase ("Hindi tinatayang") fixed. Mayor titles
+    are consistent (Alkalde / Bise Alkalde ng Lungsod).
+  - Weather notes ("Latest reading", "Past hour", "From N"), the scholar "Missing" badge and program
+    names start with a capital letter.
+  - Scroll reveal runs on every page from the root layout: inner-page blocks fade up as they come into
+    view, service cards stagger, and page titles ease in on load. Reduced motion and no-JS show
+    everything plainly.
+- Migrations: none
+- Backup: none (static site)
+- Data changes: none (undo by reverting to 6ff6f89)
+- Verified:
+  - Typecheck, script and lib tests, i18n, icon, theme and color checks, and the build passed. Prettier ran
+    on git files only.
+  - The live sitemap shows the new text about 60s after the push.
+  - Live government page: all three sections are marked for reveal and fade in when scrolled to.
+  - Live home page: the capitalized weather labels show, with no console errors.
+  - The Filipino text was checked in a local preview, not on the live site. It has not been reviewed by a
+    native editor.
+
 ## 2026-11-11 10:47 — 338e4d5 — Faster hero
 
 - By: Claude Code, requested by Kurt Vincent F. Fariñas
