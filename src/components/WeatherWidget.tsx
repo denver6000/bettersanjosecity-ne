@@ -122,13 +122,6 @@ function StationTiles({ r }: { r: StationReading }) {
           value={`${Math.round(r.pressure_hpa)} hPa`}
         />
       )}
-      {r.light_lux != null && (
-        <Tile
-          icon="ph-sun"
-          label={t('wx-light', 'Light')}
-          value={`${Math.round(r.light_lux / 1000)}k lux`}
-        />
-      )}
       {r.distance != null && (
         <Tile
           icon="ph-ruler"

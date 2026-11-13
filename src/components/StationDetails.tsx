@@ -35,29 +35,24 @@ export default function StationDetails() {
             : tr('Unavailable'),
     ],
   ];
+  // Technical fields residents rarely need; shown under a closed toggle.
+  const more: [string, string][] = [];
   if (station) {
-    if (station.type)
-      rows.push(['Type', TYPES[station.type] ? tr(TYPES[station.type]) : station.type]);
-    if (station.operator) rows.push(['Operated by', station.operator]);
-    rows.push(['Station ID', station.id]);
     if (station.address) rows.push(['Address', station.address]);
     else
       rows.push([
         'Location',
         [station.city, station.province, station.country].filter(Boolean).join(', '),
       ]);
+    if (station.type)
+      more.push(['Type', TYPES[station.type] ? tr(TYPES[station.type]) : station.type]);
+    if (station.operator) more.push(['Operated by', station.operator]);
+    more.push(['Station ID', station.id]);
   }
-  rows.push([
-    'Coordinates',
-    `${(station?.lat ?? fallback.lat).toFixed(6)}°N, ${(station?.lon ?? fallback.lon).toFixed(6)}°E`,
-  ]);
-  // KloudTrack reports 0 when the elevation hasn't been set.
-  if (station?.elevation_m) rows.push(['Elevation', `${Math.round(station.elevation_m)} m`]);
-  if (station?.active_since) rows.push(['Active since', manilaDate(station.active_since, locale)]);
   if (r?.recorded_at) {
     rows.push([
       'Latest reading',
-      `${manilaDate(r.recorded_at, locale)}, ${manilaTime(r.recorded_at, locale)}${r.id ? ` (#${r.id})` : ''}`,
+      `${manilaDate(r.recorded_at, locale)}, ${manilaTime(r.recorded_at, locale)}`,
     ]);
   }
   rows.push([
@@ -67,15 +62,31 @@ export default function StationDetails() {
       String(REFRESH_MS / 60000)
     ),
   ]);
+  more.push([
+    'Coordinates',
+    `${(station?.lat ?? fallback.lat).toFixed(6)}°N, ${(station?.lon ?? fallback.lon).toFixed(6)}°E`,
+  ]);
+  // KloudTrack reports 0 when the elevation hasn't been set.
+  if (station?.elevation_m) more.push(['Elevation', `${Math.round(station.elevation_m)} m`]);
+  if (station?.active_since) more.push(['Active since', manilaDate(station.active_since, locale)]);
+
+  const list = (items: [string, string][]) =>
+    items.map(([k, v]) => (
+      <div key={k}>
+        <dt>{tr(k)}</dt>
+        <dd>{v}</dd>
+      </div>
+    ));
 
   return (
-    <dl className="station-details" aria-label={t('sd-aria', 'Weather station details')}>
-      {rows.map(([k, v]) => (
-        <div key={k}>
-          <dt>{tr(k)}</dt>
-          <dd>{v}</dd>
-        </div>
-      ))}
-    </dl>
+    <div className="station-panel">
+      <dl className="station-details" aria-label={t('sd-aria', 'Weather station details')}>
+        {list(rows)}
+      </dl>
+      <details className="station-more">
+        <summary>{t('sd-more', 'More station details')}</summary>
+        <dl className="station-details">{list(more)}</dl>
+      </details>
+    </div>
   );
 }

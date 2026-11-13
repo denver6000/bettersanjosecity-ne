@@ -711,6 +711,10 @@ html[data-hero-pending] .hero-scene {
   border-radius: 0;
 }
 
+.home-map-card .station-more summary {
+  padding-inline: 20px;
+}
+
 .home-map-card .station-details {
   padding: 14px 20px 18px;
 }

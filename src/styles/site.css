@@ -399,3 +399,20 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
+
+.station-more {
+  background: var(--surface);
+}
+
+.station-more summary {
+  width: fit-content;
+  padding: 0 var(--spacing-md) 14px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  cursor: pointer;
+}
+
+.station-more > .station-details {
+  padding-top: 12px;
+}
