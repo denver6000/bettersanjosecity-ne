@@ -719,6 +719,10 @@ html[data-hero-pending] .hero-scene {
   padding: 14px 20px 18px;
 }
 
+.home-map-card .station-more > .station-details {
+  padding-top: 12px;
+}
+
 /* ===== Latest news ===== */
 .home-news {
   display: grid;
@@ -957,7 +961,8 @@ html[data-hero-pending] .hero-scene {
   }
 
   .home-more,
-  .home-scholar-details {
+  .home-scholar-details,
+  .home-weather .station-more summary {
     min-height: 44px;
   }
 

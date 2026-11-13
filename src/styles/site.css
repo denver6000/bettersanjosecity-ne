@@ -414,7 +414,3 @@
   /* The home map card clips overflow, so keep the focus ring inside. */
   outline-offset: -2px;
 }
-
-.station-more > .station-details {
-  padding-top: 12px;
-}

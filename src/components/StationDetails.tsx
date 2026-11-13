@@ -85,7 +85,9 @@ export default function StationDetails() {
       </dl>
       <details className="station-more">
         <summary>{t('sd-more', 'More station details')}</summary>
-        <dl className="station-details">{list(more)}</dl>
+        <dl className="station-details" aria-label={t('sd-more', 'More station details')}>
+          {list(more)}
+        </dl>
       </details>
     </div>
   );
